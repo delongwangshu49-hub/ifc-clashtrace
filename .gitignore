@@ -1,0 +1,74 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.credentials
+*.secret
+
+# Package managers and dependencies
+node_modules/
+.pnpm-store/
+.yarn/
+.npm/
+vendor/
+
+# Python environments and caches
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Build and test outputs
+dist/
+build/
+coverage/
+.cache/
+.parcel-cache/
+.vite/
+*.tsbuildinfo
+
+# Logs, temporary files, and editor state
+*.log
+logs/
+tmp/
+temp/
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Private/local-only project artifacts
+outputs/local-only/
+data/external/
+data/stress/
+browser-profile/
+screenshots/local-only/
+recordings/local-only/
+
+# Archives and binary dumps require explicit review before tracking
+*.zip
+*.7z
+*.rar
+*.tar
+*.tar.gz
+*.dump
+*.dmp
+
