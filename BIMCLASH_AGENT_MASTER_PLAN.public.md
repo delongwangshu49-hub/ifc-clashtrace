@@ -5,8 +5,8 @@
 > 创建时间：2026-08-25（Asia/Hong_Kong）  
 > 目标完成时间：不晚于 2026-08-31 晚间（Asia/Hong_Kong）  
 > 项目根目录：`<PROJECT_ROOT>`  
-> 当前阶段：G2 数据与标准答案正在执行
-> 当前 Gate：`G2 — 数据与标准答案（IN_PROGRESS）`
+> 当前阶段：G2 数据与标准答案已完成，等待下一指令
+> 当前 Gate：`G2 — 数据与标准答案（PASS）`
 
 ---
 
@@ -1677,6 +1677,37 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 
 ---
 
+### L-0015 — G2 本地步骤提交与 GitHub 网页检查点验收
+
+**时间：** 2026-08-26 13:19–13:35（Asia/Hong_Kong）
+**Gate：** G2 `PASS`
+**目标：** 将已验收的 G2 受控数据集、独立真值、参考比较、许可证和证据形成权威本地步骤提交，并仅通过已登录 Chrome GitHub 网页建立和回查公开检查点。
+
+**完成：**
+
+- 形成权威本地步骤提交 `step(G2): freeze controlled dataset and ground truth`，完整 SHA 为 `7da4adfcdaef7729ba52d2a2c98c8741fdcc9c01`；
+- 提交后工作树洁净、Git 远程数仍为 `0`，G1 回归、G2 专项测试、确定性再生成、清单哈希、8/8 真值匹配、失败闭合、公开候选审计和依赖审计全部复验通过；
+- 经用户明确确认后，仅通过已登录 Chrome GitHub 网页在 `main` 上建立连续 11 提交检查点；远程范围从 `d4b974f101348d5707418c4078965dea0d8d7fc2` 到 `4fcc3cd47197a10771f5ce52b2e0a039d6434dc1`，每个提交标题均含 `G2` 与本地短 SHA `7da4adf`；
+- Chrome 回查确认仓库仍为 `Public`，许可证、根文档、脚本、清单、操作台账、机器真值、生成数据许可证、历史 G1 生成夹具和 16 个 G2 IFC 均存在；G2 目录恰含 C01–C08 的 MEP/结构成对文件；
+- 对 GitHub 大文件代码页的按需渲染假阴性改用同页 `file content` 文本框完整值复核，确认清单末尾 `c08-structure.ifc` 与真值中的 `NOT_EVALUATED` 实际存在；README 渲染页确认 G2 复现、MIT 和 CC0-1.0 说明存在；
+- 未使用 `gh`、GitHub API、命令行远程、`origin` 或任何本地 Git 远程配置，未进入 G3、Design Gate 或正式 UI/视觉设计。
+
+**量化结果：**
+
+- 受控案例：`8`；状态分布：`CLASH 3 / CLEAR 4 / NOT_EVALUATED 1`；
+- 生成 IFC：`16`；确定性再生成：`PASS`；清单 SHA-256：`PASS`；
+- 参考结果与真值：`8/8`；失败闭合：`PASS`；
+- 公开候选：`46` 个文件；绝对路径、个人邮箱、凭证命中均为 `0`；大于 1 MiB 文件为 `0`；外部数据为 `0`；
+- GitHub G2 检查点：连续 `11` 个网页提交，最终远程 SHA `4fcc3cd47197a10771f5ce52b2e0a039d6434dc1`。
+
+**当前结论：** G2 本地技术、治理、许可证、数据、提交与 GitHub 网页同步全部 `PASS`，Gate 可从 `IN_PROGRESS` 转为 `PASS`。
+**下一步：** 停止在 G2 边界并等待用户下一指令；不得自动开始 G3。
+**需要用户决定：** 无。
+**对应本地提交：** `7da4adfcdaef7729ba52d2a2c98c8741fdcc9c01`。
+**GitHub 检查点：** [`d4b974f101348d5707418c4078965dea0d8d7fc2`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/d4b974f101348d5707418c4078965dea0d8d7fc2) → [`4fcc3cd47197a10771f5ce52b2e0a039d6434dc1`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/4fcc3cd47197a10771f5ce52b2e0a039d6434dc1)，Chrome 回查 `PASS`。
+
+---
+
 ## 21. 每日状态摘要模板
 
 ```text
@@ -1719,4 +1750,4 @@ GitHub 检查点：URL / 远程 SHA / 上传时间 / 回查结论
 - 暂不批准，继续讨论项目范围；
 - 否决当前方向并重新规划。
 
-用户已明确批准 `0.2.0-draft` 修订稿并指示立即开始。G0A 与 G1 已完成；O-009 已由 D-018 关闭，G2 正在执行。
+用户已明确批准 `0.2.0-draft` 修订稿并指示立即开始。G0A、G1 与 G2 已完成；O-009 已由 D-018 关闭。当前停止在 G2 边界，等待用户下一指令，不自动开始 G3。
