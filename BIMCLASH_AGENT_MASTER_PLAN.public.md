@@ -1728,16 +1728,18 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 - 将 G2 Gate 正式状态栏统一为 `PASS`；
 - 登记 `732cf5f` 对应的 `093af832…` → `044c598…` 网页尾链；
 - 将 G1 Chrome 证据统一为初次运行及后续 4 次重载；
-- 将审计前公开候选最大文件统计从过期值更新为 `84,445` 字节，并确认加入完整修复日志后的最大候选仍小于 `88,000` 字节；
+- 将审计前公开候选最大文件统计从过期值更新为 `84,445` 字节，并确认加入完整修复日志后的最大候选仍小于 `89,000` 字节；
 - 明确同步台账自身发布造成的自引用尾链由下一笔本地空 `sync` 提交登记并终止，不递归改写公开台账。
 
 **修复执行：** 本地提交 `3d43890902106e477799e00d19b290bc5e09077d` 只修改本地/公开总纲、同步台账和 `PROMPTS.md`；完整回归与审计通过后，仅通过 Chrome 形成连续网页提交 `1943544a685918c4d506dd76b3489aeb5b50d18b` → `92ee708f9dc4caddbc902d0f09878e08f631a6ef` → `f6fc9516b57092d38eefd3f93e868a68b1cfe873`，标题均含 `G2` 与本地短 SHA `3d43890`。
 
 **当前结论：** 全量审计发现的 Gate 状态、网页尾链映射、重载次数和文件统计口径均已修复；未触碰明确排除的测试强化和算法范围，G2 可恢复为无保留 `PASS`。
-**下一步：** 发布最终公开总纲与台账映射，按同步台账的自引用闭合规则登记其远程 SHA 后停止；不得开始 G3。
+**最终网页映射：** 本地同步提交 `d069ea5654ccf330d2e3702456ceddae4592d84a` 对应网页提交 `eb349918a79e734a494483e97a59edf574c169ef` → `5b86d20d71561c28cd0b5d1030079f57a23da26e`；Chrome 已回查 `Public`、`main`、修复标记和连续提交链，闭合登记提交为 `cfe9d2070aad75aa0a840460533952bb55d2187a`。
+
+**下一步：** 停止在 G2 边界并等待用户下一指令；不得开始 G3。
 **需要用户决定：** 无。
 **对应本地提交：** `3d43890902106e477799e00d19b290bc5e09077d`。
-**GitHub 修复检查点：** [`1943544a685918c4d506dd76b3489aeb5b50d18b`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/1943544a685918c4d506dd76b3489aeb5b50d18b) → [`f6fc9516b57092d38eefd3f93e868a68b1cfe873`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/f6fc9516b57092d38eefd3f93e868a68b1cfe873)，Chrome 回查待最终映射发布后完成。
+**GitHub 修复检查点：** [`1943544a685918c4d506dd76b3489aeb5b50d18b`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/1943544a685918c4d506dd76b3489aeb5b50d18b) → [`f6fc9516b57092d38eefd3f93e868a68b1cfe873`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/f6fc9516b57092d38eefd3f93e868a68b1cfe873)，最终映射发布与 Chrome 回查 `PASS`。
 
 ---
 
