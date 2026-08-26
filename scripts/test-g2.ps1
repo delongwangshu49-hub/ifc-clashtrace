@@ -31,6 +31,18 @@ function Get-PathHashMapping([string[]]$Paths) {
     return ($mapping | ConvertTo-Json -Compress)
 }
 
+function New-IsolatedTestRoot([string]$Parent) {
+    $parentFullPath = [System.IO.Path]::GetFullPath($Parent)
+    $testRoot = Join-Path $parentFullPath ([System.Guid]::NewGuid().ToString("N"))
+    $testRootFullPath = [System.IO.Path]::GetFullPath($testRoot)
+    $expectedPrefix = $parentFullPath + [System.IO.Path]::DirectorySeparatorChar
+    if (-not $testRootFullPath.StartsWith($expectedPrefix, [System.StringComparison]::OrdinalIgnoreCase)) {
+        throw "Refusing to create an isolated G2 test root outside its approved parent."
+    }
+    New-Item -ItemType Directory -Path $testRootFullPath -Force | Out-Null
+    return $testRootFullPath
+}
+
 $frozenBaselinePath = "data/ground-truth/g2-frozen-baseline.json"
 $frozenBaseline = Get-Content -LiteralPath $frozenBaselinePath -Raw | ConvertFrom-Json
 $baselineIfcPaths = @(
@@ -47,9 +59,11 @@ $protectedBaselinePaths = @(
 $gitStateBefore = Get-GitWorktreeState
 $baselineHashesBefore = Get-PathHashMapping $protectedBaselinePaths
 $isolatedParent = Join-Path $projectRoot "outputs/local-only/g3a-tests/g2"
-$runOne = Join-Path $isolatedParent "run-1"
-$runTwo = Join-Path $isolatedParent "run-2"
+$isolatedTestRoot = New-IsolatedTestRoot $isolatedParent
+$runOne = Join-Path $isolatedTestRoot "run-1"
+$runTwo = Join-Path $isolatedTestRoot "run-2"
 
+try {
 & $pythonExe ".\scripts\g2-generate-controlled.py" --output-root $runOne | Out-Null
 if ($LASTEXITCODE -ne 0) { throw "G2 isolated controlled dataset generation failed." }
 & $pythonExe ".\scripts\g2-generate-controlled.py" --output-root $runTwo | Out-Null
@@ -185,11 +199,25 @@ if ($baselineHashesAfter -cne $baselineHashesBefore) {
 if ($gitStateAfter -cne $gitStateBefore) {
     throw "G2 Git worktree state changed while tests were running."
 }
+} finally {
+    if (Test-Path -LiteralPath $isolatedTestRoot -PathType Container) {
+        $cleanupTarget = (Resolve-Path -LiteralPath $isolatedTestRoot).Path
+        $expectedPrefix = [System.IO.Path]::GetFullPath($isolatedParent) + [System.IO.Path]::DirectorySeparatorChar
+        if (-not $cleanupTarget.StartsWith($expectedPrefix, [System.StringComparison]::OrdinalIgnoreCase)) {
+            throw "Refusing to clean an isolated G2 test root outside its approved parent."
+        }
+        Remove-Item -LiteralPath $cleanupTarget -Recurse -Force
+    }
+}
+if (Test-Path -LiteralPath $isolatedTestRoot) {
+    throw "G2 isolated test root was not cleaned."
+}
 
 Write-Output "G2_CASE_COUNT=$($groundTruth.records.Count)"
 Write-Output "G2_STATUS_COUNTS=CLASH:$($statusCounts.CLASH),CLEAR:$($statusCounts.CLEAR),NOT_EVALUATED:$($statusCounts.NOT_EVALUATED)"
 Write-Output "G2_GENERATED_IFC_COUNT=$(@(Get-ChildItem -LiteralPath 'data/generated/g2' -File -Filter '*.ifc').Count)"
 Write-Output "G2_ISOLATED_DETERMINISTIC_REGENERATION=PASS"
+Write-Output "G2_ISOLATED_TEMP_ROOT_CLEANUP=PASS"
 Write-Output "G2_MANIFEST_HASHES=PASS"
 Write-Output "G2_PATH_SHA256_MAPPING=PASS"
 Write-Output "G2_APPROVED_CONTRACT=PASS"

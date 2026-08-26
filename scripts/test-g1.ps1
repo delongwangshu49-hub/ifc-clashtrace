@@ -35,6 +35,18 @@ function Get-PathHashMapping([string[]]$Paths) {
     return ($mapping | ConvertTo-Json -Compress)
 }
 
+function New-IsolatedTestRoot([string]$Parent) {
+    $parentFullPath = [System.IO.Path]::GetFullPath($Parent)
+    $testRoot = Join-Path $parentFullPath ([System.Guid]::NewGuid().ToString("N"))
+    $testRootFullPath = [System.IO.Path]::GetFullPath($testRoot)
+    $expectedPrefix = $parentFullPath + [System.IO.Path]::DirectorySeparatorChar
+    if (-not $testRootFullPath.StartsWith($expectedPrefix, [System.StringComparison]::OrdinalIgnoreCase)) {
+        throw "Refusing to create an isolated G1 test root outside its approved parent."
+    }
+    New-Item -ItemType Directory -Path $testRootFullPath -Force | Out-Null
+    return $testRootFullPath
+}
+
 $baselinePaths = @(
     "data/generated/g1/g1-mep.ifc"
     "data/generated/g1/g1-structure.ifc"
@@ -43,9 +55,11 @@ $baselinePaths = @(
 $gitStateBefore = Get-GitWorktreeState
 $baselineHashesBefore = Get-PathHashMapping $baselinePaths
 $isolatedParent = Join-Path $projectRoot "outputs/local-only/g3a-tests/g1"
-$runOne = Join-Path $isolatedParent "run-1"
-$runTwo = Join-Path $isolatedParent "run-2"
+$isolatedTestRoot = New-IsolatedTestRoot $isolatedParent
+$runOne = Join-Path $isolatedTestRoot "run-1"
+$runTwo = Join-Path $isolatedTestRoot "run-2"
 
+try {
 & $pythonExe ".\scripts\g1-generate-controlled.py" --output-root $runOne | Out-Null
 if ($LASTEXITCODE -ne 0) { throw "G1 isolated controlled model generation failed." }
 & $pythonExe ".\scripts\g1-generate-controlled.py" --output-root $runTwo | Out-Null
@@ -106,6 +120,19 @@ if ($baselineHashesAfter -cne $baselineHashesBefore) {
 if ($gitStateAfter -cne $gitStateBefore) {
     throw "G1 Git worktree state changed while tests were running."
 }
+} finally {
+    if (Test-Path -LiteralPath $isolatedTestRoot -PathType Container) {
+        $cleanupTarget = (Resolve-Path -LiteralPath $isolatedTestRoot).Path
+        $expectedPrefix = [System.IO.Path]::GetFullPath($isolatedParent) + [System.IO.Path]::DirectorySeparatorChar
+        if (-not $cleanupTarget.StartsWith($expectedPrefix, [System.StringComparison]::OrdinalIgnoreCase)) {
+            throw "Refusing to clean an isolated G1 test root outside its approved parent."
+        }
+        Remove-Item -LiteralPath $cleanupTarget -Recurse -Force
+    }
+}
+if (Test-Path -LiteralPath $isolatedTestRoot) {
+    throw "G1 isolated test root was not cleaned."
+}
 
 Write-Output "G1_REFERENCE_STATUS=$($reference.status)"
 Write-Output "G1_WEB_IFC_STATUS=$($webIfc.status)"
@@ -113,6 +140,7 @@ Write-Output "G1_MATCHED_GUID_PAIR=$($reference.pairs[0].element_a.global_id)|$(
 Write-Output "G1_REFERENCE_PENETRATION_M=$($reference.pairs[0].distance_m)"
 Write-Output "G1_TOLERANCE_M=$($reference.tolerance_m)"
 Write-Output "G1_ISOLATED_GENERATION=PASS"
+Write-Output "G1_ISOLATED_TEMP_ROOT_CLEANUP=PASS"
 Write-Output "G1_BASELINE_HASHES_UNCHANGED=PASS"
 Write-Output "G1_GIT_WORKTREE_UNCHANGED=PASS"
 Write-Output "G1_LOCAL_TEST=PASS"
