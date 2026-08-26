@@ -33,11 +33,11 @@ def add_model_foundation(
     model = ifcopenshell.api.project.create_file(version="IFC4")
     model.header.file_name.name = file_name
     model.header.file_name.time_stamp = "2026-08-26T00:00:00+08:00"
-    model.header.file_name.author = ("IFC ClashTrace",)
+    model.header.file_name.author = ("IFC ClashTrace contributors",)
     model.header.file_name.organization = ("Open test data",)
     model.header.file_name.preprocessor_version = "IfcOpenShell 0.8.5"
     model.header.file_name.originating_system = "IFC ClashTrace G1 generator"
-    model.header.file_name.authorization = "License not assigned"
+    model.header.file_name.authorization = "CC0-1.0"
     project = ifcopenshell.api.root.create_entity(model, ifc_class="IfcProject", name=model_name)
     project.GlobalId = project_guid
     metre = ifcopenshell.api.unit.add_si_unit(model, unit_type="LENGTHUNIT")
@@ -132,8 +132,8 @@ def main() -> None:
     manifest = {
         "case_id": "G1_KNOWN_PIPE_WALL_CLASH",
         "origin": "programmatically_generated",
-        "license": "NOT_ASSIGNED",
-        "redistribution_permitted": False,
+        "license": "CC0-1.0",
+        "redistribution_permitted": True,
         "schema": "IFC4",
         "length_unit": "metre",
         "coordinate_system": "shared_project_coordinates",
