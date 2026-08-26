@@ -1801,11 +1801,11 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 - 将 G3 状态设为 `BLOCKED`（G3A/G3B 前置条件），两个子 Gate 未通过时不得验收核心引擎、不得进入 Design Gate；
 - 本次只更新治理计划，不修改任何数据、生成器、参考算法、测试实现或产品代码。
 
-**当前结论：** 两个问题已进入正式计划与停止门；计划文件本地审计、提交和 Chrome GitHub 网页同步尚待完成。
-**下一步：** 复验计划一致性和公开审计，形成计划登记提交并同步公开计划；不得自动开始 G3A/G3B 技术实现。
+**当前结论：** 两个问题已进入正式计划与停止门；计划文件本地审计、提交和 Chrome GitHub 网页同步均为 `PASS`。
+**下一步：** 停止在计划登记边界并等待用户下一指令；不得自动开始 G3A/G3B 技术实现。
 **需要用户决定：** 无。
-**对应本地提交：** 待形成。
-**GitHub 计划检查点：** 待执行。
+**对应本地提交：** `9f365c85e34fbdc396708b30d763477b354d6213`（`step(G3): register contract and tolerance preflight`）。
+**GitHub 计划检查点：** 公开计划 [`45b84541c64625494c8a61edde827415cb567fa7`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/45b84541c64625494c8a61edde827415cb567fa7) → 公开台账 [`ab8472017f5ce34f937f6c9af40dc4f3342d5668`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/ab8472017f5ce34f937f6c9af40dc4f3342d5668)，Chrome 回查 `Public`、`main`、G3A/G3B/D-019/D-020/O-010/O-011/R-13/R-14/L-0017 与尺寸审计口径均为 `PASS`。
 
 ---
 
