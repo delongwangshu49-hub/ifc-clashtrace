@@ -1,0 +1,202 @@
+{
+  "dataset_id": "IFC_CLASHTRACE_CONTROLLED_G2_V1",
+  "version": "1.0.0",
+  "generated_by": "scripts/g2-generate-controlled.py",
+  "license_spdx_or_name": "CC0-1.0",
+  "license_file": "data/generated/LICENSE.md",
+  "case_count": 8,
+  "cases": [
+    {
+      "case_id": "C01",
+      "origin": "programmatically_generated",
+      "source_url": null,
+      "license_spdx_or_name": "CC0-1.0",
+      "attribution": "IFC ClashTrace contributors (optional under CC0-1.0)",
+      "schema": "IFC4",
+      "expected_status": "CLASH",
+      "ground_truth_basis": "The pipe axis crosses the full 0.2 m wall thickness; intrusion is far above the 0.002 m tolerance.",
+      "redistribution_permitted": true,
+      "limitations": "Synthetic contract fixture; not evidence of general real-project accuracy.",
+      "files": [
+        {
+          "role": "mep",
+          "path": "data/generated/g2/c01-mep.ifc",
+          "file_sha256": "521daa9545ad816878cd11f8015533cf89b7f028d66dcb234fdce75c777ee5a7"
+        },
+        {
+          "role": "structure",
+          "path": "data/generated/g2/c01-structure.ifc",
+          "file_sha256": "32efa1de8b2717c08ffd10291adfb6341356689e9a94a6e570cd624eea009b39"
+        }
+      ]
+    },
+    {
+      "case_id": "C02",
+      "origin": "programmatically_generated",
+      "source_url": null,
+      "license_spdx_or_name": "CC0-1.0",
+      "attribution": "IFC ClashTrace contributors (optional under CC0-1.0)",
+      "schema": "IFC4",
+      "expected_status": "CLASH",
+      "ground_truth_basis": "The pipe axis crosses the full 0.4 m beam depth; intrusion is far above the 0.002 m tolerance.",
+      "redistribution_permitted": true,
+      "limitations": "Synthetic contract fixture; not evidence of general real-project accuracy.",
+      "files": [
+        {
+          "role": "mep",
+          "path": "data/generated/g2/c02-mep.ifc",
+          "file_sha256": "d6da896c523638af26bfa4dd35133d0878cc2bd3e4a9f10b9cc1b26e847698e2"
+        },
+        {
+          "role": "structure",
+          "path": "data/generated/g2/c02-structure.ifc",
+          "file_sha256": "63158b42868d2ea88516a20118540e57b309e1bc0081ff34900de7742009e147"
+        }
+      ]
+    },
+    {
+      "case_id": "C03",
+      "origin": "programmatically_generated",
+      "source_url": null,
+      "license_spdx_or_name": "CC0-1.0",
+      "attribution": "IFC ClashTrace contributors (optional under CC0-1.0)",
+      "schema": "IFC4",
+      "expected_status": "CLEAR",
+      "ground_truth_basis": "The pipe ends at y=0.0 and only touches the wall face; touching is excluded from hard clashes.",
+      "redistribution_permitted": true,
+      "limitations": "Synthetic contract fixture; not evidence of general real-project accuracy.",
+      "files": [
+        {
+          "role": "mep",
+          "path": "data/generated/g2/c03-mep.ifc",
+          "file_sha256": "563300ae0d7fde8c37b053d505344237cd6507b88aaebfedfc5e4a8968e92102"
+        },
+        {
+          "role": "structure",
+          "path": "data/generated/g2/c03-structure.ifc",
+          "file_sha256": "bed4fc623fcf530617cccca69a501e1d96920767a01101b6db1e1c96100becc0"
+        }
+      ]
+    },
+    {
+      "case_id": "C04",
+      "origin": "programmatically_generated",
+      "source_url": null,
+      "license_spdx_or_name": "CC0-1.0",
+      "attribution": "IFC ClashTrace contributors (optional under CC0-1.0)",
+      "schema": "IFC4",
+      "expected_status": "CLEAR",
+      "ground_truth_basis": "The pipe cap reaches y=0.001 m, giving 0.001 m intrusion, below the 0.002 m tolerance.",
+      "redistribution_permitted": true,
+      "limitations": "Synthetic contract fixture; not evidence of general real-project accuracy.",
+      "files": [
+        {
+          "role": "mep",
+          "path": "data/generated/g2/c04-mep.ifc",
+          "file_sha256": "cbb7a11c5d642f9ae1c70ad0ebb23760cb414987d1c737a6c913d642ca9c1919"
+        },
+        {
+          "role": "structure",
+          "path": "data/generated/g2/c04-structure.ifc",
+          "file_sha256": "263a4abf5a003403565d07694c49556f4d6e6811b71634f5d81e017c88b794dd"
+        }
+      ]
+    },
+    {
+      "case_id": "C05",
+      "origin": "programmatically_generated",
+      "source_url": null,
+      "license_spdx_or_name": "CC0-1.0",
+      "attribution": "IFC ClashTrace contributors (optional under CC0-1.0)",
+      "schema": "IFC4",
+      "expected_status": "CLEAR",
+      "ground_truth_basis": "The pipe ends at y=-0.2 m, leaving a 0.2 m gap to the wall face.",
+      "redistribution_permitted": true,
+      "limitations": "Synthetic contract fixture; not evidence of general real-project accuracy.",
+      "files": [
+        {
+          "role": "mep",
+          "path": "data/generated/g2/c05-mep.ifc",
+          "file_sha256": "84e1ec28e9541026bd0effe42d9036220ec746753614db884549530e3744ae5f"
+        },
+        {
+          "role": "structure",
+          "path": "data/generated/g2/c05-structure.ifc",
+          "file_sha256": "fb4ca84c5f2ef2ed9aebeaecf929d4b8d19564411a7441b5924cabf6b82a5d86"
+        }
+      ]
+    },
+    {
+      "case_id": "C06",
+      "origin": "programmatically_generated",
+      "source_url": null,
+      "license_spdx_or_name": "CC0-1.0",
+      "attribution": "IFC ClashTrace contributors (optional under CC0-1.0)",
+      "schema": "IFC4",
+      "expected_status": "CLEAR",
+      "ground_truth_basis": "A 0.5 m square opening fully surrounds the 0.2 m diameter pipe through the wall.",
+      "redistribution_permitted": true,
+      "limitations": "Synthetic contract fixture; not evidence of general real-project accuracy.",
+      "files": [
+        {
+          "role": "mep",
+          "path": "data/generated/g2/c06-mep.ifc",
+          "file_sha256": "020af56d201e3f05068fd76385005b7d85a3baee7614c6f6d0dcd060d5dfd349"
+        },
+        {
+          "role": "structure",
+          "path": "data/generated/g2/c06-structure.ifc",
+          "file_sha256": "e1f6e496ba55c85d839d31ae444710adbbbda0dc39de563e65c5b613c2e18742"
+        }
+      ]
+    },
+    {
+      "case_id": "C07",
+      "origin": "programmatically_generated",
+      "source_url": null,
+      "license_spdx_or_name": "CC0-1.0",
+      "attribution": "IFC ClashTrace contributors (optional under CC0-1.0)",
+      "schema": "IFC4",
+      "expected_status": "CLASH",
+      "ground_truth_basis": "The pipe axis crosses the wall diagonally in plan and traverses the full wall thickness.",
+      "redistribution_permitted": true,
+      "limitations": "Synthetic contract fixture; not evidence of general real-project accuracy.",
+      "files": [
+        {
+          "role": "mep",
+          "path": "data/generated/g2/c07-mep.ifc",
+          "file_sha256": "c13369035b05a298c0c3a1ca61f3914f7d1c6700e0f334a6580914fbe556a7db"
+        },
+        {
+          "role": "structure",
+          "path": "data/generated/g2/c07-structure.ifc",
+          "file_sha256": "48f9fb1591147394767e91370a1081c12eb400ba20fd483be523dd337aabce3f"
+        }
+      ]
+    },
+    {
+      "case_id": "C08",
+      "origin": "programmatically_generated",
+      "source_url": null,
+      "license_spdx_or_name": "CC0-1.0",
+      "attribution": "IFC ClashTrace contributors (optional under CC0-1.0)",
+      "schema": "IFC4",
+      "expected_status": "NOT_EVALUATED",
+      "ground_truth_basis": "The IfcPipeSegment intentionally has no Representation and must not be classified CLEAR.",
+      "redistribution_permitted": true,
+      "limitations": "Synthetic contract fixture; not evidence of general real-project accuracy.",
+      "files": [
+        {
+          "role": "mep",
+          "path": "data/generated/g2/c08-mep.ifc",
+          "file_sha256": "e06a1a9fdd1687f1b872c579ae711620806474110e1c4827dfe379e493fd3a08"
+        },
+        {
+          "role": "structure",
+          "path": "data/generated/g2/c08-structure.ifc",
+          "file_sha256": "317f640a822bb2f2e03a04bd4f00bfa400df172754ba1302795265226582a101"
+        }
+      ]
+    }
+  ]
+}
