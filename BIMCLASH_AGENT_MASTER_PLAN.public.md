@@ -5,8 +5,8 @@
 > 创建时间：2026-08-25（Asia/Hong_Kong）  
 > 目标完成时间：不晚于 2026-08-31 晚间（Asia/Hong_Kong）  
 > 项目根目录：`<PROJECT_ROOT>`  
-> 当前阶段：G3A-R1 审计修复技术验收已通过，等待本地修复提交与 Chrome GitHub 网页检查点闭环
-> 当前 Gate：`G3A — 契约测试加固（PASS）`；`G3A-R1 — 审计修复（TECH_PASS_SYNC_BLOCKED）`；`G3 — 核心检测引擎（BLOCKED_BY_G3A_R1_G3B_G3C）`
+> 当前阶段：G3A 契约测试及 G3A-R1 审计修复均已通过本地与 Chrome GitHub 网页闭环；等待用户决定是否继续 G3B
+> 当前 Gate：`G3A — 契约测试加固（PASS，含 G3A-R1）`；`G3 — 核心检测引擎（BLOCKED_BY_G3B_G3C）`
 
 ---
 
@@ -2085,7 +2085,7 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 
 **时间：** 2026-08-26 22:59（Asia/Hong_Kong）
 
-**Gate：** G3A `PASS`；G3A-R1 `TECH_PASS_SYNC_BLOCKED`；G3B/G3C `NOT_STARTED`；G3 `BLOCKED`
+**Gate：** G3A `PASS`；G3A-R1 `PASS`；G3B/G3C `NOT_STARTED`；G3 `BLOCKED`
 
 **目标：** 按用户批准的严格范围关闭固定 `run-1/run-2` 目录可能保留旧输出的防御缺口，并修正 G3A 完成记录中的两处状态措辞矛盾。
 
@@ -2107,15 +2107,15 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 
 **范围与影响：** 只修改 G1/G2 测试临时目录生命周期及 G3A 证据/治理文档；未修改生成器、冻结 IFC、真值、规则语义、依赖、许可证、G3B/G3C/G3 或 UI。
 
-**当前结论：** G3A-R1 技术验收 `PASS`；在本地修复提交、Chrome GitHub 网页上传、网页回查与映射登记完成前保持 `TECH_PASS_SYNC_BLOCKED`。
+**当前结论：** G3A-R1 `PASS`；本地修复提交、Chrome GitHub 网页上传、网页回查与映射登记均已完成，固定隔离目录复用风险与两处文档矛盾已关闭。
 
-**下一步：** 形成独立 `fix(G3A)` 本地提交并执行 Chrome GitHub 修复检查点；完成后停止并等待用户决定是否开始 G3B。
+**下一步：** 明确停止并等待用户决定是否开始 G3B；不得自动开始 G3B、G3C、G3 或正式 UI。
 
-**需要用户决定：** GitHub 网页提交前按浏览器安全规则执行动作时确认；是否开始 G3B 仍需后续用户决定。
+**需要用户决定：** 是否开始 G3B 需用户决定；无其他待决事项。
 
-**对应本地提交：** 待形成。
+**对应本地提交：** `839365a7693fa389c5e54d45a068f6a71a591002`（`fix(G3A): make isolated test roots ephemeral`）。
 
-**GitHub 检查点：** 待执行。
+**GitHub 修复检查点：** 测试脚本 [`7b8c5cdc02e804d58f34dd1c6c2cbd3699c1b2cd`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/7b8c5cdc02e804d58f34dd1c6c2cbd3699c1b2cd) → 证据文档 [`378b3647ff8b6c105e9df2c894a13f2ff8fcbdcb`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/378b3647ff8b6c105e9df2c894a13f2ff8fcbdcb) → 公开治理记录 [`9dc218a9075062dffe719d3563d1063abeb95835`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/9dc218a9075062dffe719d3563d1063abeb95835)，2026-08-26 23:05–23:08 +08:00；Chrome 已核验唯一 GUID 根、`finally` 路径守卫与清理标记、修正文档、`Public/main` 及连续父提交。最终 PASS/台账映射通过后续同步尾部发布并按自引用闭合规则登记。
 
 ---
 
