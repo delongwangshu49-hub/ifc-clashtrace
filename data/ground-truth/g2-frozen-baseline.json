@@ -1,0 +1,131 @@
+{
+  "baseline_id": "IFC_CLASHTRACE_G2_FROZEN_BASELINE_V1",
+  "version": "1.0.0",
+  "contract": {
+    "dataset_id": "IFC_CLASHTRACE_CONTROLLED_G2_V1",
+    "rule_id": "MEP_STRUCTURE_HARD_CLASH_V1",
+    "schema": "IFC4",
+    "length_unit": "metre",
+    "coordinate_system": "shared_project_coordinates",
+    "tolerance_m": 0.002
+  },
+  "source_paths": {
+    "operation_ledger": "data/g2-operation-ledger.json",
+    "dataset_manifest": "data/dataset-manifest.json",
+    "ground_truth": "data/ground-truth/g2-ground-truth.json"
+  },
+  "cases": [
+    {
+      "case_id": "C01",
+      "status": "CLASH",
+      "files": {
+        "mep": {
+          "path": "data/generated/g2/c01-mep.ifc",
+          "sha256": "521daa9545ad816878cd11f8015533cf89b7f028d66dcb234fdce75c777ee5a7"
+        },
+        "structure": {
+          "path": "data/generated/g2/c01-structure.ifc",
+          "sha256": "32efa1de8b2717c08ffd10291adfb6341356689e9a94a6e570cd624eea009b39"
+        }
+      }
+    },
+    {
+      "case_id": "C02",
+      "status": "CLASH",
+      "files": {
+        "mep": {
+          "path": "data/generated/g2/c02-mep.ifc",
+          "sha256": "d6da896c523638af26bfa4dd35133d0878cc2bd3e4a9f10b9cc1b26e847698e2"
+        },
+        "structure": {
+          "path": "data/generated/g2/c02-structure.ifc",
+          "sha256": "63158b42868d2ea88516a20118540e57b309e1bc0081ff34900de7742009e147"
+        }
+      }
+    },
+    {
+      "case_id": "C03",
+      "status": "CLEAR",
+      "files": {
+        "mep": {
+          "path": "data/generated/g2/c03-mep.ifc",
+          "sha256": "563300ae0d7fde8c37b053d505344237cd6507b88aaebfedfc5e4a8968e92102"
+        },
+        "structure": {
+          "path": "data/generated/g2/c03-structure.ifc",
+          "sha256": "bed4fc623fcf530617cccca69a501e1d96920767a01101b6db1e1c96100becc0"
+        }
+      }
+    },
+    {
+      "case_id": "C04",
+      "status": "CLEAR",
+      "files": {
+        "mep": {
+          "path": "data/generated/g2/c04-mep.ifc",
+          "sha256": "cbb7a11c5d642f9ae1c70ad0ebb23760cb414987d1c737a6c913d642ca9c1919"
+        },
+        "structure": {
+          "path": "data/generated/g2/c04-structure.ifc",
+          "sha256": "263a4abf5a003403565d07694c49556f4d6e6811b71634f5d81e017c88b794dd"
+        }
+      }
+    },
+    {
+      "case_id": "C05",
+      "status": "CLEAR",
+      "files": {
+        "mep": {
+          "path": "data/generated/g2/c05-mep.ifc",
+          "sha256": "84e1ec28e9541026bd0effe42d9036220ec746753614db884549530e3744ae5f"
+        },
+        "structure": {
+          "path": "data/generated/g2/c05-structure.ifc",
+          "sha256": "fb4ca84c5f2ef2ed9aebeaecf929d4b8d19564411a7441b5924cabf6b82a5d86"
+        }
+      }
+    },
+    {
+      "case_id": "C06",
+      "status": "CLEAR",
+      "files": {
+        "mep": {
+          "path": "data/generated/g2/c06-mep.ifc",
+          "sha256": "020af56d201e3f05068fd76385005b7d85a3baee7614c6f6d0dcd060d5dfd349"
+        },
+        "structure": {
+          "path": "data/generated/g2/c06-structure.ifc",
+          "sha256": "e1f6e496ba55c85d839d31ae444710adbbbda0dc39de563e65c5b613c2e18742"
+        }
+      }
+    },
+    {
+      "case_id": "C07",
+      "status": "CLASH",
+      "files": {
+        "mep": {
+          "path": "data/generated/g2/c07-mep.ifc",
+          "sha256": "c13369035b05a298c0c3a1ca61f3914f7d1c6700e0f334a6580914fbe556a7db"
+        },
+        "structure": {
+          "path": "data/generated/g2/c07-structure.ifc",
+          "sha256": "48f9fb1591147394767e91370a1081c12eb400ba20fd483be523dd337aabce3f"
+        }
+      }
+    },
+    {
+      "case_id": "C08",
+      "status": "NOT_EVALUATED",
+      "files": {
+        "mep": {
+          "path": "data/generated/g2/c08-mep.ifc",
+          "sha256": "e06a1a9fdd1687f1b872c579ae711620806474110e1c4827dfe379e493fd3a08"
+        },
+        "structure": {
+          "path": "data/generated/g2/c08-structure.ifc",
+          "sha256": "317f640a822bb2f2e03a04bd4f00bfa400df172754ba1302795265226582a101"
+        }
+      }
+    }
+  ]
+}
