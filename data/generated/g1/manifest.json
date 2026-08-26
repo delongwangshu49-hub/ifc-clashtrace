@@ -1,0 +1,53 @@
+{
+  "case_id": "G1_KNOWN_PIPE_WALL_CLASH",
+  "origin": "programmatically_generated",
+  "license": "CC0-1.0",
+  "redistribution_permitted": true,
+  "schema": "IFC4",
+  "length_unit": "metre",
+  "coordinate_system": "shared_project_coordinates",
+  "tolerance_m": 0.002,
+  "expected_status": "CLASH",
+  "expected_pair": {
+    "pipe_global_id": "0H4H4H4H514O4H4H4H4H4H",
+    "wall_global_id": "0Y8Y8Y8Y928e8Y8Y8Y8Y8Y"
+  },
+  "geometry": {
+    "wall": {
+      "origin_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "length_m": 4.0,
+      "thickness_m": 0.2,
+      "height_m": 3.0
+    },
+    "pipe": {
+      "axis_start_m": [
+        2.0,
+        -1.0,
+        1.5
+      ],
+      "axis_direction": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "length_m": 2.0,
+      "radius_m": 0.1
+    }
+  },
+  "files": [
+    {
+      "role": "mep",
+      "path": "data/generated/g1/g1-mep.ifc",
+      "sha256": "67192bf98d9acadeb0db2ab52fa3a2f67de258e5d14bb1c458299ebfaf04b3e0"
+    },
+    {
+      "role": "structure",
+      "path": "data/generated/g1/g1-structure.ifc",
+      "sha256": "94333b4a9aec0af7e581dd4a3835e62e1a3e9940ba34bf0fddf8a3e1fe2ec104"
+    }
+  ]
+}
