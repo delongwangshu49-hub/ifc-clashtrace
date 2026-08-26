@@ -1,6 +1,6 @@
 # G1 Technical Feasibility Evidence
 
-Status: `TECH_PASS` pending the required local Git commit and GitHub web checkpoint.
+Status: `PASS`. Technical validation, local step commit `d262474cc6820c7bae9ba77acea2aa754af5bdd0`, GitHub web checkpoint ending at `0b338141c33ce3add5f81e6d5251c175a67a074a`, remote verification, and local mapping registration are complete.
 
 ## Scope
 
@@ -25,7 +25,7 @@ The manifest at `data/generated/g1/manifest.json` records the two IFC SHA-256 va
 |---|---|---|---|---|
 | Reference | Python 3.13.15 / IfcOpenShell 0.8.5 | IFC4 + IFC4 | Exact expected pair | `pierce`, distance `0.2` m |
 | Node | Node.js 24.19.0 / web-ifc 0.0.77 / three-mesh-bvh 0.9.14 | IFC4 + IFC4 | Exact expected pair | one exact triangle-surface intersection |
-| Google Chrome | web-ifc 0.0.77 WASM / three-mesh-bvh 0.9.14 | IFC4 + IFC4 | Exact expected pair | `PASS` on initial load and three consecutive reloads; no browser warning/error logs |
+| Google Chrome | web-ifc 0.0.77 WASM / three-mesh-bvh 0.9.14 | IFC4 + IFC4 | Exact expected pair | `PASS` on initial load and four subsequent reloads; no browser warning/error logs |
 
 The repeatable local command is:
 
