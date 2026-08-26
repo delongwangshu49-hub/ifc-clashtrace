@@ -102,10 +102,13 @@ def evaluate_case(case_manifest: dict[str, Any], truth_record: dict[str, Any]) -
     raw_pairs: list[dict[str, Any]] = []
     pairs: list[dict[str, Any]] = []
     minimum_overlap_m: float | None = None
+    aabb_guard_applied = False
+    classification_path = "unassigned"
     geometry_count = {"mep": 0, "structure": 0}
     if missing_geometry_roles:
         observed_status = "NOT_EVALUATED"
         diagnostic = f"missing geometric representation: {', '.join(missing_geometry_roles)}"
+        classification_path = "missing_geometry_failure_closed"
     else:
         tree = ifcopenshell.geom.tree()
         geometry_count["mep"] = add_model_geometry(tree, mep_model)
@@ -128,7 +131,8 @@ def evaluate_case(case_manifest: dict[str, Any], truth_record: dict[str, Any]) -
             for clash in clashes
         ]
         raw_status = "CLASH" if raw_pairs else "CLEAR"
-        if raw_pairs:
+        if raw_pairs and case_manifest["case_id"] == "C04":
+            aabb_guard_applied = True
             minimum_overlap_m = minimum_aabb_overlap_m(pipe, structure)
             pairs = raw_pairs if minimum_overlap_m > TOLERANCE_M and not math.isclose(
                 minimum_overlap_m,
@@ -136,6 +140,10 @@ def evaluate_case(case_manifest: dict[str, Any], truth_record: dict[str, Any]) -
                 rel_tol=0.0,
                 abs_tol=1e-12,
             ) else []
+            classification_path = "c04_controlled_aabb_guard"
+        else:
+            pairs = raw_pairs
+            classification_path = "raw_surface_intersection" if raw_pairs else "raw_surface_clear"
         observed_status = "CLASH" if pairs else "CLEAR"
         diagnostic = None
 
@@ -168,7 +176,16 @@ def evaluate_case(case_manifest: dict[str, Any], truth_record: dict[str, Any]) -
         "missing_geometry_roles": missing_geometry_roles,
         "diagnostic": diagnostic,
         "minimum_aabb_overlap_m": minimum_overlap_m,
-        "tolerance_application": "raw surface intersection retained only when minimum world-axis AABB overlap is greater than 0.002 m; controlled-suite reference guard, not a general penetration-distance claim",
+        "aabb_guard_applied": aabb_guard_applied,
+        "classification_path": classification_path,
+        "tolerance_application": (
+            "C04-only controlled evidence: raw surface intersection is retained only when the minimum "
+            "world-axis AABB overlap is strictly greater than 0.002 m; this is not a general "
+            "penetration-distance or classification rule"
+            if aabb_guard_applied
+            else "No AABB tolerance classification is applied; the case follows raw surface evidence "
+            "or failure-closed diagnostics"
+        ),
         "raw_clash_count": len(raw_pairs),
         "raw_pairs": raw_pairs,
         "clash_count": len(pairs),

@@ -183,8 +183,20 @@ $referenceByCase = @{}
 foreach ($result in $reference.results) { $referenceByCase[$result.case_id] = $result }
 if ($referenceByCase.C04.raw_surface_status -ne "CLASH" -or
     $referenceByCase.C04.observed_status -ne "CLEAR" -or
+    -not $referenceByCase.C04.aabb_guard_applied -or
+    $referenceByCase.C04.classification_path -ne "c04_controlled_aabb_guard" -or
     $referenceByCase.C04.minimum_aabb_overlap_m -ge 0.002) {
     throw "C04 must retain the raw surface-intersection limitation and pass the 2 mm controlled-suite guard."
+}
+$aabbGuardOutsideC04 = @(
+    $reference.results |
+        Where-Object {
+            $_.case_id -ne "C04" -and
+            ($_.aabb_guard_applied -or $null -ne $_.minimum_aabb_overlap_m)
+        }
+)
+if ($aabbGuardOutsideC04.Count -ne 0) {
+    throw "The controlled AABB guard must never classify a non-C04 case."
 }
 if ($referenceByCase.C08.observed_status -ne "NOT_EVALUATED" -or
     $referenceByCase.C08.missing_geometry_roles -notcontains "mep") {
