@@ -10,7 +10,7 @@ G3A separates the trusted expectation from generated output:
 
 1. `data/ground-truth/g2-frozen-baseline.json` freezes the approved contract and the exact repository-relative path–SHA-256 mapping for all 16 G2 IFC files.
 2. G1 and G2 generators default to ignored `outputs/local-only/` roots. A repository-root output requires the explicit `--allow-baseline-write` flag; tests never pass it.
-3. G1 and G2 tests generate twice in isolated roots, compare each output to the committed mapping, and assert protected hashes and Git worktree state are identical before and after the run.
+3. G1 and G2 tests create a unique isolated root for every invocation, generate twice beneath it, compare each output to the committed mapping, assert protected hashes and Git worktree state are identical before and after the run, and safely remove that exact temporary root in a `finally` block.
 4. `scripts/g3a-contract-check.py` validates the committed baseline and isolated generations without rewriting any accepted artifact.
 5. `scripts/test-g3a-contract-mutations.py` changes copies of contract documents and proves each drift fails closed.
 
@@ -58,6 +58,8 @@ G3A_MUTATION_NEGATIVE_COUNT=8
 G3A_G1_REGRESSION=PASS
 G3A_G2_REGRESSION=PASS
 G3A_BASELINE_WRITE_GUARDS=2/2
+G1_ISOLATED_TEMP_ROOT_CLEANUP=PASS
+G2_ISOLATED_TEMP_ROOT_CLEANUP=PASS
 G3A_16_IFC_DETERMINISM=PASS
 G3A_GROUND_TRUTH_MATCH=8/8
 G3A_FAILURE_CLOSED=PASS
@@ -67,4 +69,4 @@ G3A_LOCAL_TEST=PASS
 
 ## Scope boundary
 
-G3A changes test trust and evidence only. It does not change any frozen IFC byte, G2 truth record, C04 AABB guard, tolerance algorithm, product engine, clearance rule, or UI. General tolerance semantics remain G3B, and G3 remains blocked by G3A/G3B/G3C until all three prerequisites pass.
+G3A changes test trust and evidence only. It does not change any frozen IFC byte, G2 truth record, C04 AABB guard, tolerance algorithm, product engine, clearance rule, or UI. G3A has passed and is no longer a blocker; general tolerance semantics remain G3B, and G3 remains blocked by G3B/G3C.
