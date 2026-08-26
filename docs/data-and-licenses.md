@@ -21,6 +21,7 @@ The generated artifacts are:
 
 - `data/generated/g2/`: 16 IFC files, one MEP and one structure model per case;
 - `data/ground-truth/g2-ground-truth.json`: eight normalized assessment records;
+- `data/ground-truth/g2-frozen-baseline.json`: independent repository-relative path–SHA-256 and approved-contract baseline;
 - `data/dataset-manifest.json`: source, license, redistribution, limitations, relative paths, and SHA-256 for every IFC;
 - `data/g2-operation-ledger.json`: constructive operations, fixed GUID seeds, expected status, and split policy.
 
@@ -67,12 +68,18 @@ The accepted result is:
 G2_CASE_COUNT=8
 G2_STATUS_COUNTS=CLASH:3,CLEAR:4,NOT_EVALUATED:1
 G2_GENERATED_IFC_COUNT=16
-G2_DETERMINISTIC_REGENERATION=PASS
+G2_ISOLATED_DETERMINISTIC_REGENERATION=PASS
 G2_MANIFEST_HASHES=PASS
+G2_PATH_SHA256_MAPPING=PASS
+G2_APPROVED_CONTRACT=PASS
+G2_BASELINE_HASHES_UNCHANGED=PASS
+G2_GIT_WORKTREE_UNCHANGED=PASS
 G2_REFERENCE_MATCH=8/8
 G2_FAILURE_CLOSED=PASS
 G2_LOCAL_TEST=PASS
 ```
+
+G3A changed the reproduction path, not the frozen G2 IFC bytes or truth records. Both generations occur under ignored `outputs/local-only/` roots and are compared to the committed baseline. Tests do not regenerate files in `data/`.
 
 ## License and privacy boundary
 
