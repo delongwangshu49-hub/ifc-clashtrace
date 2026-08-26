@@ -4,14 +4,18 @@ IFC ClashTrace is a deterministic browser/Web IFC feasibility project for tracea
 
 ## Current checkpoint
 
-G1 proves the dual geometry routes. G2 freezes a deterministic eight-case IFC4 acceptance dataset with:
+G1 proves the dual geometry routes. G2 freezes a deterministic eight-case IFC4 acceptance dataset. G3A hardens that frozen contract with:
 
 - 3 expected `CLASH` cases, 4 expected `CLEAR` cases, and 1 expected `NOT_EVALUATED` case;
 - touching, 1 mm sub-tolerance intrusion, clear separation, modeled opening, diagonal pierce, and missing-geometry coverage;
 - a human-authored constructive operation ledger, machine-readable ground truth, file hashes, fixed/rebuildable GUIDs, and CC0-1.0 data licensing;
-- IfcOpenShell `0.8.5` reference results matching all 8 expected statuses and all 3 expected clash pairs.
+- IfcOpenShell `0.8.5` reference results matching all 8 expected statuses and all 3 expected clash pairs;
+- an independent repository-relative path–SHA-256 baseline for all 16 IFC files;
+- isolated regeneration that cannot silently rewrite the committed G1/G2 fixtures;
+- exact assertions for the approved rule, IFC4 schema, metre unit, shared project coordinates, and `0.002 m` tolerance;
+- negative tests that reject rule, schema, unit, coordinate-system, tolerance, status, path, and hash mutations.
 
-The eight cases are a public contract acceptance suite, not a hidden holdout set and not evidence of general real-project accuracy. See `docs/data-and-licenses.md` for evidence and limitations.
+The eight cases are a public contract acceptance suite, not a hidden holdout set and not evidence of general real-project accuracy. See `docs/data-and-licenses.md` and `docs/g3a-contract-hardening.md` for evidence and limitations.
 
 ## Reproduce G1 on Windows
 
@@ -42,9 +46,21 @@ pwsh -NoLogo -NoProfile -File .\scripts\test-g2.ps1
 
 This regenerates all 16 IFC files twice, verifies byte-for-byte determinism and manifest hashes, and compares all eight records with the independent IfcOpenShell reference route. Local detector outputs are written under the ignored `outputs/local-only/` directory.
 
-## Boundaries through G2
+Generation now occurs only beneath ignored, isolated output roots. Writing to the committed repository baseline requires the generator's explicit `--allow-baseline-write` opt-in and is never used by tests.
 
-- G2 freezes data and reference evidence; the complete browser product rule remains G3 work.
+## Reproduce G3A on Windows
+
+After completing the G1 setup command, run the full contract-hardening suite:
+
+```powershell
+pwsh -NoLogo -NoProfile -File .\scripts\test-g3a.ps1
+```
+
+The suite runs the G1 and G2 regressions, validates the frozen 16-file path–SHA-256 map against both the committed data and two isolated generations, rejects eight contract mutations, and asserts that protected baseline hashes and Git worktree state do not change.
+
+## Boundaries through G3A
+
+- G3A hardens frozen data and contract evidence; general tolerance semantics remain G3B and the browser product rule remains blocked.
 - Metre units and a shared project coordinate system.
 - Browser penetration distance is not claimed; the field remains unavailable until validated.
 - IfcOpenShell raw surface intersection reports C04 as an intersection; the G2 controlled reference applies a parsed world-bounds overlap guard (`~0.001 m < 0.002 m`) and explicitly does not claim that this is a general penetration-distance algorithm.

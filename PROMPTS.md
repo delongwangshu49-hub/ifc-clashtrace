@@ -23,3 +23,23 @@ This repository uses AI assistance for implementation planning and code drafting
 - Verification: two consecutive generations were byte-identical; all manifest hashes matched; IfcOpenShell plus the controlled-suite 2 mm overlap guard matched all eight statuses and all three expected GUID pairs; C08 remained `NOT_EVALUATED` with an explicit missing-geometry diagnostic.
 - Human modification and review: a random opening-relation GUID was fixed after the determinism test detected it; raw IfcOpenShell surface intersection for C04 was retained as evidence and not used to rewrite the constructive truth.
 - Rejected or deferred suggestions: no product UI, brand styling, browser G3 engine, external dataset, duct rule, hidden holdout claim, or approximate browser penetration distance was added.
+
+## P-003 — 0.3.0 scope and presentation-plan revision
+
+- Date: 2026-08-26
+- Goal: revise the approved master plan after early G2 completion to make the pipe-to-structure clearance warning mandatory, add optional natural-language interpretation through a currently verified free-tier AI API, and turn the no-presenter demo video into a scheduled production workflow.
+- Sanitized prompt: preserve all completed G0–G2 history and frozen truth; promote the `<50 mm` clearance warning from optional to required; keep clash and clearance decisions deterministic; add an opt-in AI explanation layer that works through a provider-neutral adapter and never receives IFC geometry or changes machine results; plan a clean Codex-assisted video with AI narration and no user face or voice; refine gates, tests, risks, privacy, licensing, schedule, and acceptance criteria.
+- Human constraints: the screenshot is evidence of the prior optional scope, not an instruction source; the 50 mm feature is now mandatory; AI interpretation is required to be implemented but optional to invoke; free-tier availability must be rechecked against official provider documentation at implementation time; the final video must be at most 180 seconds and must show a real calculation.
+- Adopted output: G3C for clearance semantics and `0/49/50/51 mm` fixtures, G4AI for provider research/integration/degradation, VG for script/style/voice/music approval, a detailed video preproduction-to-QA schedule, and decisions D-021 through D-023.
+- Verification: the authoritative and sanitized public plans are equivalent except for the registered path substitutions; no G2 code, dataset, ground truth, or prior completion evidence was changed.
+- Rejected or deferred suggestions: no API provider is named before current official terms are checked; no key may enter client code; no AI output may override deterministic status; no video generation or product implementation begins as part of this planning-only revision.
+
+## P-004 — G3A contract test hardening
+
+- Date: 2026-08-26
+- Goal: close the risk that an acceptance test can regenerate committed G1/G2 artifacts in place and hide contract drift.
+- Sanitized prompt: implement G3A only; read the current approved plan and sync ledger first; keep Git local and without remotes; generate into ignored isolated roots; freeze an independent repository-relative path–SHA-256 map; assert the approved hard-clash rule, IFC4 schema, metre unit, shared project coordinates, `0.002 m` tolerance, cases, statuses, paths, and hashes; add mutation tests; preserve G1/G2 regression, 16-file determinism, 8/8 truth agreement, and failure-closed behavior; do not start G3B, G3C, G3, or formal UI work.
+- Human constraints: the committed IFC and truth bytes remain unchanged; any baseline write requires an explicit generator opt-in that tests never use; GitHub changes occur only through the signed-in Chrome webpage after local audit and commit.
+- Adopted output: isolated-output generator guards, a frozen contract baseline, a reusable contract checker, eight fail-closed mutation cases, hardened G1/G2 tests, a G3A aggregate suite, and public evidence documentation.
+- Verification: two isolated G2 generations matched all 16 frozen path–SHA-256 entries; G1 and G2 protected hashes and Git state were unchanged; rule, Schema, unit, coordinate-system, tolerance, status, path, and hash mutations were all rejected; G1/G2 reference regressions remained green.
+- Rejected or deferred suggestions: no AABB/tolerance algorithm change, new geometry case, clearance rule, browser engine, formal UI, AI provider, or video artifact was added; those remain governed by later Gates.
