@@ -9,6 +9,7 @@ This ledger maps validated local Git checkpoints to independent GitHub web commi
 - A GitHub commit SHA is not expected to match its local Git SHA.
 - Public uploads are limited to reviewed, sanitized publication candidates.
 - A step becomes `PASS` only after local validation, GitHub web upload, web verification, and mapping registration all pass.
+- To terminate the unavoidable self-reference created when this public ledger records its own publication, the final ledger-publication SHA is registered in the body of one subsequent empty local `sync(<STEP_ID>)` commit in the authoritative local Git history; that closure commit changes no file and is not republished recursively.
 
 ## Checkpoints
 
@@ -19,6 +20,7 @@ This ledger maps validated local Git checkpoints to independent GitHub web commi
 | G1-R1 | `fix(G1): reconcile checkpoint status evidence` | `b4e010f7dec1b6fb1d2b2736efd0c6e63fdd9295` | [Governance repair `2de8c45684a3d1d894527674bb644510e4881483`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/2de8c45684a3d1d894527674bb644510e4881483) → [evidence repair `30b01b5679145298ca0aa1bd02697e61eae9a767`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/30b01b5679145298ca0aa1bd02697e61eae9a767) | 2026-08-26 12:19 +08:00 | `PASS`: public plan shows G1 `PASS`; public ledger contains G1 mapping; evidence shows completed status and four subsequent Chrome reloads; no `data/` directory | `Public` | `PASS`; one-time consistency repair, no G2 work |
 | G2 | `step(G2): freeze controlled dataset and ground truth` | `7da4adfcdaef7729ba52d2a2c98c8741fdcc9c01` | [First commit `d4b974f101348d5707418c4078965dea0d8d7fc2`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/d4b974f101348d5707418c4078965dea0d8d7fc2) → [final commit `4fcc3cd47197a10771f5ce52b2e0a039d6434dc1`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/4fcc3cd47197a10771f5ce52b2e0a039d6434dc1) | 2026-08-26 13:19–13:29 +08:00 | `PASS`: public visibility, continuous 11-commit chain, exact titles/local mapping, licenses, scripts, manifests, ledgers, truth, 3 G1 fixtures, and all 16 paired G2 IFC files verified in Chrome | `Public` | `PASS`; no CLI remote/API/origin; large-file virtualization false negatives were closed with full file-content controls |
 | G2-S1 | `sync(G2): record verified GitHub checkpoint` | `c6765d54ffbc776cb82576867ae93846c851e118` | [Public plan `b19235fc35d7dc3d41f10d1c1b50f94bff387c43`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/b19235fc35d7dc3d41f10d1c1b50f94bff387c43) → [public ledger `1fb4dee9a2dda1396b3ddf8fdf6bbc21d575f7c4`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/1fb4dee9a2dda1396b3ddf8fdf6bbc21d575f7c4) → [data evidence `822a86bb2ca49e02a34175fb74038ba62b4c0562`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/822a86bb2ca49e02a34175fb74038ba62b4c0562) | 2026-08-26 13:41–13:44 +08:00 | `PASS`: public plan shows G2 `PASS` and stop-at-G2 rule; public ledger shows the G2 local/remote mapping; data evidence shows `PASS`; exact 3-commit tail and final SHA verified in Chrome | `Public` | `PASS`; final evidence publication tail registered in local authoritative history |
+| G2-S2 | `sync(G2): register PASS evidence tail` | `732cf5fc159da4d3b939b7d6c7587c183c5dfa0b` | [Public plan tail `093af832e9c80863a663938531c3d65fe54a190a`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/093af832e9c80863a663938531c3d65fe54a190a) → [public ledger tail `044c598deedbdd8854367378db3fcc870d9aa0d1`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/044c598deedbdd8854367378db3fcc870d9aa0d1) | 2026-08-26 13:45–13:46 +08:00 | `PASS`: exact titles and local short SHA `732cf5f`, public G2 PASS status, prior tail mapping, and final remote HEAD verified in Chrome | `Public` | `PASS`; registered by local closure commit `62dcbbf5e31febdc470c275c8a6579413f1b1ef4` |
 
 ## G0A publication candidate
 
@@ -63,7 +65,7 @@ Chrome verification confirmed the repository remained `Public`; the 11 exact com
 - [x] No Git remote is configured.
 - [x] Repository-local author identity is non-personal and non-routable.
 - [x] Public candidate files contain no detected key, token, credential, personal email, machine username, or absolute local path.
-- [x] No workspace file exceeds the G0A 1 MiB review threshold (largest reviewed file: 59,711 bytes).
+- [x] No G2 publication candidate exceeds the 1 MiB review threshold (largest reviewed file was 84,445 bytes at audit start and remains below 87,000 bytes in this consistency-repair candidate).
 - [x] Ignore rules cover secrets, dependencies, caches, temporary files, private outputs, browser data, and archives.
 - [x] GitHub repository name (`ifc-clashtrace`) and visibility (`Public`) are explicitly confirmed by the user.
 - [x] GitHub web commit message contains `G0A` and the local short SHA.
