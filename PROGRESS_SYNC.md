@@ -67,7 +67,7 @@ Chrome verification confirmed the repository remained `Public`; the 11 exact com
 - [x] No Git remote is configured.
 - [x] Repository-local author identity is non-personal and non-routable.
 - [x] Public candidate files contain no detected key, token, credential, personal email, machine username, or absolute local path.
-- [x] No G2 publication candidate exceeds the 1 MiB review threshold (largest reviewed file was 84,445 bytes at audit start and remains below 89,000 bytes with the complete consistency-repair log).
+- [x] No current publication candidate exceeds the 1 MiB review threshold; the current exact maximum is measured by the publication audit rather than frozen as a self-invalidating ledger constant.
 - [x] Ignore rules cover secrets, dependencies, caches, temporary files, private outputs, browser data, and archives.
 - [x] GitHub repository name (`ifc-clashtrace`) and visibility (`Public`) are explicitly confirmed by the user.
 - [x] GitHub web commit message contains `G0A` and the local short SHA.
