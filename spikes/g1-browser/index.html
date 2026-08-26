@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>G1 Browser Geometry Spike</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "/node_modules/three/build/three.module.js",
+          "three-mesh-bvh": "/node_modules/three-mesh-bvh/build/index.module.js",
+          "web-ifc": "/node_modules/web-ifc/web-ifc-api.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <h1>G1 Browser Geometry Spike</h1>
+    <p id="status">RUNNING</p>
+    <pre id="result"></pre>
+    <script type="module" src="./app.mjs"></script>
+  </body>
+</html>
