@@ -1,6 +1,6 @@
 # G3B tolerance semantics and AABB isolation
 
-Status: `TECH_PASS_SYNC_PENDING`
+Status: `PASS`
 
 ## Decision
 
@@ -83,3 +83,14 @@ The initial G0A audit script is a historical baseline audit and is not stage-inv
 ## Boundary after G3B
 
 G3B does not implement the browser detector, clearance rule, or UI. Browser `penetration_distance_m` remains `null` until a product implementation independently satisfies this semantic and reliability boundary. G3 remains blocked by G3C and the later G3 engine step.
+
+## Verified checkpoint
+
+The authoritative local implementation is commit `a443a0d875a2d46a7af3e8589d571fd42375ee17` (`step(G3B): define auditable tolerance semantics`). On 2026-08-26 23:54–23:56 +08:00, the reviewed public candidate was uploaded only through the user's signed-in Chrome session as a continuous four-commit chain:
+
+1. root evidence `983c6e0b3114a8e4356ea2cf204954d4c727546e`;
+2. tolerance tests `e586659a766a106bbc90e2aaf6d247fce0ac64e9`;
+3. tolerance fixtures `3f1c0855596d78b4f8617a155d0b59211188852c`;
+4. tolerance evidence `54c1bab44042573a4d7e719ffc67b7cc3373121f`.
+
+Chrome verification confirmed `Public` visibility, branch `main`, exact parent continuity, the local short-SHA mapping in every title, the C04-only guard, all 12 fixtures, the AABB counterexample, the failure-closed boundary, and the explicit G3C blocker. No Git remote, CLI remote, GitHub API, or `origin` was used.
