@@ -4,7 +4,7 @@ IFC ClashTrace is a deterministic browser/Web IFC feasibility project for tracea
 
 ## Current checkpoint
 
-G1 proves the dual geometry routes. G2 freezes a deterministic eight-case IFC4 acceptance dataset. G3A hardens that frozen contract. G3B now fixes the general `2 mm` meaning as a strict, rotation-invariant structure-interior depth threshold and confines the historical world-axis AABB guard to C04 evidence only.
+G1 proves the dual geometry routes. G2 freezes a deterministic eight-case IFC4 acceptance dataset. G3A hardens that frozen contract. G3B defines a strict, rotation-invariant structure-interior depth threshold, fails closed when the `2 mm` erosion core is empty or degenerate, and confines the historical world-axis AABB guard to C04 evidence only.
 
 The frozen G2/G3A contract includes:
 
@@ -17,7 +17,7 @@ The frozen G2/G3A contract includes:
 - exact assertions for the approved rule, IFC4 schema, metre unit, shared project coordinates, and `0.002 m` tolerance;
 - negative tests that reject rule, schema, unit, coordinate-system, tolerance, status, path, and hash mutations.
 
-The eight cases are a public contract acceptance suite, not a hidden holdout set and not evidence of general real-project accuracy. G3B adds 12 analytic proof fixtures for touching, `1.9/2.0/2.1 mm` boundaries, `3.0/4.0/4.2 mm` thin structures, rotation, oblique crossing, explicit AABB divergence, and failure-closed behavior. See `docs/data-and-licenses.md`, `docs/g3a-contract-hardening.md`, and `docs/g3b-tolerance-semantics.md` for evidence and limitations.
+The eight cases are a public contract acceptance suite, not a hidden holdout set and not evidence of general real-project accuracy. G3B adds 13 analytic proof fixtures for touching, `1.9/2.0/2.1 mm` plus a `0.5 nm`-above-threshold regression, `3.0/4.0/4.2 mm` thin structures, rotation, oblique crossing, explicit AABB divergence, and failure-closed behavior. G3B10/G3B11 consume caller-supplied reliability preconditions; they do not themselves validate topology or coordinate registration. See `docs/data-and-licenses.md`, `docs/g3a-contract-hardening.md`, and `docs/g3b-tolerance-semantics.md` for evidence and limitations.
 
 ## Reproduce G1 on Windows
 
