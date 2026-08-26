@@ -5,8 +5,8 @@
 > 创建时间：2026-08-25（Asia/Hong_Kong）  
 > 目标完成时间：不晚于 2026-08-31 晚间（Asia/Hong_Kong）  
 > 项目根目录：`<PROJECT_ROOT>`  
-> 当前阶段：G3A 契约测试加固已完成并通过本地与 Chrome GitHub 网页闭环；等待用户决定是否继续 G3B
-> 当前 Gate：`G3A — 契约测试加固（PASS）`；`G3 — 核心检测引擎（BLOCKED_BY_G3B_G3C）`
+> 当前阶段：G3A-R1 审计修复技术验收已通过，等待本地修复提交与 Chrome GitHub 网页检查点闭环
+> 当前 Gate：`G3A — 契约测试加固（PASS）`；`G3A-R1 — 审计修复（TECH_PASS_SYNC_BLOCKED）`；`G3 — 核心检测引擎（BLOCKED_BY_G3A_R1_G3B_G3C）`
 
 ---
 
@@ -2073,11 +2073,49 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 
 **下一步：** 明确停止并等待用户决定是否继续 G3B；不得自动开始 G3B、G3C、G3 或正式 UI。
 
-**需要用户决定：** 无。
+**需要用户决定：** 是否开始 G3B 需用户决定；本次 G3A 完成记录本身无需额外决定。
 
 **对应本地提交：** `d0ad55528c5e95148c3facfcc924543f23028ef4`（`step(G3A): harden frozen contract tests`）。
 
 **GitHub 技术检查点：** 根文档 [`c12c654a2842aab2f7dc84bf7c1b85e1e2101f53`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/c12c654a2842aab2f7dc84bf7c1b85e1e2101f53) → 契约测试脚本 [`2c980a8e5542de50349d3406fb3d59d5eb24bce2`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/2c980a8e5542de50349d3406fb3d59d5eb24bce2) → 证据文档 [`fc0a7c28580121a30d1694aef7a18a665c5ec924`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/fc0a7c28580121a30d1694aef7a18a665c5ec924) → 冻结基线 [`c0b8ff3eed8b1f7394a164b9f9a825544f83d618`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/c0b8ff3eed8b1f7394a164b9f9a825544f83d618)，2026-08-26 16:06–16:10 +08:00；Chrome 已核验 `Public/main`、连续父提交、关键契约、16 条唯一路径—SHA、8 案例状态、公开脚本集合及 `audit-g3a.ps1` 未公开。PASS 状态与台账映射通过后续同步尾部发布，并按自引用闭合规则在本地空提交中登记其最终 SHA。
+
+---
+
+### L-0020 — G3A 审计修复：一次性隔离目录与文档一致性
+
+**时间：** 2026-08-26 22:59（Asia/Hong_Kong）
+
+**Gate：** G3A `PASS`；G3A-R1 `TECH_PASS_SYNC_BLOCKED`；G3B/G3C `NOT_STARTED`；G3 `BLOCKED`
+
+**目标：** 按用户批准的严格范围关闭固定 `run-1/run-2` 目录可能保留旧输出的防御缺口，并修正 G3A 完成记录中的两处状态措辞矛盾。
+
+**步骤开始核验：** PowerShell `7.6.4`；HEAD `7200a74ec72938aed7799919f6b0b128fc627d8f`；`main` 工作树洁净；Git 远程数 `0`。
+
+**已执行：**
+
+- G1/G2 测试每次在 `outputs/local-only/g3a-tests/<gate>/` 下创建 GUID 命名的唯一根，两个确定性运行只位于该根内部；
+- 创建和递归清理前均使用规范化绝对路径及批准父目录前缀执行失败关闭校验；精确临时根在 `finally` 中删除，测试结束后再次断言不存在；
+- 精确删除旧实现遗留的四个可再生成 `run-1/run-2` 忽略目录；未删除任何已跟踪文件；
+- 将 L-0019 的“等待用户决定是否继续 G3B”与“需要用户决定：无”修正为一致表述；证据文档明确 G3A 已不再阻断 G3，剩余阻断项为 G3B/G3C。
+
+**验证结果：**
+
+- G1/G2 新增 `ISOLATED_TEMP_ROOT_CLEANUP=PASS`；全套运行后两个隔离父目录的子项合计为 `0`；
+- `scripts/test-g3a.ps1`、`scripts/audit-g3a.ps1` 与 `scripts/audit-g2.ps1` 全部 `PASS`；
+- 16 个 IFC 路径—SHA、G2 真值 `8/8`、失败闭合、8/8 契约突变、基线写入守卫 `2/2`、受保护哈希与 Git 工作树不变性全部保持通过；
+- 公开候选绝对路径、邮箱、凭据与超限文件命中均为 `0`；Git 远程数保持 `0`；公开计划等价性通过。
+
+**范围与影响：** 只修改 G1/G2 测试临时目录生命周期及 G3A 证据/治理文档；未修改生成器、冻结 IFC、真值、规则语义、依赖、许可证、G3B/G3C/G3 或 UI。
+
+**当前结论：** G3A-R1 技术验收 `PASS`；在本地修复提交、Chrome GitHub 网页上传、网页回查与映射登记完成前保持 `TECH_PASS_SYNC_BLOCKED`。
+
+**下一步：** 形成独立 `fix(G3A)` 本地提交并执行 Chrome GitHub 修复检查点；完成后停止并等待用户决定是否开始 G3B。
+
+**需要用户决定：** GitHub 网页提交前按浏览器安全规则执行动作时确认；是否开始 G3B 仍需后续用户决定。
+
+**对应本地提交：** 待形成。
+
+**GitHub 检查点：** 待执行。
 
 ---
 
