@@ -1,6 +1,6 @@
 # G3A Contract Test Hardening
 
-Status: local technical acceptance passes; the Gate becomes complete only after its audited local commit, Chrome GitHub web checkpoint, web verification, and mapping registration pass.
+Status: `PASS`; the audited local step commit, Chrome GitHub web checkpoint, web verification, and mapping registration all passed.
 
 ## Risk closed
 
