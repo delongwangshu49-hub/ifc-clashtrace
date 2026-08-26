@@ -1,0 +1,227 @@
+{
+  "dataset_id": "IFC_CLASHTRACE_G3B_TOLERANCE_V1",
+  "version": "1.0.0",
+  "rule_id": "MEP_STRUCTURE_HARD_CLASH_V1",
+  "license_spdx_or_name": "CC0-1.0",
+  "length_unit": "metre",
+  "coordinate_system": "shared_project_coordinates",
+  "tolerance_m": 0.002,
+  "comparison": "CLASH only when certified maximum Euclidean interior depth is strictly greater than tolerance_m; equality is CLEAR",
+  "semantic": "Intersect the pipe solid with the structure solid eroded inward by tolerance_m. This is equivalent to requiring a pipe-solid point whose Euclidean distance to the final structure boundary is strictly greater than tolerance_m.",
+  "scope": "Analytic proof fixtures for closed convex oriented boxes and finite circular cylinders in certified center-crossing or face-normal arrangements. Unsupported or unreliable geometry is NOT_EVALUATED.",
+  "source_of_truth": "Human-authored constructive geometry and analytic certificates; detector output does not define expected status.",
+  "cases": [
+    {
+      "case_id": "G3B01",
+      "title": "Pipe cap touches the structure face",
+      "family": "face_normal_threshold",
+      "expected_status": "CLEAR",
+      "expected_maximum_interior_depth_m": 0.0,
+      "geometry_reliable": true,
+      "coordinate_system_consistent": true,
+      "structure": {
+        "center_world_m": [0.0, 0.0, 0.0],
+        "half_extents_m": [2.0, 0.1, 1.5],
+        "rotation_deg_xyz": [0.0, 0.0, 0.0]
+      },
+      "pipe": {
+        "axis_start_structure_local_m": [0.0, -1.0, 0.0],
+        "axis_end_structure_local_m": [0.0, -0.1, 0.0],
+        "radius_m": 0.05
+      }
+    },
+    {
+      "case_id": "G3B02",
+      "title": "Pipe cap intrudes 1.9 mm",
+      "family": "face_normal_threshold",
+      "expected_status": "CLEAR",
+      "expected_maximum_interior_depth_m": 0.0019,
+      "geometry_reliable": true,
+      "coordinate_system_consistent": true,
+      "structure": {
+        "center_world_m": [0.0, 0.0, 0.0],
+        "half_extents_m": [2.0, 0.1, 1.5],
+        "rotation_deg_xyz": [0.0, 0.0, 0.0]
+      },
+      "pipe": {
+        "axis_start_structure_local_m": [0.0, -1.0, 0.0],
+        "axis_end_structure_local_m": [0.0, -0.0981, 0.0],
+        "radius_m": 0.05
+      }
+    },
+    {
+      "case_id": "G3B03",
+      "title": "Pipe cap intrudes exactly 2.0 mm",
+      "family": "face_normal_threshold",
+      "expected_status": "CLEAR",
+      "expected_maximum_interior_depth_m": 0.002,
+      "geometry_reliable": true,
+      "coordinate_system_consistent": true,
+      "structure": {
+        "center_world_m": [0.0, 0.0, 0.0],
+        "half_extents_m": [2.0, 0.1, 1.5],
+        "rotation_deg_xyz": [0.0, 0.0, 0.0]
+      },
+      "pipe": {
+        "axis_start_structure_local_m": [0.0, -1.0, 0.0],
+        "axis_end_structure_local_m": [0.0, -0.098, 0.0],
+        "radius_m": 0.05
+      }
+    },
+    {
+      "case_id": "G3B04",
+      "title": "Pipe cap intrudes 2.1 mm",
+      "family": "face_normal_threshold",
+      "expected_status": "CLASH",
+      "expected_maximum_interior_depth_m": 0.0021,
+      "geometry_reliable": true,
+      "coordinate_system_consistent": true,
+      "structure": {
+        "center_world_m": [0.0, 0.0, 0.0],
+        "half_extents_m": [2.0, 0.1, 1.5],
+        "rotation_deg_xyz": [0.0, 0.0, 0.0]
+      },
+      "pipe": {
+        "axis_start_structure_local_m": [0.0, -1.0, 0.0],
+        "axis_end_structure_local_m": [0.0, -0.0979, 0.0],
+        "radius_m": 0.05
+      }
+    },
+    {
+      "case_id": "G3B05",
+      "title": "Three millimetre thin structure is fully pierced",
+      "family": "thin_structure",
+      "expected_status": "CLEAR",
+      "expected_maximum_interior_depth_m": 0.0015,
+      "geometry_reliable": true,
+      "coordinate_system_consistent": true,
+      "structure": {
+        "center_world_m": [0.0, 0.0, 0.0],
+        "half_extents_m": [2.0, 0.0015, 1.5],
+        "rotation_deg_xyz": [0.0, 0.0, 0.0]
+      },
+      "pipe": {
+        "axis_start_structure_local_m": [0.0, -0.5, 0.0],
+        "axis_end_structure_local_m": [0.0, 0.5, 0.0],
+        "radius_m": 0.05
+      }
+    },
+    {
+      "case_id": "G3B06",
+      "title": "Four millimetre thin structure is fully pierced",
+      "family": "thin_structure",
+      "expected_status": "CLEAR",
+      "expected_maximum_interior_depth_m": 0.002,
+      "geometry_reliable": true,
+      "coordinate_system_consistent": true,
+      "structure": {
+        "center_world_m": [0.0, 0.0, 0.0],
+        "half_extents_m": [2.0, 0.002, 1.5],
+        "rotation_deg_xyz": [0.0, 0.0, 0.0]
+      },
+      "pipe": {
+        "axis_start_structure_local_m": [0.0, -0.5, 0.0],
+        "axis_end_structure_local_m": [0.0, 0.5, 0.0],
+        "radius_m": 0.05
+      }
+    },
+    {
+      "case_id": "G3B07",
+      "title": "Four point two millimetre thin structure is fully pierced",
+      "family": "thin_structure",
+      "expected_status": "CLASH",
+      "expected_maximum_interior_depth_m": 0.0021,
+      "geometry_reliable": true,
+      "coordinate_system_consistent": true,
+      "structure": {
+        "center_world_m": [0.0, 0.0, 0.0],
+        "half_extents_m": [2.0, 0.0021, 1.5],
+        "rotation_deg_xyz": [0.0, 0.0, 0.0]
+      },
+      "pipe": {
+        "axis_start_structure_local_m": [0.0, -0.5, 0.0],
+        "axis_end_structure_local_m": [0.0, 0.5, 0.0],
+        "radius_m": 0.05
+      }
+    },
+    {
+      "case_id": "G3B08",
+      "title": "Rotated three millimetre thin structure exposes AABB false precision",
+      "family": "rotated_thin_structure",
+      "expected_status": "CLEAR",
+      "expected_maximum_interior_depth_m": 0.0015,
+      "require_world_aabb_overlap_gt_tolerance": true,
+      "geometry_reliable": true,
+      "coordinate_system_consistent": true,
+      "structure": {
+        "center_world_m": [0.3, -0.2, 0.4],
+        "half_extents_m": [2.0, 0.0015, 1.5],
+        "rotation_deg_xyz": [17.0, 23.0, 37.0]
+      },
+      "pipe": {
+        "axis_start_structure_local_m": [0.0, -0.5, 0.0],
+        "axis_end_structure_local_m": [0.0, 0.5, 0.0],
+        "radius_m": 0.05
+      }
+    },
+    {
+      "case_id": "G3B09",
+      "title": "Rotated oblique pipe crosses the structure centre",
+      "family": "rotated_oblique",
+      "expected_status": "CLASH",
+      "expected_maximum_interior_depth_m": 0.006,
+      "geometry_reliable": true,
+      "coordinate_system_consistent": true,
+      "structure": {
+        "center_world_m": [-0.4, 0.25, 0.6],
+        "half_extents_m": [1.0, 0.006, 0.75],
+        "rotation_deg_xyz": [19.0, -11.0, 31.0]
+      },
+      "pipe": {
+        "axis_start_structure_local_m": [-0.6, -0.2, -0.3],
+        "axis_end_structure_local_m": [0.6, 0.2, 0.3],
+        "radius_m": 0.04
+      }
+    },
+    {
+      "case_id": "G3B10",
+      "title": "Open or non-manifold geometry has no reliable interior",
+      "family": "failure_closed",
+      "expected_status": "NOT_EVALUATED",
+      "expected_maximum_interior_depth_m": null,
+      "geometry_reliable": false,
+      "coordinate_system_consistent": true,
+      "failure_reason": "closed_manifold_interior_not_available"
+    },
+    {
+      "case_id": "G3B11",
+      "title": "Coordinate systems are not demonstrably shared",
+      "family": "failure_closed",
+      "expected_status": "NOT_EVALUATED",
+      "expected_maximum_interior_depth_m": null,
+      "geometry_reliable": true,
+      "coordinate_system_consistent": false,
+      "failure_reason": "shared_project_coordinates_not_verified"
+    },
+    {
+      "case_id": "G3B12",
+      "title": "Skew arrangement lacks a complete analytic certificate",
+      "family": "failure_closed",
+      "expected_status": "NOT_EVALUATED",
+      "expected_maximum_interior_depth_m": null,
+      "geometry_reliable": true,
+      "coordinate_system_consistent": true,
+      "failure_reason": "unsupported_arrangement_requires_mesh_distance_certificate",
+      "structure": {
+        "center_world_m": [0.0, 0.0, 0.0],
+        "half_extents_m": [1.0, 0.1, 0.75],
+        "rotation_deg_xyz": [11.0, 7.0, 29.0]
+      },
+      "pipe": {
+        "axis_start_structure_local_m": [-0.4, -0.3, 0.2],
+        "axis_end_structure_local_m": [0.5, 0.4, 0.25],
+        "radius_m": 0.04
+      }
+    }
+  ]
+}
