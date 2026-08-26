@@ -1,6 +1,6 @@
 # G2 Controlled Dataset, Ground Truth, and Licenses
 
-Status: `TECH_PASS_SYNC_PENDING`. Local G2 data generation, ground-truth validation, and reference comparison pass; the G2 local commit and GitHub web checkpoint are not yet complete.
+Status: `PASS`. Local G2 data generation, ground-truth validation, reference comparison, audited step commit, GitHub web checkpoint, and Chrome verification all pass. The authoritative local step commit is `7da4adfcdaef7729ba52d2a2c98c8741fdcc9c01`; the continuous 11-commit GitHub checkpoint runs from [`d4b974f101348d5707418c4078965dea0d8d7fc2`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/d4b974f101348d5707418c4078965dea0d8d7fc2) through [`4fcc3cd47197a10771f5ce52b2e0a039d6434dc1`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/4fcc3cd47197a10771f5ce52b2e0a039d6434dc1).
 
 ## Dataset contract
 
