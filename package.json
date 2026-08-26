@@ -1,9 +1,9 @@
 {
   "name": "ifc-clashtrace",
-  "version": "0.0.0-g1-spike",
+  "version": "0.0.0-g2-dataset",
   "private": true,
   "type": "module",
-  "description": "Deterministic IFC hard-clash feasibility spike.",
+  "description": "Deterministic IFC hard-clash feasibility and controlled dataset.",
   "scripts": {
     "g1:node": "node scripts/g1-web-ifc-spike.mjs"
   },
