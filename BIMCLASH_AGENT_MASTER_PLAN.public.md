@@ -5,8 +5,8 @@
 > 创建时间：2026-08-25（Asia/Hong_Kong）  
 > 目标完成时间：不晚于 2026-08-31 晚间（Asia/Hong_Kong）  
 > 项目根目录：`<PROJECT_ROOT>`  
-> 当前阶段：G1 技术验收已通过，等待本地提交与 GitHub 网页检查点
-> 当前 Gate：`G1 — 技术可行性（IN_PROGRESS）`
+> 当前阶段：G1 已完整通过；G2 启动前等待项目代码与程序生成 IFC 的公开许可证决定
+> 当前 Gate：`G1 — 技术可行性（PASS）`
 
 ---
 
@@ -620,7 +620,7 @@ IfcOpenShell 参考实现 ─────┤
 
 目标：证明两条几何路线至少有一条可行。
 
-当前状态：`IN_PROGRESS`（技术验收已通过；须完成本地提交、GitHub 网页上传、回查和映射登记后方可转为 `PASS`）。
+当前状态：`PASS`（双路线技术验收、本地步骤提交、GitHub Chrome 网页上传、远程文件树/提交链回查与本地映射登记均已通过）。
 
 必须证明：
 
@@ -1052,6 +1052,7 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 | D-014 | 2026-08-26 | G1 后续浏览器核心暂定 `web-ifc 0.0.77 + three-mesh-bvh 0.9.14`，IfcOpenShell 0.8.5 作为参考路线 | APPROVED_BY_EXISTING_PLAN | Node 与实际 Chrome 均稳定返回已知 GUID 碰撞对，满足 O-002 的 Spike 决策要求；G3 仍须通过完整规则契约 |
 | D-015 | 2026-08-26 | 浏览器 Clash Record 的穿透距离在可靠算法验证前保持 `null` | APPROVED_BY_EXISTING_PLAN | G1 只验证三角表面相交；不把未验证的近似距离冒充精确证据，解决 O-003 |
 | D-016 | 2026-08-26 | 未经用户明确决定，不给项目代码或生成数据擅自授予公开许可证 | GOVERNANCE_ENFORCED | G1 公开检查点排除无许可证生成 IFC；生成器和证据可公开，项目级许可证最迟在 G2 决定 |
+| D-017 | 2026-08-26 | G1 GitHub 检查点采用 Chrome 直接控制、根文件批量上传及真实文件逐层建立目录 | USER_APPROVED | 用户明确建议在线建目录后上传并要求减少 Computer Use；全程未配置 Git 远程，生成 IFC 继续排除 |
 
 ---
 
@@ -1491,6 +1492,46 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 
 ---
 
+### L-0010 — G1 本地步骤提交与 GitHub 网页检查点闭环
+
+**时间：** 2026-08-26 11:55:33 +08:00
+**Gate：** G1 `PASS`
+**目标：** 将已通过技术验收和公开候选审计的 G1 内容固化为本地权威提交，并通过 Chrome GitHub 网页完成公开检查点、回查和映射登记。
+
+**已执行：**
+
+- 形成并回查本地步骤提交 `d262474cc6820c7bae9ba77acea2aa754af5bdd0`，主题为 `step(G1): prove dual geometry feasibility`；提交后工作树干净且 Git 远程数为 0；
+- 按用户明确批准的恢复思路，仅使用 Chrome 直接控制完成 GitHub 网页同步，不再使用 Computer Use；
+- 根目录批量上传 8 个文件；随后用真实文件分别建立 `docs/`、`scripts/` 与 `spikes/g1-browser/`，再在已有目录批量上传其余文件；
+- 共公开 17 个已审计文件；继续排除 `data/generated/g1/`、本地权威总纲、审计脚本、运行时、依赖、缓存和本地输出；
+- 在 GitHub 网页逐层回查根目录及三个子目录，并回查完整提交历史与公开可见性。
+
+**GitHub 提交链：**
+
+1. `1be60cb2f3608703ba0c9334c018041ea88bab3a` — 根目录 8 个 G1 文件；
+2. `5f84159521eb3bb3e6497e195b791a807287de0d` — `docs/g1-feasibility.md`；
+3. `c5ff02ed4c3da7156b85429c7a5a66892a06b882` — `scripts/g1-generate-controlled.py` 与目录建立；
+4. `777d4c05d12c443e5d36ec18d18878bc2f5a6d57` — 其余 5 个 G1 脚本；
+5. `47adbf98628abd85e340a5219b2117f0fbc705f1` — `spikes/g1-browser/index.html` 与目录建立；
+6. `0b338141c33ce3add5f81e6d5251c175a67a074a` — `spikes/g1-browser/app.mjs`，G1 远程检查点最终 SHA。
+
+**网页回查结果：**
+
+- 仓库仍为 `Public`，默认分支仍为 `main`；
+- 根目录存在 `docs`、`scripts`、`spikes/g1-browser` 及全部 8 个预定根文件；
+- `docs` 含 1 个预定文件，`scripts` 含 6 个预定文件，`spikes/g1-browser` 含 2 个预定文件；
+- 公开根目录不存在 `data/`，无生成 IFC 被上传；
+- GitHub 提交历史显示上述 6 个连续 SHA，均位于原 G0A 检查点 `12c78eee68c28ac3dd4bc33ccd437ced9bd6d5b2` 之后；
+- 根文件、批量脚本、文档与最终浏览器逻辑提交均带 G1/本地短 SHA 映射；GitHub 新建文件页的 Copilot 在两个种子文件提交时异步覆盖了已填写标题，分别显示为 `Add IFC model generation script` 与 `Add initial HTML structure for G1 Browser`。该网页行为不改变文件内容、提交 SHA 或连续检查点映射，已作为非阻塞异常保留。
+
+**当前结论：** G1 的技术、本地 Git、公开审计、GitHub 网页同步、远程回查和映射登记全部 `PASS`。
+**下一步：** 不自动开始 G2；先由用户决定 O-009（项目代码与程序生成 IFC 的公开许可证）。
+**需要用户决定：** O-009。
+**对应本地提交：** `d262474cc6820c7bae9ba77acea2aa754af5bdd0`。
+**GitHub 检查点：** `PASS` / `0b338141c33ce3add5f81e6d5251c175a67a074a`（提交链起点 `1be60cb2f3608703ba0c9334c018041ea88bab3a`）。
+
+---
+
 ## 21. 每日状态摘要模板
 
 ```text
@@ -1533,4 +1574,4 @@ GitHub 检查点：URL / 远程 SHA / 上传时间 / 回查结论
 - 暂不批准，继续讨论项目范围；
 - 否决当前方向并重新规划。
 
-用户已明确批准 `0.2.0-draft` 修订稿并指示立即开始。G0A 已完成；用户于 2026-08-26 明确指示开始工作，项目现处于 G1。
+用户已明确批准 `0.2.0-draft` 修订稿并指示立即开始。G0A 与 G1 已完成；G2 在 O-009 许可证决定前不得开始。
