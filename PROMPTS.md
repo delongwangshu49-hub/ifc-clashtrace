@@ -43,3 +43,13 @@ This repository uses AI assistance for implementation planning and code drafting
 - Adopted output: isolated-output generator guards, a frozen contract baseline, a reusable contract checker, eight fail-closed mutation cases, hardened G1/G2 tests, a G3A aggregate suite, and public evidence documentation.
 - Verification: two isolated G2 generations matched all 16 frozen path–SHA-256 entries; G1 and G2 protected hashes and Git state were unchanged; rule, Schema, unit, coordinate-system, tolerance, status, path, and hash mutations were all rejected; G1/G2 reference regressions remained green.
 - Rejected or deferred suggestions: no AABB/tolerance algorithm change, new geometry case, clearance rule, browser engine, formal UI, AI provider, or video artifact was added; those remain governed by later Gates.
+
+## P-005 — G3B tolerance semantics and AABB isolation
+
+- Date: 2026-08-26
+- Goal: validate an interpretable general `2 mm` hard-clash tolerance semantic while preventing the C04 world-axis AABB guard from becoming a general classifier or penetration-distance estimate.
+- Sanitized prompt: implement G3B only; preserve the frozen G2 truth and all G1/G2/G3A/G3A-R1 regressions; restrict the existing AABB guard to C04 by explicit case identity; define a rotation-invariant, auditable tolerance meaning; cover touching, below/equal/above threshold, thin structures, rotated/oblique geometry, and unreliable inputs; fail closed when no sound certificate exists; do not start G3C, the browser core engine, or UI work.
+- Human constraints: `CLASH` requires structure-interior depth strictly greater than `0.002 m`; equality is `CLEAR`; AABB overlap may not classify general geometry or populate penetration distance; browser `penetration_distance_m` remains unavailable until the product implementation is independently validated.
+- Adopted output: a human-authored 12-case analytic fixture set, a structure-erosion/interior-depth proof evaluator, C04-only AABB scoping fields, an aggregate G3B regression test, a publication audit, and bounded-semantics documentation.
+- Verification: `1.9/2.0/2.1 mm` and `3.0/4.0/4.2 mm` thresholds matched; rotated thin geometry produced `1.5 mm` certified depth despite about `365 mm` world-AABB overlap; a rotated oblique centre crossing produced `6 mm` depth; three unreliable/unsupported cases returned `NOT_EVALUATED`; all prior regressions remained green.
+- Rejected or deferred suggestions: no AABB-derived product status, approximate browser penetration field, general unsupported-mesh claim, 50 mm clearance implementation, G3 engine, formal UI, AI provider, or video artifact was added.
