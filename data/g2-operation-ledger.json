@@ -1,0 +1,251 @@
+{
+  "dataset_id": "IFC_CLASHTRACE_CONTROLLED_G2_V1",
+  "version": "1.0.0",
+  "rule_id": "MEP_STRUCTURE_HARD_CLASH_V1",
+  "schema": "IFC4",
+  "length_unit": "metre",
+  "coordinate_system": "shared_project_coordinates",
+  "tolerance_m": 0.002,
+  "license_spdx_or_name": "CC0-1.0",
+  "attribution": "IFC ClashTrace contributors (optional under CC0-1.0)",
+  "ground_truth_method": "Human-authored constructive geometry operations; detector output is not used to define expected status.",
+  "evaluation_split": {
+    "name": "public_acceptance",
+    "case_ids": ["C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08"],
+    "holdout": false,
+    "limitation": "All eight cases are public and may be used during development. Results are contract acceptance evidence, not an unbiased generalization estimate."
+  },
+  "cases": [
+    {
+      "case_id": "C01",
+      "title": "Pipe pierces wall above tolerance",
+      "expected_status": "CLASH",
+      "expected_clash_type": "pierce",
+      "ground_truth_basis": "The pipe axis crosses the full 0.2 m wall thickness; intrusion is far above the 0.002 m tolerance.",
+      "expected_location_m": [2.0, 0.1, 1.5],
+      "mep": {
+        "guid_seed": "C01-pipe",
+        "name": "C01 Piercing Pipe",
+        "representation_present": true,
+        "axis_start_m": [2.0, -1.0, 1.5],
+        "axis_direction": [0.0, 1.0, 0.0],
+        "profile_x_axis": [1.0, 0.0, 0.0],
+        "length_m": 2.0,
+        "radius_m": 0.1
+      },
+      "structure": {
+        "guid_seed": "C01-wall",
+        "entity_type": "IfcWall",
+        "name": "C01 Solid Wall",
+        "kind": "solid_box",
+        "origin_m": [0.0, 0.0, 0.0],
+        "length_m": 4.0,
+        "thickness_m": 0.2,
+        "height_m": 3.0
+      }
+    },
+    {
+      "case_id": "C02",
+      "title": "Pipe pierces beam above tolerance",
+      "expected_status": "CLASH",
+      "expected_clash_type": "pierce",
+      "ground_truth_basis": "The pipe axis crosses the full 0.4 m beam depth; intrusion is far above the 0.002 m tolerance.",
+      "expected_location_m": [2.0, 0.2, 1.5],
+      "mep": {
+        "guid_seed": "C02-pipe",
+        "name": "C02 Piercing Pipe",
+        "representation_present": true,
+        "axis_start_m": [2.0, -1.0, 1.5],
+        "axis_direction": [0.0, 1.0, 0.0],
+        "profile_x_axis": [1.0, 0.0, 0.0],
+        "length_m": 2.0,
+        "radius_m": 0.1
+      },
+      "structure": {
+        "guid_seed": "C02-beam",
+        "entity_type": "IfcBeam",
+        "name": "C02 Solid Beam",
+        "kind": "solid_box",
+        "origin_m": [0.0, 0.0, 1.3],
+        "length_m": 4.0,
+        "thickness_m": 0.4,
+        "height_m": 0.4
+      }
+    },
+    {
+      "case_id": "C03",
+      "title": "Pipe cap exactly touches wall face",
+      "expected_status": "CLEAR",
+      "expected_clash_type": null,
+      "ground_truth_basis": "The pipe ends at y=0.0 and only touches the wall face; touching is excluded from hard clashes.",
+      "expected_location_m": null,
+      "mep": {
+        "guid_seed": "C03-pipe",
+        "name": "C03 Touching Pipe",
+        "representation_present": true,
+        "axis_start_m": [2.0, -1.0, 1.5],
+        "axis_direction": [0.0, 1.0, 0.0],
+        "profile_x_axis": [1.0, 0.0, 0.0],
+        "length_m": 1.0,
+        "radius_m": 0.1
+      },
+      "structure": {
+        "guid_seed": "C03-wall",
+        "entity_type": "IfcWall",
+        "name": "C03 Touch Target Wall",
+        "kind": "solid_box",
+        "origin_m": [0.0, 0.0, 0.0],
+        "length_m": 4.0,
+        "thickness_m": 0.2,
+        "height_m": 3.0
+      }
+    },
+    {
+      "case_id": "C04",
+      "title": "Pipe intrudes one millimetre into wall",
+      "expected_status": "CLEAR",
+      "expected_clash_type": null,
+      "ground_truth_basis": "The pipe cap reaches y=0.001 m, giving 0.001 m intrusion, below the 0.002 m tolerance.",
+      "expected_location_m": null,
+      "mep": {
+        "guid_seed": "C04-pipe",
+        "name": "C04 Sub-tolerance Pipe",
+        "representation_present": true,
+        "axis_start_m": [2.0, -1.0, 1.5],
+        "axis_direction": [0.0, 1.0, 0.0],
+        "profile_x_axis": [1.0, 0.0, 0.0],
+        "length_m": 1.001,
+        "radius_m": 0.1
+      },
+      "structure": {
+        "guid_seed": "C04-wall",
+        "entity_type": "IfcWall",
+        "name": "C04 Tolerance Wall",
+        "kind": "solid_box",
+        "origin_m": [0.0, 0.0, 0.0],
+        "length_m": 4.0,
+        "thickness_m": 0.2,
+        "height_m": 3.0
+      }
+    },
+    {
+      "case_id": "C05",
+      "title": "Pipe remains separated from wall",
+      "expected_status": "CLEAR",
+      "expected_clash_type": null,
+      "ground_truth_basis": "The pipe ends at y=-0.2 m, leaving a 0.2 m gap to the wall face.",
+      "expected_location_m": null,
+      "mep": {
+        "guid_seed": "C05-pipe",
+        "name": "C05 Clear Pipe",
+        "representation_present": true,
+        "axis_start_m": [2.0, -1.0, 1.5],
+        "axis_direction": [0.0, 1.0, 0.0],
+        "profile_x_axis": [1.0, 0.0, 0.0],
+        "length_m": 0.8,
+        "radius_m": 0.1
+      },
+      "structure": {
+        "guid_seed": "C05-wall",
+        "entity_type": "IfcWall",
+        "name": "C05 Clear Wall",
+        "kind": "solid_box",
+        "origin_m": [0.0, 0.0, 0.0],
+        "length_m": 4.0,
+        "thickness_m": 0.2,
+        "height_m": 3.0
+      }
+    },
+    {
+      "case_id": "C06",
+      "title": "Pipe passes through modeled wall opening",
+      "expected_status": "CLEAR",
+      "expected_clash_type": null,
+      "ground_truth_basis": "A 0.5 m square opening fully surrounds the 0.2 m diameter pipe through the wall.",
+      "expected_location_m": null,
+      "mep": {
+        "guid_seed": "C06-pipe",
+        "name": "C06 Opening Pipe",
+        "representation_present": true,
+        "axis_start_m": [2.0, -1.0, 1.5],
+        "axis_direction": [0.0, 1.0, 0.0],
+        "profile_x_axis": [1.0, 0.0, 0.0],
+        "length_m": 2.0,
+        "radius_m": 0.1
+      },
+      "structure": {
+        "guid_seed": "C06-wall",
+        "entity_type": "IfcWall",
+        "name": "C06 Wall With Opening",
+        "kind": "wall_with_opening",
+        "origin_m": [0.0, 0.0, 0.0],
+        "length_m": 4.0,
+        "thickness_m": 0.2,
+        "height_m": 3.0,
+        "opening": {
+          "guid_seed": "C06-opening",
+          "origin_m": [1.75, -0.05, 1.25],
+          "length_m": 0.5,
+          "thickness_m": 0.3,
+          "height_m": 0.5
+        }
+      }
+    },
+    {
+      "case_id": "C07",
+      "title": "Diagonal pipe pierces wall",
+      "expected_status": "CLASH",
+      "expected_clash_type": "pierce",
+      "ground_truth_basis": "The pipe axis crosses the wall diagonally in plan and traverses the full wall thickness.",
+      "expected_location_m": [1.6, 0.1, 1.5],
+      "mep": {
+        "guid_seed": "C07-pipe",
+        "name": "C07 Diagonal Pipe",
+        "representation_present": true,
+        "axis_start_m": [1.0, -0.5, 1.5],
+        "axis_direction": [0.7071067811865476, 0.7071067811865476, 0.0],
+        "profile_x_axis": [0.0, 0.0, 1.0],
+        "length_m": 2.0,
+        "radius_m": 0.1
+      },
+      "structure": {
+        "guid_seed": "C07-wall",
+        "entity_type": "IfcWall",
+        "name": "C07 Diagonal Target Wall",
+        "kind": "solid_box",
+        "origin_m": [0.0, 0.0, 0.0],
+        "length_m": 4.0,
+        "thickness_m": 0.2,
+        "height_m": 3.0
+      }
+    },
+    {
+      "case_id": "C08",
+      "title": "Pipe has no geometric representation",
+      "expected_status": "NOT_EVALUATED",
+      "expected_clash_type": null,
+      "ground_truth_basis": "The IfcPipeSegment intentionally has no Representation and must not be classified CLEAR.",
+      "expected_location_m": null,
+      "mep": {
+        "guid_seed": "C08-pipe",
+        "name": "C08 Missing Geometry Pipe",
+        "representation_present": false,
+        "axis_start_m": [2.0, -1.0, 1.5],
+        "axis_direction": [0.0, 1.0, 0.0],
+        "profile_x_axis": [1.0, 0.0, 0.0],
+        "length_m": 2.0,
+        "radius_m": 0.1
+      },
+      "structure": {
+        "guid_seed": "C08-wall",
+        "entity_type": "IfcWall",
+        "name": "C08 Evaluation Wall",
+        "kind": "solid_box",
+        "origin_m": [0.0, 0.0, 0.0],
+        "length_m": 4.0,
+        "thickness_m": 0.2,
+        "height_m": 3.0
+      }
+    }
+  ]
+}
