@@ -5,8 +5,8 @@
 > 创建时间：2026-08-25（Asia/Hong_Kong）  
 > 目标完成时间：不晚于 2026-08-31 晚间（Asia/Hong_Kong）  
 > 项目根目录：`<PROJECT_ROOT>`  
-> 当前阶段：G3A 契约测试技术验收已通过，等待本地步骤提交与 Chrome GitHub 网页检查点闭环
-> 当前 Gate：`G3A — 契约测试加固（TECH_PASS_SYNC_BLOCKED）`；`G3 — 核心检测引擎（BLOCKED_BY_G3A_G3B_G3C）`
+> 当前阶段：G3A 契约测试加固已完成并通过本地与 Chrome GitHub 网页闭环；等待用户决定是否继续 G3B
+> 当前 Gate：`G3A — 契约测试加固（PASS）`；`G3 — 核心检测引擎（BLOCKED_BY_G3B_G3C）`
 
 ---
 
@@ -708,7 +708,7 @@ G2 的上述 8 个案例保持冻结。G3C 另建不改写 G2 真值的净距补
 
 目标：关闭 G2 全量审计发现的“测试可能通过再生成掩盖契约漂移”风险，建立可信的 G3 验收基线。
 
-当前状态：`TECH_PASS_SYNC_BLOCKED`（隔离生成、冻结路径—SHA、精确契约断言、8 类突变负向测试及 G1/G2 回归已本地通过；待步骤提交与 Chrome GitHub 网页同步闭环）。
+当前状态：`PASS`（隔离生成、冻结路径—SHA、精确契约断言、8 类突变负向测试、G1/G2 回归、本地步骤提交及 Chrome GitHub 网页同步闭环均已通过）。
 
 必须完成：
 
@@ -2035,7 +2035,7 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 
 **时间：** 2026-08-26 15:58（Asia/Hong_Kong）
 
-**Gate：** G3A `TECH_PASS_SYNC_BLOCKED`；G3B/G3C `NOT_STARTED`；G3 `BLOCKED`
+**Gate：** G3A `PASS`；G3B/G3C `NOT_STARTED`；G3 `BLOCKED`
 
 **目标：** 关闭测试原位再生成可能掩盖已提交基线漂移的风险，建立独立、精确、可突变验证的 G3 验收基线。
 
@@ -2065,19 +2065,19 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 - 8/8 契约突变均以预期的字段级诊断失败；
 - Python 语法检查与 `pip check` 通过；没有依赖或许可证变化。
 
-**失败和异常：** 无阻塞性失败；首次实现复跑即通过，未发生基线回写、真值修正或失败后的 GitHub 重试。
+**失败和异常：** 无阻塞性失败；首次实现复跑即通过，未发生基线回写、真值修正或失败后的 GitHub 重试。网页回查中一次只读定位因同名链接产生严格模式歧义、一次本地只读 JavaScript 匹配表达式有语法错误，修正定位/表达式后通过，均未产生远端副作用。
 
 **隐私/许可证影响：** 新增内容只引用仓库相对路径和程序生成数据；公开候选不含本地绝对路径、个人邮箱、凭据或外部/私人 IFC。代码继续使用 MIT，冻结基线继续描述 CC0-1.0 的项目生成数据。
 
-**当前结论：** G3A 技术验收 `PASS`；按步骤完成通用协议，在本地步骤提交、Chrome GitHub 网页上传、网页回查与映射登记完成前保持 `TECH_PASS_SYNC_BLOCKED`。
+**当前结论：** G3A `PASS`。本地实现提交、专项审计、Chrome GitHub 网页上传、网页回查与路径—SHA/提交链映射均已通过；G3 仍由尚未开始的 G3B/G3C 阻断。
 
-**下一步：** 完成 G3A 专项公开候选审计与本地步骤提交；随后只通过用户已登录的 Chrome GitHub 网页形成检查点并回查。不得开始 G3B、G3C、G3 或正式 UI。
+**下一步：** 明确停止并等待用户决定是否继续 G3B；不得自动开始 G3B、G3C、G3 或正式 UI。
 
 **需要用户决定：** 无。
 
-**对应本地提交：** 待形成。
+**对应本地提交：** `d0ad55528c5e95148c3facfcc924543f23028ef4`（`step(G3A): harden frozen contract tests`）。
 
-**GitHub 检查点：** 待执行。
+**GitHub 技术检查点：** 根文档 [`c12c654a2842aab2f7dc84bf7c1b85e1e2101f53`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/c12c654a2842aab2f7dc84bf7c1b85e1e2101f53) → 契约测试脚本 [`2c980a8e5542de50349d3406fb3d59d5eb24bce2`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/2c980a8e5542de50349d3406fb3d59d5eb24bce2) → 证据文档 [`fc0a7c28580121a30d1694aef7a18a665c5ec924`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/fc0a7c28580121a30d1694aef7a18a665c5ec924) → 冻结基线 [`c0b8ff3eed8b1f7394a164b9f9a825544f83d618`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/c0b8ff3eed8b1f7394a164b9f9a825544f83d618)，2026-08-26 16:06–16:10 +08:00；Chrome 已核验 `Public/main`、连续父提交、关键契约、16 条唯一路径—SHA、8 案例状态、公开脚本集合及 `audit-g3a.ps1` 未公开。PASS 状态与台账映射通过后续同步尾部发布，并按自引用闭合规则在本地空提交中登记其最终 SHA。
 
 ---
 
@@ -2123,4 +2123,4 @@ GitHub 检查点：URL / 远程 SHA / 上传时间 / 回查结论
 - 暂不批准，继续讨论项目范围；
 - 否决当前方向并重新规划。
 
-用户已明确批准原 `0.2.0-draft` 并启动项目，随后又明确批准本次功能与展示范围扩展。G0A、G1 与 G2 已完成；0.3.0 已将 G3C、G4AI、VG 及细化视频流程纳入计划。当前停止在计划修订边界，等待用户下一指令，不自动开始 G3A、G3B、G3C 或 G3。
+用户已明确批准原 `0.2.0-draft` 并启动项目，随后又明确批准本次功能与展示范围扩展。G0A、G1、G2 与 G3A 已完成；0.3.0 已将 G3C、G4AI、VG 及细化视频流程纳入计划。当前停止在 G3A 完成边界，等待用户决定是否继续 G3B，不自动开始 G3B、G3C 或 G3。
