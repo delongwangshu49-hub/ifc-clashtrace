@@ -1688,6 +1688,7 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 - 形成权威本地步骤提交 `step(G2): freeze controlled dataset and ground truth`，完整 SHA 为 `7da4adfcdaef7729ba52d2a2c98c8741fdcc9c01`；
 - 提交后工作树洁净、Git 远程数仍为 `0`，G1 回归、G2 专项测试、确定性再生成、清单哈希、8/8 真值匹配、失败闭合、公开候选审计和依赖审计全部复验通过；
 - 经用户明确确认后，仅通过已登录 Chrome GitHub 网页在 `main` 上建立连续 11 提交检查点；远程范围从 `d4b974f101348d5707418c4078965dea0d8d7fc2` 到 `4fcc3cd47197a10771f5ce52b2e0a039d6434dc1`，每个提交标题均含 `G2` 与本地短 SHA `7da4adf`；
+- G2 转为 `PASS` 的公开总纲、公开同步台账与数据证据由本地同步提交 `c6765d54ffbc776cb82576867ae93846c851e118` 映射到连续网页证据尾链 `b19235fc35d7dc3d41f10d1c1b50f94bff387c43` → `1fb4dee9a2dda1396b3ddf8fdf6bbc21d575f7c4` → `822a86bb2ca49e02a34175fb74038ba62b4c0562`；
 - Chrome 回查确认仓库仍为 `Public`，许可证、根文档、脚本、清单、操作台账、机器真值、生成数据许可证、历史 G1 生成夹具和 16 个 G2 IFC 均存在；G2 目录恰含 C01–C08 的 MEP/结构成对文件；
 - 对 GitHub 大文件代码页的按需渲染假阴性改用同页 `file content` 文本框完整值复核，确认清单末尾 `c08-structure.ifc` 与真值中的 `NOT_EVALUATED` 实际存在；README 渲染页确认 G2 复现、MIT 和 CC0-1.0 说明存在；
 - 未使用 `gh`、GitHub API、命令行远程、`origin` 或任何本地 Git 远程配置，未进入 G3、Design Gate 或正式 UI/视觉设计。
@@ -1698,7 +1699,7 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 - 生成 IFC：`16`；确定性再生成：`PASS`；清单 SHA-256：`PASS`；
 - 参考结果与真值：`8/8`；失败闭合：`PASS`；
 - 公开候选：`46` 个文件；绝对路径、个人邮箱、凭证命中均为 `0`；大于 1 MiB 文件为 `0`；外部数据为 `0`；
-- GitHub G2 检查点：连续 `11` 个网页提交，最终远程 SHA `4fcc3cd47197a10771f5ce52b2e0a039d6434dc1`。
+- GitHub G2 技术/数据检查点：连续 `11` 个网页提交；PASS 证据尾链：连续 `3` 个网页提交；最终远程 SHA `822a86bb2ca49e02a34175fb74038ba62b4c0562`。
 
 **当前结论：** G2 本地技术、治理、许可证、数据、提交与 GitHub 网页同步全部 `PASS`，Gate 可从 `IN_PROGRESS` 转为 `PASS`。
 **下一步：** 停止在 G2 边界并等待用户下一指令；不得自动开始 G3。
