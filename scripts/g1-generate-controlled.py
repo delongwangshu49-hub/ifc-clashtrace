@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 import uuid
@@ -16,8 +17,7 @@ import numpy as np
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-OUTPUT_DIRECTORY = PROJECT_ROOT / "data" / "generated" / "g1"
-MANIFEST_PATH = OUTPUT_DIRECTORY / "manifest.json"
+DEFAULT_OUTPUT_ROOT = PROJECT_ROOT / "outputs" / "local-only" / "g1-generation"
 
 PIPE_GUID = ifcopenshell.guid.compress(uuid.UUID("11111111-1111-4111-8111-111111111111").hex)
 WALL_GUID = ifcopenshell.guid.compress(uuid.UUID("22222222-2222-4222-8222-222222222222").hex)
@@ -121,10 +121,37 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Generate the deterministic G1 fixture beneath an isolated output root."
+    )
+    parser.add_argument(
+        "--output-root",
+        type=Path,
+        default=DEFAULT_OUTPUT_ROOT,
+        help="Root that will receive data/generated/g1 (defaults to an ignored local-only directory).",
+    )
+    parser.add_argument(
+        "--allow-baseline-write",
+        action="store_true",
+        help="Required when --output-root is the repository root; never used by tests.",
+    )
+    return parser.parse_args()
+
+
 def main() -> None:
-    OUTPUT_DIRECTORY.mkdir(parents=True, exist_ok=True)
-    mep_path = OUTPUT_DIRECTORY / "g1-mep.ifc"
-    structure_path = OUTPUT_DIRECTORY / "g1-structure.ifc"
+    args = parse_args()
+    output_root = args.output_root.resolve()
+    if output_root == PROJECT_ROOT and not args.allow_baseline_write:
+        raise SystemExit(
+            "Refusing to overwrite the committed G1 baseline without --allow-baseline-write."
+        )
+
+    output_directory = output_root / "data" / "generated" / "g1"
+    manifest_path = output_directory / "manifest.json"
+    output_directory.mkdir(parents=True, exist_ok=True)
+    mep_path = output_directory / "g1-mep.ifc"
+    structure_path = output_directory / "g1-structure.ifc"
 
     create_mep_model().write(mep_path)
     create_structure_model().write(structure_path)
@@ -152,7 +179,7 @@ def main() -> None:
             {"role": "structure", "path": "data/generated/g1/g1-structure.ifc", "sha256": sha256(structure_path)},
         ],
     }
-    MANIFEST_PATH.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+    manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(manifest, indent=2))
 
 

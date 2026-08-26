@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 import math
@@ -20,9 +21,7 @@ import numpy as np
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 LEDGER_PATH = PROJECT_ROOT / "data" / "g2-operation-ledger.json"
-OUTPUT_DIRECTORY = PROJECT_ROOT / "data" / "generated" / "g2"
-GROUND_TRUTH_PATH = PROJECT_ROOT / "data" / "ground-truth" / "g2-ground-truth.json"
-MANIFEST_PATH = PROJECT_ROOT / "data" / "dataset-manifest.json"
+DEFAULT_OUTPUT_ROOT = PROJECT_ROOT / "outputs" / "local-only" / "g2-generation"
 GUID_NAMESPACE = uuid.UUID("5b593a5e-6730-40b5-8548-181e14cb7d6c")
 HEADER_TIMESTAMP = "2026-08-26T00:00:00+08:00"
 
@@ -158,8 +157,8 @@ def create_mep_model(case: dict[str, Any]) -> tuple[ifcopenshell.file, str]:
     return model, pipe.GlobalId
 
 
-def relative_posix(path: Path) -> str:
-    return path.relative_to(PROJECT_ROOT).as_posix()
+def relative_posix(path: Path, output_root: Path) -> str:
+    return path.relative_to(output_root).as_posix()
 
 
 def build_record(
@@ -205,17 +204,45 @@ def build_record(
     }
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Generate the deterministic G2 dataset beneath an isolated output root."
+    )
+    parser.add_argument(
+        "--output-root",
+        type=Path,
+        default=DEFAULT_OUTPUT_ROOT,
+        help="Root that will receive data/generated/g2 and generated JSON evidence.",
+    )
+    parser.add_argument(
+        "--allow-baseline-write",
+        action="store_true",
+        help="Required when --output-root is the repository root; never used by tests.",
+    )
+    return parser.parse_args()
+
+
 def main() -> None:
+    args = parse_args()
+    output_root = args.output_root.resolve()
+    if output_root == PROJECT_ROOT and not args.allow_baseline_write:
+        raise SystemExit(
+            "Refusing to overwrite the committed G2 baseline without --allow-baseline-write."
+        )
+
+    output_directory = output_root / "data" / "generated" / "g2"
+    ground_truth_path = output_root / "data" / "ground-truth" / "g2-ground-truth.json"
+    manifest_path = output_root / "data" / "dataset-manifest.json"
     ledger = json.loads(LEDGER_PATH.read_text(encoding="utf-8"))
-    OUTPUT_DIRECTORY.mkdir(parents=True, exist_ok=True)
-    GROUND_TRUTH_PATH.parent.mkdir(parents=True, exist_ok=True)
+    output_directory.mkdir(parents=True, exist_ok=True)
+    ground_truth_path.parent.mkdir(parents=True, exist_ok=True)
 
     records: list[dict[str, Any]] = []
     manifest_cases: list[dict[str, Any]] = []
     for case in ledger["cases"]:
         case_id = case["case_id"]
-        mep_path = OUTPUT_DIRECTORY / f"{case_id.lower()}-mep.ifc"
-        structure_path = OUTPUT_DIRECTORY / f"{case_id.lower()}-structure.ifc"
+        mep_path = output_directory / f"{case_id.lower()}-mep.ifc"
+        structure_path = output_directory / f"{case_id.lower()}-structure.ifc"
         mep_model, pipe_guid = create_mep_model(case)
         structure_model, structure_guid = create_structure_model(case)
         mep_model.write(mep_path)
@@ -238,12 +265,12 @@ def main() -> None:
                 "files": [
                     {
                         "role": "mep",
-                        "path": relative_posix(mep_path),
+                        "path": relative_posix(mep_path, output_root),
                         "file_sha256": sha256(mep_path),
                     },
                     {
                         "role": "structure",
-                        "path": relative_posix(structure_path),
+                        "path": relative_posix(structure_path, output_root),
                         "file_sha256": sha256(structure_path),
                     },
                 ],
@@ -254,7 +281,7 @@ def main() -> None:
         "dataset_id": ledger["dataset_id"],
         "version": ledger["version"],
         "rule_id": ledger["rule_id"],
-        "source_of_truth": relative_posix(LEDGER_PATH),
+        "source_of_truth": "data/g2-operation-ledger.json",
         "license_spdx_or_name": ledger["license_spdx_or_name"],
         "evaluation_split": ledger["evaluation_split"],
         "records": records,
@@ -268,8 +295,8 @@ def main() -> None:
         "case_count": len(manifest_cases),
         "cases": manifest_cases,
     }
-    GROUND_TRUTH_PATH.write_text(json.dumps(ground_truth, indent=2) + "\n", encoding="utf-8")
-    MANIFEST_PATH.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+    ground_truth_path.write_text(json.dumps(ground_truth, indent=2) + "\n", encoding="utf-8")
+    manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"case_count": len(records), "status_counts": status_counts(records)}, indent=2))
 
 

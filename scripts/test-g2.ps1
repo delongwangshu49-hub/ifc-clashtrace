@@ -17,23 +17,56 @@ if (-not (Test-Path -LiteralPath $pythonExe -PathType Leaf)) {
     throw "Missing project Python environment. Run scripts/setup-g1.ps1 first."
 }
 
-function Get-G2ArtifactHashes {
-    $paths = @(
-        Get-ChildItem -LiteralPath "data/generated/g2" -File -Filter "*.ifc" | Sort-Object Name | Select-Object -ExpandProperty FullName
-        (Resolve-Path -LiteralPath "data/dataset-manifest.json").Path
-        (Resolve-Path -LiteralPath "data/ground-truth/g2-ground-truth.json").Path
-    )
-    return @($paths | ForEach-Object { (Get-FileHash -LiteralPath $_ -Algorithm SHA256).Hash.ToLowerInvariant() })
+function Get-GitWorktreeState {
+    $state = @(git status --porcelain=v1 --untracked-files=all)
+    if ($LASTEXITCODE -ne 0) { throw "Unable to read Git worktree state." }
+    return $state -join "`n"
 }
 
-& $pythonExe ".\scripts\g2-generate-controlled.py" | Out-Null
-if ($LASTEXITCODE -ne 0) { throw "G2 controlled dataset generation failed." }
-$firstGenerationHashes = Get-G2ArtifactHashes
-& $pythonExe ".\scripts\g2-generate-controlled.py" | Out-Null
-if ($LASTEXITCODE -ne 0) { throw "G2 controlled dataset regeneration failed." }
-$secondGenerationHashes = Get-G2ArtifactHashes
-if (Compare-Object -ReferenceObject $firstGenerationHashes -DifferenceObject $secondGenerationHashes) {
-    throw "G2 dataset generation is not byte-for-byte deterministic."
+function Get-PathHashMapping([string[]]$Paths) {
+    $mapping = [ordered]@{}
+    foreach ($path in $Paths) {
+        $mapping[$path] = (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant()
+    }
+    return ($mapping | ConvertTo-Json -Compress)
+}
+
+$frozenBaselinePath = "data/ground-truth/g2-frozen-baseline.json"
+$frozenBaseline = Get-Content -LiteralPath $frozenBaselinePath -Raw | ConvertFrom-Json
+$baselineIfcPaths = @(
+    $frozenBaseline.cases |
+        ForEach-Object { $_.files.mep.path; $_.files.structure.path }
+)
+$protectedBaselinePaths = @(
+    $baselineIfcPaths
+    "data/g2-operation-ledger.json"
+    "data/dataset-manifest.json"
+    "data/ground-truth/g2-ground-truth.json"
+    $frozenBaselinePath
+)
+$gitStateBefore = Get-GitWorktreeState
+$baselineHashesBefore = Get-PathHashMapping $protectedBaselinePaths
+$isolatedParent = Join-Path $projectRoot "outputs/local-only/g3a-tests/g2"
+$runOne = Join-Path $isolatedParent "run-1"
+$runTwo = Join-Path $isolatedParent "run-2"
+
+& $pythonExe ".\scripts\g2-generate-controlled.py" --output-root $runOne | Out-Null
+if ($LASTEXITCODE -ne 0) { throw "G2 isolated controlled dataset generation failed." }
+& $pythonExe ".\scripts\g2-generate-controlled.py" --output-root $runTwo | Out-Null
+if ($LASTEXITCODE -ne 0) { throw "G2 second isolated controlled dataset generation failed." }
+
+foreach ($validationRoot in @($projectRoot, $runOne, $runTwo)) {
+    $validationManifest = Join-Path $validationRoot "data/dataset-manifest.json"
+    $validationTruth = Join-Path $validationRoot "data/ground-truth/g2-ground-truth.json"
+    & $pythonExe ".\scripts\g3a-contract-check.py" `
+        --baseline $frozenBaselinePath `
+        --ledger "data/g2-operation-ledger.json" `
+        --manifest $validationManifest `
+        --ground-truth $validationTruth `
+        --artifact-root $validationRoot | Out-Null
+    if ($LASTEXITCODE -ne 0) {
+        throw "G3A contract validation failed for $validationRoot."
+    }
 }
 
 $ledger = Get-Content -LiteralPath "data/g2-operation-ledger.json" -Raw | ConvertFrom-Json
@@ -144,11 +177,24 @@ if ($referenceByCase.C08.observed_status -ne "NOT_EVALUATED" -or
     throw "C08 must fail closed with an explicit missing-MEP-geometry diagnostic."
 }
 
+$baselineHashesAfter = Get-PathHashMapping $protectedBaselinePaths
+$gitStateAfter = Get-GitWorktreeState
+if ($baselineHashesAfter -cne $baselineHashesBefore) {
+    throw "G2 committed baseline changed while tests were running."
+}
+if ($gitStateAfter -cne $gitStateBefore) {
+    throw "G2 Git worktree state changed while tests were running."
+}
+
 Write-Output "G2_CASE_COUNT=$($groundTruth.records.Count)"
 Write-Output "G2_STATUS_COUNTS=CLASH:$($statusCounts.CLASH),CLEAR:$($statusCounts.CLEAR),NOT_EVALUATED:$($statusCounts.NOT_EVALUATED)"
 Write-Output "G2_GENERATED_IFC_COUNT=$(@(Get-ChildItem -LiteralPath 'data/generated/g2' -File -Filter '*.ifc').Count)"
-Write-Output "G2_DETERMINISTIC_REGENERATION=PASS"
+Write-Output "G2_ISOLATED_DETERMINISTIC_REGENERATION=PASS"
 Write-Output "G2_MANIFEST_HASHES=PASS"
+Write-Output "G2_PATH_SHA256_MAPPING=PASS"
+Write-Output "G2_APPROVED_CONTRACT=PASS"
+Write-Output "G2_BASELINE_HASHES_UNCHANGED=PASS"
+Write-Output "G2_GIT_WORKTREE_UNCHANGED=PASS"
 Write-Output "G2_REFERENCE_MATCH=8/8"
 Write-Output "G2_FAILURE_CLOSED=PASS"
 Write-Output "G2_LOCAL_TEST=PASS"

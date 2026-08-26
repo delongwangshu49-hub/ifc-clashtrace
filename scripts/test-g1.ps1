@@ -21,20 +21,45 @@ if (-not (Test-Path -LiteralPath $nodeExe -PathType Leaf)) {
     throw "Missing project Node.js runtime. Run scripts/setup-g1.ps1 first."
 }
 
-& $pythonExe ".\scripts\g1-generate-controlled.py" | Out-Null
-if ($LASTEXITCODE -ne 0) { throw "G1 controlled model generation failed." }
-$firstGenerationHashes = @(
-    (Get-FileHash -LiteralPath "data/generated/g1/g1-mep.ifc" -Algorithm SHA256).Hash
-    (Get-FileHash -LiteralPath "data/generated/g1/g1-structure.ifc" -Algorithm SHA256).Hash
+function Get-GitWorktreeState {
+    $state = @(git status --porcelain=v1 --untracked-files=all)
+    if ($LASTEXITCODE -ne 0) { throw "Unable to read Git worktree state." }
+    return $state -join "`n"
+}
+
+function Get-PathHashMapping([string[]]$Paths) {
+    $mapping = [ordered]@{}
+    foreach ($path in $Paths) {
+        $mapping[$path] = (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant()
+    }
+    return ($mapping | ConvertTo-Json -Compress)
+}
+
+$baselinePaths = @(
+    "data/generated/g1/g1-mep.ifc"
+    "data/generated/g1/g1-structure.ifc"
+    "data/generated/g1/manifest.json"
 )
-& $pythonExe ".\scripts\g1-generate-controlled.py" | Out-Null
-if ($LASTEXITCODE -ne 0) { throw "G1 controlled model regeneration failed." }
-$secondGenerationHashes = @(
-    (Get-FileHash -LiteralPath "data/generated/g1/g1-mep.ifc" -Algorithm SHA256).Hash
-    (Get-FileHash -LiteralPath "data/generated/g1/g1-structure.ifc" -Algorithm SHA256).Hash
-)
-if (Compare-Object -ReferenceObject $firstGenerationHashes -DifferenceObject $secondGenerationHashes) {
-    throw "G1 controlled model generation is not byte-for-byte deterministic."
+$gitStateBefore = Get-GitWorktreeState
+$baselineHashesBefore = Get-PathHashMapping $baselinePaths
+$isolatedParent = Join-Path $projectRoot "outputs/local-only/g3a-tests/g1"
+$runOne = Join-Path $isolatedParent "run-1"
+$runTwo = Join-Path $isolatedParent "run-2"
+
+& $pythonExe ".\scripts\g1-generate-controlled.py" --output-root $runOne | Out-Null
+if ($LASTEXITCODE -ne 0) { throw "G1 isolated controlled model generation failed." }
+& $pythonExe ".\scripts\g1-generate-controlled.py" --output-root $runTwo | Out-Null
+if ($LASTEXITCODE -ne 0) { throw "G1 second isolated controlled model generation failed." }
+
+$committedManifest = Get-Content -LiteralPath "data/generated/g1/manifest.json" -Raw | ConvertFrom-Json
+foreach ($file in $committedManifest.files) {
+    $runOnePath = Join-Path $runOne $file.path
+    $runTwoPath = Join-Path $runTwo $file.path
+    $runOneHash = (Get-FileHash -LiteralPath $runOnePath -Algorithm SHA256).Hash.ToLowerInvariant()
+    $runTwoHash = (Get-FileHash -LiteralPath $runTwoPath -Algorithm SHA256).Hash.ToLowerInvariant()
+    if ($runOneHash -ne $file.sha256 -or $runTwoHash -ne $file.sha256) {
+        throw "G1 isolated generation differs from the committed path-SHA baseline for $($file.path)."
+    }
 }
 & $pythonExe ".\scripts\g1-reference-spike.py" | Out-Null
 if ($LASTEXITCODE -ne 0) { throw "G1 IfcOpenShell reference spike failed." }
@@ -73,9 +98,21 @@ if (-not $webIfc.guid_mapping_complete) {
     throw "web-ifc GUID mapping is incomplete."
 }
 
+$baselineHashesAfter = Get-PathHashMapping $baselinePaths
+$gitStateAfter = Get-GitWorktreeState
+if ($baselineHashesAfter -cne $baselineHashesBefore) {
+    throw "G1 committed baseline changed while tests were running."
+}
+if ($gitStateAfter -cne $gitStateBefore) {
+    throw "G1 Git worktree state changed while tests were running."
+}
+
 Write-Output "G1_REFERENCE_STATUS=$($reference.status)"
 Write-Output "G1_WEB_IFC_STATUS=$($webIfc.status)"
 Write-Output "G1_MATCHED_GUID_PAIR=$($reference.pairs[0].element_a.global_id)|$($reference.pairs[0].element_b.global_id)"
 Write-Output "G1_REFERENCE_PENETRATION_M=$($reference.pairs[0].distance_m)"
 Write-Output "G1_TOLERANCE_M=$($reference.tolerance_m)"
+Write-Output "G1_ISOLATED_GENERATION=PASS"
+Write-Output "G1_BASELINE_HASHES_UNCHANGED=PASS"
+Write-Output "G1_GIT_WORKTREE_UNCHANGED=PASS"
 Write-Output "G1_LOCAL_TEST=PASS"
