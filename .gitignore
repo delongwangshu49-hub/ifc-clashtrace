@@ -13,6 +13,7 @@
 
 # Package managers and dependencies
 node_modules/
+.tools/
 .pnpm-store/
 .yarn/
 .npm/
@@ -71,4 +72,3 @@ recordings/local-only/
 *.tar.gz
 *.dump
 *.dmp
-

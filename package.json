@@ -1,0 +1,15 @@
+{
+  "name": "ifc-clashtrace",
+  "version": "0.0.0-g1-spike",
+  "private": true,
+  "type": "module",
+  "description": "Deterministic IFC hard-clash feasibility spike.",
+  "scripts": {
+    "g1:node": "node scripts/g1-web-ifc-spike.mjs"
+  },
+  "dependencies": {
+    "three": "0.185.1",
+    "three-mesh-bvh": "0.9.14",
+    "web-ifc": "0.0.77"
+  }
+}

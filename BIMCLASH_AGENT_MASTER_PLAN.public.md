@@ -5,8 +5,8 @@
 > 创建时间：2026-08-25（Asia/Hong_Kong）  
 > 目标完成时间：不晚于 2026-08-31 晚间（Asia/Hong_Kong）  
 > 项目根目录：`<PROJECT_ROOT>`  
-> 当前阶段：G0 已通过；正在执行本地 Git 与首次 GitHub 网页检查点基线  
-> 当前 Gate：`G0A — 本地版本库初始化与首个阶段上传（IN_PROGRESS）`  
+> 当前阶段：G1 技术验收已通过，等待本地提交与 GitHub 网页检查点
+> 当前 Gate：`G1 — 技术可行性（IN_PROGRESS）`
 
 ---
 
@@ -612,11 +612,15 @@ IfcOpenShell 参考实现 ─────┤
 
 通过条件：本地仓库、首个本地提交、首个 GitHub 网页检查点和同步记录全部为 `PASS`。
 
+当前状态：`PASS`（本地基线提交、GitHub 网页提交、文件/渲染/权限回查与映射登记均已通过）。
+
 停止门：G0A 未通过，不进入 G1；不得为绕过网页上传而配置 GitHub 远程或改用命令行上传。
 
 ### G1 — 技术可行性
 
 目标：证明两条几何路线至少有一条可行。
+
+当前状态：`IN_PROGRESS`（技术验收已通过；须完成本地提交、GitHub 网页上传、回查和映射登记后方可转为 `PASS`）。
 
 必须证明：
 
@@ -1045,6 +1049,9 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 | D-011 | 2026-08-25 | 每个已登记步骤验收后均通过 Chrome GitHub 网页上传更新一次 | USER_MANDATED | 展示阶段性进度变化，避免截止日一次性提交 |
 | D-012 | 2026-08-25 | 公开项目名采用 `IFC ClashTrace`，GitHub 仓库名采用 `ifc-clashtrace` | USER_MANDATED | 避免 `Agent` 对 LLM/自主能力的误导；保留 IFC、Clash 与证据可追溯性的核心表达 |
 | D-013 | 2026-08-25 | 首个 GitHub 仓库可见性采用 `Public` | USER_MANDATED | 用户明确要求全量公开；仍只上传已脱敏公开候选，不改变隐私停止门 |
+| D-014 | 2026-08-26 | G1 后续浏览器核心暂定 `web-ifc 0.0.77 + three-mesh-bvh 0.9.14`，IfcOpenShell 0.8.5 作为参考路线 | APPROVED_BY_EXISTING_PLAN | Node 与实际 Chrome 均稳定返回已知 GUID 碰撞对，满足 O-002 的 Spike 决策要求；G3 仍须通过完整规则契约 |
+| D-015 | 2026-08-26 | 浏览器 Clash Record 的穿透距离在可靠算法验证前保持 `null` | APPROVED_BY_EXISTING_PLAN | G1 只验证三角表面相交；不把未验证的近似距离冒充精确证据，解决 O-003 |
+| D-016 | 2026-08-26 | 未经用户明确决定，不给项目代码或生成数据擅自授予公开许可证 | GOVERNANCE_ENFORCED | G1 公开检查点排除无许可证生成 IFC；生成器和证据可公开，项目级许可证最迟在 G2 决定 |
 
 ---
 
@@ -1055,13 +1062,14 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 | ID | 问题 | 最迟决策时间 | 当前建议 |
 |---|---|---|---|
 | O-001 | 产品最终名称 | 已决（D-012） | `IFC ClashTrace`；仓库名 `ifc-clashtrace` |
-| O-002 | 浏览器核心采用 web-ifc + 哪一种 BVH 实现 | G1 | 先做最小 Spike 再锁定 |
-| O-003 | 浏览器是否可靠输出穿透距离 | G1/G3 | 不可靠则字段为 null，不伪造 |
+| O-002 | 浏览器核心采用 web-ifc + 哪一种 BVH 实现 | 已决（D-014） | `web-ifc 0.0.77 + three-mesh-bvh 0.9.14`；G3 契约失败时再按停止门收窄或回退 |
+| O-003 | 浏览器是否可靠输出穿透距离 | 已决（D-015） | 当前字段为 `null`；仅在后续独立验证可靠时开放 |
 | O-004 | 是否加入 IfcDuctSegment | G3 通过后 | 默认不加入 |
 | O-005 | 正式支持 IFC4X3 与否 | G5 | 当前仅主张 IFC4；IFC4X3 作为探索 |
 | O-006 | 最终 Sites 是否公开 | G6 | 先私有预览，再由用户批准 |
 | O-007 | UI 风格、颜色、语言和品牌 | Design Gate | 尚未讨论，不开始设计 |
 | O-008 | 是否加入运行时 AI 解释 | G4 后 | 默认不加入；确定性 Web 已满足任务 |
+| O-009 | 项目代码与程序生成 IFC 的公开许可证 | G2 开始前 | 不静默授权；用户确认前公开检查点排除生成 IFC，代码保持默认版权状态 |
 
 ---
 
@@ -1325,6 +1333,162 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 **对应本地提交：** 待形成。  
 **GitHub 检查点：** 待执行。
 
+### L-0007 — G0A GitHub 公开检查点与网页回查
+
+**时间：** 2026-08-25 23:14:54 +08:00  
+**Gate：** G0A `PASS`；G1 `NOT_STARTED`  
+**目标：** 只通过用户已登录的 Google Chrome GitHub 网页创建公开仓库、上传脱敏基线、回查并登记本地—远程映射。  
+
+**步骤开始状态：** `## main`，工作树干净；Git 远程数为 0。  
+
+**已执行：**
+
+- 在 Google Chrome GitHub 网页创建公开仓库 `ifc-clashtrace`；
+- 仓库描述设置为 `Deterministic IFC hard-clash detection with traceable GUID evidence.`；
+- 未让 GitHub 自动创建 README、许可证或 `.gitignore`；
+- 仅通过网页文件选择器上传 `.gitignore`、`PROGRESS_SYNC.md` 与 `BIMCLASH_AGENT_MASTER_PLAN.public.md`；
+- 网页提交信息设置为 `G0A governance baseline | local f2c457a0327b`；
+- 上传后打开仓库首页、提交详情和三份文件逐项回查。
+
+**本地—远程映射：**
+
+- 步骤 ID：`G0A`；
+- 本地基线主题：`step(G0A): establish local governance baseline`；
+- 本地基线 SHA：`f2c457a0327b3cf3727916fa0919e36a47aa526d`；
+- 本地命名决定提交：`7abcb02d4ac89eb29fb2a387d580552cadb9a621`；
+- GitHub 远程 SHA：`12c78eee68c28ac3dd4bc33ccd437ced9bd6d5b2`；
+- GitHub 提交 URL：`https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/12c78eee68c28ac3dd4bc33ccd437ced9bd6d5b2`；
+- GitHub 仓库 URL：`https://github.com/delongwangshu49-hub/ifc-clashtrace`；
+- 网页提交时间：2026-08-25 23:12 +08:00（GitHub 页面显示）；
+- 回查时间：2026-08-25 23:14:54 +08:00。
+
+**网页回查结果：**
+
+- 仓库名称、描述与 `Public` 可见性：PASS；
+- 默认分支 `main`、首次提交与提交摘要：PASS；
+- 提交范围为 3 个预期文件：PASS；
+- `.gitignore` 的秘密、本地配置、私有产物与本地输出忽略规则：PASS；
+- `PROGRESS_SYNC.md` 标题渲染、本地基线 SHA 与可见性记录：PASS；
+- 脱敏总纲标题渲染、`<PROJECT_ROOT>` 与 `<LEGACY_REFERENCE_ROOT>` 占位符：PASS；
+- 三份网页文件中的绝对本地路径命中：0；
+- 脱敏总纲中的旧 `BIMClash Agent` 品牌残留：0；
+- 本地 Git 远程数仍为 0，未配置 `origin`：PASS。
+
+**失败和异常：**
+
+- 打开上传页面后首次快照仍显示仓库首页，但链接已进入活动状态；未重复点击。等待 1.2 秒后 URL 正常转为 `/upload`，确认是延迟导航而非失败；
+- 未发生重复 GitHub 失败操作、命令行远程回退、隐私异常或上传范围偏差。
+
+**隐私/许可证影响：**
+
+- 仓库已按用户决定公开；公开内容严格限制为三份已脱敏治理候选；
+- 本地权威总纲、审计脚本、本地 Git 配置和 `.git/` 未上传；
+- 无依赖、数据或第三方许可证变化。
+
+**当前结论：** G0A 的本地基线和 GitHub 检查点均为 `PASS`；G0A 正式完成。  
+**下一步：** 准备进入 G1，但本任务未启动 G1、产品代码、依赖安装、数据下载、UI/视觉设计或部署。  
+**需要用户决定：** 无。  
+**对应本地提交：** G0A 最终同步审计提交待形成。  
+**GitHub 检查点：** `PASS` / `12c78eee68c28ac3dd4bc33ccd437ced9bd6d5b2`。
+
+### L-0008 — G1 启动门核验与技术可行性阶段开始
+
+**时间：** 2026-08-26 11:01:08 +08:00
+**Gate：** G1 `IN_PROGRESS`
+**目标：** 在不越过 Design Gate 的前提下，验证 IfcOpenShell 参考路线与浏览器/Node IFC 几何路线的最小可行性。
+
+**步骤开始状态：** `## main`，工作树干净；HEAD 为 `6348458b42b64db7b524ac034f01b6b387df707c`；Git 远程数为 0。
+
+**已验证事实：**
+
+- 唯一 Git 根目录与项目根目录一致；
+- 项目内未发现额外 `AGENTS.md`；
+- PowerShell 版本为 `7.6.4`，满足主版本不低于 7 的约束；
+- G0A 最终本地提交为 `sync(G0A): record GitHub checkpoint verification`；
+- Python `3.13.15` 与 pip `26.2.1` 可用；系统 PATH 中没有 Node.js 或 npm；
+- 官方资料确认 IfcOpenShell `0.8.5` 提供 Python 3.13 Windows wheel 与 `clash_intersection_many(..., tolerance=0.002)`；web-ifc `0.0.77` 要求 Node 16+；Node.js 官方当前 LTS 为 `24.19.0`。
+
+**当前动作：**
+
+- 将 G1 从 `NOT_STARTED` 转为 `IN_PROGRESS`；
+- 仅开展无样式命令行与自动测试 Spike；不创建正式 UI、品牌、视觉样式或部署内容；
+- 所有运行时、依赖、样本与测试产物只允许位于项目根目录内。
+
+**失败和异常：**
+
+- 本任务首次合并读取命令因外层 PowerShell 提前展开版本变量而解析失败；该命令未读取到项目内容，也未产生任何项目变更；修正引号后核验通过。
+
+**隐私/许可证影响：**
+
+- 尚未下载数据或安装依赖；
+- 本地权威总纲继续包含治理所需绝对路径，不属于公开上传候选；
+- 后续引入的运行时与依赖必须记录来源、版本、许可证和哈希，并由忽略规则排除缓存与本地环境。
+
+**当前结论：** G1 启动门 `PASS`，技术可行性结论尚未形成。
+**下一步：** 在工作区内建立隔离 Python 环境与本地 Node LTS 运行时，构造一个已知管道—墙体硬碰撞 IFC，并分别验证参考与 web-ifc 路线。
+**需要用户决定：** 无。
+**对应本地提交：** 待 G1 技术验收完成后形成。
+**GitHub 检查点：** 待 G1 本地验收通过后执行。
+
+### L-0009 — G1 双路线技术验收与公开候选冻结
+
+**时间：** 2026-08-26 11:24:55 +08:00
+**Gate：** G1 `IN_PROGRESS`（技术验收 `PASS`；版本检查点待完成）
+**目标：** 用同一确定性 IFC4 管道—墙体案例证明参考与浏览器路线可行，并冻结可复跑、可审计的 G1 证据。
+
+**已执行：**
+
+- 在项目内创建隔离 Python 环境并安装 IfcOpenShell `0.8.5`；
+- 从 Node.js 官方发行站下载 Windows x64 Node.js `24.19.0` LTS，使用官方 `SHASUMS256.txt` 验证归档 SHA-256 为 `57f71ab3652e797d84acddc79c81cc9ff1c6ddb2a1974cdb83f00fee9bff4c73`；
+- 锁定 `web-ifc 0.0.77`、`three 0.185.1` 与 `three-mesh-bvh 0.9.14`；运行时、虚拟环境、依赖和缓存均位于项目目录内且被 Git 忽略；
+- 建立可重复生成的 IFC4 双模型：4.0 m × 0.2 m × 3.0 m 墙体与半径 0.1 m、沿 Y 轴穿墙的 2.0 m 管段；两模型使用米制单位、共同项目坐标和固定 GUID；
+- 固定 IFC Header、项目 GUID 和产品 GUID；连续两次生成结果按字节 SHA-256 完全一致；
+- 运行 IfcOpenShell geometry tree `clash_intersection_many` 参考检测；
+- 运行 Node.js 中的 web-ifc/WASM 解析、网格提取、GUID 回映射与 three-mesh-bvh 精确三角表面相交；
+- 启动无样式本地技术页，并在实际桌面 Google Chrome 中执行初次运行、三次连续重载及确定性 Header 修复后的最终重载；
+- 创建一键本地复跑脚本、G1 证据文档、README、脱敏 AI 辅助记录和公开候选审计脚本。
+
+**新增/修改文件：**
+
+- `README.md`、`PROMPTS.md`、`package.json`、`package-lock.json`；
+- `requirements-g1.txt`、`requirements-g1.lock.txt`；
+- `data/generated/g1/` 下本地受控 IFC、清单与哈希；
+- `scripts/setup-g1.ps1`、`scripts/test-g1.ps1`、两条检测脚本、生成脚本、本地静态服务器与 G1 审计脚本；
+- `spikes/g1-browser/` 下无样式 Chrome 技术页；
+- `docs/g1-feasibility.md`。
+
+**验证结果：**
+
+- `scripts/test-g1.ps1`：`PASS`；
+- IfcOpenShell：解析两个 IFC4、各生成 1 个几何、返回唯一固定 GUID 对，类型为 `pierce`、距离为 `0.2 m`、容差为 `0.002 m`；
+- Node/web-ifc/BVH：解析两个 IFC4、返回同一唯一 GUID 对、GUID 完整率 100%、两模型协调矩阵均为单位矩阵；
+- Google Chrome：初次运行与 4 次复跑均为 `PASS`，页面报告同一 GUID 对，warning/error 日志数为 0；
+- G1 五项必须证明内容全部技术通过；浏览器路线无需触发 Python Web 回退。
+
+**失败和异常：**
+
+- 普通沙箱下载 Node 时出现认证失败；获批后按相同官方 URL 重试并通过哈希校验；
+- npm 首次使用用户级默认缓存被拒绝；将缓存显式设为项目内忽略目录后通过；
+- 一次 Python 元数据探测命令发生引号解析错误，一次 `pip show` 在 GBK 控制台遇到第三方作者字符编码错误；均未改变依赖或项目结论，依赖版本与许可证改由锁文件、包元数据和官方来源核验；
+- 参考 clash 包装器不支持属性式 GUID 读取，按官方文档改用 `get_argument(0)` 后通过；
+- web-ifc 声明文件列出 `FlatMesh.delete()`，运行时回调对象没有该方法；移除无效调用后通过，几何逻辑未改变；
+- Chrome 连接不支持 `networkidle` 等待模式；改用受支持的 `load` 状态后验证通过；
+- 初版生成器的 Header 时间与项目 GUID 不固定，导致文件哈希跨运行变化；固定 Header 与 GUID 并加入双生成哈希断言后通过；
+- 本地静态服务器的 PTY 未响应两次 Ctrl+C，读取并校验项目内 Node 进程路径后只终止该服务器进程；未影响其他 Node 进程。
+
+**隐私/许可证影响：**
+
+- 受控模型完全程序生成，不含私人或工程项目数据，IFC Header 不含绝对路径、真实姓名或邮箱；
+- 项目代码与生成数据尚无用户批准的公开许可证；不做 CC0 或开源授权声明，G1 GitHub 上传候选明确排除 `data/generated/g1/`；
+- 本地权威总纲、审计脚本、依赖目录、运行时、缓存和本地输出不进入公开候选；
+- 公开候选只包含相对路径、依赖来源/许可证、可复跑生成器和技术证据，仍须通过专项扫描。
+
+**当前结论：** G1 技术验收 `PASS`，Gate 仍为 `IN_PROGRESS`，等待公开候选审计、本地步骤提交与 GitHub 网页检查点。
+**下一步：** 机械更新脱敏公开版总纲，执行 G1 专项审计，形成 `step(G1): prove dual geometry feasibility` 本地提交。
+**需要用户决定：** G1 完成不需要；项目代码与生成数据许可证须在 G2 开始前决定。
+**对应本地提交：** 待形成。
+**GitHub 检查点：** 待执行；生成 IFC 与本地治理/审计文件明确不上传。
+
 ---
 
 ## 21. 每日状态摘要模板
@@ -1369,5 +1533,4 @@ GitHub 检查点：URL / 远程 SHA / 上传时间 / 回查结论
 - 暂不批准，继续讨论项目范围；
 - 否决当前方向并重新规划。
 
-用户已明确批准 `0.2.0-draft` 修订稿并指示立即开始。项目已进入 G0A；G0A 完成本地 Git 基线与首次 GitHub 网页检查点后，才可进入 G1。
-
+用户已明确批准 `0.2.0-draft` 修订稿并指示立即开始。G0A 已完成；用户于 2026-08-26 明确指示开始工作，项目现处于 G1。
