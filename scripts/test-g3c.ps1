@@ -102,6 +102,62 @@ try {
         $mutationIndex += 1
     }
 
+    $upstreamMutationRoot = Join-Path $isolatedTestRoot "upstream-status-mutation"
+    New-Item -ItemType Directory -Path $upstreamMutationRoot -Force | Out-Null
+    Copy-Item -Path (Join-Path $runOne "*") -Destination $upstreamMutationRoot -Recurse -Force
+    $upstreamArtifactPath = Join-Path $upstreamMutationRoot "data/generated/g3c/g3c03-clearance-geometry.json"
+    $upstreamArtifact = Get-Content -LiteralPath $upstreamArtifactPath -Raw | ConvertFrom-Json
+    $upstreamArtifact.hard_clash_status = "NOT_EVALUATED"
+    $upstreamArtifact | ConvertTo-Json -Depth 20 | Set-Content -LiteralPath $upstreamArtifactPath -Encoding utf8
+    $upstreamBaselinePath = Join-Path $upstreamMutationRoot $baselinePath
+    $upstreamBaseline = Get-Content -LiteralPath $upstreamBaselinePath -Raw | ConvertFrom-Json
+    ($upstreamBaseline.cases | Where-Object case_id -eq "G3C03").artifact.file_sha256 =
+        (Get-FileHash -LiteralPath $upstreamArtifactPath -Algorithm SHA256).Hash.ToLowerInvariant()
+    $upstreamBaseline | ConvertTo-Json -Depth 20 | Set-Content -LiteralPath $upstreamBaselinePath -Encoding utf8
+    $upstreamAnalyticOutput = Join-Path $isolatedTestRoot "mutation-output-upstream-analytic.json"
+    $upstreamMeshOutput = Join-Path $isolatedTestRoot "mutation-output-upstream-mesh.json"
+    & $pythonExe ".\scripts\g3c-clearance-proof.py" `
+        --baseline $upstreamBaselinePath `
+        --artifact-root $upstreamMutationRoot `
+        --output $upstreamAnalyticOutput 2>&1 | Out-Null
+    $upstreamAnalyticExit = $LASTEXITCODE
+    & $nodeExe ".\scripts\g3c-clearance-reference.mjs" `
+        --baseline $upstreamBaselinePath `
+        --artifact-root $upstreamMutationRoot `
+        --output $upstreamMeshOutput 2>&1 | Out-Null
+    $upstreamMeshExit = $LASTEXITCODE
+    if ($upstreamAnalyticExit -eq 0 -or $upstreamMeshExit -eq 0) {
+        throw "An evaluator accepted an upstream hard-clash status that was not safely clear."
+    }
+    $upstreamAnalytic = Get-Content -LiteralPath $upstreamAnalyticOutput -Raw | ConvertFrom-Json
+    $upstreamMesh = Get-Content -LiteralPath $upstreamMeshOutput -Raw | ConvertFrom-Json
+    $upstreamAnalyticCase = $upstreamAnalytic.results | Where-Object case_id -eq "G3C03"
+    $upstreamMeshCase = $upstreamMesh.results | Where-Object case_id -eq "G3C03"
+    if ($upstreamAnalyticCase.observed_status -ne "NOT_EVALUATED" -or
+        $upstreamAnalyticCase.certificate -ne "failure_closed" -or
+        $upstreamMeshCase.observed_status -ne "NOT_EVALUATED" -or
+        $upstreamMeshCase.certificate -ne "mesh_reference_failure_closed" -or
+        $upstreamMeshCase.expected_match) {
+        throw "Unknown upstream hard-clash status did not fail closed in both evaluator routes."
+    }
+    $mutationFailures += 1
+
+    $pathMutationLedger = Get-Content -LiteralPath $ledgerPath -Raw | ConvertFrom-Json
+    $pathMutationLedger.cases[0].case_id = "../../../../escaped"
+    $pathMutationLedgerPath = Join-Path $isolatedTestRoot "mutation-path-traversal-ledger.json"
+    $pathMutationLedger | ConvertTo-Json -Depth 20 | Set-Content -LiteralPath $pathMutationLedgerPath -Encoding utf8
+    $pathMutationOutputRoot = Join-Path $isolatedTestRoot "path-guard-output"
+    & $pythonExe ".\scripts\g3c-generate-clearance.py" `
+        --ledger $pathMutationLedgerPath `
+        --output-root $pathMutationOutputRoot 2>&1 | Out-Null
+    if ($LASTEXITCODE -eq 0) { throw "G3C generator accepted a path-traversal case ID." }
+    $escapedArtifacts = @(
+        Get-ChildItem -LiteralPath $isolatedTestRoot -Recurse -File -ErrorAction SilentlyContinue |
+            Where-Object Name -Like "*escaped-clearance-geometry.json"
+    )
+    if ($escapedArtifacts.Count -ne 0) { throw "G3C generator wrote an artifact outside its selected output root." }
+    $mutationFailures += 1
+
     $validationRoots = @($projectRoot, $runOne, $runTwo)
     for ($index = 0; $index -lt $validationRoots.Count; $index++) {
         $validationRoot = $validationRoots[$index]
@@ -217,7 +273,9 @@ Write-Output "G3C_HARD_CLASH_DEDUPLICATION=PASS"
 Write-Output "G3C_FAILURE_CLOSED=2/2"
 Write-Output "G3C_INDEPENDENT_TRIANGLE_MESH_REFERENCE=9/9"
 Write-Output "G3C_PATH_SHA256_MAPPING=9/9"
-Write-Output "G3C_CONTRACT_MUTATIONS_REJECTED=$mutationFailures/4"
+Write-Output "G3C_CONTRACT_MUTATIONS_REJECTED=$mutationFailures/6"
+Write-Output "G3C_INDEPENDENT_UPSTREAM_STATUS_FAILURE_CLOSED=PASS"
+Write-Output "G3C_GENERATOR_PATH_CONTAINMENT=PASS"
 Write-Output "G3C_ISOLATED_DETERMINISTIC_REGENERATION=PASS"
 Write-Output "G3C_ISOLATED_TEMP_ROOT_CLEANUP=PASS"
 Write-Output "G3C_G1_G2_G3A_G3A_R1_G3B_G3B_R1_REGRESSION=PASS"

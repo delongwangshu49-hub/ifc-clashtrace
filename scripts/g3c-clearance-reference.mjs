@@ -123,6 +123,16 @@ function expectedMatches(result, expected) {
 }
 
 function evaluateCase(caseData, expected, threshold) {
+  if (caseData.hard_clash_status !== 'CLEAR' && caseData.hard_clash_status !== 'CLASH') {
+    return {
+      case_id: caseData.case_id,
+      record_emitted: true,
+      observed_status: 'NOT_EVALUATED',
+      clearance_distance_m: null,
+      certificate: 'mesh_reference_failure_closed',
+      diagnostic: 'upstream hard-clash status is not safely clear',
+    };
+  }
   if (!caseData.geometry_reliable || !caseData.pipe.geometry_present) {
     return {
       case_id: caseData.case_id,

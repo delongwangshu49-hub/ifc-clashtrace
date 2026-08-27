@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import math
+import re
 import uuid
 from pathlib import Path
 from typing import Any
@@ -15,6 +16,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 LEDGER_PATH = PROJECT_ROOT / "data" / "g3c-operation-ledger.json"
 DEFAULT_OUTPUT_ROOT = PROJECT_ROOT / "outputs" / "local-only" / "g3c-generation"
 NAMESPACE = uuid.UUID("938a5e4c-4ed9-44be-a849-fecb2ab669c3")
+CASE_ID_PATTERN = re.compile(r"G3C\d{2}")
 
 
 Vector = tuple[float, float, float]
@@ -65,6 +67,18 @@ def write_json(path: Path, value: Any) -> None:
     path.write_text(json.dumps(value, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
+def artifact_target(output_root: Path, case_id: Any) -> tuple[str, Path]:
+    if not isinstance(case_id, str) or CASE_ID_PATTERN.fullmatch(case_id) is None:
+        raise ValueError("G3C case_id must match G3C followed by exactly two digits")
+    relative_path = Path("data") / "generated" / "g3c" / f"{case_id.lower()}-clearance-geometry.json"
+    target = (output_root / relative_path).resolve()
+    try:
+        target.relative_to(output_root)
+    except ValueError as error:
+        raise ValueError("G3C artifact path escapes the selected output root") from error
+    return relative_path.as_posix(), target
+
+
 def build_artifact(ledger: dict[str, Any], case: dict[str, Any]) -> dict[str, Any]:
     structure = case["structure"]
     pipe = case["pipe"]
@@ -111,6 +125,7 @@ def build_artifact(ledger: dict[str, Any], case: dict[str, Any]) -> dict[str, An
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Generate deterministic G3C clearance artifacts and baseline.")
+    parser.add_argument("--ledger", type=Path, default=LEDGER_PATH)
     parser.add_argument("--output-root", type=Path, default=DEFAULT_OUTPUT_ROOT)
     parser.add_argument("--allow-baseline-write", action="store_true")
     return parser.parse_args()
@@ -122,11 +137,19 @@ def main() -> None:
     if output_root == PROJECT_ROOT.resolve() and not args.allow_baseline_write:
         raise SystemExit("Refusing to write the committed G3C baseline without --allow-baseline-write")
 
-    ledger = json.loads(LEDGER_PATH.read_text(encoding="utf-8"))
-    baseline_cases: list[dict[str, Any]] = []
+    ledger = json.loads(args.ledger.read_text(encoding="utf-8"))
+    planned_artifacts: list[tuple[dict[str, Any], str, Path]] = []
+    seen_case_ids: set[str] = set()
     for case in ledger["cases"]:
-        relative_path = f"data/generated/g3c/{case['case_id'].lower()}-clearance-geometry.json"
-        artifact_path = output_root / relative_path
+        case_id = case.get("case_id")
+        relative_path, artifact_path = artifact_target(output_root, case_id)
+        if case_id in seen_case_ids:
+            raise ValueError(f"Duplicate G3C case_id: {case_id}")
+        seen_case_ids.add(case_id)
+        planned_artifacts.append((case, relative_path, artifact_path))
+
+    baseline_cases: list[dict[str, Any]] = []
+    for case, relative_path, artifact_path in planned_artifacts:
         write_json(artifact_path, build_artifact(ledger, case))
         baseline_cases.append(
             {
