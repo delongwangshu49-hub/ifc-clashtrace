@@ -17,7 +17,7 @@ The frozen G2/G3A contract includes:
 - exact assertions for the approved rule, IFC4 schema, metre unit, shared project coordinates, and `0.002 m` tolerance;
 - negative tests that reject rule, schema, unit, coordinate-system, tolerance, status, path, and hash mutations.
 
-The eight cases are a public contract acceptance suite, not a hidden holdout set and not evidence of general real-project accuracy. G3B adds 13 analytic proof fixtures for touching, `1.9/2.0/2.1 mm` plus a `0.5 nm`-above-threshold regression, `3.0/4.0/4.2 mm` thin structures, rotation, oblique crossing, explicit AABB divergence, and failure-closed behavior. G3B10/G3B11 consume caller-supplied reliability preconditions; they do not themselves validate topology or coordinate registration. G3C adds nine independent clearance cases covering `0/49/50/51 mm`, a hard-clash-suppressed pair, rotated oblique placement, a modeled opening, missing geometry, and unverified coordinates. G3 matches all eight frozen hard-clash statuses in Node and current desktop Chrome, suppresses all three confirmed hard clashes from clearance output, and fails closed on malformed IFC, unverified coordinates, invalid thresholds, missing geometry, or unsupported intersecting geometry. See `docs/data-and-licenses.md`, `docs/g3a-contract-hardening.md`, `docs/g3b-tolerance-semantics.md`, `docs/g3c-clearance-semantics.md`, and `docs/g3-core-engine.md` for evidence and limitations.
+The eight cases are a public contract acceptance suite, not a hidden holdout set and not evidence of general real-project accuracy. G3B adds 13 analytic proof fixtures for touching, `1.9/2.0/2.1 mm` plus a `0.5 nm`-above-threshold regression, `3.0/4.0/4.2 mm` thin structures, rotation, oblique crossing, explicit AABB divergence, and failure-closed behavior. G3B10/G3B11 consume caller-supplied reliability preconditions; they do not themselves validate topology or coordinate registration. G3C adds nine independent clearance cases covering `0/49/50/51 mm`, a hard-clash-suppressed pair, rotated oblique placement, a modeled opening, missing geometry, and unverified coordinates. G3 matches all eight frozen hard-clash statuses in Node and current desktop Chrome, suppresses all three confirmed hard clashes from clearance output, and fails closed on malformed IFC, unverified coordinates, non-finite or non-frozen v1 thresholds, missing/partial/invalid geometry, or unsupported intersecting geometry. See `docs/data-and-licenses.md`, `docs/g3a-contract-hardening.md`, `docs/g3b-tolerance-semantics.md`, `docs/g3c-clearance-semantics.md`, and `docs/g3-core-engine.md` for evidence and limitations.
 
 ## Reproduce G1 on Windows
 
@@ -88,7 +88,7 @@ After completing the G1 setup command, run the integrated browser-core suite:
 pwsh -NoLogo -NoProfile -File .\scripts\test-g3.ps1
 ```
 
-The suite opens each frozen G2 MEP/structure pair through `web-ifc`, filters `IfcPipeSegment` against `IfcWall`/`IfcBeam`, evaluates the bounded hard-clash certificate, emits Clash Records and Clearance Warning Records, checks failure closing and deterministic repetition, and reruns the full G1 through G3C chain.
+The suite opens each frozen G2 MEP/structure pair through `web-ifc`, filters `IfcPipeSegment` against `IfcWall`/`IfcBeam`, evaluates the bounded hard-clash certificate, emits Clash Records and Clearance Warning Records, checks 12 failure-closed guards plus deterministic repetition, and reruns the full G1 through G3C chain.
 
 For the unstyled current-Chrome runtime harness, start the existing local server and open the G3 path:
 
@@ -101,7 +101,9 @@ Open `http://127.0.0.1:4173/spikes/g3-browser/`. A passing run reports all eight
 ## Boundaries through G3
 
 - G3 supports exact IFC4 files with unprefixed metre units and an explicitly established shared project coordinate system; both models must expose the same valid web-ifc coordination transform.
+- The v1 rule IDs require the exact finite `0.002 m` hard-clash and `0.05 m` clearance constants; caller-supplied alternatives fail closed instead of silently changing rule meaning.
 - The hard-clash classifier requires finite, indexed, closed two-manifold tessellations and certifies straight finite pipe axes against reliable structure meshes. It samples structure-interior surface depth at at most `0.5 mm` intervals, requires depth strictly greater than `2 mm`, and fails closed when an intersecting configuration is outside that certificate family.
+- Each consumed placed-geometry part must validate. Degenerate faces may be skipped only when a non-degenerate closed surface remains; an all-degenerate part, an invalid index buffer, or one failed part among otherwise valid parts makes the affected pair `NOT_EVALUATED`.
 - Browser penetration distance is not claimed; `penetration_distance_m` remains `null`. The certified maximum structure-interior depth is evidence for the approved status, not a general physical penetration measure.
 - IfcOpenShell raw surface intersection reports C04 as an intersection; only C04 may apply its parsed world-bounds overlap guard (`~0.001 m < 0.002 m`). No other G2 or G3B case may inherit AABB classification.
 - World-axis AABB may be a future broad-phase candidate filter only; it cannot output a clash, penetration distance, or general clear result.
