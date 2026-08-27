@@ -115,7 +115,7 @@ Open `http://127.0.0.1:4173/spikes/g3-browser/`. A passing run reports all eight
 - Any upstream hard-clash status other than authoritative `CLEAR` or `CLASH` fails closed in both evaluator routes; generated case IDs and resolved artifact paths are containment-guarded.
 - The eight G2 cases and nine G3C cases are controlled acceptance evidence, not a claim of arbitrary IFC/exporter or real-project accuracy.
 - G3 is the completed deterministic core only; file-selection UX, results UI, 3D review interaction, and visual design remain outside this Gate.
-- DG visual direction is under user review; no formal UI implementation has started and remains blocked until DG passes.
+- DG R4 visual direction is user-approved; no formal UI implementation has started, and implementation remains blocked until a separately authorized G4.
 - No third-party or private project IFC is included in the G2 dataset.
 
 ## AI assistance
@@ -131,7 +131,7 @@ pwsh -NoLogo -NoProfile -File .\scripts\test-dg.ps1
 pwsh -NoLogo -NoProfile -File .\scripts\audit-dg.ps1
 ```
 
-These checks validate the required review sections, research links, low-fidelity SVG contract, absence of formal UI/deployment files, unchanged G3 regression, and sanitized DG publication list. Passing them does not approve the design; explicit user approval is still required.
+These checks validate the required review sections, research links, low-fidelity SVG contract, absence of formal UI/deployment files, unchanged G3 regression, and sanitized DG publication list. Passing them alone does not approve a design; DG R4 received separate explicit user approval, and later Gates still require separate authorization.
 
 ## License status
 
