@@ -1,0 +1,62 @@
+{
+  "dataset_id": "IFC_CLASHTRACE_G3C_CLEARANCE_V1",
+  "dataset_version": "1.0.0",
+  "case_id": "G3C02",
+  "title": "Pipe has 49 mm wall clearance",
+  "rule_id": "MEP_STRUCTURE_CLEARANCE_WARNING_V1",
+  "length_unit": "metre",
+  "coordinate_system": "shared_project_coordinates",
+  "hard_clash_status": "CLEAR",
+  "geometry_reliable": true,
+  "coordinate_system_consistent": true,
+  "failure_reason": null,
+  "generation_basis": "constructive finite-cylinder and closed-box/opening-frame operations",
+  "structure": {
+    "entity_type": "IfcWall",
+    "global_id": "2EcnEMwWHIcuhrZpXyxslE",
+    "name": "G3C02 controlled structure",
+    "kind": "box",
+    "center_world_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "half_extents_m": [
+      2.0,
+      0.1,
+      1.5
+    ],
+    "rotation_deg_xyz": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "pipe": {
+    "entity_type": "IfcPipeSegment",
+    "global_id": "35yiumFxPP5fXnkLY1Poqb",
+    "name": "G3C02 controlled pipe",
+    "geometry_present": true,
+    "radius_m": 0.05,
+    "axis_start_structure_local_m": [
+      -1.0,
+      0.199,
+      0.0
+    ],
+    "axis_end_structure_local_m": [
+      1.0,
+      0.199,
+      0.0
+    ],
+    "axis_start_world_m": [
+      -1.0,
+      0.199,
+      0.0
+    ],
+    "axis_end_world_m": [
+      1.0,
+      0.199,
+      0.0
+    ]
+  }
+}

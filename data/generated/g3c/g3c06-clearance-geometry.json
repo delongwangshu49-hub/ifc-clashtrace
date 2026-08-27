@@ -1,0 +1,62 @@
+{
+  "dataset_id": "IFC_CLASHTRACE_G3C_CLEARANCE_V1",
+  "dataset_version": "1.0.0",
+  "case_id": "G3C06",
+  "title": "Rotated oblique pipe has 30 mm wall clearance",
+  "rule_id": "MEP_STRUCTURE_CLEARANCE_WARNING_V1",
+  "length_unit": "metre",
+  "coordinate_system": "shared_project_coordinates",
+  "hard_clash_status": "CLEAR",
+  "geometry_reliable": true,
+  "coordinate_system_consistent": true,
+  "failure_reason": null,
+  "generation_basis": "constructive finite-cylinder and closed-box/opening-frame operations",
+  "structure": {
+    "entity_type": "IfcWall",
+    "global_id": "0guJbBo$1TVP2o8My_NSJF",
+    "name": "G3C06 controlled structure",
+    "kind": "box",
+    "center_world_m": [
+      3.0,
+      -2.0,
+      1.0
+    ],
+    "half_extents_m": [
+      2.0,
+      0.1,
+      1.5
+    ],
+    "rotation_deg_xyz": [
+      17.0,
+      11.0,
+      33.0
+    ]
+  },
+  "pipe": {
+    "entity_type": "IfcPipeSegment",
+    "global_id": "1zg5ThmFPV3v3QIw2M23GK",
+    "name": "G3C06 controlled pipe",
+    "geometry_present": true,
+    "radius_m": 0.05,
+    "axis_start_structure_local_m": [
+      -1.0,
+      0.18,
+      -0.5
+    ],
+    "axis_end_structure_local_m": [
+      1.0,
+      0.18,
+      0.5
+    ],
+    "axis_start_world_m": [
+      1.9352731974737434,
+      -2.3118877421543695,
+      0.7731016256645638
+    ],
+    "axis_end_world_m": [
+      3.8940674137754336,
+      -1.3884451931519464,
+      1.3302183790250743
+    ]
+  }
+}
