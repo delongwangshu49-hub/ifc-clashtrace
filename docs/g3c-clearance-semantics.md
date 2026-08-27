@@ -2,7 +2,9 @@
 
 ## Gate result
 
-G3C validates `MEP_STRUCTURE_CLEARANCE_WARNING_V1` on a separate nine-case controlled suite. It does not modify the frozen G2 hard-clash truth and does not implement the later browser product engine or any formal UI.
+G3C is `PASS` for `MEP_STRUCTURE_CLEARANCE_WARNING_V1` on a separate nine-case controlled suite. It does not modify the frozen G2 hard-clash truth and does not implement the later browser product engine or any formal UI.
+
+The authoritative local step commit is `8cf588f77812caa672f1491e838d386cfb3c50e7`. Chrome verification confirmed the public seven-commit technical chain `121d4c109b7518d5ab7b09f14aba95999d952927` → `413e09b5f7c57fd462cef0be6384c3305fc8e815` → `8de2097e5c7d81a709dc48cb5cf351d7560d9660` → `29454ae46d5e7069549dcf88b71270a52246e3c7` → `9a707582ec0a489bb1a0bfeb33b8dbd16eff65d1` → `e73edc168a17fb2a1d7786750c8831168c24bc6f` → `3113f47ac427eee82c40bced12ffb9b0a686c517`, continuously extending the prior public evidence tail. The chain contains exactly the 23 audited G3C publication files; local audit scripts remain excluded.
 
 The rule is limited to `IfcPipeSegment` paired with `IfcWall` or `IfcBeam`, in metres and verified shared project coordinates:
 
