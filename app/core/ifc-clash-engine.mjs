@@ -60,23 +60,44 @@ function validateGeometry(geometry) {
   if (!positions || positions.count < 3 || !geometry.index || geometry.index.count < 3) {
     throw new Error("mesh representation has no indexed triangles");
   }
+  if (geometry.index.count % 3 !== 0) {
+    throw new Error("mesh representation index count is not divisible by three");
+  }
   for (let index = 0; index < positions.array.length; index += 1) {
     if (!Number.isFinite(positions.array[index])) throw new Error("mesh representation contains non-finite vertices");
+  }
+  for (let index = 0; index < geometry.index.count; index += 1) {
+    const vertexIndex = geometry.index.getX(index);
+    if (!Number.isInteger(vertexIndex) || vertexIndex < 0 || vertexIndex >= positions.count) {
+      throw new Error("mesh representation contains an invalid vertex index");
+    }
   }
   const vertexKey = index => [positions.getX(index), positions.getY(index), positions.getZ(index)]
     .map(value => Math.round(value / SURFACE_EPSILON_M)).join(",");
   const edgeCounts = new Map();
+  let nonDegenerateTriangleCount = 0;
   for (let index = 0; index < geometry.index.count; index += 3) {
-    const triangle = [
+    const vertexIndices = [
       geometry.index.getX(index),
       geometry.index.getX(index + 1),
       geometry.index.getX(index + 2),
-    ].map(vertexKey);
-    if (new Set(triangle).size !== 3) continue;
+    ];
+    const triangle = vertexIndices.map(vertexKey);
+    const pointA = new Vector3().fromBufferAttribute(positions, vertexIndices[0]);
+    const pointB = new Vector3().fromBufferAttribute(positions, vertexIndices[1]);
+    const pointC = new Vector3().fromBufferAttribute(positions, vertexIndices[2]);
+    const areaVectorSquared = pointB.sub(pointA).cross(pointC.sub(pointA)).lengthSq();
+    if (new Set(triangle).size !== 3 || areaVectorSquared <= SURFACE_EPSILON_M ** 4) {
+      continue;
+    }
+    nonDegenerateTriangleCount += 1;
     for (const [start, end] of [[triangle[0], triangle[1]], [triangle[1], triangle[2]], [triangle[2], triangle[0]]]) {
       const edge = start < end ? `${start}|${end}` : `${end}|${start}`;
       edgeCounts.set(edge, (edgeCounts.get(edge) || 0) + 1);
     }
+  }
+  if (nonDegenerateTriangleCount === 0 || edgeCounts.size === 0) {
+    throw new Error("mesh representation has no non-degenerate triangles");
   }
   if ([...edgeCounts.values()].some(count => count !== 2)) {
     throw new Error("mesh representation is not a closed two-manifold triangle surface");
@@ -86,16 +107,26 @@ function validateGeometry(geometry) {
 
 function geometryFromPlacedGeometry(ifcApi, modelId, placedGeometry) {
   const source = ifcApi.GetGeometry(modelId, placedGeometry.geometryExpressID);
+  let geometry = null;
   try {
     const sourceVertices = ifcApi.GetVertexArray(source.GetVertexData(), source.GetVertexDataSize());
     const sourceIndices = ifcApi.GetIndexArray(source.GetIndexData(), source.GetIndexDataSize());
+    if (sourceVertices.length % 6 !== 0) {
+      throw new Error("mesh representation has an invalid interleaved vertex buffer");
+    }
+    const sourceVertexCount = sourceVertices.length / 6;
+    for (const vertexIndex of sourceIndices) {
+      if (!Number.isInteger(vertexIndex) || vertexIndex < 0 || vertexIndex >= sourceVertexCount) {
+        throw new Error("mesh representation contains an invalid source vertex index");
+      }
+    }
     const positions = new Float32Array((sourceVertices.length / 6) * 3);
     for (let sourceIndex = 0, targetIndex = 0; sourceIndex < sourceVertices.length; sourceIndex += 6, targetIndex += 3) {
       positions[targetIndex] = sourceVertices[sourceIndex];
       positions[targetIndex + 1] = sourceVertices[sourceIndex + 1];
       positions[targetIndex + 2] = sourceVertices[sourceIndex + 2];
     }
-    const geometry = new BufferGeometry();
+    geometry = new BufferGeometry();
     geometry.setAttribute("position", new Float32BufferAttribute(positions, 3));
     geometry.setIndex(Array.from(sourceIndices));
     geometry.applyMatrix4(new Matrix4().fromArray(placedGeometry.flatTransformation));
@@ -103,6 +134,9 @@ function geometryFromPlacedGeometry(ifcApi, modelId, placedGeometry) {
     validateGeometry(geometry);
     geometry.boundsTree = new MeshBVH(geometry);
     return geometry;
+  } catch (error) {
+    geometry?.dispose();
+    throw error;
   } finally {
     source.delete();
   }
@@ -292,11 +326,18 @@ function evaluateHardPair(pipe, structure, toleranceM) {
   if (!pipe.descriptor.global_id || !structure.descriptor.global_id) {
     return { status: "NOT_EVALUATED", diagnostic: "a selected element has no stable GlobalId", certificate: "failure_closed" };
   }
-  if (pipe.geometries.length === 0 || structure.geometries.length === 0) {
-    const diagnostics = [...pipe.geometryDiagnostics, ...structure.geometryDiagnostics];
+  const geometryDiagnostics = [...pipe.geometryDiagnostics, ...structure.geometryDiagnostics];
+  if (geometryDiagnostics.length > 0) {
     return {
       status: "NOT_EVALUATED",
-      diagnostic: diagnostics.join("; ") || "a selected element has no reliable geometric representation",
+      diagnostic: `a selected element has an incomplete geometric representation: ${geometryDiagnostics.join("; ")}`,
+      certificate: "failure_closed",
+    };
+  }
+  if (pipe.geometries.length === 0 || structure.geometries.length === 0) {
+    return {
+      status: "NOT_EVALUATED",
+      diagnostic: "a selected element has no reliable geometric representation",
       certificate: "failure_closed",
     };
   }
@@ -471,6 +512,14 @@ function disposeElements(elements) {
 }
 
 
+function validateRuleThresholds(hardClashToleranceM, clearanceThresholdM) {
+  if (!Number.isFinite(hardClashToleranceM) || !Number.isFinite(clearanceThresholdM) ||
+      hardClashToleranceM !== HARD_CLASH_TOLERANCE_M || clearanceThresholdM !== CLEARANCE_THRESHOLD_M) {
+    throw new Error("rule thresholds must be finite and match the frozen v1 rule constants");
+  }
+}
+
+
 export async function evaluateIfcPair({
   ifcApi,
   mepBytes,
@@ -496,9 +545,7 @@ export async function evaluateIfcPair({
     if (coordinateSystem !== "shared_project_coordinates") {
       throw new Error("shared project coordinates were not explicitly established");
     }
-    if (!(hardClashToleranceM > 0) || !(clearanceThresholdM > hardClashToleranceM)) {
-      throw new Error("rule thresholds are invalid");
-    }
+    validateRuleThresholds(hardClashToleranceM, clearanceThresholdM);
     mepModelId = ifcApi.OpenModel(mepData);
     structureModelId = ifcApi.OpenModel(structureData);
     if (mepModelId < 0 || structureModelId < 0) throw new Error("web-ifc could not open both input models");
