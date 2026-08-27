@@ -1,14 +1,14 @@
 {
   "dataset_id": "IFC_CLASHTRACE_G3B_TOLERANCE_V1",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "rule_id": "MEP_STRUCTURE_HARD_CLASH_V1",
   "license_spdx_or_name": "CC0-1.0",
   "length_unit": "metre",
   "coordinate_system": "shared_project_coordinates",
   "tolerance_m": 0.002,
-  "comparison": "CLASH only when certified maximum Euclidean interior depth is strictly greater than tolerance_m; equality is CLEAR",
-  "semantic": "Intersect the pipe solid with the structure solid eroded inward by tolerance_m. This is equivalent to requiring a pipe-solid point whose Euclidean distance to the final structure boundary is strictly greater than tolerance_m.",
-  "scope": "Analytic proof fixtures for closed convex oriented boxes and finite circular cylinders in certified center-crossing or face-normal arrangements. Unsupported or unreliable geometry is NOT_EVALUATED.",
+  "comparison": "CLASH only when certified maximum Euclidean interior depth is strictly greater than tolerance_m; equality is CLEAR only when the eroded structure core remains non-degenerate",
+  "semantic": "Intersect the pipe solid with the structure solid eroded inward by tolerance_m. This is equivalent to requiring a pipe-solid point whose Euclidean distance to the final structure boundary is strictly greater than tolerance_m. A volumetric intersection with an empty or degenerate erosion core is NOT_EVALUATED because this semantic cannot safely distinguish a tolerated intrusion from a full pierce in that regime.",
+  "scope": "Analytic proof fixtures for closed convex oriented boxes and finite circular cylinders in certified center-crossing or face-normal arrangements. Unsupported or unreliable geometry, unverified coordinates, and volumetric intersections with an empty or degenerate tolerance core are NOT_EVALUATED.",
   "source_of_truth": "Human-authored constructive geometry and analytic certificates; detector output does not define expected status.",
   "cases": [
     {
@@ -91,7 +91,7 @@
       "case_id": "G3B05",
       "title": "Three millimetre thin structure is fully pierced",
       "family": "thin_structure",
-      "expected_status": "CLEAR",
+      "expected_status": "NOT_EVALUATED",
       "expected_maximum_interior_depth_m": 0.0015,
       "geometry_reliable": true,
       "coordinate_system_consistent": true,
@@ -110,7 +110,7 @@
       "case_id": "G3B06",
       "title": "Four millimetre thin structure is fully pierced",
       "family": "thin_structure",
-      "expected_status": "CLEAR",
+      "expected_status": "NOT_EVALUATED",
       "expected_maximum_interior_depth_m": 0.002,
       "geometry_reliable": true,
       "coordinate_system_consistent": true,
@@ -148,7 +148,7 @@
       "case_id": "G3B08",
       "title": "Rotated three millimetre thin structure exposes AABB false precision",
       "family": "rotated_thin_structure",
-      "expected_status": "CLEAR",
+      "expected_status": "NOT_EVALUATED",
       "expected_maximum_interior_depth_m": 0.0015,
       "require_world_aabb_overlap_gt_tolerance": true,
       "geometry_reliable": true,
@@ -221,6 +221,25 @@
         "axis_start_structure_local_m": [-0.4, -0.3, 0.2],
         "axis_end_structure_local_m": [0.5, 0.4, 0.25],
         "radius_m": 0.04
+      }
+    },
+    {
+      "case_id": "G3B13",
+      "title": "Pipe cap intrudes 0.5 nanometres above 2.0 mm",
+      "family": "face_normal_threshold",
+      "expected_status": "CLASH",
+      "expected_maximum_interior_depth_m": 0.0020000000005,
+      "geometry_reliable": true,
+      "coordinate_system_consistent": true,
+      "structure": {
+        "center_world_m": [0.0, 0.0, 0.0],
+        "half_extents_m": [2.0, 0.1, 1.5],
+        "rotation_deg_xyz": [0.0, 0.0, 0.0]
+      },
+      "pipe": {
+        "axis_start_structure_local_m": [0.0, -1.0, 0.0],
+        "axis_end_structure_local_m": [0.0, -0.0979999999995, 0.0],
+        "radius_m": 0.05
       }
     }
   ]
