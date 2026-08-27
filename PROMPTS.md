@@ -73,3 +73,13 @@ This repository uses AI assistance for implementation planning and code drafting
 - Verification: all nine analytic outcomes and all nine independent mesh-reference outcomes match; status distribution is 4 `WARNING`, 2 `CLEAR`, 2 `NOT_EVALUATED`, and 1 hard-clash-suppressed pair; 9/9 artifact hashes, two byte-identical isolated generations, and 4/4 contract mutation rejections pass; `0/49/50/51 mm`, rotated oblique, modeled opening, GUID/type contract, failure closing, and the full G1/G2/G3A/G3B chain pass.
 - Human modification and review: the independent mesh transform was aligned with the generator's explicit `Rz·Ry·Rx` convention; its agreement tolerance was set to `1e-7 m` to bound Float32 and cylinder-tessellation error while the authoritative Decimal threshold remained exact and epsilon-free.
 - Rejected or deferred suggestions: no AABB clearance classifier, centreline-only distance claim, G2 truth rewrite, browser product engine, formal UI, Design Gate material, AI provider, deployment, or video artifact was added.
+
+## P-008 — G3C-R1 audit hardening
+
+- Date: 2026-08-27
+- Goal: close the two narrow post-G3C audit findings without changing the frozen nine-case truth, clearance threshold, supported geometry families, or later-stage scope.
+- Sanitized prompt: make the independent triangle-mesh reference return `NOT_EVALUATED` whenever the upstream hard-clash status is neither authoritative `CLEAR` nor `CLASH`; validate generated case IDs and resolved artifact paths before any artifact write; add adversarial mutations proving both evaluator routes reject unknown upstream status and the generator rejects path traversal without creating an escaped file; preserve all G1 through G3C regressions and do not start G3 or UI work.
+- Human constraints: retain hard-clash suppression, exact Decimal threshold semantics, the `1e-7 m` mesh agreement-only tolerance, all nine committed artifact bytes and hashes, and the existing public/private publication boundary.
+- Adopted output: an explicit independent-reference upstream-status guard, strict `G3C` two-digit case-ID validation, resolved output-root containment, duplicate-ID rejection, an alternate-ledger test input, and two new mutation probes.
+- Verification: the original four contract mutations plus unknown-upstream and path-traversal probes are rejected `6/6`; the unknown upstream probe is `NOT_EVALUATED` in both evaluator routes; no escaped artifact is created; nine artifacts and their frozen baseline remain byte-identical; the complete prior regression chain remains green.
+- Rejected or deferred suggestions: no new fixture, rule, distance certificate, dependency, browser engine, UI, Design Gate, AI, deployment, or video work was added.

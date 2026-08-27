@@ -5,8 +5,8 @@
 > 创建时间：2026-08-25（Asia/Hong_Kong）  
 > 目标完成时间：不晚于 2026-08-31 晚间（Asia/Hong_Kong）  
 > 项目根目录：`<PROJECT_ROOT>`  
-> 当前阶段：G3C 50 mm 净距规则、本地技术验收、发布审计、权威提交、Chrome GitHub 检查点与网页回查均已完成；已严格停止并等待用户决定是否开始 G3
-> 当前 Gate：`G3C — 50 mm 净距预警规则（PASS）`；`G3 — 核心检测引擎（NOT_STARTED；前置 Gate 已满足）`
+> 当前阶段：G3C-R1 狭义审计修复已通过本地技术验收，等待本地修复提交与 Chrome GitHub 检查点闭合
+> 当前 Gate：`G3C-R1 — 上游状态失败关闭与生成路径守卫（IN_PROGRESS / TECH_PASS）`；`G3 — 核心检测引擎（BLOCKED_BY_G3C_R1_CHECKPOINT）`
 
 ---
 
@@ -757,7 +757,7 @@ G2 的上述 8 个案例保持冻结。G3C 另建不改写 G2 真值的净距补
 
 目标：浏览器产品实现通过受控规则契约。
 
-当前状态：`NOT_STARTED`（G3A、G3B 与 G3C 前置 Gate 均已完整 `PASS`；尚未开始任何 G3 实现，等待用户另行决定）。
+当前状态：`BLOCKED`（G3C-R1 审计修复版本检查点前置条件）；尚未开始任何 G3 实现。
 
 必须完成：
 
@@ -2263,6 +2263,40 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 **对应本地提交：** `8cf588f77812caa672f1491e838d386cfb3c50e7`（`step(G3C): validate deterministic clearance warnings`）。
 
 **GitHub 检查点：** 技术链 `121d4c109b7518d5ab7b09f14aba95999d952927` → `413e09b5f7c57fd462cef0be6384c3305fc8e815` → `8de2097e5c7d81a709dc48cb5cf351d7560d9660` → `29454ae46d5e7069549dcf88b71270a52246e3c7` → `9a707582ec0a489bb1a0bfeb33b8dbd16eff65d1` → `e73edc168a17fb2a1d7786750c8831168c24bc6f` → `3113f47ac427eee82c40bced12ffb9b0a686c517`；最终 PASS 映射发布按账本自引用闭合规则登记。
+
+---
+
+### L-0024 — G3C-R1 上游状态与生成路径审计修复
+
+**时间：** 2026-08-27 13:52（Asia/Hong_Kong）
+
+**Gate：** G3C-R1 `IN_PROGRESS`（本地技术与发布审计 `PASS`；版本检查点待完成）；G3 `BLOCKED`
+
+**目标：** 仅关闭 G3C 完成后审计发现的两个边界：独立网格参考对未知上游硬碰撞状态未失败关闭，以及生成器未显式验证 case ID 和解析后工件路径 containment。不得改变冻结九案例、阈值、距离证书或开始 G3/UI。
+
+**已执行：**
+
+- 独立 `three-mesh-bvh` 参考现在只允许上游 `CLEAR` 进入净距计算，保留 `CLASH` 抑制路径，其他状态统一以 `NOT_EVALUATED`、空距离和诊断失败关闭；
+- 生成器新增严格 `G3C` 加两位数字 case ID 校验、重复 ID 拒绝、目标路径预解析和输出根 containment 守卫；在任何工件写入前完成全体路径计划；
+- 新增未知上游状态联合探针与 `../` 路径穿越探针，前者要求解析和网格两条路径同时失败关闭，后者要求生成器非零退出且不产生逃逸文件；
+- 未修改 9 个生成工件、冻结基线、操作台账、50 mm 比较、解析证书、依赖或许可证；未开始 G3、Design Gate、UI、AI、部署或视频工作。
+
+**验证结果：**
+
+- `scripts/test-g3c.ps1`：`PASS`；正式九案例分布保持 `WARNING 4 / CLEAR 2 / NOT_EVALUATED 2 / SUPPRESSED 1`；
+- 契约/对抗突变拒绝由 `4/4` 增至 `6/6`；未知上游状态在两条路径均为 `NOT_EVALUATED`，路径穿越无逃逸工件；
+- 两次隔离生成与冻结 9/9 路径—SHA 映射保持不变；G1/G2/G3A/G3A-R1/G3B/G3B-R1/G3C 全量回归通过；
+- G3C 发布审计通过，公开候选无本地绝对路径、邮箱、凭据或超限文件，Git 远程数为 `0`。
+
+**当前结论：** G3C-R1 本地技术与发布审计 `PASS`；Gate 仍为 `IN_PROGRESS`，等待权威本地修复提交、Chrome GitHub 网页检查点、网页回查与映射登记。
+
+**下一步：** 形成 `fix(G3C-R1): close upstream and path guards` 本地提交；随后集中列出公开文件，并仅在获得行动时授权后通过用户已登录 Chrome 网页建立 G3C-R1 检查点。不得开始 G3 或正式 UI。
+
+**需要用户决定：** GitHub 外部上传将在本地提交与集中上传清单形成后请求一次授权。
+
+**对应本地提交：** 待形成。
+
+**GitHub 检查点：** 待执行。
 
 ---
 

@@ -4,7 +4,7 @@ IFC ClashTrace is a deterministic browser/Web IFC feasibility project for tracea
 
 ## Current checkpoint
 
-G1 proves the dual geometry routes. G2 freezes a deterministic eight-case IFC4 acceptance dataset. G3A hardens that frozen contract. G3B defines a strict, rotation-invariant structure-interior depth threshold, fails closed when the `2 mm` erosion core is empty or degenerate, and confines the historical world-axis AABB guard to C04 evidence only. G3C adds a separate, deterministic `<50 mm` pipe-to-structure surface-clearance contract with hard-clash deduplication and failure-closed records.
+G1 proves the dual geometry routes. G2 freezes a deterministic eight-case IFC4 acceptance dataset. G3A hardens that frozen contract. G3B defines a strict, rotation-invariant structure-interior depth threshold, fails closed when the `2 mm` erosion core is empty or degenerate, and confines the historical world-axis AABB guard to C04 evidence only. G3C adds a separate, deterministic `<50 mm` pipe-to-structure surface-clearance contract with hard-clash deduplication and failure-closed records. G3C-R1 also requires both evaluator routes to fail closed on an unknown upstream hard-clash status and prevents generated artifact paths from escaping their selected output root.
 
 The frozen G2/G3A contract includes:
 
@@ -78,7 +78,7 @@ After completing the G1 setup command, run:
 pwsh -NoLogo -NoProfile -File .\scripts\test-g3c.ps1
 ```
 
-The suite regenerates nine controlled clearance artifacts twice in isolated roots, verifies their repository-relative SHA-256 baseline, compares the exact analytic rule against an independent `three-mesh-bvh` triangle-surface reference, checks the strict 50 mm boundary and hard-clash deduplication, and reruns every G1/G2/G3A/G3B regression.
+The suite regenerates nine controlled clearance artifacts twice in isolated roots, verifies their repository-relative SHA-256 baseline, compares the exact analytic rule against an independent `three-mesh-bvh` triangle-surface reference, checks the strict 50 mm boundary and hard-clash deduplication, rejects unknown upstream status and path-traversal mutations, and reruns every G1/G2/G3A/G3B regression.
 
 ## Boundaries through G3C
 
@@ -90,6 +90,7 @@ The suite regenerates nine controlled clearance artifacts twice in isolated root
 - G3C proves the clearance record contract on a bounded analytic family; it does not implement IFC parsing or the browser product detector.
 - The exact analytic classifier has no epsilon deadband. The independent Float32 triangle-mesh route uses a `1e-7 m` agreement tolerance only for reference comparison, not for the 50 mm rule threshold.
 - Confirmed hard-clash pairs emit no clearance record; unreliable geometry or coordinates emit `NOT_EVALUATED` with a diagnostic.
+- Any upstream hard-clash status other than authoritative `CLEAR` or `CLASH` fails closed in both evaluator routes; generated case IDs and resolved artifact paths are containment-guarded.
 - G3 is now unblocked as the next separate core-engine step, but it has not started.
 - No formal UI or visual design has started; that remains blocked until the Design Gate.
 - No third-party or private project IFC is included in the G2 dataset.
