@@ -6,6 +6,8 @@ IFC ClashTrace is a deterministic browser/Web IFC feasibility project for tracea
 
 G1 proves the dual geometry routes. G2 freezes a deterministic eight-case IFC4 acceptance dataset. G3A hardens that frozen contract. G3B defines a strict, rotation-invariant structure-interior depth threshold, fails closed when the `2 mm` erosion core is empty or degenerate, and confines the historical world-axis AABB guard to C04 evidence only. G3C adds a separate, deterministic `<50 mm` pipe-to-structure surface-clearance contract with hard-clash deduplication and failure-closed records. G3C-R1 also requires both evaluator routes to fail closed on an unknown upstream hard-clash status and prevents generated artifact paths from escaping their selected output root. G3 integrates both deterministic rules into a browser-compatible two-IFC core using `web-ifc` and `three-mesh-bvh`.
 
+The R4 Design Gate package in `docs/design-brief.md` is user-approved. It freezes the three-page and preference contracts, editorial technology as the earth-tone mainstream profile, a restrained orange-red accent, unified sans typography, disciplined radii, a centered homepage brand lockup, widened icon–wordmark safe space, and an original wall–pipe–collision–dialog reveal. No formal UI, G4 slice, runtime AI, deployment, or video work has started; the public checkpoint and local–remote evidence mapping are tracked in `PROGRESS_SYNC.md`.
+
 The frozen G2/G3A contract includes:
 
 - 3 expected `CLASH` cases, 4 expected `CLEAR` cases, and 1 expected `NOT_EVALUATED` case;
@@ -113,12 +115,23 @@ Open `http://127.0.0.1:4173/spikes/g3-browser/`. A passing run reports all eight
 - Any upstream hard-clash status other than authoritative `CLEAR` or `CLASH` fails closed in both evaluator routes; generated case IDs and resolved artifact paths are containment-guarded.
 - The eight G2 cases and nine G3C cases are controlled acceptance evidence, not a claim of arbitrary IFC/exporter or real-project accuracy.
 - G3 is the completed deterministic core only; file-selection UX, results UI, 3D review interaction, and visual design remain outside this Gate.
-- No formal UI or visual design has started; that remains blocked until the Design Gate.
+- DG visual direction is under user review; no formal UI implementation has started and remains blocked until DG passes.
 - No third-party or private project IFC is included in the G2 dataset.
 
 ## AI assistance
 
 AI-assisted implementation prompts and human verification are summarized in `PROMPTS.md`. Clash status is always decided by deterministic geometry code.
+
+## Design Gate review
+
+Run the local DG contract and publication audit with PowerShell 7:
+
+```powershell
+pwsh -NoLogo -NoProfile -File .\scripts\test-dg.ps1
+pwsh -NoLogo -NoProfile -File .\scripts\audit-dg.ps1
+```
+
+These checks validate the required review sections, research links, low-fidelity SVG contract, absence of formal UI/deployment files, unchanged G3 regression, and sanitized DG publication list. Passing them does not approve the design; explicit user approval is still required.
 
 ## License status
 

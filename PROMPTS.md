@@ -104,3 +104,49 @@ This repository uses AI assistance for implementation planning and code drafting
 - Adopted output: exact frozen-threshold validation, source/index/non-degenerate mesh guards, pair-level incomplete-geometry failure closing, rejected-geometry cleanup, 12 failure-closed guards, and an explicit G3-R1 progress record.
 - Verification so far: the focused Node suite and `scripts/test-g3.ps1` pass with C01–C08 unchanged, 12/12 failure-closed guards, deterministic repetition, full prior-stage regression, frozen-hash preservation, and unchanged Git state during tests. The current desktop Chrome harness passes `8/8` with zero console errors; current G1/G2/G3A/G3B/G3C/G3 publication audits pass with zero disclosure hits, no remotes, and public-plan equivalence. `git diff --check` and `git fsck --full` pass apart from the single previously recorded dangling tree. The authoritative local repair commit is `75e6b276cad4ef9506d5bef1b0cf7525900e947b`; the web checkpoint remains required before G3-R1 can be marked `PASS`.
 - Rejected or deferred suggestions: no new rule, fixture truth change, dependency, broad geometry claim, UI, visual work, AI integration, deployment, or video work was added.
+
+## P-011 — DG research and approval package
+
+- Date: 2026-08-27
+- Goal: prepare only the Design Gate research and low-fidelity user-approval material after independently confirming the completed G3-R1 baseline.
+- Sanitized prompt: read the current authoritative plan and sync ledger; use PowerShell 7 to reverify the local Git/Gate/test/audit/evidence state; research authoritative accessibility and BIM result/viewpoint interaction sources; define the target user, first-screen task, information architecture, interaction flow, visual direction, 3D–result relationship, deterministic/clearance/AI hierarchy, language/brand strategy, and mobile scope; create low-fidelity wireframes and local validation; do not implement formal UI, G4, runtime AI, deployment, or video; do not mark DG PASS before explicit user approval.
+- Human constraints: local Git remains authoritative with zero remotes; GitHub reads/writes use the signed-in Chrome webpage only; any future DG publication requires action-time user authorization; `BIMCLASH_AGENT_MASTER_PLAN.md` and all `scripts/audit-*.ps1` remain local-only; the existing G3 deterministic and failure-closed contracts cannot change.
+- Adopted output: a desktop-first single-page review-workspace proposal, setup/review grayscale SVG wireframes, evidence-first status hierarchy, result-driven 3D focus, Chinese-first/English-machine-token strategy, explicit mobile exclusion, WCAG-oriented implementation contract, DG test, and local publication audit.
+- Verification: all G1–G3 tests and current audits were independently rerun; G3 retained `8/8`, `100/100`, and `12/12`; the G3-R1 public parent chain and final two-file PASS mapping were rechecked in Chrome; DG contract/audit results are recorded in the authoritative local log. The user-approval stop remains active.
+- Rejected or deferred suggestions: no app UI files, design system implementation, exact untested final palette, web-font dependency, logo, runtime AI provider, BCF workflow, mobile review, deployment, or video artifact was created.
+
+## P-012 — DG R2 homepage and mainstream-style selection
+
+- Date: 2026-08-27
+- Goal: revise only the Design Gate after the user accepted the general direction but rejected the first wireframes' typography, alignment, completeness, and missing public-homepage structure.
+- Sanitized prompt: present original mainstream webpage styles with pictures for selection; define a public homepage with logo/name, equal Launch app and Development log actions opening new tabs, scroll-based graphic/text product explanation, and a conventional contributor/GitHub/license/privacy footer; retain a separate functional workspace and sanitized development-history page; require user-switchable mainstream/minimal style, Simplified Chinese/English, light/dark appearance, and AI interpretation off/on; do not implement G4 or mark DG PASS before style selection and final approval.
+- Human constraints: the user's monochrome minimal preference becomes one supported profile but cannot be assumed to represent broad audience preference; candidate images must not copy a specific site or third-party artwork; typography uses semantic roles, button label/icon groups are centered, explanations are complete, and preferences never alter deterministic records.
+- Adopted output: DG R2 three-page architecture, decisions D-024/D-025, a modern SaaS candidate A, professional engineering candidate B, editorial technology candidate C, and the monochrome minimal reference; A/B/C are alternatives for the single mainstream profile, not three production themes.
+- Research and verification: candidate categories were checked against current Material 3 Expressive, Ant Design, Atlassian foundations, and Webflow 2026 trend material; existing WCAG, Autodesk, and buildingSMART constraints remain authoritative for accessibility and 3D evidence behavior. Local DG tests/audit and G3 regression are rerun before the R2 local commit.
+- Rejected or deferred suggestions: no formal page implementation, copied screenshot, production logo, final palette, G4AI provider, deployment, video, or third mainstream theme was added.
+
+## P-013 — DG R3 editorial-technology and logo direction
+
+- Date: 2026-08-27
+- Goal: revise only the Design Gate after the user selected candidate C and supplied an older collaboration animation as a style/pacing reference for a new, original IFC ClashTrace brand direction.
+- Sanitized prompt: retain candidate C but replace the bright translucent treatment with deep earth-tone page surfaces and a restrained ochre/yellow accent; enforce consistent radii, control placement, high-contrast text, and one coherent modern sans direction across English and compatible Simplified Chinese; keep the homepage utility bar above a centered logo/name lockup; define an original wall–pipe collision icon and a bounded wall → pipe → collision → dialog → final lockup reveal.
+- Human constraints: the older animation is reference material only and must not be copied; the previous building-stack icon and product name are excluded; the generated concept is approval material rather than a production logo or formal UI asset; reduced-motion users receive the static final lockup.
+- Adopted output: candidate C becomes the selected mainstream profile; R3 records the revised palette, typography, radius, contrast, homepage order, static logo semantics, and motion storyboard. The concept preview remains outside the repository and the Gate stays open for user feedback.
+- Rejected or deferred suggestions: no production vector logo, animation implementation, UI file, new web-font dependency, G4 work, deployment, public upload, or video artifact was created.
+
+## P-014 — DG R4 logo spacing and orange-red correction
+
+- Date: 2026-08-27
+- Goal: apply the user's near-final two-point logo amendment and prepare the exact DG publication plan without uploading it.
+- Sanitized prompt: preserve the wall, pipe, collision/dialog geometry, wordmark, typography, and five-step reveal; increase the horizontal safe space between icon and wordmark to approximately one pipe diameter; replace yellow/ochre collision accents with restrained earthy orange-red; update static and storyboard approval previews consistently.
+- Human constraints: no other visual changes, no production asset claim, and no GitHub write before explicit final DG approval plus action-time collective authorization for the exact audited set.
+- Adopted output: R4 static and motion previews use the revised spacing/accent; the exact eight-file public candidate set and explicit exclusions are recorded in the design brief and sync ledger.
+- Rejected or deferred suggestions: generated concept PNGs, supplied reference media, local master plan, local audit scripts, formal UI, production logo/animation assets, G4 work, deployment, and video remain outside the upload set.
+
+## P-015 — DG R4 final approval and bounded publication
+
+- Date: 2026-08-27
+- Goal: record the user's explicit R4 approval, close only the Design Gate public checkpoint through the signed-in Chrome webpage, verify the public result, and stop before G4.
+- Sanitized prompt: approve DG R4; authorize one bounded Chrome publication sequence for the eight audited files and a subsequent evidence-mapping tail limited to the sanitized public plan and progress ledger; never upload the local authoritative plan, local audit scripts, reference media, generated logo drafts, credentials, browser state, caches, or G4 assets.
+- Human constraints: local Git remains authoritative; no remote is configured; every public write uses the existing signed-in Chrome session; the Gate is not `PASS` until upload, public verification, and local–remote mapping close.
+- Adopted output: the design brief is marked `APPROVED`, all approval checklist items are recorded, and the Gate enters `APPROVED_PENDING_PUBLICATION` before the bounded public checkpoint.

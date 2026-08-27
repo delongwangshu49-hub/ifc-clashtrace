@@ -69,6 +69,16 @@ The public set includes the MIT code license, CC0-1.0 generated-data notice, G2 
 
 Chrome verification confirmed the repository remained `Public`; the 11 exact commit titles all contained `G2` and local short SHA `7da4adf`; the `g2` directory contained exactly 16 C01–C08 MEP/structure files; licenses and key data markers were present; and the final remote SHA was `4fcc3cd47197a10771f5ce52b2e0a039d6434dc1`.
 
+## DG review package (not yet a publication checkpoint)
+
+- Status: `APPROVED_PENDING_PUBLICATION`; the user explicitly approved DG R4 and the bounded Chrome publication set on 2026-08-27.
+- Local review candidates: `docs/design-brief.md`, `docs/wireframes/dg-setup.svg`, and `docs/wireframes/dg-review.svg`.
+- Validation: `scripts/test-dg.ps1` and local-only `scripts/audit-dg.ps1` must pass while preserving the G3 regression and zero-remotes rule.
+- R4 scope: public home, new-tab app, new-tab development history, mainstream/minimal style, Simplified Chinese/English, light/dark appearance, and AI interpretation off/on. Candidate C editorial technology is selected for the mainstream profile and corrected to deep earth tones, restrained orange-red, unified sans typography, disciplined radii, a centered homepage lockup, widened icon–wordmark safe space, and a bounded wall–pipe–collision–dialog reveal; the complete package is user-approved.
+- Planned publication set after approval: exactly eight audited files — the sanitized public plan, public ledger, prompt record, README, R4 design brief, two low-fidelity wireframes, and public DG contract test. Local governance/audit files, reference media, generated logo drafts, browser state, credentials, caches, and formal G4 assets remain excluded.
+- Publication boundary: the local master plan and every `scripts/audit-*.ps1` remain excluded. No Chrome upload is permitted until the user approves the DG direction and gives action-time collective authorization for the exact reviewed file set.
+- Completion rule: DG remains incomplete until approval, final local commit, Chrome GitHub web checkpoint, public verification, and local–remote mapping all pass.
+
 ## Verification checklist
 
 - [x] PowerShell 7 major version is at least 7 (`7.6.4`).
