@@ -71,9 +71,17 @@ foreach ($caseId in $expectedStatuses.Keys) {
     }
 }
 if ($engineJson.adversarial_guards.unverified_coordinates -ne "NOT_EVALUATED" -or
-    $engineJson.adversarial_guards.invalid_threshold -ne "NOT_EVALUATED" -or
+    $engineJson.adversarial_guards.zero_threshold -ne "NOT_EVALUATED" -or
+    $engineJson.adversarial_guards.non_finite_threshold -ne "NOT_EVALUATED" -or
+    $engineJson.adversarial_guards.custom_hard_threshold -ne "NOT_EVALUATED" -or
+    $engineJson.adversarial_guards.custom_clearance_threshold -ne "NOT_EVALUATED" -or
     $engineJson.adversarial_guards.malformed_ifc -ne "NOT_EVALUATED" -or
     $engineJson.adversarial_guards.role_mismatch -ne "NOT_EVALUATED" -or
+    $engineJson.adversarial_guards.all_degenerate_mesh -ne "REJECTED" -or
+    $engineJson.adversarial_guards.non_triangular_index -ne "REJECTED" -or
+    $engineJson.adversarial_guards.out_of_range_index -ne "REJECTED" -or
+    $engineJson.adversarial_guards.non_integer_index -ne "REJECTED" -or
+    $engineJson.adversarial_guards.partial_geometry_failure -ne "NOT_EVALUATED" -or
     $engineJson.adversarial_guards.deterministic_repeat -ne "PASS") {
     throw "A G3 failure-closed or determinism guard changed."
 }
@@ -94,7 +102,7 @@ Write-Output "G3_CONTROLLED_HARD_STATUS_MATCH=8/8"
 Write-Output "G3_HARD_CLASH_PRECISION_RECALL=100/100"
 Write-Output "G3_CLEARANCE_G2_INTEGRATION=PASS"
 Write-Output "G3_HARD_CLASH_DEDUPLICATION=3/3"
-Write-Output "G3_FAILURE_CLOSED_GUARDS=4/4"
+Write-Output "G3_FAILURE_CLOSED_GUARDS=12/12"
 Write-Output "G3_DETERMINISTIC_REPEAT=PASS"
 Write-Output "G3_AABB_CLASSIFICATION_PROHIBITED=PASS"
 Write-Output "G3_BROWSER_CORE_NODE_IMPORTS=0"
