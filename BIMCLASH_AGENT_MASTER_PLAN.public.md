@@ -5,8 +5,8 @@
 > 创建时间：2026-08-25（Asia/Hong_Kong）  
 > 目标完成时间：不晚于 2026-08-31 晚间（Asia/Hong_Kong）  
 > 项目根目录：`<PROJECT_ROOT>`  
-> 当前阶段：DG-R1 三项限定审计修复已本地通过并获 5 文件集体 Chrome 授权；正在闭合公开检查点，未进入 G4
-> 当前 Gate：`DG-R1 — Design Gate limited audit repair（PUBLICATION_AUTHORIZED_IN_PROGRESS；G4 NOT_STARTED）`
+> 当前阶段：DG-R1 三项限定审计修复已完成本地验证、Chrome 公开检查点与网页核验；严格停止在 DG-R1，未进入 G4
+> 当前 Gate：`DG-R1 — Design Gate limited audit repair（PASS；等待用户决定下一阶段）`
 
 ---
 
@@ -792,7 +792,7 @@ G2 的上述 8 个案例保持冻结。G3C 另建不改写 G2 真值的净距补
 - 大众版与黑白灰极简版双风格、简中/英语、亮/暗外观和 AI 解读开关的偏好契约；
 - 字体家族/语义字号统一、按钮文字与图标居中及说明完整性验收要求。
 
-状态：DG R4 `PASS`；DG-R1 `PUBLICATION_AUTHORIZED_IN_PROGRESS`（三项限定审计修复已完成本地实现、负向守卫与回归；用户已授权精确 5 文件 Chrome 检查点及仅限公开总纲/台账的证据尾部。正式 UI 与 G4 仍须另行授权）。
+状态：DG R4 `PASS`；DG-R1 `PASS`（三项限定审计修复、本地负向守卫、G3 回归、精确 5 文件 Chrome 检查点、网页核验与初始本地—远程映射均已通过。正式 UI 与 G4 仍须另行授权）。
 
 停止门：用户未批准，不实施正式前端样式和风格化内容。
 
@@ -2547,7 +2547,7 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 
 **时间：** 2026-08-27（Asia/Hong_Kong）
 
-**Gate：** DG-R1 `PUBLICATION_AUTHORIZED_IN_PROGRESS`；G4 `NOT_STARTED`
+**Gate：** DG-R1 `PASS`；G4 `NOT_STARTED`
 
 **授权范围：** 用户批准只修复审计发现的三项问题，不授权 G4、正式 UI、运行时 AI、部署、视频或任何其他设计扩展；本次批准不推定 Chrome 外部写入授权。
 
@@ -2559,7 +2559,13 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 
 **公开授权：** 用户已给予一次性 Chrome 集体授权，仅上传 `BIMCLASH_AGENT_MASTER_PLAN.public.md`、`PROGRESS_SYNC.md`、`PROMPTS.md`、`docs/design-brief.md`、`scripts/test-dg.ps1`，随后证据映射尾部只允许再次处理公开总纲与进度台账。`BIMCLASH_AGENT_MASTER_PLAN.md`、`scripts/audit-dg.ps1` 及全部既有排除项不得上传。
 
-**当前结论：** DG-R1 本地技术修复通过且限定公开检查点已获授权；在 Chrome 上传、逐提交网页核验和本地—远程映射全部闭合前仍不能标记 DG-R1 `PASS`。严格停止在 DG-R1。
+**Chrome 公开链：** 从既有 DG 最终台账 `c73d7193d14be5d39b41a485a51535e8129fafd8` 连续产生三文件根证据提交 `b62f3cecaf76ba35b2a6dfab2d194512deadaed2`、单文件设计简报提交 `c29dc0e27f6a6981261696fa9867b6924df4e8ab` 和单文件公开测试提交 `121ad2d4876edebf13f25d325208590bae1d229a`。父链、提交标题、本地短 SHA 和文件树均通过 Chrome 回查。
+
+**网页核验：** 公开设计简报明确 DG 不授权基础 G4且任何基础 G4 工作都需单独用户决定；公开测试包含正式 UI 路径守卫自测、文件计数与包/脚本信号。仓库保持 `Public`；本地总纲、`scripts/audit-dg.ps1` 和全部既有排除项未上传。
+
+**当前结论：** DG-R1 的三项修复、本地验证、限定 Chrome 公开检查点、逐项网页核验与初始映射均为 `PASS`。按台账自引用规则，仅继续发布公开总纲与进度台账映射尾部，并以随后一个不改文件的本地空 `sync(DG-R1)` 提交登记最终台账远端 SHA；不递归重发。
+
+**下一步：** 严格停止在 DG-R1，等待用户决定是否另行授权下一阶段；不得自动开始 G4、正式 UI、运行时 AI、部署或视频。
 
 ---
 
@@ -2605,4 +2611,4 @@ GitHub 检查点：URL / 远程 SHA / 上传时间 / 回查结论
 - 暂不批准，继续讨论项目范围；
 - 否决当前方向并重新规划。
 
-用户已明确批准原 `0.2.0-draft` 并启动项目，随后又明确批准本次功能与展示范围扩展。G0A、G1、G2、G3A、G3B-R1、G3C-R1、原 G3 与 G3-R1 检查点均已完成；完整 DG R4 已闭合为 `PASS`。其后用户批准严格限三项的 DG-R1 审计修复，并集体授权精确 5 文件 Chrome 检查点与受限映射尾部。当前为 `PUBLICATION_AUTHORIZED_IN_PROGRESS`，严格停止在 DG-R1；未进入 G4、正式 UI、G4AI、部署或视频。
+用户已明确批准原 `0.2.0-draft` 并启动项目，随后又明确批准本次功能与展示范围扩展。G0A、G1、G2、G3A、G3B-R1、G3C-R1、原 G3 与 G3-R1 检查点均已完成；完整 DG R4 与其后三项限定 DG-R1 审计修复均已闭合为 `PASS`。当前严格停止在 DG-R1并等待用户另行决定下一阶段；未进入 G4、正式 UI、G4AI、部署或视频。
