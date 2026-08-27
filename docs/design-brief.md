@@ -385,9 +385,9 @@ If DG is approved, implementation acceptance must include:
 
 These are implementation acceptance criteria, not claims that a UI already exists.
 
-## 15. G4 handoff boundary if approved
+## 15. G4 handoff boundary if separately authorized
 
-Approval authorizes only the minimum vertical slice described here:
+DG approval freezes the design contract only; it does not authorize implementation. If the user later gives a separate, explicit authorization to begin base G4, that Gate is limited to the following minimum vertical slice:
 
 - public homepage with logo/name, two new-tab actions, scroll-based visual explanation, and project footer;
 - development-history page populated only from sanitized public evidence;
@@ -400,7 +400,7 @@ Approval authorizes only the minimum vertical slice described here:
 - an AI interpretation enable/disable preference that defaults off and does not itself implement a provider call;
 - placeholders for the later G4AI entry hierarchy, without implementing the provider or runtime request during G4 base work.
 
-Approval does not authorize G4AI provider integration, deployment, public access changes, video production, BCF workflow, extra rules, or mobile model review. The homepage, development page, logo placeholder, and preference infrastructure are now part of the user-requested G4 presentation scope rather than optional embellishment.
+Neither DG approval nor this handoff description authorizes base G4 work, G4AI provider integration, deployment, public access changes, video production, BCF workflow, extra rules, or mobile model review. A separate user decision is required before any base G4 work. If G4 is later authorized, the homepage, development page, logo placeholder, and preference infrastructure are required presentation scope rather than optional embellishment.
 
 ## 16. Approval checklist
 
