@@ -1,6 +1,6 @@
 # G3B tolerance semantics and AABB isolation
 
-Status: `TECH_PASS_SYNC_BLOCKED` (G3B-R1 publication pending)
+Status: `PASS` (G3B-R1)
 
 ## Decision
 
@@ -97,4 +97,15 @@ The authoritative local implementation is commit `a443a0d875a2d46a7af3e8589d571f
 3. tolerance fixtures `3f1c0855596d78b4f8617a155d0b59211188852c`;
 4. tolerance evidence `54c1bab44042573a4d7e719ffc67b7cc3373121f`.
 
-Chrome verification confirmed `Public` visibility, branch `main`, exact parent continuity, the local short-SHA mapping in every title, the C04-only guard, all 12 original fixtures, the AABB counterexample, the then-documented failure-closed boundary, and the explicit G3C blocker. G3B-R1 supersedes the unsafe thin-structure and threshold-edge conclusions; its new web checkpoint is pending. No Git remote, CLI remote, GitHub API, or `origin` was used.
+Chrome verification confirmed `Public` visibility, branch `main`, exact parent continuity, the local short-SHA mapping in every title, the C04-only guard, all 12 original fixtures, the AABB counterexample, the then-documented failure-closed boundary, and the explicit G3C blocker. G3B-R1 supersedes the unsafe thin-structure and threshold-edge conclusions through the verified chain below. No Git remote, CLI remote, GitHub API, or `origin` was used.
+
+## G3B-R1 verified checkpoint
+
+The authoritative repair is local commit `03b6e67b7ae19a758021f29ba779c83f5e5efffb` (`fix(G3B): harden tolerance and audit evidence`). Chrome published and verified the continuous public chain:
+
+1. root evidence `af2cbcf98275b846dd5de38489fa9c5b7706df3f`;
+2. exact-threshold scripts and tests `b92fed1f33189682d9d58c9b92c94115a28333d2`;
+3. thirteen-case fixture `a09b71ab578fd365d136b1ae4ad88edf416ca063`;
+4. semantic evidence `ac3f5069e16a3a36816748714373649693899827`.
+
+The web review confirmed `Public/main`, exact parent continuity, all seven intended public files, fixture version `1.1.0`, G3B13's exact decimal, degenerate-core failure closing, explicit reliability-signal sources, the unsupported-certificate assertion, absence of the former `math.isclose` classification deadband, C04-only AABB evidence, and the unchanged G3C blocker. Local audit scripts were not uploaded. No Git remote, CLI remote, GitHub API, or `origin` was used.
