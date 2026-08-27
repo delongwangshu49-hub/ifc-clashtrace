@@ -4,7 +4,7 @@ IFC ClashTrace is a deterministic browser/Web IFC feasibility project for tracea
 
 ## Current checkpoint
 
-G1 proves the dual geometry routes. G2 freezes a deterministic eight-case IFC4 acceptance dataset. G3A hardens that frozen contract. G3B defines a strict, rotation-invariant structure-interior depth threshold, fails closed when the `2 mm` erosion core is empty or degenerate, and confines the historical world-axis AABB guard to C04 evidence only.
+G1 proves the dual geometry routes. G2 freezes a deterministic eight-case IFC4 acceptance dataset. G3A hardens that frozen contract. G3B defines a strict, rotation-invariant structure-interior depth threshold, fails closed when the `2 mm` erosion core is empty or degenerate, and confines the historical world-axis AABB guard to C04 evidence only. G3C adds a separate, deterministic `<50 mm` pipe-to-structure surface-clearance contract with hard-clash deduplication and failure-closed records.
 
 The frozen G2/G3A contract includes:
 
@@ -17,7 +17,7 @@ The frozen G2/G3A contract includes:
 - exact assertions for the approved rule, IFC4 schema, metre unit, shared project coordinates, and `0.002 m` tolerance;
 - negative tests that reject rule, schema, unit, coordinate-system, tolerance, status, path, and hash mutations.
 
-The eight cases are a public contract acceptance suite, not a hidden holdout set and not evidence of general real-project accuracy. G3B adds 13 analytic proof fixtures for touching, `1.9/2.0/2.1 mm` plus a `0.5 nm`-above-threshold regression, `3.0/4.0/4.2 mm` thin structures, rotation, oblique crossing, explicit AABB divergence, and failure-closed behavior. G3B10/G3B11 consume caller-supplied reliability preconditions; they do not themselves validate topology or coordinate registration. See `docs/data-and-licenses.md`, `docs/g3a-contract-hardening.md`, and `docs/g3b-tolerance-semantics.md` for evidence and limitations.
+The eight cases are a public contract acceptance suite, not a hidden holdout set and not evidence of general real-project accuracy. G3B adds 13 analytic proof fixtures for touching, `1.9/2.0/2.1 mm` plus a `0.5 nm`-above-threshold regression, `3.0/4.0/4.2 mm` thin structures, rotation, oblique crossing, explicit AABB divergence, and failure-closed behavior. G3B10/G3B11 consume caller-supplied reliability preconditions; they do not themselves validate topology or coordinate registration. G3C adds nine independent clearance cases covering `0/49/50/51 mm`, a hard-clash-suppressed pair, rotated oblique placement, a modeled opening, missing geometry, and unverified coordinates. See `docs/data-and-licenses.md`, `docs/g3a-contract-hardening.md`, `docs/g3b-tolerance-semantics.md`, and `docs/g3c-clearance-semantics.md` for evidence and limitations.
 
 ## Reproduce G1 on Windows
 
@@ -70,14 +70,27 @@ pwsh -NoLogo -NoProfile -File .\scripts\test-g3b.ps1
 
 The suite proves the bounded interior-depth semantic, verifies that equality at `2 mm` is `CLEAR`, demonstrates that rotated world-axis AABB overlap cannot stand in for depth, checks three `NOT_EVALUATED` paths, and reruns the full G1/G2/G3A/G3A-R1 regression chain.
 
-## Boundaries through G3B
+## Reproduce G3C on Windows
+
+After completing the G1 setup command, run:
+
+```powershell
+pwsh -NoLogo -NoProfile -File .\scripts\test-g3c.ps1
+```
+
+The suite regenerates nine controlled clearance artifacts twice in isolated roots, verifies their repository-relative SHA-256 baseline, compares the exact analytic rule against an independent `three-mesh-bvh` triangle-surface reference, checks the strict 50 mm boundary and hard-clash deduplication, and reruns every G1/G2/G3A/G3B regression.
+
+## Boundaries through G3C
 
 - G3B defines and validates the general tolerance semantic on a bounded analytic proof family; it does not implement the browser product detector.
 - Metre units and a shared project coordinate system.
 - Browser penetration distance is not claimed; the field remains unavailable until the later product implementation independently satisfies the G3B reliability boundary.
 - IfcOpenShell raw surface intersection reports C04 as an intersection; only C04 may apply its parsed world-bounds overlap guard (`~0.001 m < 0.002 m`). No other G2 or G3B case may inherit AABB classification.
 - World-axis AABB may be a future broad-phase candidate filter only; it cannot output a clash, penetration distance, or general clear result.
-- G3 remains blocked by G3C and the later core-engine step.
+- G3C proves the clearance record contract on a bounded analytic family; it does not implement IFC parsing or the browser product detector.
+- The exact analytic classifier has no epsilon deadband. The independent Float32 triangle-mesh route uses a `1e-7 m` agreement tolerance only for reference comparison, not for the 50 mm rule threshold.
+- Confirmed hard-clash pairs emit no clearance record; unreliable geometry or coordinates emit `NOT_EVALUATED` with a diagnostic.
+- G3 is now unblocked as the next separate core-engine step, but it has not started.
 - No formal UI or visual design has started; that remains blocked until the Design Gate.
 - No third-party or private project IFC is included in the G2 dataset.
 

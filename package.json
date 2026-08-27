@@ -1,9 +1,9 @@
 {
   "name": "ifc-clashtrace",
-  "version": "0.0.0-g2-dataset",
+  "version": "0.0.0-g3c-clearance",
   "private": true,
   "type": "module",
-  "description": "Deterministic IFC hard-clash feasibility and controlled dataset.",
+  "description": "Deterministic IFC hard-clash and controlled surface-clearance evidence.",
   "scripts": {
     "g1:node": "node scripts/g1-web-ifc-spike.mjs"
   },
