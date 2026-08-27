@@ -5,8 +5,8 @@
 > 创建时间：2026-08-25（Asia/Hong_Kong）  
 > 目标完成时间：不晚于 2026-08-31 晚间（Asia/Hong_Kong）  
 > 项目根目录：`<PROJECT_ROOT>`  
-> 当前阶段：G3C 50 mm 净距规则、本地技术验收与发布审计已通过；本地步骤提交和 Chrome GitHub 检查点待完成
-> 当前 Gate：`G3C — 50 mm 净距预警规则（IN_PROGRESS / TECH_PASS）`；`G3 — 核心检测引擎（BLOCKED_BY_G3C_CHECKPOINT）`
+> 当前阶段：G3C 50 mm 净距规则、本地技术验收、发布审计、权威提交、Chrome GitHub 检查点与网页回查均已完成；已严格停止并等待用户决定是否开始 G3
+> 当前 Gate：`G3C — 50 mm 净距预警规则（PASS）`；`G3 — 核心检测引擎（NOT_STARTED；前置 Gate 已满足）`
 
 ---
 
@@ -740,7 +740,7 @@ G2 的上述 8 个案例保持冻结。G3C 另建不改写 G2 真值的净距补
 
 目标：在不降低硬碰撞规则可信度的前提下，实现同一受控构件范围内的表面净距预警，并建立独立于 G2 冻结真值的补充验收集。
 
-当前状态：`IN_PROGRESS`（本地技术验收与发布审计 `PASS`；本地步骤提交和 Chrome GitHub 检查点待完成）。
+当前状态：`PASS`（本地技术验收、发布审计、权威步骤提交、Chrome GitHub 连续技术链与网页回查均已完成；最终映射按账本自引用闭合规则登记）。
 
 必须完成：
 
@@ -757,7 +757,7 @@ G2 的上述 8 个案例保持冻结。G3C 另建不改写 G2 真值的净距补
 
 目标：浏览器产品实现通过受控规则契约。
 
-当前状态：`BLOCKED`（G3C 版本检查点前置条件）；只有 G3A、G3B 与 G3C 均为完整 `PASS` 后才转为 `IN_PROGRESS`。
+当前状态：`NOT_STARTED`（G3A、G3B 与 G3C 前置 Gate 均已完整 `PASS`；尚未开始任何 G3 实现，等待用户另行决定）。
 
 必须完成：
 
@@ -2220,7 +2220,7 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 
 **时间：** 2026-08-27 12:41（Asia/Hong_Kong）
 
-**Gate：** G3C `IN_PROGRESS`（本地技术与发布审计 `PASS`；版本检查点待完成）；G3 `BLOCKED`
+**Gate：** G3C `PASS`；G3 `NOT_STARTED`（前置 Gate 已满足，等待用户决定）
 
 **目标：** 在不改变 G2 冻结硬碰撞真值、不进入 G3 浏览器产品引擎的前提下，实现 `IfcPipeSegment` 对 `IfcWall`/`IfcBeam` 的确定性 50 mm 表面净距规则、独立补充验收集、硬碰撞去重与失败关闭记录。
 
@@ -2252,15 +2252,17 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 
 **隐私与许可证：** 新增代码沿用 MIT；程序生成 JSON 几何工件、台账与真值基线为 CC0-1.0；公开候选不含本地绝对路径、个人信息、凭据、外部/私人模型或本地运行输出。
 
-**当前结论：** G3C 本地技术与发布审计 `PASS`；Gate 仍为 `IN_PROGRESS`，等待权威本地步骤提交、Chrome GitHub 网页上传、网页回查与映射登记。
+**网页验证：** 仅通过用户已登录 Chrome 网页形成连续技术链 `121d4c109b7518d5ab7b09f14aba95999d952927` → `413e09b5f7c57fd462cef0be6384c3305fc8e815` → `8de2097e5c7d81a709dc48cb5cf351d7560d9660` → `29454ae46d5e7069549dcf88b71270a52246e3c7` → `9a707582ec0a489bb1a0bfeb33b8dbd16eff65d1` → `e73edc168a17fb2a1d7786750c8831168c24bc6f` → `3113f47ac427eee82c40bced12ffb9b0a686c517`。七笔标题均含 `G3C` 与本地短 SHA `8cf588f`，并由既有证据尾 `4f9ecb6592570a722ea080a3fd3ad7aafd1b0ee8` 连续延伸；逐提交回查确认 `Public/main`、23 个预期公开文件与 `5/1/1/9/1/2/4` 文件分布。
 
-**下一步：** 复核变更、运行最终全量测试与审计，形成 `step(G3C): validate deterministic clearance warnings` 本地提交；随后仅在获得行动时授权后通过用户已登录 Chrome 网页建立 G3C 检查点。不得开始 G3 或正式 UI。
+**当前结论：** G3C `PASS`。本地技术验收、发布审计、权威步骤提交、Chrome GitHub 连续技术链、逐提交网页回查与本地—公开 SHA 映射均已通过；G3 前置 Gate 已满足，但未开始任何 G3 或正式 UI 工作。
 
-**需要用户决定：** GitHub 外部上传将在本地提交与集中上传清单形成后请求一次授权。
+**下一步：** 严格停止在 G3C，等待用户决定是否开始 G3；不得自动开始 G3、Design Gate 或正式 UI。
 
-**对应本地提交：** 待形成。
+**需要用户决定：** 是否开始 G3。
 
-**GitHub 检查点：** 待执行。
+**对应本地提交：** `8cf588f77812caa672f1491e838d386cfb3c50e7`（`step(G3C): validate deterministic clearance warnings`）。
+
+**GitHub 检查点：** 技术链 `121d4c109b7518d5ab7b09f14aba95999d952927` → `413e09b5f7c57fd462cef0be6384c3305fc8e815` → `8de2097e5c7d81a709dc48cb5cf351d7560d9660` → `29454ae46d5e7069549dcf88b71270a52246e3c7` → `9a707582ec0a489bb1a0bfeb33b8dbd16eff65d1` → `e73edc168a17fb2a1d7786750c8831168c24bc6f` → `3113f47ac427eee82c40bced12ffb9b0a686c517`；最终 PASS 映射发布按账本自引用闭合规则登记。
 
 ---
 
