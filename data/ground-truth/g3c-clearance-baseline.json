@@ -1,0 +1,123 @@
+{
+  "dataset_id": "IFC_CLASHTRACE_G3C_CLEARANCE_V1",
+  "version": "1.0.0",
+  "rule_id": "MEP_STRUCTURE_CLEARANCE_WARNING_V1",
+  "license_spdx_or_name": "CC0-1.0",
+  "length_unit": "metre",
+  "coordinate_system": "shared_project_coordinates",
+  "threshold_m": 0.05,
+  "comparison": "WARNING when certified minimum surface clearance is greater than or equal to zero and strictly less than threshold_m; equality is CLEAR",
+  "scope": "Controlled analytic clearance fixtures for finite circular cylinders representing IfcPipeSegment and closed oriented boxes or rectangular opening frames representing IfcWall or IfcBeam. Hard-clash precedence, missing geometry, and unverified shared coordinates fail closed or suppress the clearance record as declared.",
+  "source_of_truth": "Human-authored constructive operations and exact analytic distances; neither the Python evaluator nor the independent triangle-mesh reference defines expected status.",
+  "case_count": 9,
+  "cases": [
+    {
+      "case_id": "G3C01",
+      "artifact": {
+        "path": "data/generated/g3c/g3c01-clearance-geometry.json",
+        "file_sha256": "a2b9289071c9a5d8a15875153dc91e5e93ff88d0158baec490c448ef4ff1da52"
+      },
+      "expected_record": {
+        "emitted": true,
+        "status": "WARNING",
+        "clearance_distance_m": 0.0
+      }
+    },
+    {
+      "case_id": "G3C02",
+      "artifact": {
+        "path": "data/generated/g3c/g3c02-clearance-geometry.json",
+        "file_sha256": "1560eabd40967d48647bbde77b2f80a5a906b8ccb1ab12654d2643b9496afb0c"
+      },
+      "expected_record": {
+        "emitted": true,
+        "status": "WARNING",
+        "clearance_distance_m": 0.049
+      }
+    },
+    {
+      "case_id": "G3C03",
+      "artifact": {
+        "path": "data/generated/g3c/g3c03-clearance-geometry.json",
+        "file_sha256": "d783d8ca00e83403a76e22a359515cc4a7c9266ea4488e0bdafc2aadb472757d"
+      },
+      "expected_record": {
+        "emitted": true,
+        "status": "CLEAR",
+        "clearance_distance_m": 0.05
+      }
+    },
+    {
+      "case_id": "G3C04",
+      "artifact": {
+        "path": "data/generated/g3c/g3c04-clearance-geometry.json",
+        "file_sha256": "cba9a89d075813e286fa66a1d418088f16a73cc4816f507462c7e6e3b9727bab"
+      },
+      "expected_record": {
+        "emitted": true,
+        "status": "CLEAR",
+        "clearance_distance_m": 0.051
+      }
+    },
+    {
+      "case_id": "G3C05",
+      "artifact": {
+        "path": "data/generated/g3c/g3c05-clearance-geometry.json",
+        "file_sha256": "0baa86d0f1669bc1c5e896d10ec0ff8dc4e99f64f310a538bc65ce2cf7c1cfcd"
+      },
+      "expected_record": {
+        "emitted": false,
+        "status": null,
+        "clearance_distance_m": null
+      }
+    },
+    {
+      "case_id": "G3C06",
+      "artifact": {
+        "path": "data/generated/g3c/g3c06-clearance-geometry.json",
+        "file_sha256": "4d9389e6feb80dc43b6fa73b226b912b2535c5b333df12379b9ee0c6026c7410"
+      },
+      "expected_record": {
+        "emitted": true,
+        "status": "WARNING",
+        "clearance_distance_m": 0.03
+      }
+    },
+    {
+      "case_id": "G3C07",
+      "artifact": {
+        "path": "data/generated/g3c/g3c07-clearance-geometry.json",
+        "file_sha256": "d7e12706f898f7bbe3cf0af87d56af94acba8b6039d85aed59c60510d21f47f3"
+      },
+      "expected_record": {
+        "emitted": true,
+        "status": "WARNING",
+        "clearance_distance_m": 0.04
+      }
+    },
+    {
+      "case_id": "G3C08",
+      "artifact": {
+        "path": "data/generated/g3c/g3c08-clearance-geometry.json",
+        "file_sha256": "91e424dc3548761bca4007bc27cce24ab40240863c88c26b0c672655aed4da95"
+      },
+      "expected_record": {
+        "emitted": true,
+        "status": "NOT_EVALUATED",
+        "clearance_distance_m": null
+      }
+    },
+    {
+      "case_id": "G3C09",
+      "artifact": {
+        "path": "data/generated/g3c/g3c09-clearance-geometry.json",
+        "file_sha256": "108eb6609f7350e62ff66d30f780eaa70478990e853b68eefc194a4d69367fe3"
+      },
+      "expected_record": {
+        "emitted": true,
+        "status": "NOT_EVALUATED",
+        "clearance_distance_m": null
+      }
+    }
+  ]
+}
