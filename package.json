@@ -1,11 +1,13 @@
 {
   "name": "ifc-clashtrace",
-  "version": "0.0.0-g3c-clearance",
+  "version": "0.0.0-g3-core",
   "private": true,
   "type": "module",
   "description": "Deterministic IFC hard-clash and controlled surface-clearance evidence.",
   "scripts": {
-    "g1:node": "node scripts/g1-web-ifc-spike.mjs"
+    "g1:node": "node scripts/g1-web-ifc-spike.mjs",
+    "g3:test": "node scripts/g3-engine-tests.mjs",
+    "g3:case": "node scripts/g3-run-controlled.mjs"
   },
   "dependencies": {
     "three": "0.185.1",
