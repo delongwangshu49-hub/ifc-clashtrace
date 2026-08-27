@@ -5,8 +5,8 @@
 > 创建时间：2026-08-25（Asia/Hong_Kong）  
 > 目标完成时间：不晚于 2026-08-31 晚间（Asia/Hong_Kong）  
 > 项目根目录：`<PROJECT_ROOT>`  
-> 当前阶段：DG R4 已获用户最终批准；正在闭合限定的 Chrome 公开检查点与证据映射，未进入 G4
-> 当前 Gate：`DG — Design Gate（APPROVED_PENDING_PUBLICATION；正式 UI 仍阻塞）`
+> 当前阶段：DG R4 已完成批准、限定 Chrome 公开检查点与网页核验；严格停止在 DG，未进入 G4
+> 当前 Gate：`DG — Design Gate（PASS；等待用户决定下一阶段）`
 
 ---
 
@@ -792,7 +792,7 @@ G2 的上述 8 个案例保持冻结。G3C 另建不改写 G2 真值的净距补
 - 大众版与黑白灰极简版双风格、简中/英语、亮/暗外观和 AI 解读开关的偏好契约；
 - 字体家族/语义字号统一、按钮文字与图标居中及说明完整性验收要求。
 
-状态：`APPROVED_PENDING_PUBLICATION`（用户已明确批准 DG R4 并授权限定的 Chrome 网页上传范围；在公开检查点、核验和本地—远程映射闭合前仍不得标记 `PASS`）。
+状态：`PASS`（用户已明确批准 DG R4；限定的 Chrome 网页公开检查点、逐提交核验和本地—远程映射均已闭合。正式 UI 与 G4 仍须用户另行授权）。
 
 停止门：用户未批准，不实施正式前端样式和风格化内容。
 
@@ -2523,17 +2523,21 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 
 **时间：** 2026-08-27（Asia/Hong_Kong）
 
-**Gate：** DG `APPROVED_PENDING_PUBLICATION`；G4 `NOT_STARTED`
+**Gate：** DG `PASS`；G4 `NOT_STARTED`
 
 **用户批准：** 用户逐字确认批准 DG R4，并授权仅通过已登录 Chrome 网页上传已列明的 8 个文件，以及随后仅限 `BIMCLASH_AGENT_MASTER_PLAN.public.md` 与 `PROGRESS_SYNC.md` 的证据映射尾部；排除项不得上传。
 
-**本地闭合准备：** `docs/design-brief.md` 标记为 `APPROVED` 并记录全部审批项；总纲、同步台账、README、PROMPTS 与 DG 测试契约同步更新。首次公开上传前必须再次通过 `scripts/test-dg.ps1`、`scripts/audit-dg.ps1`、G3 回归、零远程、隐私/凭据/大小扫描和公开总纲等价检查。
+**本地闭合与验证：** `docs/design-brief.md` 标记为 `APPROVED` 并记录全部审批项；总纲、同步台账、README、PROMPTS 与 DG 测试契约同步更新。PowerShell 7 下 `scripts/test-dg.ps1` 与 `scripts/audit-dg.ps1` 均为 `PASS`，G3 回归保持通过；发布候选精确为 8 个文件，绝对路径、邮箱、凭据、超 1 MiB 文件和禁传文件命中均为 0，Git 远程数为 0，公开总纲等价检查通过。
 
-**当前结论：** 用户审批已闭合，但 GitHub 公开检查点和映射尚待执行，因此 DG 暂不标记 `PASS`。不得开始 G4。
+**Chrome 公开链：** 公开仓库保持 `Public`，从既有 G3-R1 PASS 映射提交 `9376712a0fdbdf23326bd9cb5864656e6ebbb486` 连续产生根文件提交 `8ade46356b249bf1110c08f169164b3f150a88e0`、设计简报提交 `96754f20419e6538056940c800c5665b8e49fd69`、低保真线框提交 `a6a5f8f04de8e6b85e6ece89d80a8ee49651b1fa`、公开 DG 测试提交 `856a6a2339f2b6ef444274c768d1a12452cffda2`，以及仅修正已授权 README 状态矛盾的提交 `489c6b2e25cc8d26127263178f3150bba3b7929b`。最后一个提交的父提交精确为 `856a6a2339f2b6ef444274c768d1a12452cffda2` 且只包含 `README.md`。
 
-**对应本地提交：** `e416f29d1a70cf1cce642e7ba06ffab0004e972e`（`approve(DG): record R4 final approval`）。
+**网页核验：** 8 个授权文件均存在且关键批准标记、R4 范围、测试契约和低保真属性正确；两张 SVG 均无 `<script>`；README 已显示 DG R4 获批并继续阻塞未授权 G4，旧的“仍在审阅/仍需批准”文本不存在；公开提交父链、标题、本地短 SHA 与文件范围均通过 Chrome 回查。排除项未上传。
 
-**GitHub 检查点：** 待限定 Chrome 上传、公开核验和证据尾部闭合。
+**对应本地提交：** `e416f29d1a70cf1cce642e7ba06ffab0004e972e`（批准记录）→ `3f640b7a52cbd5a6400b94d64c7120fe92d8e59a`（批准证据映射）→ `2d046b2fc09d64dc1704bc89e4d638ff4c3e8d9d`（README 状态一致性修正）。
+
+**当前结论：** DG R4 的用户批准、本地验证、限定 Chrome 公开检查点、逐项网页核验与初始本地—远程映射均为 `PASS`。按公开台账自引用规则，仅继续发布公开总纲与进度台账的证据映射尾部，并以随后一个不改文件的本地空 `sync(DG)` 提交登记最终台账远端 SHA；不递归重发。
+
+**下一步：** 严格停止在 DG，等待用户决定是否授权下一阶段；不得自动开始 G4、正式 UI、运行时 AI、部署或视频。
 
 ---
 
@@ -2579,4 +2583,4 @@ GitHub 检查点：URL / 远程 SHA / 上传时间 / 回查结论
 - 暂不批准，继续讨论项目范围；
 - 否决当前方向并重新规划。
 
-用户已明确批准原 `0.2.0-draft` 并启动项目，随后又明确批准本次功能与展示范围扩展。G0A、G1、G2、G3A、G3B-R1、G3C-R1、原 G3 与 G3-R1 检查点均已完成；0.3.0 已将 G4AI、VG 及细化视频流程纳入计划。用户已明确指示开始且仅完成 DG，并在首轮审批后要求 R2 三页结构与四类可切换偏好，随后选择 C 编辑科技并给出 R3/R4 品牌修订；现已明确批准完整 DG R4 并授权限定公开范围。当前状态为 `APPROVED_PENDING_PUBLICATION`；完成 Chrome 公开检查点、核验与映射前不标记 `PASS`，且始终不进入 G4、正式 UI、G4AI、部署或视频。
+用户已明确批准原 `0.2.0-draft` 并启动项目，随后又明确批准本次功能与展示范围扩展。G0A、G1、G2、G3A、G3B-R1、G3C-R1、原 G3 与 G3-R1 检查点均已完成；0.3.0 已将 G4AI、VG 及细化视频流程纳入计划。用户已明确指示开始且仅完成 DG，并在首轮审批后要求 R2 三页结构与四类可切换偏好，随后选择 C 编辑科技并给出 R3/R4 品牌修订；完整 DG R4 的用户批准、限定 Chrome 公开检查点、网页核验与证据映射均已闭合为 `PASS`。当前严格停止在 DG，等待用户另行决定下一阶段；未进入 G4、正式 UI、G4AI、部署或视频。
