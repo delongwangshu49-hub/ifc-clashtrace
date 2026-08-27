@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { IfcAPI } from "web-ifc";
+import { IFCPIPESEGMENT, IFCUNITASSIGNMENT, IFCWALL, IfcAPI } from "web-ifc";
 
 import {
   CLEARANCE_RULE_ID,
@@ -49,6 +49,80 @@ function withoutDuration(result) {
   const copy = structuredClone(result);
   delete copy.duration_ms;
   return copy;
+}
+
+
+function vectorOf(items) {
+  return { size: () => items.length, get: index => items[index] };
+}
+
+
+function interleavedVertices(points) {
+  return points.flatMap(([x, y, z]) => [x, y, z, 0, 0, 0]);
+}
+
+
+const identityTransform = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1];
+const validTetrahedron = {
+  vertices: interleavedVertices([[0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]]),
+  indices: [0, 2, 1, 0, 1, 3, 1, 2, 3, 2, 0, 3],
+};
+
+
+function fakeIfcApi(pipeParts, structureParts) {
+  let nextModelId = 0;
+  const partsById = new Map();
+  const partsForModel = modelId => modelId === 0 ? pipeParts : structureParts;
+  return {
+    OpenModel: () => nextModelId++,
+    CloseModel: () => {},
+    GetModelSchema: () => "IFC4",
+    GetCoordinationMatrix: () => identityTransform,
+    GetLineIDsWithType(modelId, typeCode) {
+      if (typeCode === IFCUNITASSIGNMENT) return vectorOf([1000 + modelId]);
+      if (modelId === 0 && typeCode === IFCPIPESEGMENT) return vectorOf([1]);
+      if (modelId === 1 && typeCode === IFCWALL) return vectorOf([2]);
+      return vectorOf([]);
+    },
+    GetLine(modelId, expressId) {
+      if (expressId >= 1000) {
+        return { Units: [{ UnitType: { value: "LENGTHUNIT" }, Name: { value: "METRE" }, Prefix: null }] };
+      }
+      return {
+        GlobalId: { value: modelId === 0 ? "fake-pipe-guid" : "fake-wall-guid" },
+        Name: { value: modelId === 0 ? "Fake Pipe" : "Fake Wall" },
+      };
+    },
+    StreamAllMeshesWithTypes(modelId, _typeCodes, callback) {
+      const placed = partsForModel(modelId).map((part, index) => {
+        const geometryExpressID = `${modelId}-${index}`;
+        partsById.set(geometryExpressID, part);
+        return { geometryExpressID, flatTransformation: identityTransform };
+      });
+      callback({ expressID: modelId === 0 ? 1 : 2, geometries: vectorOf(placed) });
+    },
+    GetGeometry(_modelId, geometryExpressID) {
+      const part = partsById.get(geometryExpressID);
+      return {
+        GetVertexData: () => part.vertices,
+        GetVertexDataSize: () => part.vertices.length,
+        GetIndexData: () => part.indices,
+        GetIndexDataSize: () => part.indices.length,
+        delete: () => {},
+      };
+    },
+    GetVertexArray: data => data,
+    GetIndexArray: data => data,
+  };
+}
+
+
+async function evaluateFakeGeometry(pipeParts, structureParts) {
+  return evaluateIfcPair({
+    ifcApi: fakeIfcApi(pipeParts, structureParts),
+    mepBytes: new Uint8Array([1]),
+    structureBytes: new Uint8Array([2]),
+  });
 }
 
 
@@ -128,14 +202,41 @@ async function main() {
   assert.equal(unverifiedCoordinates.pair_count, 0);
   assert.match(unverifiedCoordinates.diagnostics[0], /shared project coordinates/);
 
-  const invalidThreshold = await evaluateIfcPair({
+  const zeroThreshold = await evaluateIfcPair({
     ifcApi,
     mepBytes: c01Mep,
     structureBytes: c01Structure,
     hardClashToleranceM: 0,
   });
-  assert.equal(invalidThreshold.run_status, "NOT_EVALUATED");
-  assert.match(invalidThreshold.diagnostics[0], /thresholds are invalid/);
+  assert.equal(zeroThreshold.run_status, "NOT_EVALUATED");
+  assert.match(zeroThreshold.diagnostics[0], /frozen v1 rule constants/);
+
+  const nonFiniteThreshold = await evaluateIfcPair({
+    ifcApi,
+    mepBytes: c01Mep,
+    structureBytes: c01Structure,
+    clearanceThresholdM: Number.POSITIVE_INFINITY,
+  });
+  assert.equal(nonFiniteThreshold.run_status, "NOT_EVALUATED");
+  assert.match(nonFiniteThreshold.diagnostics[0], /finite/);
+
+  const customHardThreshold = await evaluateIfcPair({
+    ifcApi,
+    mepBytes: c01Mep,
+    structureBytes: c01Structure,
+    hardClashToleranceM: 0.003,
+  });
+  assert.equal(customHardThreshold.run_status, "NOT_EVALUATED");
+  assert.match(customHardThreshold.diagnostics[0], /frozen v1 rule constants/);
+
+  const customClearanceThreshold = await evaluateIfcPair({
+    ifcApi,
+    mepBytes: c01Mep,
+    structureBytes: c01Structure,
+    clearanceThresholdM: 0.06,
+  });
+  assert.equal(customClearanceThreshold.run_status, "NOT_EVALUATED");
+  assert.match(customClearanceThreshold.diagnostics[0], /frozen v1 rule constants/);
 
   const malformed = await evaluateIfcPair({
     ifcApi,
@@ -154,6 +255,46 @@ async function main() {
   assert.equal(roleMismatch.run_status, "NOT_EVALUATED");
   assert.match(roleMismatch.diagnostics[0], /no IfcWall or IfcBeam/);
 
+  const allDegenerate = await evaluateFakeGeometry([{
+    vertices: interleavedVertices([[0, 0, 0], [1, 0, 0], [2, 0, 0]]),
+    indices: [0, 1, 2],
+  }], [validTetrahedron]);
+  assert.equal(allDegenerate.run_status, "PASS");
+  assert.equal(allDegenerate.clash_records[0].status, "NOT_EVALUATED");
+  assert.match(allDegenerate.clash_records[0].diagnostic, /no non-degenerate triangles/);
+
+  const nonTriangularIndex = await evaluateFakeGeometry([{
+    vertices: validTetrahedron.vertices,
+    indices: [0, 1, 2, 0],
+  }], [validTetrahedron]);
+  assert.equal(nonTriangularIndex.clash_records[0].status, "NOT_EVALUATED");
+  assert.match(nonTriangularIndex.clash_records[0].diagnostic, /divisible by three/);
+
+  const outOfRangeIndex = await evaluateFakeGeometry([{
+    vertices: validTetrahedron.vertices,
+    indices: [0, 1, 4],
+  }], [validTetrahedron]);
+  assert.equal(outOfRangeIndex.clash_records[0].status, "NOT_EVALUATED");
+  assert.match(outOfRangeIndex.clash_records[0].diagnostic, /invalid source vertex index/);
+
+  const nonIntegerIndex = await evaluateFakeGeometry([{
+    vertices: validTetrahedron.vertices,
+    indices: [0, 1, 1.5],
+  }], [validTetrahedron]);
+  assert.equal(nonIntegerIndex.clash_records[0].status, "NOT_EVALUATED");
+  assert.match(nonIntegerIndex.clash_records[0].diagnostic, /invalid source vertex index/);
+
+  const partialGeometryFailure = await evaluateFakeGeometry([
+    validTetrahedron,
+    {
+      vertices: interleavedVertices([[0, 0, 0], [1, 0, 0], [2, 0, 0]]),
+      indices: [0, 1, 2],
+    },
+  ], [validTetrahedron]);
+  assert.equal(partialGeometryFailure.run_status, "PASS");
+  assert.equal(partialGeometryFailure.clash_records[0].status, "NOT_EVALUATED");
+  assert.match(partialGeometryFailure.clash_records[0].diagnostic, /incomplete geometric representation/);
+
   process.stdout.write(JSON.stringify({
     status: "PASS",
     hard_rule_id: HARD_CLASH_RULE_ID,
@@ -170,9 +311,17 @@ async function main() {
     },
     adversarial_guards: {
       unverified_coordinates: "NOT_EVALUATED",
-      invalid_threshold: "NOT_EVALUATED",
+      zero_threshold: "NOT_EVALUATED",
+      non_finite_threshold: "NOT_EVALUATED",
+      custom_hard_threshold: "NOT_EVALUATED",
+      custom_clearance_threshold: "NOT_EVALUATED",
       malformed_ifc: "NOT_EVALUATED",
       role_mismatch: "NOT_EVALUATED",
+      all_degenerate_mesh: "REJECTED",
+      non_triangular_index: "REJECTED",
+      out_of_range_index: "REJECTED",
+      non_integer_index: "REJECTED",
+      partial_geometry_failure: "NOT_EVALUATED",
       deterministic_repeat: "PASS",
     },
   }, null, 2) + "\n");
