@@ -82,6 +82,14 @@ Chrome verification confirmed the repository remained `Public`; the 11 exact com
 - PASS evidence tail: the sanitized public plan was published as `3cc86daa2caf7eaec773c4ce3f842b3205cb9cdf` from local closure `89b20aea69703231a57e6d3a3fd62584c8074e08` and passed Chrome verification.
 - Completion rule: approval, local commits, Chrome GitHub checkpoint, public verification, and local–remote mapping all passed. This public ledger is the final authorized remote file; its final remote SHA is registered once in a subsequent empty local `sync(DG)` commit and is not republished recursively.
 
+## DG-R1 limited audit repair (local checkpoint)
+
+- Status: `PUBLICATION_AUTHORIZED_IN_PROGRESS`; G4 remains `NOT_STARTED`.
+- User-authorized scope: exactly three audit findings — remove the DG/base-G4 authorization ambiguity, enforce the exact eight-file publication allowlist with negative self-tests, and broaden the no-formal-UI guard beyond `app/ui`.
+- Local technical commit: `85ef30eeb833f9356884c4a86a9b0218b8d79387` (`fix(DG-R1): close design and audit guard gaps`), containing only `docs/design-brief.md`, `scripts/test-dg.ps1`, and local-only `scripts/audit-dg.ps1`.
+- Validation: `DG_PUBLICATION_SET_EXACT=TRUE`, `DG_PUBLICATION_SET_GUARD_SELF_TEST=TRUE`, `DG_FORMAL_UI_PATH_GUARD_SELF_TEST=TRUE`, formal UI files and package/script signals `0`, G3 regression `PASS`, publication audit `PASS`, and Git remote count `0`.
+- External-write boundary: the user subsequently granted one collective Chrome authorization for exactly `BIMCLASH_AGENT_MASTER_PLAN.public.md`, `PROGRESS_SYNC.md`, `PROMPTS.md`, `docs/design-brief.md`, and `scripts/test-dg.ps1`, followed only by the public-plan/public-ledger mapping tail. The local master, `scripts/audit-dg.ps1`, and every prior exclusion remain prohibited.
+
 ## Verification checklist
 
 - [x] PowerShell 7 major version is at least 7 (`7.6.4`).

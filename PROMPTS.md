@@ -150,3 +150,20 @@ This repository uses AI assistance for implementation planning and code drafting
 - Sanitized prompt: approve DG R4; authorize one bounded Chrome publication sequence for the eight audited files and a subsequent evidence-mapping tail limited to the sanitized public plan and progress ledger; never upload the local authoritative plan, local audit scripts, reference media, generated logo drafts, credentials, browser state, caches, or G4 assets.
 - Human constraints: local Git remains authoritative; no remote is configured; every public write uses the existing signed-in Chrome session; the Gate is not `PASS` until upload, public verification, and local–remote mapping close.
 - Adopted output: the design brief is marked `APPROVED`, all approval checklist items are recorded, and the Gate enters `APPROVED_PENDING_PUBLICATION` before the bounded public checkpoint.
+
+## P-016 — DG-R1 three-finding audit repair
+
+- Date: 2026-08-27
+- Goal: repair only the three findings from the post-DG audit and remain stopped before G4.
+- Sanitized prompt: clarify that DG approval freezes design but never authorizes base G4; make the publication audit fail closed unless its candidate set is exactly the approved eight unique files; broaden the no-formal-UI guard to production UI roots, root build entries, typical UI source files, and frontend package/script signals while preserving the existing unstyled G1/G3 technical harnesses.
+- Human constraints: do not change the approved visual/product scope, do not implement G4/UI/AI/deployment/video, keep every audit script local-only, and do not infer Chrome publication authorization from approval of the local repair.
+- Adopted output: local technical commit `85ef30eeb833f9356884c4a86a9b0218b8d79387` changes only the design brief and two DG scripts; both guards include negative self-tests, DG/G3 regression remains green, and the repair waits for a separately authorized public checkpoint.
+- Rejected or deferred suggestions: no production UI structure, dependency, logo asset, extra publication candidate, remote configuration, or next-Gate implementation was added.
+
+## P-017 — DG-R1 bounded publication authorization
+
+- Date: 2026-08-27
+- Goal: publish and verify only the user-approved DG-R1 repair evidence, then close its local–remote mapping without entering G4.
+- Sanitized prompt: grant one collective signed-in-Chrome authorization for the sanitized public plan, progress ledger, prompt record, design brief, and public DG test; after verification, allow only the public plan and progress ledger mapping tail.
+- Human constraints: never upload the local authoritative plan, `scripts/audit-dg.ps1`, reference/generated media, browser state, credentials, caches, or any G4 asset; do not configure a Git remote or use a GitHub API/CLI.
+- Adopted output: the Gate enters `PUBLICATION_AUTHORIZED_IN_PROGRESS`; the exact five-file delta is ready for Chrome publication after local tests and publication audit pass again.
