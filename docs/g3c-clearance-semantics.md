@@ -39,7 +39,7 @@ The classification comparison has no epsilon deadband: the authored analytic val
 | G3C08 | missing pipe geometry | `NOT_EVALUATED` |
 | G3C09 | shared coordinates not established | `NOT_EVALUATED` |
 
-The human-authored operation ledger is the source of expected status and distance. The generator creates one deterministic geometry artifact per case and a frozen repository-relative path–SHA-256 baseline. Tests generate the complete set twice in unique ignored roots, compare every artifact and the baseline byte for byte, reject rule-ID, threshold, artifact-hash, and expected-status mutations, and clean the roots in a guarded `finally` block. Detector output is never used to rewrite the expected records.
+The human-authored operation ledger is the source of expected status and distance. The generator creates one deterministic geometry artifact per case and a frozen repository-relative path–SHA-256 baseline. Tests generate the complete set twice in unique ignored roots, compare every artifact and the baseline byte for byte, reject rule-ID, threshold, artifact-hash, expected-status, unknown-upstream-status, and path-traversal mutations, and clean the roots in a guarded `finally` block. Detector output is never used to rewrite the expected records.
 
 ## Independent reference
 
@@ -51,6 +51,12 @@ The two routes therefore have different numerical representations:
 - reference: tessellated cylinder and triangle surface distance with bounded Float32/tessellation agreement tolerance.
 
 Neither route uses world-axis AABB separation as a clearance value.
+
+## G3C-R1 audit hardening
+
+An audit probe showed that the primary evaluator correctly failed closed when the upstream hard-clash status was not authoritative, while the independent mesh reference previously continued to classify distance. G3C-R1 aligns the independent route with the same boundary: only `CLEAR` permits clearance evaluation, `CLASH` follows the suppression path, and any other upstream status returns `NOT_EVALUATED` with no distance.
+
+The generator now validates every case ID against the exact `G3C` plus two-digit form, rejects duplicates, resolves every artifact target before writing, and proves that the target remains beneath the selected output root. A malicious `../` case-ID mutation is rejected before any artifact is written. These guards do not change the nine committed artifacts or their frozen SHA-256 values.
 
 ## Clearance Warning Record contract
 
