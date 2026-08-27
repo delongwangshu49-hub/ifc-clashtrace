@@ -5,8 +5,8 @@
 > 创建时间：2026-08-25（Asia/Hong_Kong）  
 > 目标完成时间：不晚于 2026-08-31 晚间（Asia/Hong_Kong）  
 > 项目根目录：`<PROJECT_ROOT>`  
-> 当前阶段：G3B-R1 审计修复已通过本地技术验收，等待 Chrome GitHub 网页同步闭合；未开始 G3C
-> 当前 Gate：`G3B — 容差语义与 AABB 守卫隔离（TECH_PASS_SYNC_BLOCKED）`；`G3 — 核心检测引擎（BLOCKED_BY_G3C）`
+> 当前阶段：G3B-R1 审计修复、本地提交、Chrome GitHub 技术链与网页回查已完成；已停止并等待用户决定是否开始 G3C
+> 当前 Gate：`G3B — 容差语义与 AABB 守卫隔离（PASS）`；`G3 — 核心检测引擎（BLOCKED_BY_G3C）`
 
 ---
 
@@ -724,7 +724,7 @@ G2 的上述 8 个案例保持冻结。G3C 另建不改写 G2 真值的净距补
 
 目标：保留 C04 受控证据，同时阻止最小世界坐标 AABB 重叠被推广为一般穿透深度或通用容差算法。
 
-当前状态：`TECH_PASS_SYNC_BLOCKED`（G3B-R1 已关闭薄构件假阴性、严格阈值死区与审计脚本回归；本地验收通过，等待 Chrome GitHub 网页检查点与映射闭合）。
+当前状态：`PASS`（G3B-R1 已关闭薄构件假阴性、严格阈值死区与审计脚本回归；本地验收、Chrome GitHub 连续技术链、网页内容回查与映射登记均已完成）。
 
 必须完成：
 
@@ -1298,7 +1298,7 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 | O-008 | 是否加入运行时 AI 解释 | 已决（D-022） | 加入；功能必须实现但由用户主动触发，确定性结果始终为权威且无 API 可完成核心闭环 |
 | O-009 | 项目代码与程序生成 IFC 的公开许可证 | 已决（D-018） | 代码 MIT；本项目程序生成 IFC 与配套真值数据 CC0-1.0；第三方数据不适用该授权 |
 | O-010 | 测试是否能证明冻结基线和批准契约未被再生成掩盖 | G3A（强制前置） | 使用隔离生成、路径—哈希映射、Git 前后断言和契约突变负向测试；未通过不接受 G3 绿灯 |
-| O-011 | 2 mm 容差的一般几何语义及 AABB 守卫适用范围 | 已决（G3B-R1 本地技术 `PASS`） | 在非退化结构内蚀核心上采用最大欧氏内部深度严格 `> 0.002 m`；有体积相交但内蚀核心为空/退化时不安全报 `CLEAR`，而是 `NOT_EVALUATED`；解析证书以十进制精确比较阈值；AABB 守卫仅限 C04 证据 |
+| O-011 | 2 mm 容差的一般几何语义及 AABB 守卫适用范围 | 已决（G3B-R1 `PASS`） | 在非退化结构内蚀核心上采用最大欧氏内部深度严格 `> 0.002 m`；有体积相交但内蚀核心为空/退化时不安全报 `CLEAR`，而是 `NOT_EVALUATED`；解析证书以十进制精确比较阈值；AABB 守卫仅限 C04 证据 |
 | O-012 | G4AI 采用哪一家免费额度 API 及何种代理/密钥方案 | G4AI 开始时 | 只依据实施当日官方资料决定；比较免费额度、条款、地区、数据保留、速率、稳定性和密钥安全，保留提供商适配层 |
 | O-013 | 视频最终语言/字幕、视觉风格、旁白音色与音乐 | VG | 默认普通话、工程审查风格、清晰中性 AI 旁白；以风格帧、10–15 秒声音样例和音乐对照供用户确认 |
 
@@ -2172,7 +2172,7 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 
 **时间：** 2026-08-27（Asia/Hong_Kong）
 
-**Gate：** G3B-R1 `TECH_PASS_SYNC_BLOCKED`；G3C `NOT_STARTED`；G3 `BLOCKED`
+**Gate：** G3B-R1 `PASS`；G3C `NOT_STARTED`；G3 `BLOCKED`
 
 **目标：** 修复独立审计发现的薄构件假阴性、严格 `>` 阈值被浮点死区吞没、跨阶段审计候选污染和 Windows 正斜杠绝对路径漏检，同时保持 C04-only AABB 边界及全部既有回归。
 
@@ -2202,15 +2202,17 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 
 **范围与影响：** 未修改 G2 冻结 IFC、G2 真值、C04 受控守卫、浏览器产品引擎或 `penetration_distance_m`；未开始 G3C、G3、Design Gate、UI、AI 或视频工作。G3B10/G3B11 仅证明下游失败关闭响应，不声称检测拓扑或完成坐标配准。
 
-**当前结论：** G3B-R1 本地技术、回归、对抗性探针与发布审计全部通过；在本地技术提交、Chrome 网页检查点、回查和映射登记全部闭合前，Gate 保持 `TECH_PASS_SYNC_BLOCKED`。
+**网页验证：** 只通过用户已登录 Chrome 网页形成连续技术链 `af2cbcf98275b846dd5de38489fa9c5b7706df3f` → `b92fed1f33189682d9d58c9b92c94115a28333d2` → `a09b71ab578fd365d136b1ae4ad88edf416ca063` → `ac3f5069e16a3a36816748714373649693899827`。四笔标题均含 `G3B-R1` 与本地短 SHA `03b6e67`；父链从既有 G3B 最终公开提交 `2ff49d2e361535eb572284ae354d53db7d5ec2cc` 连续延伸。网页回查确认 `Public/main`、7 个预期公开文件、13 案夹具、G3B13 精确值、退化核心失败关闭、caller-supplied 可靠性边界、unsupported 证书断言、无 `math.isclose` 分类死区、C04-only AABB 与 G3C blocker 均存在。
 
-**下一步：** 完成剩余审计与对抗性探针，形成 G3B-R1 本地修复提交并仅通过 Chrome GitHub 网页同步；闭合后停止并等待用户决定是否开始 G3C。
+**当前结论：** G3B-R1 本地技术、回归、对抗性探针、发布审计、权威提交、Chrome 技术链、网页内容回查和本地—远程映射全部通过，Gate 恢复为无保留 `PASS`。
+
+**下一步：** 明确停止并等待用户决定是否开始 G3C；不得自动开始 G3C、G3 浏览器核心引擎或正式 UI。
 
 **需要用户决定：** 当前无；G3B-R1 闭合后是否开始 G3C 需用户决定。
 
-**对应本地提交：** 待形成。
+**对应本地提交：** `03b6e67b7ae19a758021f29ba779c83f5e5efffb`（`fix(G3B): harden tolerance and audit evidence`）。
 
-**GitHub 修复检查点：** 待执行。
+**GitHub 修复检查点：** 根证据 [`af2cbcf98275b846dd5de38489fa9c5b7706df3f`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/af2cbcf98275b846dd5de38489fa9c5b7706df3f) → 精确阈值脚本/测试 [`b92fed1f33189682d9d58c9b92c94115a28333d2`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/b92fed1f33189682d9d58c9b92c94115a28333d2) → 13 案夹具 [`a09b71ab578fd365d136b1ae4ad88edf416ca063`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/a09b71ab578fd365d136b1ae4ad88edf416ca063) → 语义证据 [`ac3f5069e16a3a36816748714373649693899827`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/ac3f5069e16a3a36816748714373649693899827)，Chrome 回查 `PASS`；最终 PASS/台账发布按自引用闭合规则另行登记。
 
 ---
 
@@ -2256,4 +2258,4 @@ GitHub 检查点：URL / 远程 SHA / 上传时间 / 回查结论
 - 暂不批准，继续讨论项目范围；
 - 否决当前方向并重新规划。
 
-用户已明确批准原 `0.2.0-draft` 并启动项目，随后又明确批准本次功能与展示范围扩展。G0A、G1、G2 与 G3A 已完成；G3B-R1 本地技术验收已通过但网页同步尚未闭合；0.3.0 已将 G3C、G4AI、VG 及细化视频流程纳入计划。当前只完成 G3B-R1 闭环，不自动开始 G3C、G3 或正式 UI。
+用户已明确批准原 `0.2.0-draft` 并启动项目，随后又明确批准本次功能与展示范围扩展。G0A、G1、G2、G3A 与 G3B-R1 已完成；0.3.0 已将 G3C、G4AI、VG 及细化视频流程纳入计划。当前已在 G3B-R1 闭环处停止，等待用户决定是否开始 G3C；不自动开始 G3C、G3 或正式 UI。
