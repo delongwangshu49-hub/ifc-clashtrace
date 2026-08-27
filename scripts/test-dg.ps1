@@ -47,7 +47,7 @@ $requiredHeadings = @(
     "Language and brand strategy"
     "Mobile and responsive scope"
     "Accessibility and keyboard contract for G4"
-    "G4 handoff boundary if approved"
+    "G4 handoff boundary if separately authorized"
     "Approval checklist"
 )
 foreach ($heading in $requiredHeadings) {
@@ -84,6 +84,8 @@ $requiredContracts = @(
     'approximately one pipe outer diameter'
     'complete wall appears, pipe enters, collision ring responds, dialog bubble emerges'
     'replaces the brand reveal with its static final lockup'
+    'DG approval freezes the design contract only; it does not authorize implementation'
+    'A separate user decision is required before any base G4 work'
     'Approved DG publication set'
     'exactly eight audited files'
 )
@@ -125,7 +127,42 @@ foreach ($wireframePath in $wireframePaths) {
     }
 }
 
-if (Test-Path -LiteralPath "app/ui") { throw "Formal app/ui implementation started before DG approval." }
+function Test-IsFormalUiPath([string]$RelativePath) {
+    $normalized = $RelativePath.Replace("\", "/").TrimStart([char[]]"./")
+    $technicalHarnessPrefixes = @("spikes/g1-browser/", "spikes/g3-browser/")
+    if ($technicalHarnessPrefixes.Where({ $normalized.StartsWith($_, [StringComparison]::OrdinalIgnoreCase) }).Count -ne 0) {
+        return $false
+    }
+
+    $productionUiRoots = @("app/ui", "app/frontend", "app/site", "app/web", "src", "ui", "frontend", "web", "site", "public")
+    if ($productionUiRoots.Where({
+        $normalized.Equals($_, [StringComparison]::OrdinalIgnoreCase) -or
+        $normalized.StartsWith("$_/", [StringComparison]::OrdinalIgnoreCase)
+    }).Count -ne 0) {
+        return $true
+    }
+
+    if ($normalized -notmatch "/" -and $normalized -match '^(?:index\.html|vite\.config\..+|next\.config\..+|nuxt\.config\..+|svelte\.config\..+|astro\.config\..+)$') {
+        return $true
+    }
+
+    $uiSourceExtensions = @(".css", ".scss", ".sass", ".less", ".tsx", ".jsx", ".vue", ".svelte")
+    $extension = [IO.Path]::GetExtension($normalized)
+    return $uiSourceExtensions -contains $extension.ToLowerInvariant()
+}
+
+$formalUiGuardSelfTest = (
+    @("app/ui/index.tsx", "src/App.vue", "public/index.html", "index.html", "vite.config.mjs", "styles/site.css").
+        Where({ -not (Test-IsFormalUiPath $_) }).Count -eq 0 -and
+    @("app/core/ifc-clash-engine.mjs", "spikes/g1-browser/index.html", "spikes/g3-browser/app.mjs", "docs/wireframes/dg-review.svg").
+        Where({ Test-IsFormalUiPath $_ }).Count -eq 0
+)
+if (-not $formalUiGuardSelfTest) { throw "Formal UI path guard self-test failed." }
+
+$projectFiles = @(git ls-files --cached --others --exclude-standard)
+if ($LASTEXITCODE -ne 0) { throw "Unable to enumerate project files for the formal UI guard." }
+$formalUiFiles = @($projectFiles | Where-Object { Test-IsFormalUiPath $_ })
+if ($formalUiFiles.Count -ne 0) { throw "Formal UI implementation started during DG: $($formalUiFiles -join ', ')" }
 if (Test-Path -LiteralPath ".openai/hosting.json") { throw "Deployment work started during DG." }
 $package = Get-Content -LiteralPath "package.json" -Raw | ConvertFrom-Json
 if ($package.version -ne "0.0.0-g3-core" -or
@@ -134,6 +171,17 @@ if ($package.version -ne "0.0.0-g3-core" -or
     $package.dependencies."three-mesh-bvh" -ne "0.9.14" -or
     $package.dependencies.three -ne "0.185.1") {
     throw "DG changed the frozen G3 dependency or package contract."
+}
+$uiPackageNames = @("react", "react-dom", "vue", "svelte", "@angular/core", "vite", "next", "nuxt", "astro", "tailwindcss")
+$packageNames = @($package.dependencies.PSObject.Properties.Name)
+$devDependenciesProperty = $package.PSObject.Properties["devDependencies"]
+if ($null -ne $devDependenciesProperty) {
+    $packageNames += @($devDependenciesProperty.Value.PSObject.Properties.Name)
+}
+$uiPackageSignals = @($packageNames | Where-Object { $_ -in $uiPackageNames })
+$uiScriptSignals = @($package.scripts.PSObject.Properties.Name | Where-Object { $_ -in @("dev", "build", "preview", "start") })
+if ($uiPackageSignals.Count -ne 0 -or $uiScriptSignals.Count -ne 0) {
+    throw "Formal UI package or script signals appeared during DG."
 }
 
 & ".\scripts\test-g3.ps1" | Out-Null
@@ -152,7 +200,9 @@ Write-Output "DG_HOME_APP_DEVELOPMENT_ARCHITECTURE=PASS"
 Write-Output "DG_STYLE_LANGUAGE_THEME_AI_PREFERENCES=PASS"
 Write-Output "DG_TYPOGRAPHY_ALIGNMENT_COMPLETENESS=PASS"
 Write-Output "DG_LANGUAGE_BRAND_MOBILE_DECISIONS=PASS"
-Write-Output "DG_FORMAL_UI_FILES=0"
+Write-Output "DG_FORMAL_UI_PATH_GUARD_SELF_TEST=$($formalUiGuardSelfTest.ToString().ToUpperInvariant())"
+Write-Output "DG_FORMAL_UI_FILES=$($formalUiFiles.Count)"
+Write-Output "DG_FORMAL_UI_PACKAGE_SIGNALS=$($uiPackageSignals.Count + $uiScriptSignals.Count)"
 Write-Output "DG_G3_REGRESSION=PASS"
 Write-Output "DG_GIT_WORKTREE_UNCHANGED=PASS"
 Write-Output "DG_USER_APPROVAL=RECORDED"
