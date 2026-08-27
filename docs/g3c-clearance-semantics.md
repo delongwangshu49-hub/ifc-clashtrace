@@ -58,6 +58,8 @@ An audit probe showed that the primary evaluator correctly failed closed when th
 
 The generator now validates every case ID against the exact `G3C` plus two-digit form, rejects duplicates, resolves every artifact target before writing, and proves that the target remains beneath the selected output root. A malicious `../` case-ID mutation is rejected before any artifact is written. These guards do not change the nine committed artifacts or their frozen SHA-256 values.
 
+The authoritative local G3C-R1 repair commit is `a32cd496c6b6632da42ed22f822cbc609dfa4f4a`. Chrome verification confirmed the continuous public technical chain `6c931eff44ce156824b2f727106a810fe6092e9b` → `6ea3311c407671bc059755c857ab046d0312ee9f` → `1089ae442e8625f6e4838639ac49705d29493d7a`, extending the prior G3C evidence tail and containing exactly the seven audited G3C-R1 public files.
+
 ## Clearance Warning Record contract
 
 Each emitted controlled record contains:
