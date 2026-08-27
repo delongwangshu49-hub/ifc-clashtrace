@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+from decimal import Decimal
 from pathlib import Path
 from typing import Any
 
@@ -16,9 +17,23 @@ CERTIFICATE_EPSILON = 1e-10
 
 Vector = tuple[float, float, float]
 Matrix = tuple[Vector, Vector, Vector]
+DecimalVector = tuple[Decimal, Decimal, Decimal]
 
 
-def vector(values: list[float]) -> Vector:
+def decimal(value: float | Decimal) -> Decimal:
+    if isinstance(value, Decimal):
+        return value
+    return Decimal(str(value))
+
+
+def decimal_vector(values: list[float | Decimal]) -> DecimalVector:
+    converted = tuple(decimal(value) for value in values)
+    if len(converted) != 3 or not all(value.is_finite() for value in converted):
+        raise ValueError("Expected three finite decimal coordinates")
+    return converted  # type: ignore[return-value]
+
+
+def vector(values: list[float | Decimal]) -> Vector:
     if len(values) != 3 or not all(math.isfinite(float(value)) for value in values):
         raise ValueError("Expected three finite coordinates")
     return tuple(float(value) for value in values)  # type: ignore[return-value]
@@ -91,10 +106,13 @@ def certified_maximum_interior_depth(
     start_local: Vector,
     end_local: Vector,
     half_extents: Vector,
-) -> tuple[float | None, str, str | None]:
+    start_local_exact: DecimalVector,
+    end_local_exact: DecimalVector,
+    half_extents_exact: DecimalVector,
+) -> tuple[Decimal | None, str, str | None]:
     closest = closest_segment_point_to_origin(start_local, end_local)
     if norm(closest) <= CERTIFICATE_EPSILON:
-        return min(half_extents), "center_crossing_inradius", None
+        return min(half_extents_exact), "center_crossing_inradius", None
 
     delta = subtract(end_local, start_local)
     delta_length = norm(delta)
@@ -116,24 +134,23 @@ def certified_maximum_interior_depth(
     ):
         return None, "unsupported", "face-normal pipe axis is not centred on the structure face"
 
-    lower, upper = sorted((start_local[axis], end_local[axis]))
-    structure_lower = -half_extents[axis]
-    structure_upper = half_extents[axis]
+    lower, upper = sorted((start_local_exact[axis], end_local_exact[axis]))
+    structure_half_extent = half_extents_exact[axis]
+    structure_lower = -structure_half_extent
+    structure_upper = structure_half_extent
     intersection_lower = max(lower, structure_lower)
     intersection_upper = min(upper, structure_upper)
-    if intersection_lower > intersection_upper + EPSILON_M:
-        return 0.0, "face_normal_axis_interval", None
+    if intersection_lower > intersection_upper:
+        return Decimal(0), "face_normal_axis_interval", None
 
-    if intersection_lower <= 0.0 <= intersection_upper:
-        closest_coordinate = 0.0
-    elif intersection_upper < 0.0:
+    if intersection_lower <= 0 <= intersection_upper:
+        closest_coordinate = Decimal(0)
+    elif intersection_upper < 0:
         closest_coordinate = intersection_upper
     else:
         closest_coordinate = intersection_lower
-    axial_depth = max(0.0, half_extents[axis] - abs(closest_coordinate))
-    maximum_depth = min(axial_depth, *(half_extents[index] for index in orthogonal_axes))
-    if math.isclose(maximum_depth, 0.0, rel_tol=0.0, abs_tol=EPSILON_M):
-        maximum_depth = 0.0
+    axial_depth = max(Decimal(0), structure_half_extent - abs(closest_coordinate))
+    maximum_depth = min(axial_depth, *(half_extents_exact[index] for index in orthogonal_axes))
     return maximum_depth, "face_normal_axis_interval", None
 
 
@@ -171,7 +188,7 @@ def world_aabb_overlap(
     return max(0.0, min(overlaps))
 
 
-def evaluate_case(case: dict[str, Any], tolerance_m: float) -> dict[str, Any]:
+def evaluate_case(case: dict[str, Any], tolerance_m: Decimal) -> dict[str, Any]:
     case_id = case["case_id"]
     if not case.get("geometry_reliable", False):
         return {
@@ -179,8 +196,10 @@ def evaluate_case(case: dict[str, Any], tolerance_m: float) -> dict[str, Any]:
             "expected_status": case["expected_status"],
             "observed_status": "NOT_EVALUATED",
             "maximum_interior_depth_m": None,
+            "maximum_interior_depth_exact_m": None,
             "certificate": "failure_closed",
             "diagnostic": case.get("failure_reason", "geometry reliability was not established"),
+            "reliability_signal_source": "fixture_precondition",
             "world_aabb_minimum_overlap_m": None,
             "aabb_used_for_classification": False,
         }
@@ -190,8 +209,10 @@ def evaluate_case(case: dict[str, Any], tolerance_m: float) -> dict[str, Any]:
             "expected_status": case["expected_status"],
             "observed_status": "NOT_EVALUATED",
             "maximum_interior_depth_m": None,
+            "maximum_interior_depth_exact_m": None,
             "certificate": "failure_closed",
             "diagnostic": case.get("failure_reason", "shared coordinates were not established"),
+            "reliability_signal_source": "fixture_precondition",
             "world_aabb_minimum_overlap_m": None,
             "aabb_used_for_classification": False,
         }
@@ -201,11 +222,14 @@ def evaluate_case(case: dict[str, Any], tolerance_m: float) -> dict[str, Any]:
         pipe = case["pipe"]
         center = vector(structure["center_world_m"])
         half_extents = vector(structure["half_extents_m"])
+        half_extents_exact = decimal_vector(structure["half_extents_m"])
         if any(value <= 0.0 for value in half_extents):
             raise ValueError("Structure half extents must be positive")
         rotation = rotation_matrix_xyz(structure["rotation_deg_xyz"])
         start_authored = vector(pipe["axis_start_structure_local_m"])
         end_authored = vector(pipe["axis_end_structure_local_m"])
+        start_authored_exact = decimal_vector(pipe["axis_start_structure_local_m"])
+        end_authored_exact = decimal_vector(pipe["axis_end_structure_local_m"])
         radius = float(pipe["radius_m"])
         if not math.isfinite(radius) or radius <= 0.0:
             raise ValueError("Pipe radius must be positive")
@@ -214,10 +238,19 @@ def evaluate_case(case: dict[str, Any], tolerance_m: float) -> dict[str, Any]:
         end_world = local_to_world(end_authored, center, rotation)
         start_local = world_to_local(start_world, center, rotation)
         end_local = world_to_local(end_world, center, rotation)
-        maximum_depth, certificate, diagnostic = certified_maximum_interior_depth(
-            start_local,
-            end_local,
+        round_trip_error = max(
+            *(abs(start_local[index] - start_authored[index]) for index in range(3)),
+            *(abs(end_local[index] - end_authored[index]) for index in range(3)),
+        )
+        if round_trip_error > CERTIFICATE_EPSILON:
+            raise ValueError("world/local transform round-trip exceeds analytic certificate tolerance")
+        maximum_depth_exact, certificate, diagnostic = certified_maximum_interior_depth(
+            start_authored,
+            end_authored,
             half_extents,
+            start_authored_exact,
+            end_authored_exact,
+            half_extents_exact,
         )
         aabb_overlap = world_aabb_overlap(
             center,
@@ -227,24 +260,34 @@ def evaluate_case(case: dict[str, Any], tolerance_m: float) -> dict[str, Any]:
             end_world,
             radius,
         )
-        if maximum_depth is None:
+        if maximum_depth_exact is None:
             observed_status = "NOT_EVALUATED"
-        elif maximum_depth > tolerance_m and not math.isclose(
-            maximum_depth,
-            tolerance_m,
-            rel_tol=0.0,
-            abs_tol=EPSILON_M,
+        elif (
+            maximum_depth_exact > 0
+            and min(half_extents_exact) <= tolerance_m
         ):
+            observed_status = "NOT_EVALUATED"
+            certificate = "degenerate_tolerance_core"
+            diagnostic = (
+                "volumetric intersection exists but the structure erosion core is empty or "
+                "degenerate at the requested tolerance"
+            )
+        elif maximum_depth_exact > tolerance_m:
             observed_status = "CLASH"
         else:
             observed_status = "CLEAR"
+        maximum_depth = None if maximum_depth_exact is None else float(maximum_depth_exact)
+        maximum_depth_exact_text = None if maximum_depth_exact is None else format(maximum_depth_exact, "f")
         return {
             "case_id": case_id,
             "expected_status": case["expected_status"],
             "observed_status": observed_status,
             "maximum_interior_depth_m": maximum_depth,
+            "maximum_interior_depth_exact_m": maximum_depth_exact_text,
             "certificate": certificate,
             "diagnostic": diagnostic,
+            "reliability_signal_source": "analytic_certificate",
+            "transform_round_trip_error_m": round_trip_error,
             "world_aabb_minimum_overlap_m": aabb_overlap,
             "aabb_used_for_classification": False,
         }
@@ -254,8 +297,10 @@ def evaluate_case(case: dict[str, Any], tolerance_m: float) -> dict[str, Any]:
             "expected_status": case["expected_status"],
             "observed_status": "NOT_EVALUATED",
             "maximum_interior_depth_m": None,
+            "maximum_interior_depth_exact_m": None,
             "certificate": "failure_closed",
             "diagnostic": str(error),
+            "reliability_signal_source": "analytic_certificate",
             "world_aabb_minimum_overlap_m": None,
             "aabb_used_for_classification": False,
         }
@@ -270,20 +315,23 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    fixture = json.loads(args.fixture.read_text(encoding="utf-8"))
-    tolerance_m = float(fixture["tolerance_m"])
+    fixture = json.loads(args.fixture.read_text(encoding="utf-8"), parse_float=Decimal)
+    tolerance_m = decimal(fixture["tolerance_m"])
     results = [evaluate_case(case, tolerance_m) for case in fixture["cases"]]
     by_case = {case["case_id"]: case for case in fixture["cases"]}
     for result in results:
         expected_depth = by_case[result["case_id"]]["expected_maximum_interior_depth_m"]
         observed_depth = result["maximum_interior_depth_m"]
+        observed_depth_exact = result["maximum_interior_depth_exact_m"]
         result["status_match"] = result["observed_status"] == result["expected_status"]
         result["depth_match"] = (
             expected_depth is None
             and observed_depth is None
+            and observed_depth_exact is None
             or expected_depth is not None
             and observed_depth is not None
-            and math.isclose(float(expected_depth), float(observed_depth), rel_tol=0.0, abs_tol=EPSILON_M)
+            and observed_depth_exact is not None
+            and decimal(expected_depth) == Decimal(observed_depth_exact)
         )
         requires_aabb_divergence = by_case[result["case_id"]].get(
             "require_world_aabb_overlap_gt_tolerance",
@@ -292,9 +340,9 @@ def main() -> None:
         result["required_aabb_divergence_match"] = (
             not requires_aabb_divergence
             or result["world_aabb_minimum_overlap_m"] is not None
-            and result["world_aabb_minimum_overlap_m"] > tolerance_m
+            and result["world_aabb_minimum_overlap_m"] > float(tolerance_m)
             and result["maximum_interior_depth_m"] is not None
-            and result["maximum_interior_depth_m"] < tolerance_m
+            and result["maximum_interior_depth_m"] < float(tolerance_m)
         )
 
     all_pass = all(
@@ -310,8 +358,11 @@ def main() -> None:
     output = {
         "semantic_id": "STRUCTURE_EROSION_INTERIOR_DEPTH_V1",
         "status": "PASS" if all_pass else "FAIL",
-        "tolerance_m": tolerance_m,
-        "comparison": "maximum_interior_depth_m > tolerance_m; equality is CLEAR",
+        "tolerance_m": float(tolerance_m),
+        "comparison": (
+            "maximum_interior_depth_m > tolerance_m; equality is CLEAR only when the "
+            "structure erosion core remains non-degenerate"
+        ),
         "aabb_classification_permitted": False,
         "supported_scope": fixture["scope"],
         "case_count": len(results),
