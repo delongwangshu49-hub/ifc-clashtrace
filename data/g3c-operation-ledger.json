@@ -1,0 +1,115 @@
+{
+  "dataset_id": "IFC_CLASHTRACE_G3C_CLEARANCE_V1",
+  "version": "1.0.0",
+  "rule_id": "MEP_STRUCTURE_CLEARANCE_WARNING_V1",
+  "license_spdx_or_name": "CC0-1.0",
+  "length_unit": "metre",
+  "coordinate_system": "shared_project_coordinates",
+  "threshold_m": 0.05,
+  "comparison": "WARNING when certified minimum surface clearance is greater than or equal to zero and strictly less than threshold_m; equality is CLEAR",
+  "scope": "Controlled analytic clearance fixtures for finite circular cylinders representing IfcPipeSegment and closed oriented boxes or rectangular opening frames representing IfcWall or IfcBeam. Hard-clash precedence, missing geometry, and unverified shared coordinates fail closed or suppress the clearance record as declared.",
+  "source_of_truth": "Human-authored constructive operations and exact analytic distances; neither the Python evaluator nor the independent triangle-mesh reference defines expected status.",
+  "cases": [
+    {
+      "case_id": "G3C01",
+      "title": "Pipe surface touches wall surface",
+      "structure_entity_type": "IfcWall",
+      "hard_clash_status": "CLEAR",
+      "geometry_reliable": true,
+      "coordinate_system_consistent": true,
+      "structure": {"kind": "box", "center_world_m": [0.0, 0.0, 0.0], "half_extents_m": [2.0, 0.1, 1.5], "rotation_deg_xyz": [0.0, 0.0, 0.0]},
+      "pipe": {"geometry_present": true, "radius_m": 0.05, "axis_start_structure_local_m": [-1.0, 0.15, 0.0], "axis_end_structure_local_m": [1.0, 0.15, 0.0]},
+      "expected_record": {"emitted": true, "status": "WARNING", "clearance_distance_m": 0.0}
+    },
+    {
+      "case_id": "G3C02",
+      "title": "Pipe has 49 mm wall clearance",
+      "structure_entity_type": "IfcWall",
+      "hard_clash_status": "CLEAR",
+      "geometry_reliable": true,
+      "coordinate_system_consistent": true,
+      "structure": {"kind": "box", "center_world_m": [0.0, 0.0, 0.0], "half_extents_m": [2.0, 0.1, 1.5], "rotation_deg_xyz": [0.0, 0.0, 0.0]},
+      "pipe": {"geometry_present": true, "radius_m": 0.05, "axis_start_structure_local_m": [-1.0, 0.199, 0.0], "axis_end_structure_local_m": [1.0, 0.199, 0.0]},
+      "expected_record": {"emitted": true, "status": "WARNING", "clearance_distance_m": 0.049}
+    },
+    {
+      "case_id": "G3C03",
+      "title": "Pipe has exactly 50 mm wall clearance",
+      "structure_entity_type": "IfcWall",
+      "hard_clash_status": "CLEAR",
+      "geometry_reliable": true,
+      "coordinate_system_consistent": true,
+      "structure": {"kind": "box", "center_world_m": [0.0, 0.0, 0.0], "half_extents_m": [2.0, 0.1, 1.5], "rotation_deg_xyz": [0.0, 0.0, 0.0]},
+      "pipe": {"geometry_present": true, "radius_m": 0.05, "axis_start_structure_local_m": [-1.0, 0.2, 0.0], "axis_end_structure_local_m": [1.0, 0.2, 0.0]},
+      "expected_record": {"emitted": true, "status": "CLEAR", "clearance_distance_m": 0.05}
+    },
+    {
+      "case_id": "G3C04",
+      "title": "Pipe has 51 mm beam clearance",
+      "structure_entity_type": "IfcBeam",
+      "hard_clash_status": "CLEAR",
+      "geometry_reliable": true,
+      "coordinate_system_consistent": true,
+      "structure": {"kind": "box", "center_world_m": [0.0, 0.0, 0.0], "half_extents_m": [1.5, 0.2, 0.3], "rotation_deg_xyz": [0.0, 0.0, 0.0]},
+      "pipe": {"geometry_present": true, "radius_m": 0.05, "axis_start_structure_local_m": [-1.0, 0.301, 0.0], "axis_end_structure_local_m": [1.0, 0.301, 0.0]},
+      "expected_record": {"emitted": true, "status": "CLEAR", "clearance_distance_m": 0.051}
+    },
+    {
+      "case_id": "G3C05",
+      "title": "Hard-clash pair is suppressed from clearance output",
+      "structure_entity_type": "IfcWall",
+      "hard_clash_status": "CLASH",
+      "geometry_reliable": true,
+      "coordinate_system_consistent": true,
+      "structure": {"kind": "box", "center_world_m": [0.0, 0.0, 0.0], "half_extents_m": [2.0, 0.1, 1.5], "rotation_deg_xyz": [0.0, 0.0, 0.0]},
+      "pipe": {"geometry_present": true, "radius_m": 0.05, "axis_start_structure_local_m": [0.0, -0.5, 0.0], "axis_end_structure_local_m": [0.0, 0.5, 0.0]},
+      "expected_record": {"emitted": false, "status": null, "clearance_distance_m": null}
+    },
+    {
+      "case_id": "G3C06",
+      "title": "Rotated oblique pipe has 30 mm wall clearance",
+      "structure_entity_type": "IfcWall",
+      "hard_clash_status": "CLEAR",
+      "geometry_reliable": true,
+      "coordinate_system_consistent": true,
+      "structure": {"kind": "box", "center_world_m": [3.0, -2.0, 1.0], "half_extents_m": [2.0, 0.1, 1.5], "rotation_deg_xyz": [17.0, 11.0, 33.0]},
+      "pipe": {"geometry_present": true, "radius_m": 0.05, "axis_start_structure_local_m": [-1.0, 0.18, -0.5], "axis_end_structure_local_m": [1.0, 0.18, 0.5]},
+      "expected_record": {"emitted": true, "status": "WARNING", "clearance_distance_m": 0.03}
+    },
+    {
+      "case_id": "G3C07",
+      "title": "Pipe through modeled opening has 40 mm edge clearance",
+      "structure_entity_type": "IfcWall",
+      "hard_clash_status": "CLEAR",
+      "geometry_reliable": true,
+      "coordinate_system_consistent": true,
+      "structure": {"kind": "opening_frame", "center_world_m": [0.0, 0.0, 0.0], "half_extents_m": [1.5, 0.1, 1.2], "opening_half_extents_xz_m": [0.09, 0.12], "rotation_deg_xyz": [0.0, 0.0, 0.0]},
+      "pipe": {"geometry_present": true, "radius_m": 0.05, "axis_start_structure_local_m": [0.0, -0.5, 0.0], "axis_end_structure_local_m": [0.0, 0.5, 0.0]},
+      "expected_record": {"emitted": true, "status": "WARNING", "clearance_distance_m": 0.04}
+    },
+    {
+      "case_id": "G3C08",
+      "title": "Missing pipe geometry fails closed",
+      "structure_entity_type": "IfcWall",
+      "hard_clash_status": "CLEAR",
+      "geometry_reliable": false,
+      "coordinate_system_consistent": true,
+      "failure_reason": "IfcPipeSegment has no reliable geometric representation",
+      "structure": {"kind": "box", "center_world_m": [0.0, 0.0, 0.0], "half_extents_m": [2.0, 0.1, 1.5], "rotation_deg_xyz": [0.0, 0.0, 0.0]},
+      "pipe": {"geometry_present": false, "radius_m": null, "axis_start_structure_local_m": null, "axis_end_structure_local_m": null},
+      "expected_record": {"emitted": true, "status": "NOT_EVALUATED", "clearance_distance_m": null}
+    },
+    {
+      "case_id": "G3C09",
+      "title": "Unverified shared coordinates fail closed",
+      "structure_entity_type": "IfcBeam",
+      "hard_clash_status": "CLEAR",
+      "geometry_reliable": true,
+      "coordinate_system_consistent": false,
+      "failure_reason": "shared project coordinates were not established",
+      "structure": {"kind": "box", "center_world_m": [0.0, 0.0, 0.0], "half_extents_m": [1.5, 0.2, 0.3], "rotation_deg_xyz": [0.0, 0.0, 0.0]},
+      "pipe": {"geometry_present": true, "radius_m": 0.05, "axis_start_structure_local_m": [-1.0, 0.28, 0.0], "axis_end_structure_local_m": [1.0, 0.28, 0.0]},
+      "expected_record": {"emitted": true, "status": "NOT_EVALUATED", "clearance_distance_m": null}
+    }
+  ]
+}
