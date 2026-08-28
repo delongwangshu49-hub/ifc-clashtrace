@@ -6,13 +6,17 @@ import { fileURLToPath } from "node:url";
 
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(scriptDirectory, "..");
-const port = 4173;
+const port = Number.parseInt(process.env.IFC_CLASHTRACE_PORT || "4173", 10);
+if (!Number.isInteger(port) || port < 1024 || port > 65535) throw new Error("IFC_CLASHTRACE_PORT must be an integer from 1024 through 65535");
 const mimeTypes = new Map([
   [".html", "text/html; charset=utf-8"],
+  [".css", "text/css; charset=utf-8"],
   [".js", "text/javascript; charset=utf-8"],
   [".mjs", "text/javascript; charset=utf-8"],
   [".json", "application/json; charset=utf-8"],
   [".ifc", "application/octet-stream"],
+  [".png", "image/png"],
+  [".svg", "image/svg+xml"],
   [".wasm", "application/wasm"],
 ]);
 

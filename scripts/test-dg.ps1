@@ -162,7 +162,15 @@ if (-not $formalUiGuardSelfTest) { throw "Formal UI path guard self-test failed.
 $projectFiles = @(git ls-files --cached --others --exclude-standard)
 if ($LASTEXITCODE -ne 0) { throw "Unable to enumerate project files for the formal UI guard." }
 $formalUiFiles = @($projectFiles | Where-Object { Test-IsFormalUiPath $_ })
-if ($formalUiFiles.Count -ne 0) { throw "Formal UI implementation started during DG: $($formalUiFiles -join ', ')" }
+$masterPlanText = Get-Content -LiteralPath "BIMCLASH_AGENT_MASTER_PLAN.md" -Raw
+$g4AuthorizationRecorded = (
+    $masterPlanText.Contains("| D-031 |") -and
+    $masterPlanText.Contains("用户明确授权开始基础 G4") -and
+    ($masterPlanText -match 'G4 `(?:IN_PROGRESS|PASS|TECH_PASS_SYNC_BLOCKED)`')
+)
+if ($formalUiFiles.Count -ne 0 -and -not $g4AuthorizationRecorded) {
+    throw "Formal UI implementation exists without a recorded base-G4 authorization: $($formalUiFiles -join ', ')"
+}
 if (Test-Path -LiteralPath ".openai/hosting.json") { throw "Deployment work started during DG." }
 $package = Get-Content -LiteralPath "package.json" -Raw | ConvertFrom-Json
 if ($package.version -ne "0.0.0-g3-core" -or
@@ -203,6 +211,7 @@ Write-Output "DG_LANGUAGE_BRAND_MOBILE_DECISIONS=PASS"
 Write-Output "DG_FORMAL_UI_PATH_GUARD_SELF_TEST=$($formalUiGuardSelfTest.ToString().ToUpperInvariant())"
 Write-Output "DG_FORMAL_UI_FILES=$($formalUiFiles.Count)"
 Write-Output "DG_FORMAL_UI_PACKAGE_SIGNALS=$($uiPackageSignals.Count + $uiScriptSignals.Count)"
+Write-Output "DG_G4_AUTHORIZATION_RECORDED=$($g4AuthorizationRecorded.ToString().ToUpperInvariant())"
 Write-Output "DG_G3_REGRESSION=PASS"
 Write-Output "DG_GIT_WORKTREE_UNCHANGED=PASS"
 Write-Output "DG_USER_APPROVAL=RECORDED"
