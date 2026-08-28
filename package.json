@@ -9,7 +9,9 @@
     "g3:test": "node scripts/g3-engine-tests.mjs",
     "g3:case": "node scripts/g3-run-controlled.mjs",
     "g4:serve": "node scripts/g1-static-server.mjs",
-    "g4:test": "pwsh -NoProfile -File scripts/test-g4.ps1"
+    "g4:test": "pwsh -NoProfile -File scripts/test-g4.ps1",
+    "g4ai:serve": "node scripts/g4ai-local-server.mjs",
+    "g4ai:test": "pwsh -NoProfile -File scripts/test-g4ai.ps1"
   },
   "dependencies": {
     "three": "0.185.1",

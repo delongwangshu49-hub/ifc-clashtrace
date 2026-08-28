@@ -6,7 +6,9 @@ IFC ClashTrace is a deterministic browser/Web IFC feasibility project for tracea
 
 G1 proves the dual geometry routes. G2 freezes a deterministic eight-case IFC4 acceptance dataset. G3A hardens that frozen contract. G3B defines a strict, rotation-invariant structure-interior depth threshold, fails closed when the `2 mm` erosion core is empty or degenerate, and confines the historical world-axis AABB guard to C04 evidence only. G3C adds a separate, deterministic `<50 mm` pipe-to-structure surface-clearance contract with hard-clash deduplication and failure-closed records. G3C-R1 also requires both evaluator routes to fail closed on an unknown upstream hard-clash status and prevents generated artifact paths from escaping their selected output root. G3 integrates both deterministic rules into a browser-compatible two-IFC core using `web-ifc` and `three-mesh-bvh`.
 
-The R4 Design Gate package in `docs/design-brief.md` is user-approved. Base G4 and its bounded G4-R1 repair are published and verified as a three-page deterministic vertical slice: a public homepage, a functional review workspace, and a sanitized development-history page. The workspace puts the two local IFC inputs first and keeps the controlled review pack as a secondary demo path; it runs the completed G3 core, displays hard-clash and clearance outcomes together, exposes filterable records and a full evidence drawer, and focuses the selected GUID pair from the real IFC meshes in Three.js. G4-R1 invalidates prior review state whenever an input changes, revokes shared-coordinate consent for every new custom pair, and forces the next 3D review to load the new model bytes. Popular experience/Engineering minimal, Simplified Chinese/English, and light/dark preferences are shared. AI interpretation defaults off, appears as a clearly labelled option beside the workspace run setup, and has only an unsent field-preview placeholder in base G4. The homepage combines product explanations into hover/focus modules backed by four current, program-generated screenshots of the real local routes; its CSS brand mark uses explicit rear/front pipe occlusion at the wall interface, and its workspace preview keeps the complete 3D review context visible. Provider/API integration, deployment, public-access changes, and video remain outside this Gate. See `docs/g4-vertical-slice.md`.
+The R4 Design Gate package in `docs/design-brief.md` is user-approved. Base G4 and its bounded G4-R1 repair are published and verified as a three-page deterministic vertical slice: a public homepage, a functional review workspace, and a sanitized development-history page. The workspace puts the two local IFC inputs first and keeps the controlled review pack as a secondary demo path; it runs the completed G3 core, displays hard-clash and clearance outcomes together, exposes filterable records and a full evidence drawer, and focuses the selected GUID pair from the real IFC meshes in Three.js. G4-R1 invalidates prior review state whenever an input changes, revokes shared-coordinate consent for every new custom pair, and forces the next 3D review to load the new model bytes. Popular experience/Engineering minimal, Simplified Chinese/English, and light/dark preferences are shared. The homepage combines product explanations into hover/focus modules backed by four current, program-generated screenshots of the real local routes. See `docs/g4-vertical-slice.md`.
+
+G4AI adds a separately controlled optional interpretation layer. It defaults off, requires a visible minimal-field preview plus a fresh consent checkbox before each external request, sends no IFC bytes/GUIDs/names/files/paths/hashes/diagnostics, and keeps provider authentication server-side. After reviewing alternatives, the user selected GroqCloud Free Plan with `openai/gpt-oss-20b` as the dated 2026-08-28 adapter; Gemini and Hugging Face were rejected for this implementation boundary. The provider returns enum codes in an exact-key schema, while trusted local templates render Chinese for the Chinese UI and English for the English UI. Provider failures return a local deterministic template and cannot change a status, rule, measurement, or evidence record. See `docs/g4ai-provider-evaluation.md` and `docs/g4ai-architecture.md`. Deployment, public-access changes, mobile IFC computation, and video remain outside G4AI.
 
 The frozen G2/G3A contract includes:
 
@@ -116,7 +118,24 @@ Start the local product server:
 
 Open `http://127.0.0.1:4173/` in current desktop Chrome. The controlled review pack uses real frozen IFC bytes for C01/C03/C05/C08 so the same review surface demonstrates `CLASH`, `WARNING`, `CLEAR`, and `NOT_EVALUATED`. Use `/app/` for the workspace and `/development/` for the sanitized evidence history. The deterministic workflow remains fully local and usable without a network connection.
 
-## Boundaries through G4
+## Reproduce G4AI on Windows
+
+Automated tests never require a key or consume live quota:
+
+```powershell
+pwsh -NoLogo -NoProfile -File .\scripts\test-g4ai.ps1
+```
+
+For the optional live adapter, set `GROQ_API_KEY` only in the server process environment, then start the G4AI server. Do not put a real key in `.env.example`, browser code, Git, logs, screenshots, or video.
+
+```powershell
+$env:GROQ_API_KEY = '<local secret>'
+.\.tools\node-v24.19.0-win-x64\node.exe .\scripts\g4ai-local-server.mjs
+```
+
+Open `http://127.0.0.1:4173/app/`. The deterministic run remains browser-local. Enabling AI sends nothing; the user must preview the exact derivative, check a fresh consent box, and click the send button. Without a key or network, the original `g4:serve` route and all deterministic functions remain available.
+
+## Boundaries through G4AI
 
 - G3 supports exact IFC4 files with unprefixed metre units and an explicitly established shared project coordinate system; both models must expose the same valid web-ifc coordination transform.
 - The v1 rule IDs require the exact finite `0.002 m` hard-clash and `0.05 m` clearance constants; caller-supplied alternatives fail closed instead of silently changing rule meaning.
@@ -132,7 +151,11 @@ Open `http://127.0.0.1:4173/` in current desktop Chrome. The controlled review p
 - The eight G2 cases and nine G3C cases are controlled acceptance evidence, not a claim of arbitrary IFC/exporter or real-project accuracy.
 - G3 remains the completed deterministic core; G4 consumes it without changing its frozen thresholds, certificates, records, or failure-closing behavior.
 - Base G4 implements file/example selection, run feedback, result filtering, evidence review, and real IFC 3D focus under the separately approved DG R4 visual contract.
-- G4's AI switch defaults off and only exposes an unsent field-preview placeholder. No provider/API, credential, deployment, public-access change, mobile IFC review, or video workflow is included.
+- G4AI never sends IFC bytes, meshes, GUIDs, names, filenames, paths, hashes, locations, diagnostics, browser metadata, or account data. It sends only a fixed-rule, allowlisted derivative with local record aliases.
+- The browser bundle contains no provider endpoint, authorization header, or key access. `GROQ_API_KEY` is read by the optional same-origin Node server only.
+- Provider output has no status or measurement fields. It is separately labelled, schema-validated, and rejected if it restates deterministic status tokens, numeric metre/millimetre claims, URLs, unknown references, or incomplete record coverage.
+- The Groq free plan, model, account access, quota, retention controls, and terms are time-sensitive. The recorded 2026-08-28 comparison and controlled live success are not a permanent-free, regional-availability, uptime, or production-capacity claim. Automated tests consume no live quota; use the approved reservation policy in `docs/g4ai-provider-evaluation.md` before reviews or demonstrations.
+- No deployment, public-access change, mobile IFC review, or video workflow is included.
 - No third-party or private project IFC is included in the G2 dataset.
 
 ## AI assistance
