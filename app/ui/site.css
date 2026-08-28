@@ -365,6 +365,24 @@ html[lang="en"] .input-card > p:not(.card-index, .file-status) { min-height: 92p
 .ai-entry h4 { margin: 0 0 8px; font-size: 20px; }.ai-entry p:last-child { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
 .ai-preview { margin-top: 10px; padding: 20px; border: 1px solid var(--accent); background: var(--surface); }
 .ai-preview h5 { margin: 0 0 10px; font-size: 16px; }.ai-preview p { color: var(--muted); line-height: 1.55; }
+.ai-preview-head { display: flex; align-items: start; justify-content: space-between; gap: 18px; }
+.ai-preview-head h5 { margin: 0; }
+.ai-close { min-width: 34px; min-height: 34px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: transparent; color: var(--ink); font-size: 20px; }
+.ai-field-list, .ai-limit-list { display: grid; gap: 8px; margin: 16px 0; padding: 0; list-style: none; }
+.ai-field-list li { display: grid; grid-template-columns: 52px 1fr; gap: 12px; padding: 10px 12px; background: var(--surface-raised); font: 700 11px/1.45 var(--font-mono); }
+.ai-field-list span { color: var(--muted); overflow-wrap: anywhere; }
+.ai-provider-boundary, .ai-error { padding: 14px; border-left: 3px solid var(--accent); background: var(--surface-raised); }
+.ai-consent { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; margin-top: 16px; color: var(--ink); font-size: 12px; line-height: 1.55; }
+.ai-consent input { margin-top: 3px; }
+.ai-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 18px; }
+.ai-availability { margin-bottom: 0; font: 750 10px/1.4 var(--font-mono); letter-spacing: .08em; }
+.ai-overview { color: var(--ink) !important; font-size: 15px; }
+.ai-records { display: grid; gap: 10px; margin: 16px 0; }
+.ai-record { padding: 15px; border: 1px solid var(--line); background: var(--surface-raised); }
+.ai-record header { display: flex; justify-content: space-between; gap: 12px; font: 750 11px/1.4 var(--font-mono); }
+.ai-record header span { color: var(--accent); }
+.ai-record p { margin: 9px 0 0; }
+.ai-limit-list { padding-left: 18px; list-style: square; color: var(--muted); font-size: 12px; line-height: 1.5; }
 .field-chips { display: flex; flex-wrap: wrap; gap: 6px; }.field-chips span { padding: 6px 8px; border: 1px solid var(--line); font: 650 10px var(--font-mono); }
 .deterministic-template { padding-top: 14px; border-top: 1px solid var(--line); }
 

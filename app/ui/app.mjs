@@ -1,6 +1,7 @@
 import { IfcAPI } from "web-ifc";
 
 import { evaluateIfcPair } from "/app/core/ifc-clash-engine.mjs";
+import { fetchAiStatus, prepareAiRequest, requestAiInterpretation } from "/app/ai/client.mjs";
 import { getPreferences, initializePreferences } from "/app/ui/preferences.mjs";
 import { ClashViewer } from "/app/ui/viewer.mjs";
 
@@ -42,13 +43,27 @@ const copy = {
     selectedPair: "构件对",
     selectedDistance: "实测净距",
     selectedTolerance: "容差",
-    aiOff: "AI 解读当前关闭。开启偏好也不会发送任何数据；G4 仅提供字段预览占位，不连接提供商。",
-    aiOn: "AI 解读偏好已开启。G4 只预览拟发送字段并给出确定性模板；提供商/API 集成属于后续 G4AI。",
+    aiOff: "AI 解读当前关闭。确定性检查、结果与 3D 证据不依赖 API，也不会发送任何数据。",
+    aiOn: "AI 解读已开启。只有在预览最小字段并再次确认后才会请求外部提供商；确定性结果始终权威。",
     aiButtonOff: "先开启 AI 解读",
-    aiButtonOn: "预览拟发送字段",
-    aiPreviewTitle: "G4 字段预览（未发送）",
-    aiPreviewBody: "只会建议发送以下结构化字段：状态、规则 ID、双方类型/GUID、阈值或净距、证书与公开算法边界。IFC 字节、网格、文件名、路径与浏览器元数据均排除。",
-    aiNoProvider: "本阶段没有提供商或 API 请求。确定性模板：请复核记录状态、双方构件身份、阈值证据和失败诊断；任何后续 AI 文本都不能更改本记录。",
+    aiButtonOn: "预览并确认发送",
+    aiPreviewTitle: "发送前预览（尚未发送）",
+    aiPreviewBody: "仅发送语言、固定规则边界、状态汇总，以及每条记录的本地别名、状态、双方 IFC 类型和已存在的测量字段。GUID、名称、IFC 字节、网格、文件名、路径、哈希、诊断和浏览器元数据均排除。",
+    aiProviderBoundary: "首选提供商：GroqCloud · openai/gpt-oss-20b。官方资料核验于 2026-08-28：免费计划可用；默认推理不留存，但可靠性或滥用排查日志可能保留最多 30 天；账户可启用 ZDR。实际地区、账号和额度以当前账户为准。",
+    aiConsent: "我已检查上述字段并同意将其发送给 GroqCloud 以生成一次可选解读。",
+    aiSend: "发送最小字段",
+    aiSending: "正在请求 AI 解读…确定性结果保持可用。",
+    aiCancel: "取消请求",
+    aiRetry: "重试",
+    aiCopy: "复制解读",
+    aiClose: "关闭",
+    aiGenerated: "AI 生成解读 · 不改变检测结论",
+    aiFallback: "确定性模板降级 · 未改变检测结论",
+    aiError: "AI 请求未完成（{code}）。已显示本地确定性模板。",
+    aiCopied: "已复制",
+    aiAttentionReviewFirst: "优先复核",
+    aiAttentionReviewNext: "随后复核",
+    aiAttentionInformational: "信息参考",
     isolate: "隔离构件对",
     restore: "恢复场景",
     loading3d: "从真实 IFC 几何准备 3D 证据…",
@@ -89,13 +104,27 @@ const copy = {
     selectedPair: "Component pair",
     selectedDistance: "Measured clearance",
     selectedTolerance: "Tolerance",
-    aiOff: "AI interpretation is off. Enabling it sends nothing; G4 provides only a field-preview placeholder and connects to no provider.",
-    aiOn: "AI interpretation is enabled. G4 only previews proposed fields and shows a deterministic template; provider/API integration belongs to G4AI.",
+    aiOff: "AI interpretation is off. Deterministic checks, results, and 3D evidence need no API and send no data.",
+    aiOn: "AI interpretation is on. An external request occurs only after you preview the minimal fields and confirm again. Deterministic results remain authoritative.",
     aiButtonOff: "Enable AI interpretation first",
-    aiButtonOn: "Preview proposed fields",
-    aiPreviewTitle: "G4 field preview (not sent)",
-    aiPreviewBody: "Only these structured fields would be proposed: status, rule ID, both types/GUIDs, threshold or clearance, certificate, and the public algorithm boundary. IFC bytes, meshes, filenames, paths, and browser metadata are excluded.",
-    aiNoProvider: "No provider or API request exists in this Gate. Deterministic template: review the record status, both component identities, threshold evidence, and failure diagnostic. Any later AI text cannot change this record.",
+    aiButtonOn: "Preview and confirm send",
+    aiPreviewTitle: "Pre-send preview (nothing sent yet)",
+    aiPreviewBody: "Only locale, frozen rule boundaries, status counts, and each record's local alias, status, two IFC types, and existing measurement fields are sent. GUIDs, names, IFC bytes, meshes, filenames, paths, hashes, diagnostics, and browser metadata are excluded.",
+    aiProviderBoundary: "Selected provider: GroqCloud · openai/gpt-oss-20b. Official sources checked 2026-08-28: a Free Plan is available; inference is not retained by default, but reliability or abuse logs may be held for up to 30 days; account-level ZDR is available. Region, account, and quota availability remain account-specific.",
+    aiConsent: "I reviewed the fields above and agree to send them to GroqCloud for one optional interpretation.",
+    aiSend: "Send minimal fields",
+    aiSending: "Requesting AI interpretation… deterministic results remain available.",
+    aiCancel: "Cancel request",
+    aiRetry: "Retry",
+    aiCopy: "Copy interpretation",
+    aiClose: "Close",
+    aiGenerated: "AI-generated interpretation · does not change detection conclusions",
+    aiFallback: "Deterministic template fallback · detection conclusions unchanged",
+    aiError: "The AI request did not complete ({code}). A local deterministic template is shown.",
+    aiCopied: "Copied",
+    aiAttentionReviewFirst: "Review first",
+    aiAttentionReviewNext: "Review next",
+    aiAttentionInformational: "Informational",
     isolate: "Isolate pair",
     restore: "Restore scene",
     loading3d: "Preparing 3D evidence from the real IFC geometry…",
@@ -125,6 +154,10 @@ const state = {
   filter: "all",
   running: false,
   viewerSource: null,
+  aiRequest: null,
+  aiResult: null,
+  aiController: null,
+  aiStatus: null,
 };
 
 let engineIfcApi;
@@ -146,6 +179,13 @@ function statusLabel(status) {
 }
 
 function translateStatic() {
+  if (state.aiRequest && state.aiRequest.locale !== language()) {
+    state.aiController?.abort();
+    state.aiController = null;
+    state.aiRequest = null;
+    state.aiResult = null;
+    elements.ai_preview.hidden = true;
+  }
   const useEnglish = language() === "en";
   document.querySelectorAll("[data-zh][data-en]").forEach(element => { element.textContent = useEnglish ? element.dataset.en : element.dataset.zh; });
   document.title = useEnglish ? "IFC ClashTrace — Functional workspace" : "IFC ClashTrace — 功能工作台";
@@ -170,6 +210,10 @@ async function validateFile(file) {
 }
 
 function invalidateReviewState({ resetCoordinateConsent = false } = {}) {
+  state.aiController?.abort();
+  state.aiController = null;
+  state.aiRequest = null;
+  state.aiResult = null;
   state.records = [];
   state.sources.clear();
   state.selected = null;
@@ -441,14 +485,106 @@ function refreshAiState() {
   if (!elements.ai_description) return;
   const enabled = getPreferences().aiEnabled;
   elements.ai_description.textContent = msg(enabled ? "aiOn" : "aiOff");
-  elements.preview_ai_fields.disabled = !enabled || !state.selected;
+  elements.preview_ai_fields.disabled = !enabled || state.records.length === 0;
   elements.preview_ai_fields.textContent = msg(enabled ? "aiButtonOn" : "aiButtonOff");
   if (!enabled) elements.ai_preview.hidden = true;
 }
 
-function showAiPreview() {
-  elements.ai_preview.innerHTML = `<h5>${safe(msg("aiPreviewTitle"))}</h5><p>${safe(msg("aiPreviewBody"))}</p><div class="field-chips"><span>status</span><span>rule_id</span><span>element_a</span><span>element_b</span><span>threshold</span><span>certificate</span></div><p class="deterministic-template">${safe(msg("aiNoProvider"))}</p>`;
+function requestPreviewHtml(request) {
+  const summary = Object.entries(request.summary).map(([status, count]) => `<span>${safe(status)} · ${safe(count)}</span>`).join("");
+  const records = request.records.map(record => `<li><strong>${safe(record.record_ref)}</strong><span>${safe(record.status)} · ${safe(record.element_a_type)} ↔ ${safe(record.element_b_type)} · ${safe(record.measurement.kind)}</span></li>`).join("");
+  return `<div class="field-chips">${summary}</div><ul class="ai-field-list">${records}</ul>`;
+}
+
+async function showAiPreview() {
+  state.aiController?.abort();
+  state.aiRequest = prepareAiRequest(state.records, language());
+  state.aiResult = null;
+  state.aiStatus = await fetchAiStatus();
+  elements.ai_preview.innerHTML = `
+    <div class="ai-preview-head"><h5>${safe(msg("aiPreviewTitle"))}</h5><button type="button" class="ai-close" data-ai-action="close" aria-label="${safe(msg("aiClose"))}">×</button></div>
+    <p>${safe(msg("aiPreviewBody"))}</p>
+    ${requestPreviewHtml(state.aiRequest)}
+    <p class="ai-provider-boundary">${safe(msg("aiProviderBoundary"))}</p>
+    <label class="ai-consent"><input type="checkbox" id="ai-send-consent"><span>${safe(msg("aiConsent"))}</span></label>
+    <div class="ai-actions"><button type="button" class="button button-primary" data-ai-action="send" disabled>${safe(msg("aiSend"))}</button><button type="button" class="text-button" data-ai-action="close">${safe(msg("aiClose"))}</button></div>
+    <p class="ai-availability">${safe(state.aiStatus.configured ? "API READY" : "API NOT CONFIGURED · FALLBACK AVAILABLE")}</p>`;
   elements.ai_preview.hidden = false;
+  bindAiPanelActions();
+}
+
+function attentionLabel(value) {
+  const key = value === "review_first" ? "aiAttentionReviewFirst" : value === "review_next" ? "aiAttentionReviewNext" : "aiAttentionInformational";
+  return msg(key);
+}
+
+function findRecordByRef(ref) {
+  const index = Number.parseInt(ref.slice(1), 10) - 1;
+  return state.records[index] || null;
+}
+
+function interpretationText(result) {
+  return [result.interpretation.overview, ...result.interpretation.ordered_records.flatMap(item => [`${item.record_ref} · ${attentionLabel(item.attention)}`, item.rationale, item.next_step]), ...result.interpretation.global_limits].join("\n");
+}
+
+function renderAiResult(result) {
+  state.aiResult = result;
+  const badge = result.mode === "provider" ? msg("aiGenerated") : msg("aiFallback");
+  const cards = result.interpretation.ordered_records.map(item => {
+    const record = findRecordByRef(item.record_ref);
+    return `<article class="ai-record"><header><strong>${safe(item.record_ref)} · ${safe(attentionLabel(item.attention))}</strong><span>${safe(record?.status || "NOT_EVALUATED")}</span></header><p>${safe(item.rationale)}</p><p><b>${language() === "en" ? "Review" : "复核建议"}</b> · ${safe(item.next_step)}</p></article>`;
+  }).join("");
+  const error = result.error ? `<p class="ai-error">${safe(msg("aiError", { code: result.error.code }))}</p>` : "";
+  elements.ai_preview.innerHTML = `
+    <div class="ai-preview-head"><h5>${safe(badge)}</h5><button type="button" class="ai-close" data-ai-action="close" aria-label="${safe(msg("aiClose"))}">×</button></div>
+    ${error}<p class="ai-overview">${safe(result.interpretation.overview)}</p><div class="ai-records">${cards}</div>
+    <ul class="ai-limit-list">${result.interpretation.global_limits.map(item => `<li>${safe(item)}</li>`).join("")}</ul>
+    <div class="ai-actions">${result.error?.retryable ? `<button type="button" class="button button-secondary" data-ai-action="retry">${safe(msg("aiRetry"))}</button>` : ""}<button type="button" class="button button-secondary" data-ai-action="copy">${safe(msg("aiCopy"))}</button><button type="button" class="text-button" data-ai-action="close">${safe(msg("aiClose"))}</button></div>`;
+  bindAiPanelActions();
+}
+
+async function submitAiRequest() {
+  if (!state.aiRequest || state.aiController) return;
+  state.aiController = new AbortController();
+  elements.ai_preview.innerHTML = `<div class="ai-preview-head"><h5>${safe(msg("aiSending"))}</h5></div><div class="ai-actions"><button type="button" class="button button-secondary" data-ai-action="cancel">${safe(msg("aiCancel"))}</button></div>`;
+  bindAiPanelActions();
+  try {
+    renderAiResult(await requestAiInterpretation(state.aiRequest, { signal: state.aiController.signal }));
+  } catch (error) {
+    if (error.code === "cancelled") {
+      await showAiPreview();
+      return;
+    }
+    renderAiResult({ mode: "deterministic_fallback", interpretation: await import("/app/ai/contract.mjs").then(module => module.deterministicFallback(state.aiRequest)), error: { code: error.code || "unknown", retryable: error.retryable === true } });
+  } finally {
+    state.aiController = null;
+  }
+}
+
+function closeAiPanel() {
+  state.aiController?.abort();
+  state.aiController = null;
+  elements.ai_preview.hidden = true;
+  elements.preview_ai_fields.focus();
+}
+
+function bindAiPanelActions() {
+  const consent = elements.ai_preview.querySelector("#ai-send-consent");
+  const send = elements.ai_preview.querySelector('[data-ai-action="send"]');
+  consent?.addEventListener("change", () => { send.disabled = !consent.checked; });
+  elements.ai_preview.querySelectorAll("[data-ai-action]").forEach(button => button.addEventListener("click", async () => {
+    if (button.dataset.aiAction === "send" || button.dataset.aiAction === "retry") await submitAiRequest();
+    if (button.dataset.aiAction === "cancel") state.aiController?.abort();
+    if (button.dataset.aiAction === "close") closeAiPanel();
+    if (button.dataset.aiAction === "copy" && state.aiResult) {
+      try {
+        await navigator.clipboard.writeText(interpretationText(state.aiResult));
+        button.textContent = msg("aiCopied");
+      } catch {
+        button.textContent = msg("aiCopy");
+      }
+    }
+  }));
 }
 
 function bindEvents() {
