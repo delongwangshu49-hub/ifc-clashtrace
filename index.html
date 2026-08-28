@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="zh-CN" data-style="mainstream" data-theme="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="IFC ClashTrace 在浏览器本地执行可追溯的 IFC 管线—结构硬碰撞与 50 mm 净距检查。">
+    <title>IFC ClashTrace — 确定性 IFC 碰撞证据</title>
+    <link rel="stylesheet" href="/app/ui/site.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main" data-i18n="common.skip">跳到主要内容</a>
+    <header class="site-header home-header">
+      <a class="compact-brand" href="/" aria-label="IFC ClashTrace 首页" data-i18n-aria="common.brandHome">
+        <span class="compact-mark" aria-hidden="true"><span></span></span>
+        <span>IFC ClashTrace</span>
+      </a>
+      <div class="preferences-mount" data-control-mode="display"></div>
+    </header>
+
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="brand-lockup">
+          <div class="brand-mark" role="img" aria-label="墙体、管线、碰撞环与检查提示气泡组成的 IFC ClashTrace 标志" data-i18n-aria="home.brandMark.aria">
+            <span class="wall wall-face"></span>
+            <span class="wall wall-side"></span>
+            <span class="wall wall-top"></span>
+            <span class="pipe pipe-back"></span>
+            <span class="pipe pipe-front"></span>
+            <span class="collision-ring"></span>
+            <span class="dialog-bubble">!</span>
+          </div>
+          <p class="eyebrow" data-i18n="home.eyebrow">DETERMINISTIC BIM REVIEW</p>
+          <h1 id="hero-title">IFC ClashTrace</h1>
+        </div>
+        <p class="hero-statement">
+          <span data-i18n="home.statement.lead">让每一次管线—结构冲突，</span><br>
+          <span data-i18n="home.statement.detail">都能追溯到模型、构件与计算证据。</span>
+        </p>
+        <p class="hero-copy">
+          <span data-i18n="home.copy.lead">两份 IFC4 始终留在本机，浏览器内完成硬碰撞与 50 mm 净距检查。</span><br>
+          <span data-i18n="home.copy.detail">从结论定位到双方构件；证据不足时明确标记 NOT_EVALUATED。</span>
+        </p>
+        <div class="hero-actions" aria-label="主要入口" data-i18n-aria="home.actions.label">
+          <a class="button button-primary" href="/app/" target="_blank" rel="noopener">
+            <span data-i18n="home.launch">立即使用</span><span aria-hidden="true">↗</span>
+          </a>
+          <a class="button button-secondary" href="/development/" target="_blank" rel="noopener">
+            <span data-i18n="home.development">研发进程</span><span aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <ul class="assurance-list" aria-label="产品保证" data-i18n-aria="home.assurance.label">
+          <li><span class="assurance-index" aria-hidden="true">01</span><span data-i18n="home.local">IFC 文件不离开浏览器</span></li>
+          <li><span class="assurance-index" aria-hidden="true">02</span><span data-i18n="home.deterministic">确定性结果始终权威</span></li>
+          <li><span class="assurance-index" aria-hidden="true">03</span><span data-i18n="home.failClosed">失败关闭，不猜测结论</span></li>
+        </ul>
+
+        <div class="trace-figure" aria-label="从管线穿墙到证据记录的示意" data-i18n-aria="home.trace.aria">
+          <div class="trace-scene" aria-hidden="true">
+            <span class="scene-wall"></span>
+            <span class="scene-pipe"></span>
+            <span class="scene-hit"></span>
+            <span class="scene-label label-a" data-i18n="home.trace.a">A · 管线</span>
+            <span class="scene-label label-b" data-i18n="home.trace.b">B · 结构</span>
+          </div>
+          <div class="trace-record">
+            <p class="record-kicker" data-i18n="home.trace.kicker">冲突记录 · C01</p>
+            <p class="record-status"><span class="status-icon" aria-hidden="true"></span><span data-i18n="home.trace.status">硬碰撞 · CLASH</span></p>
+            <dl>
+              <div><dt data-i18n="home.trace.rule">规则</dt><dd>MEP_STRUCTURE_HARD_CLASH_V1</dd></div>
+              <div><dt data-i18n="home.trace.tolerance">容差</dt><dd>0.002 m</dd></div>
+              <div><dt data-i18n="home.trace.identity">构件身份</dt><dd>GUID A ↔ GUID B</dd></div>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <section id="capabilities" class="feature-showcase" aria-labelledby="showcase-title">
+        <div class="showcase-heading">
+          <p class="section-index">PRODUCT / IN PRACTICE</p>
+          <h2 id="showcase-title" data-i18n="home.showcase.title">从计算到复核，&#10;让每一步都有证据。</h2>
+          <p data-i18n="home.showcase.copy">三类工作被收进同一条清晰路径；把鼠标移到模块上，可查看对应的真实页面预览。</p>
+        </div>
+
+        <div class="showcase-grid">
+          <article class="showcase-card" tabindex="0" aria-describedby="feature-modes-copy">
+            <div class="showcase-card-copy">
+              <span class="showcase-number">01</span>
+              <p class="showcase-kicker" data-i18n="home.feature.modes.kicker">DISPLAY MODES</p>
+              <h3 data-i18n="home.feature.modes.title">切换显示，&#10;工作不断。</h3>
+              <p id="feature-modes-copy" data-i18n="home.feature.modes.copy">大众体验或工程极简、中文或英语、亮色或暗色；偏好只保存在本机。</p>
+            </div>
+            <figure class="feature-preview feature-preview-pair" aria-label="两种主页显示模式预览" data-i18n-aria="home.feature.modes.previewAria">
+              <div><span class="preview-image-crop"><img src="/app/ui/previews/home-light-zh.png" alt="亮色中文大众体验主页" data-i18n-alt="home.feature.modes.lightAlt"></span><figcaption data-i18n="home.feature.modes.lightCaption">亮色 · 中文 · 大众体验</figcaption></div>
+              <div><span class="preview-image-crop"><img src="/app/ui/previews/home-dark-en-minimal.png" alt="暗色英文工程极简主页" data-i18n-alt="home.feature.modes.darkAlt"></span><figcaption data-i18n="home.feature.modes.darkCaption">暗色 · English · 工程极简</figcaption></div>
+            </figure>
+          </article>
+
+          <article class="showcase-card" tabindex="0" aria-describedby="feature-review-copy">
+            <div class="showcase-card-copy">
+              <span class="showcase-number">02</span>
+              <p class="showcase-kicker" data-i18n="home.feature.review.kicker">DETERMINISTIC REVIEW</p>
+              <h3 data-i18n="home.feature.review.title">计算、定位、复核，&#10;一条记录走到底。</h3>
+              <p id="feature-review-copy" data-i18n="home.feature.review.copy">载入两份 IFC4，运行硬碰撞与净距规则，在 3D 中聚焦双方构件并打开完整证据。</p>
+            </div>
+            <figure class="feature-preview" aria-label="确定性功能工作台预览" data-i18n-aria="home.feature.review.previewAria">
+              <span class="preview-image-crop"><img src="/app/ui/previews/workspace-en-dark.png" alt="暗色英文确定性功能工作台" data-i18n-alt="home.feature.review.alt"></span>
+              <figcaption data-i18n="home.feature.review.caption">真实结果 · 构件定位 · 证据抽屉</figcaption>
+            </figure>
+          </article>
+
+          <article class="showcase-card" tabindex="0" aria-describedby="feature-open-copy">
+            <div class="showcase-card-copy">
+              <span class="showcase-number">03</span>
+              <p class="showcase-kicker" data-i18n="home.feature.open.kicker">OPEN EVIDENCE</p>
+              <h3 data-i18n="home.feature.open.title">研发过程公开，&#10;方法与边界可追溯。</h3>
+              <p id="feature-open-copy" data-i18n="home.feature.open.copy">公开记录 Gate、测试、失败关闭边界与许可证；代码采用 MIT，生成数据采用 CC0。</p>
+            </div>
+            <figure class="feature-preview" aria-label="研发历程与公开证据页面预览" data-i18n-aria="home.feature.open.previewAria">
+              <span class="preview-image-crop"><img src="/app/ui/previews/development-zh-light.png" alt="亮色中文研发历程页面" data-i18n-alt="home.feature.open.alt"></span>
+              <figcaption data-i18n="home.feature.open.caption">研发历程 · 测试证据 · 开源许可</figcaption>
+            </figure>
+          </article>
+        </div>
+
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p><strong>IFC ClashTrace</strong><br><span data-i18n="home.footer.tagline">公开构建的确定性 IFC 证据。</span></p>
+      <nav aria-label="页脚导航" data-i18n-aria="home.footer.navLabel">
+        <a href="https://github.com/delongwangshu49-hub/ifc-clashtrace">GitHub</a>
+        <a href="/development/" target="_blank" rel="noopener" data-i18n="home.development">研发进程</a>
+        <a href="/LICENSE" data-i18n="home.footer.codeLicense">MIT 代码许可</a>
+        <a href="/docs/data-and-licenses.md" data-i18n="home.footer.dataLicense">数据与许可</a>
+      </nav>
+      <p class="footer-note" data-i18n="home.footer.note">模型仅在浏览器本地处理 · 确定性证据全程可追溯</p>
+    </footer>
+    <script type="module" src="/app/ui/home.mjs"></script>
+  </body>
+</html>

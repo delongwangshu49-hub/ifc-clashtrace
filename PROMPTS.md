@@ -167,3 +167,144 @@ This repository uses AI assistance for implementation planning and code drafting
 - Sanitized prompt: grant one collective signed-in-Chrome authorization for the sanitized public plan, progress ledger, prompt record, design brief, and public DG test; after verification, allow only the public plan and progress ledger mapping tail.
 - Human constraints: never upload the local authoritative plan, `scripts/audit-dg.ps1`, reference/generated media, browser state, credentials, caches, or any G4 asset; do not configure a Git remote or use a GitHub API/CLI.
 - Adopted output: the Gate enters `PUBLICATION_AUTHORIZED_IN_PROGRESS`; the exact five-file delta is ready for Chrome publication after local tests and publication audit pass again.
+
+## P-018 — G4 deterministic web vertical slice
+
+- Date: 2026-08-27
+- Goal: implement the separately authorized base G4 product slice directly in the saved local project, preserve every completed Gate, and stop before G4AI, deployment, public-access changes, or video.
+- Sanitized prompt: completely reread the current authoritative plan and public sync ledger; use PowerShell 7 to independently reverify the environment, local Git, zero-remotes rule, object integrity, all completed Gate implementations, current tests/audits, and public evidence; then implement the approved three-page R4 contract, two visual profiles, Simplified Chinese/English, light/dark appearance, AI off by default, centered brand lockup, controlled earth-tone/orange-red visual system, complete descriptions, centered controls, real deterministic hard-clash/clearance results, failure closing, full evidence, and result-driven 3D focus. Do not implement a provider/API, deploy, change public access, or create video.
+- Human constraints: local Git remains authoritative and has no remote; GitHub reads/writes use only the signed-in Chrome webpage; any external upload still requires action-time collective authorization for one exact audited list; the local master plan and every `scripts/audit-*.ps1` remain prohibited; deterministic records remain authoritative and unreliable inputs cannot become `CLEAR`.
+- Adopted output: a CSS-authored wall–pipe–collision–dialog brand mark, public homepage, functional workspace, sanitized development page, shared local preferences, a four-case real-IFC review pack, custom dual-file preflight, phased execution, deterministic summary/filter/evidence surfaces, a real web-ifc/Three.js GUID-mapped viewer, and an unsent G4AI field-preview placeholder.
+- Verification: current desktop Chrome produced `CLASH 1 / WARNING 1 / CLEAR 1 / NOT_EVALUATED 1` for C01/C03/C05/C08 with one real WebGL canvas and no console warning/error; C03 exposed both GUIDs, `2.0 mm` hard tolerance, `0 mm / 50.0 mm` clearance evidence, certificates, algorithm boundary, and both model hashes; a custom C01 pair independently produced one `CLASH`; the coordinate and sub-1024 px guards failed closed; Minimal/English/Light and Mainstream/简中/Dark switched without altering records; AI defaulted off and its enabled state sent nothing.
+- Human modification and review: the controlled demonstration is explicitly labeled as four independent frozen IFC computations rather than a single federated pair; no model filename is added to deterministic records; the development page uses sanitized public evidence only; the viewer reparses actual selected IFC bytes and treats text evidence as authoritative if 3D cannot load.
+- Rejected or deferred suggestions: no provider comparison, API key, outbound AI request, generated bitmap/logo asset, extra rule, BCF workflow, mobile IFC computation, deployment metadata, hosting action, public-access change, or video artifact was added.
+
+## P-019 — G4 homepage first review repair
+
+- Date: 2026-08-27
+- Goal: close the user's first homepage review before examining the other G4 pages or authorizing any external publication.
+- Sanitized prompt: make the style, language, and appearance dropdowns follow the active profile geometry; rename the mainstream presentation so it describes the approved editorial-technology direction; correct semantic line breaks and oversized section headings; expand and clarify the three product explanations; replace negative prototype language with a positive, precise scope description; brighten the dark palette, repair button contrast, add restrained hover motion, distinguish the footer, and explain where the approved brand animation belongs.
+- Human constraints: modify the homepage first and leave the functional/development-page visual review for later; do not treat the earlier upload request as approved; preserve deterministic authority, fail-closed behavior, bilingual/light-dark preferences, reduced-motion support, zero remotes, and the base-G4 boundary.
+- Adopted output: three accessible custom listboxes use rounded editorial geometry or square monochrome geometry and support keyboard interaction; homepage copy uses semantic breaks and fuller product explanations; the editorial dark profile becomes deep teal-grey with readable accents; the primary-button contrast is explicit in both profiles; intro sections gain subtle hover movement; the footer has its own color field; and the original wall–pipe–collision–dialog reveal runs in the centered hero lockup with a static reduced-motion fallback.
+- Verification: pointer and keyboard dropdown selection, both styles, both languages, light/dark appearance, dark and minimal button contrast, heading size/line breaks, section hover transforms, logo animation names/hover transforms, footer separation, shared functional-page preferences, console logs, the G4 suite, and the exact publication audit pass locally.
+- Rejected or deferred suggestions: no GitHub upload, public-plan closure, deployment, access change, G4AI provider/API, generated media, video, or modification to deterministic rule outputs was performed.
+
+## P-020 — G4 homepage second review repair
+
+- Date: 2026-08-27
+- Goal: close the user's second homepage review while keeping G4 in local user review and preserving the approved deterministic product boundary.
+- Sanitized prompt: improve the assurance-row readability; replace unattractive permanent underlines in the header and footer; complete language switching for the clash illustration and accessible labels; center the exclamation mark; make the first two section headings use the same deliberate two-line layout as the third; use one near-black, light-text footer across pages; rename the two profiles to Popular experience and Engineering minimal; replace broad teal dark-mode surfaces with a neutral dark system while keeping teal on the logo.
+- Human constraints: reference established large-product dark-mode practice without copying another product identity; keep the original wall–pipe–collision–dialog brand direction, deterministic authority, failure closing, AI off by default, reduced motion, zero remotes, and the no-upload/no-deployment/no-G4AI boundary.
+- Adopted output: neutral layered dark surfaces based on official GitHub Primer color-usage principles, semantic orange-red emphasis, retained teal brand/model pipes, numbered assurance cards, grouped header navigation, hover-state footer links, a shared near-black footer, fully bilingual clash-record content and accessibility names, a CSS-drawn centered status mark, and deliberate two-line section headings. The user-facing profile labels are 大众体验/工程极简 and Popular experience/Engineering minimal.
+- Verification: local browser interaction at 1433 × 898 covers both profiles, both languages, both appearances, English `Hard clash · CLASH`, translated record/footer/navigation labels, Chinese two-line headings, readable assurances, the neutral illustration background, the common dark footer, and centered icon geometry. The G4 suite, exact 18-file publication audit, zero-remotes check, and diff check pass.
+- Rejected or deferred suggestions: no GitHub upload, deployment, access change, G4AI provider/API, video, new dependency, deterministic rule change, or broad extra-page redesign was performed.
+
+## P-021 — G4 homepage product-showcase rebuild
+
+- Date: 2026-08-28
+- Goal: replace the three repetitive homepage narrative bands with a compact product showcase, correct English density, and keep the AI control only where it is operationally relevant.
+- Sanitized prompt: remove the centered homepage section navigation and homepage AI switch; keep the three display controls aligned at the right; make the hero wall visible in light mode; use concise idiomatic English rather than literal translation; merge capability, evidence, and scope content into equal-base cards that change emphasis on hover/focus; reveal small bubbles containing real light-Chinese, dark-English-minimal, functional-workspace, and development-history previews; repair functional-page English layout before using it; enlarge the workspace AI switch and place its state inside the track.
+- Human constraints: use as few preview images as necessary; previews must come from real local product routes and controlled generated IFC data; preserve the original wall–pipe–collision–dialog hero motion, deterministic authority, failure closing, reduced motion, zero remotes, and the no-upload/no-deployment/no-G4AI-provider/video boundary.
+- Adopted output: the homepage now has three display controls, no middle navigation or AI control, a stronger outlined hero wall, one combined three-card showcase, focus/hover color emphasis, and four real local-route PNG previews. English home copy is shorter, workspace headings/cards fit without overlap, and the only AI switch is a larger state-in-track control on `/app/`.
+- Verification: at 1433 × 898 the light Chinese Popular experience and dark English Engineering minimal homes render cleanly; the controlled C01/C03/C05/C08 run produces four deterministic records and a real 3D view in the English dark workspace; the development preview uses the real light Chinese page; homepage and workspace console errors are zero. The G4 suite reports four previews and workspace-only AI placement, and the exact 22-file audit passes with the four program-generated media files individually allowlisted and below 1 MiB.
+- Rejected or deferred suggestions: no provider/API call, deployment, access change, video, remote configuration, GitHub write, new dependency, or deterministic-rule change was performed.
+
+## P-022 — G4 homepage and workspace fourth review repair
+
+- Date: 2026-08-28
+- Goal: close all current annotations across the homepage and functional workspace without expanding base G4.
+- Sanitized prompt: give the hero wall–pipe–collision–dialog mark stronger dimensional faces, depth, highlights, and contact shadows; replace every showcase image with a current real-route capture, hide browser scrollbars inside smaller preview bubbles, keep the open-evidence title to two lines, and remove the unexplained standalone `NOT_EVALUATED` banner. On the workspace, make two user IFC inputs the primary path, demote the controlled pack to a compact demo option, soften the mobile-roadmap wording, scale Chinese and idiomatic English headings across desktop widths, move the uniquely labelled AI switch from the header into the input workflow, and keep the three display controls aligned right.
+- Human constraints: apply every current annotation on both pages; preserve deterministic authority, failure closing, AI default-off behavior, bilingual/light-dark/profile switching, reduced motion, zero remotes, and the no-upload/no-deployment/no-provider/video boundary.
+- Adopted output: a layered CSS brand mark; four refreshed current-route previews with crop wrappers; a concise two-line open-evidence card and no unexplained bottom banner; responsive workspace typography; two equally prominent file cards; a secondary horizontal demo strip; softened mobile follow-up copy; and one clearly labelled 116 × 42 px workspace AI switch below the support boundary.
+- Verification: browser review at 1024, 1280, and 1433 CSS px covers Chinese and concise English workspace layouts, complete light/dark logo rendering, all three hover previews, two-line third-card copy, header display-control placement, `header AI = 0 / workspace AI = 1`, and AI off/on/off state changes. `scripts/test-g4.ps1`, exact 22-file `scripts/audit-g4.ps1`, `git diff --check`, and zero-remotes checks pass.
+- Rejected or deferred suggestions: no provider/API call, deployment, public-access change, video, remote configuration, GitHub write, new dependency, mobile computation implementation, or deterministic-rule change was performed.
+
+## P-023 — G4 hero spatial hierarchy and 3D preview framing repair
+
+- Date: 2026-08-28
+- Goal: close the two newest homepage annotations by making the original brand direction physically legible and showing the whole 3D review region in the deterministic-workspace preview.
+- Sanitized prompt: rebuild the wall–pipe–collision–dialog mark so wall depth, pipe passage, collision location, and alert ownership form one coherent spatial story; recapture the second showcase image lower in the real functional page so the 3D toolbar, complete model viewport, result list, and selected record are visible without a browser scrollbar.
+- Human constraints: preserve the approved original brand ingredients and staged motion; use only real local product routes and controlled generated IFC data; keep deterministic authority, failure closing, reduced motion, zero remotes, and the no-upload/no-deployment/no-provider/video boundary.
+- Adopted output: paired front/rear wall plates; separate rear and foreground pipe segments with explicit occlusion; a ring fixed at the wall penetration interface; a separate tailed alert bubble; refreshed light-Chinese and dark-English homepage captures; and a `1433 × 806` dark-English workspace capture containing the full 3D review context.
+- Verification: local browser review at 1433 × 898 confirms the corrected hero hierarchy and the complete hover preview. The G4 suite now locks the two pipe layers and bubble tail, while the exact 22-file publication audit and diff check pass.
+- Rejected or deferred suggestions: no GitHub upload, deployment, access change, G4AI provider/API, video, new dependency, generated logo bitmap, or deterministic-rule modification was performed.
+
+## P-024 — G4 development typography and footer-copy repair
+
+- Date: 2026-08-28
+- Goal: close four development/homepage annotations involving metric typography, semantic heading breaks, and an unhelpful footer label.
+- Sanitized prompt: make the 0/49/50/51 clearance boundary metric read as one intentional number group with a subordinate millimetre unit; give the failure and local/public-history headings stable semantic line breaks; remove the contributor label from every product-page footer and retain only the product name.
+- Human constraints: preserve bilingual switching, the established light/dark profiles, public-evidence meaning, deterministic records, zero remotes, and the no-upload/no-deployment/no-provider/video boundary.
+- Adopted output: a non-wrapping metric baseline with smaller neutral `mm`; concise two-line Chinese failure copy and idiomatic English counterparts; two-line local/public-ledger copy in both languages; and `IFC ClashTrace` as the shared footer identity.
+- Verification: local browser review at 1708 × 898 covers the metric, both headings in Chinese and English, and both product-page footers; obsolete contributor text is absent. The G4 test and exact 22-file audit pass.
+- Rejected or deferred suggestions: no GitHub upload, deployment, access change, G4AI provider/API, video, new dependency, footer expansion, or deterministic-rule change was performed.
+
+## P-025 — G4 workspace input-index repair
+
+- Date: 2026-08-28
+- Goal: align the workspace labels with the intended primary-input and secondary-demo hierarchy.
+- Sanitized prompt: rename the MEP and structure file cards to A1 and A2, and rename the controlled demonstration strip to B.
+- Human constraints: change labels only; preserve input roles, deterministic execution, bilingual display, zero remotes, and the no-upload/no-deployment/no-provider/video boundary.
+- Adopted output: the two real-file inputs form the A group (`A1`, `A2`) and the controlled example is the B path.
+- Verification: local browser review at 1708 × 898 confirms all three labels and absence of `B1`, `B2`, and `A · DEMO`; the G4 test and exact 22-file audit pass.
+- Rejected or deferred suggestions: no workflow, rule, provider, deployment, media, or remote change was performed.
+
+## P-026 — G4 workspace demo-label correction
+
+- Date: 2026-08-28
+- Goal: retain the newly clarified A/B grouping while restoring the controlled path's explicit demonstration status.
+- Sanitized prompt: keep A1 and A2 for the two real IFC inputs, but label the secondary controlled path `B · DEMO` rather than plain `B`.
+- Human constraints: change the visible index only and preserve all workflow, rule, preference, and governance boundaries.
+- Adopted output: `A1 / A2 / B · DEMO`.
+- Verification: the local browser reports the exact label set; G4 test and exact 22-file audit pass.
+- Rejected or deferred suggestions: no additional design, workflow, provider, deployment, remote, or rule change was made.
+
+## P-027 — G4 development public-copy and metric-unit repair
+
+- Date: 2026-08-28
+- Goal: make the development page suitable for a public audience and align the clearance unit color with its metric.
+- Sanitized prompt: replace the local-Git, signed-in-browser, SHA-mapping, progress-ledger, and prompt-ledger operational narrative with public product content; expose source, validation method, MIT, and CC0 references; color `mm` with the same orange as 0/49/50/51.
+- Human constraints: remove personal operational process only, retain accurate public evidence and deterministic/privacy boundaries, and do not expand G4 scope.
+- Adopted output: a bilingual OPEN METHOD section explaining inspectable rules, tests, scope, licenses, local processing, and deterministic authority; four public evidence links; an accent-colored subordinate unit.
+- Verification: local browser review at 1708 × 898 checks both languages, all four links, the exact accent color, and absence of old operational markers; the G4 test and exact 22-file audit pass.
+- Rejected or deferred suggestions: no new claim, workflow, provider, deployment, remote, video, or deterministic-rule change was added.
+
+## P-028 — G4 explicit shared-coordinate consent
+
+- Date: 2026-08-28
+- Goal: ensure the custom-model coordinate assertion is an explicit user action rather than a preselected default.
+- Sanitized prompt: leave the shared-project-coordinate checkbox unchecked on first load and do not auto-check it when a controlled example or another input path is selected.
+- Human constraints: preserve the existing custom-run failure-closing guard and do not change controlled-example computation, rules, preferences, or broader scope.
+- Adopted output: the checkbox has no static checked attribute, runtime code cannot set it true, and refresh returns it to unchecked.
+- Verification: browser states are false initially, false after controlled-example load, true after direct user click, and false after reload; G4 test and exact 22-file audit pass.
+- Rejected or deferred suggestions: no persistent consent, inferred coordinates, automatic registration, provider, deployment, remote, or rule change was added.
+
+## P-029 — G4 English open-evidence title repair
+
+- Date: 2026-08-28
+- Goal: keep the homepage's third showcase title to two deliberate lines in English at the reviewed desktop width.
+- Sanitized prompt: replace the three-line English rendering of the public-development card with a shorter idiomatic statement; retain the existing Chinese meaning and card function.
+- Human constraints: validate both Popular experience and Engineering minimal at 1708 × 898, preserve English/Dark appearance behavior, and do not expand G4 scope.
+- Adopted output: `Built in public.` on the first line and `Fully traceable.` on the second.
+- Verification: browser measurements report `95.02 px` title height with a `47.52 px` line height in both styles; the G4 regression rejects the prior title fragments, and the exact 22-file audit passes.
+- Rejected or deferred suggestions: no card restructure, new claim set, preview replacement, provider, deployment, remote, video, or deterministic-rule change was made.
+
+## P-030 — G4 showcase preview radius consistency
+
+- Date: 2026-08-28
+- Goal: make the homepage hover preview read as one intentional bubble with matching upper and lower corner geometry.
+- Sanitized prompt: unify the visible radius of the preview frame and its image crop; keep the square engineering profile square.
+- Human constraints: verify the real hover state in light and dark appearances and both display profiles without changing preview assets or card content.
+- Adopted output: one `--preview-radius` contract drives both frame and crop, yielding `16 px / 16 px` in Popular experience and `0 px / 0 px` in Engineering minimal.
+- Verification: local browser review at 1708 × 898 confirms matching computed radii and an intact arrow, crop, image, and caption; the G4 test and exact 22-file audit pass.
+- Rejected or deferred suggestions: no image regeneration, card restructuring, provider, deployment, remote, video, or deterministic-rule change was performed.
+
+## P-031 — G4 publication preparation without upload
+
+- Date: 2026-08-28
+- Goal: close the locally accepted G4 frontend into an auditable GitHub upload package while preserving the external-write stop gate.
+- Sanitized prompt: organize the current three-page G4 content, refresh stale public metadata and reproduction wording, produce an exact upload manifest and grouped Chrome plan, then wait for explicit approval.
+- Human constraints: no GitHub write, remote configuration, deployment, G4AI provider/API, video, or public-access change; keep the exact 22-file allowlist and request one collective authorization before browser upload actions.
+- Adopted output: README wording aligned to G4 while the DG-frozen G3 package version remains unchanged; public governance state set to local acceptance plus publication prepared; all frozen Gate tests and the G4 exact-set audit rerun; a local-only path/size/SHA-256 checklist prepared for 22 files.
+- Verification: G1/G2/G3A/G3B/G3C/G3/DG/G4 tests pass; the G4 audit reports exact set, guard self-test, public-plan equivalence, zero sensitive/API signals, zero oversized candidates, and zero remotes. The historical G0A early-workspace audit remains unchanged and is not reused as a late-Gate publication check.
+- Rejected or deferred suggestions: no upload page was opened, no file was selected or transmitted, no commit was created on GitHub, and no hosting or later Gate was started.

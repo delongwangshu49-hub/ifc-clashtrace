@@ -7,7 +7,9 @@
   "scripts": {
     "g1:node": "node scripts/g1-web-ifc-spike.mjs",
     "g3:test": "node scripts/g3-engine-tests.mjs",
-    "g3:case": "node scripts/g3-run-controlled.mjs"
+    "g3:case": "node scripts/g3-run-controlled.mjs",
+    "g4:serve": "node scripts/g1-static-server.mjs",
+    "g4:test": "pwsh -NoProfile -File scripts/test-g4.ps1"
   },
   "dependencies": {
     "three": "0.185.1",
