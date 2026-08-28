@@ -169,9 +169,23 @@ async function validateFile(file) {
   return new Uint8Array(await file.arrayBuffer());
 }
 
+function invalidateReviewState({ resetCoordinateConsent = false } = {}) {
+  state.records = [];
+  state.sources.clear();
+  state.selected = null;
+  state.filter = "all";
+  state.viewerSource = null;
+  elements.review_panel.hidden = true;
+  elements.evidence_drawer.hidden = true;
+  elements.ai_preview.hidden = true;
+  if (resetCoordinateConsent) elements.shared_coordinates.checked = false;
+  refreshAiState();
+}
+
 async function handleFile(role, file) {
   const status = role === "mep" ? elements.mep_status : elements.structure_status;
   const input = role === "mep" ? elements.mep_file : elements.structure_file;
+  invalidateReviewState({ resetCoordinateConsent: true });
   try {
     const bytes = await validateFile(file);
     state.custom[role] = { bytes, name: file.name, size: file.size };
@@ -196,6 +210,7 @@ function refreshRunDescription() {
 }
 
 function chooseExample() {
+  invalidateReviewState({ resetCoordinateConsent: true });
   state.mode = "example";
   state.selection = elements.example_select.value;
   elements.mep_file.value = "";
@@ -273,8 +288,7 @@ async function runChecks() {
   }
 
   state.running = true;
-  state.records = [];
-  state.sources.clear();
+  invalidateReviewState();
   elements.run_checks.disabled = true;
   elements.run_live.dataset.state = "running";
   const started = performance.now();
