@@ -165,6 +165,15 @@ foreach ($contract in @(
 if ($appScript -match '(?i)https://[^"''`\s]*(?:api|openai|anthropic|gemini|groq|together)') { throw "G4 base runtime contains a provider/API URL." }
 if ($appScript -match '(?i)(?:api[_-]?key|access[_-]?token|authorization\s*:)') { throw "G4 base runtime contains a credential-bearing API signal." }
 if ($appScript -match 'shared_coordinates\.checked\s*=\s*true') { throw "Runtime must not auto-confirm shared coordinates." }
+$stateResetContract = (
+    $appScript -match '(?s)function invalidateReviewState\(.*?state\.records\s*=\s*\[\].*?state\.sources\.clear\(\).*?state\.selected\s*=\s*null.*?state\.viewerSource\s*=\s*null.*?elements\.review_panel\.hidden\s*=\s*true.*?elements\.evidence_drawer\.hidden\s*=\s*true.*?elements\.ai_preview\.hidden\s*=\s*true.*?resetCoordinateConsent.*?elements\.shared_coordinates\.checked\s*=\s*false' -and
+    $appScript -match '(?s)async function handleFile\(role, file\).*?invalidateReviewState\(\{ resetCoordinateConsent: true \}\);' -and
+    $appScript -match '(?s)function chooseExample\(\).*?invalidateReviewState\(\{ resetCoordinateConsent: true \}\);' -and
+    $appScript -match '(?s)async function runChecks\(\).*?state\.running\s*=\s*true;\s*invalidateReviewState\(\);'
+)
+if (-not $stateResetContract) {
+    throw "G4 input mutation must revoke coordinate consent, invalidate stale evidence, and force the 3D viewer to reload."
+}
 
 foreach ($contract in @("StreamAllMeshesWithTypes", "IFCPIPESEGMENT", "IFCWALL", "IFCBEAM", "OrbitControls", "focusRecord", "toggleIsolate", "fitModels")) {
     Assert-Contains $viewerScript $contract "3D viewer contract missing: $contract"
