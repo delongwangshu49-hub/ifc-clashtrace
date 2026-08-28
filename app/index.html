@@ -36,10 +36,10 @@
     <main id="app-main" class="app-main">
       <section class="app-intro" aria-labelledby="app-title">
         <div>
-          <p class="eyebrow">G4 · DETERMINISTIC VERTICAL SLICE</p>
+          <p class="eyebrow">G4AI · OPTIONAL INTERPRETATION</p>
           <h1 id="app-title" data-zh="管线—结构审阅工作台" data-en="Pipe–structure review workspace">管线—结构审阅工作台</h1>
         </div>
-        <p data-zh="选择受控示例集，或分别提供一份 MEP IFC 与结构 IFC。两条规则在浏览器内执行，结果不会发送到服务器。" data-en="Choose the controlled review set, or provide one MEP IFC and one structural IFC. Both rules run in the browser and results are not sent to a server.">选择受控示例集，或分别提供一份 MEP IFC 与结构 IFC。两条规则在浏览器内执行，结果不会发送到服务器。</p>
+        <p data-zh="选择受控示例集，或分别提供一份 MEP IFC 与结构 IFC。两条规则始终在浏览器内执行；只有主动启用、预览并确认后，最小结构化字段才会发送用于可选 AI 解读。" data-en="Choose the controlled review set, or provide one MEP IFC and one structural IFC. Both rules always run in the browser. Minimal structured fields are sent for optional AI interpretation only after you enable, preview, and confirm.">选择受控示例集，或分别提供一份 MEP IFC 与结构 IFC。两条规则始终在浏览器内执行；只有主动启用、预览并确认后，最小结构化字段才会发送用于可选 AI 解读。</p>
       </section>
 
       <section id="setup-panel" class="setup-panel" aria-labelledby="setup-title">
@@ -125,7 +125,7 @@
           <div>
             <p class="section-index">OPTIONAL EXPLANATION</p>
             <strong data-zh="AI 结果解读" data-en="AI result explanation">AI 结果解读</strong>
-            <p data-zh="默认关闭。只解释运行后已有的确定性字段，不改变状态、规则或证据。" data-en="Off by default. It explains existing deterministic fields after a run and never changes status, rules, or evidence.">默认关闭。只解释运行后已有的确定性字段，不改变状态、规则或证据。</p>
+            <p data-zh="默认关闭。只解释运行后已有的确定性字段；发送前必须预览并再次确认。失败时回到本地模板，不改变状态、规则或证据。" data-en="Off by default. It only explains existing deterministic fields; preview and a second confirmation are required before sending. Failure returns to a local template and never changes status, rules, or evidence.">默认关闭。只解释运行后已有的确定性字段；发送前必须预览并再次确认。失败时回到本地模板，不改变状态、规则或证据。</p>
           </div>
           <div class="preferences-mount" data-control-mode="ai"></div>
         </div>
