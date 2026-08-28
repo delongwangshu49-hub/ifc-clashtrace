@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="zh-CN" data-style="mainstream" data-theme="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Run deterministic IFC hard-clash and 50 mm clearance checks locally in the browser.">
+    <title>IFC ClashTrace — 功能工作台</title>
+    <link rel="stylesheet" href="/app/ui/site.css">
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "/node_modules/three/build/three.module.js",
+          "three/addons/": "/node_modules/three/examples/jsm/",
+          "three-mesh-bvh": "/node_modules/three-mesh-bvh/build/index.module.js",
+          "web-ifc": "/node_modules/web-ifc/web-ifc-api.js"
+        }
+      }
+    </script>
+  </head>
+  <body class="app-page">
+    <a class="skip-link" href="#app-main" data-zh="跳到主要内容" data-en="Skip to main content">跳到主要内容</a>
+    <header class="site-header app-header">
+      <a class="compact-brand" href="/" aria-label="IFC ClashTrace 首页">
+        <span class="compact-mark" aria-hidden="true"><span></span></span>
+        <span>IFC ClashTrace</span>
+      </a>
+      <p class="local-badge"><span aria-hidden="true">●</span><span data-zh="浏览器本地处理" data-en="Local browser processing">浏览器本地处理</span></p>
+      <div class="preferences-mount" data-control-mode="display"></div>
+    </header>
+
+    <div class="desktop-required" id="desktop-required" role="status" hidden>
+      <strong data-zh="需要桌面视图" data-en="Desktop view required">需要桌面视图</strong>
+      <p data-zh="IFC 计算和 3D 审阅仅支持宽度不少于 1024 CSS px 的当前桌面 Chrome。文档仍可阅读，但此设备不会开始解析。" data-en="IFC computation and 3D review require current desktop Chrome at a width of at least 1024 CSS px. Documentation remains readable, but parsing will not start on this device.">IFC 计算和 3D 审阅仅支持宽度不少于 1024 CSS px 的当前桌面 Chrome。文档仍可阅读，但此设备不会开始解析。</p>
+    </div>
+
+    <main id="app-main" class="app-main">
+      <section class="app-intro" aria-labelledby="app-title">
+        <div>
+          <p class="eyebrow">G4 · DETERMINISTIC VERTICAL SLICE</p>
+          <h1 id="app-title" data-zh="管线—结构审阅工作台" data-en="Pipe–structure review workspace">管线—结构审阅工作台</h1>
+        </div>
+        <p data-zh="选择受控示例集，或分别提供一份 MEP IFC 与结构 IFC。两条规则在浏览器内执行，结果不会发送到服务器。" data-en="Choose the controlled review set, or provide one MEP IFC and one structural IFC. Both rules run in the browser and results are not sent to a server.">选择受控示例集，或分别提供一份 MEP IFC 与结构 IFC。两条规则在浏览器内执行，结果不会发送到服务器。</p>
+      </section>
+
+      <section id="setup-panel" class="setup-panel" aria-labelledby="setup-title">
+        <div class="panel-heading">
+          <div>
+            <p class="section-index">01 / INPUT</p>
+            <h2 id="setup-title" data-zh="选择模型并确认支持边界" data-en="Choose models and confirm the support boundary">选择模型并确认支持边界</h2>
+          </div>
+          <p class="setup-state" id="setup-state"><span aria-hidden="true">●</span><span data-zh="等待输入" data-en="Waiting for input">等待输入</span></p>
+        </div>
+
+        <div class="input-grid">
+          <article class="input-card">
+            <p class="card-index">A1</p>
+            <h3>MEP IFC</h3>
+            <p data-zh="固定角色：MEP。必须包含至少一个 IfcPipeSegment。文件名只在本地界面显示，不进入结果记录。" data-en="Fixed role: MEP. Must contain at least one IfcPipeSegment. The filename appears only in the local interface and never enters result records.">固定角色：MEP。必须包含至少一个 IfcPipeSegment。文件名只在本地界面显示，不进入结果记录。</p>
+            <label class="file-picker" for="mep-file">
+              <input id="mep-file" type="file" accept=".ifc">
+              <span data-zh="选择 MEP IFC" data-en="Choose MEP IFC">选择 MEP IFC</span>
+            </label>
+            <p class="file-status" id="mep-status" data-zh="未选择" data-en="Not selected">未选择</p>
+          </article>
+
+          <article class="input-card">
+            <p class="card-index">A2</p>
+            <h3>STRUCTURE IFC</h3>
+            <p data-zh="固定角色：结构。必须包含至少一个 IfcWall 或 IfcBeam；不会静默交换两份模型。" data-en="Fixed role: structure. Must contain at least one IfcWall or IfcBeam. The two models are never silently swapped.">固定角色：结构。必须包含至少一个 IfcWall 或 IfcBeam；不会静默交换两份模型。</p>
+            <label class="file-picker" for="structure-file">
+              <input id="structure-file" type="file" accept=".ifc">
+              <span data-zh="选择结构 IFC" data-en="Choose structural IFC">选择结构 IFC</span>
+            </label>
+            <p class="file-status" id="structure-status" data-zh="未选择" data-en="Not selected">未选择</p>
+          </article>
+        </div>
+
+        <aside class="controlled-card" aria-labelledby="controlled-example-title">
+          <div class="controlled-card-copy">
+            <p class="card-index">B · DEMO</p>
+            <div>
+              <h3 id="controlled-example-title" data-zh="暂时没有 IFC？先用受控示例体验" data-en="No IFC files yet? Try a controlled example">暂时没有 IFC？先用受控示例体验</h3>
+              <p data-zh="四个冻结案例覆盖 CLASH、WARNING、CLEAR 与 NOT_EVALUATED；每个结果仍由真实 IFC 字节计算。" data-en="Four frozen cases cover CLASH, WARNING, CLEAR, and NOT_EVALUATED. Every result is still computed from real IFC bytes.">四个冻结案例覆盖 CLASH、WARNING、CLEAR 与 NOT_EVALUATED；每个结果仍由真实 IFC 字节计算。</p>
+            </div>
+          </div>
+          <div class="controlled-card-actions">
+            <label class="field-label" for="example-select" data-zh="示例集" data-en="Example set">示例集</label>
+            <select id="example-select">
+              <option value="review-pack">Review pack · C01 / C03 / C05 / C08</option>
+              <option value="C01">C01 · Pipe pierces wall · CLASH</option>
+              <option value="C02">C02 · Pipe pierces beam · CLASH</option>
+              <option value="C03">C03 · Touching · WARNING</option>
+              <option value="C04">C04 · 1 mm intrusion · WARNING</option>
+              <option value="C05">C05 · Clear separation · CLEAR</option>
+              <option value="C06">C06 · Modelled opening · CLEAR</option>
+              <option value="C07">C07 · Rotated pierce · CLASH</option>
+              <option value="C08">C08 · Missing geometry · NOT_EVALUATED</option>
+            </select>
+            <button class="button button-secondary use-example" id="use-example" type="button">
+              <span data-zh="载入受控示例" data-en="Load example">载入受控示例</span><span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </aside>
+
+        <div class="boundary-box">
+          <div>
+            <p class="section-index">SUPPORTED BOUNDARY</p>
+            <ul>
+              <li><strong>IFC4</strong><span data-zh="未压缩 STEP 文件" data-en="Uncompressed STEP files">未压缩 STEP 文件</span></li>
+              <li><strong>metre</strong><span data-zh="单一米制长度单位" data-en="Single metre length unit">单一米制长度单位</span></li>
+              <li><strong>≤ 25 MiB</strong><span data-zh="每个文件候选上限" data-en="Candidate limit per file">每个文件候选上限</span></li>
+              <li><strong>Desktop Chrome</strong><span data-zh="移动端体验将在后续版本跟进" data-en="A mobile workflow is planned for a later release">移动端体验将在后续版本跟进</span></li>
+            </ul>
+          </div>
+          <label class="coordinate-confirmation">
+            <input id="shared-coordinates" type="checkbox">
+            <span>
+              <strong data-zh="我确认两份自选模型使用共享项目坐标" data-en="I confirm both custom models use shared project coordinates">我确认两份自选模型使用共享项目坐标</strong>
+              <small data-zh="应用不会自动配准。未确认时不会运行，也不会返回 CLEAR。" data-en="The app does not register models automatically. Without confirmation it will not run or return CLEAR.">应用不会自动配准。未确认时不会运行，也不会返回 CLEAR。</small>
+            </span>
+          </label>
+        </div>
+
+        <div class="workspace-ai-option">
+          <div>
+            <p class="section-index">OPTIONAL EXPLANATION</p>
+            <strong data-zh="AI 结果解读" data-en="AI result explanation">AI 结果解读</strong>
+            <p data-zh="默认关闭。只解释运行后已有的确定性字段，不改变状态、规则或证据。" data-en="Off by default. It explains existing deterministic fields after a run and never changes status, rules, or evidence.">默认关闭。只解释运行后已有的确定性字段，不改变状态、规则或证据。</p>
+          </div>
+          <div class="preferences-mount" data-control-mode="ai"></div>
+        </div>
+
+        <div class="run-bar">
+          <div>
+            <p id="run-description" data-zh="当前：受控 review pack；将在断网条件下从本地资源执行 4 次真实计算。" data-en="Current: controlled review pack; four real computations will run from local assets while offline.">当前：受控 review pack；将在断网条件下从本地资源执行 4 次真实计算。</p>
+            <p class="disclaimer" data-zh="这不是正式工程、法规、消防或结构安全认证。" data-en="This is not certified engineering, regulatory, fire, or structural safety review.">这不是正式工程、法规、消防或结构安全认证。</p>
+          </div>
+          <button class="button button-primary run-button" id="run-checks" type="button">
+            <span data-zh="运行确定性检查" data-en="Run deterministic checks">运行确定性检查</span><span aria-hidden="true">→</span>
+          </button>
+        </div>
+        <div class="run-live" id="run-live" role="status" aria-live="polite"></div>
+      </section>
+
+      <section id="review-panel" class="review-panel" aria-labelledby="review-title" hidden>
+        <div class="review-heading">
+          <div>
+            <p class="section-index">02 / REVIEW</p>
+            <h2 id="review-title" data-zh="确定性审阅结果" data-en="Deterministic review results">确定性审阅结果</h2>
+          </div>
+          <button class="text-button" id="new-run" type="button" data-zh="新建运行" data-en="New run">新建运行</button>
+        </div>
+
+        <div class="summary-strip" aria-label="结果汇总">
+          <article data-status="CLASH"><span aria-hidden="true">!</span><div><strong id="count-clash">0</strong><small>CLASH</small></div></article>
+          <article data-status="WARNING"><span aria-hidden="true">△</span><div><strong id="count-warning">0</strong><small>WARNING</small></div></article>
+          <article data-status="NOT_EVALUATED"><span aria-hidden="true">?</span><div><strong id="count-ne">0</strong><small>NOT_EVALUATED</small></div></article>
+          <article data-status="CLEAR"><span aria-hidden="true">✓</span><div><strong id="count-clear">0</strong><small>CLEAR</small></div></article>
+          <article class="summary-meta"><div><strong id="count-pairs">0</strong><small data-zh="构件对" data-en="pairs">构件对</small></div><div><strong id="run-time">—</strong><small data-zh="运行时间" data-en="runtime">运行时间</small></div></article>
+        </div>
+
+        <div class="review-workspace">
+          <section class="viewport-panel" aria-labelledby="viewport-title">
+            <div class="viewport-toolbar">
+              <div>
+                <p class="panel-label" id="viewport-title">3D VIEWPORT</p>
+                <p id="viewport-case">—</p>
+              </div>
+              <div class="tool-group" role="group" aria-label="3D 视图控制">
+                <button type="button" id="focus-selected" data-zh="聚焦记录" data-en="Focus record">聚焦记录</button>
+                <button type="button" id="fit-models" data-zh="适合模型" data-en="Fit models">适合模型</button>
+                <button type="button" id="toggle-isolate" data-zh="隔离构件对" data-en="Isolate pair">隔离构件对</button>
+              </div>
+            </div>
+            <div class="viewer-shell" id="viewer-shell">
+              <div id="viewer" class="viewer" aria-describedby="viewer-equivalent"></div>
+              <div class="viewer-loading" id="viewer-loading"><span></span><p data-zh="准备 3D 证据…" data-en="Preparing 3D evidence…">准备 3D 证据…</p></div>
+              <div class="role-legend" aria-label="构件角色图例"><span class="legend-a">A · MEP</span><span class="legend-b">B · STRUCTURE</span><span class="legend-hit">● · RESULT</span></div>
+            </div>
+            <p class="viewer-equivalent" id="viewer-equivalent" data-zh="选择结果后，本区域显示对应两份真实 IFC 中的构件；同一记录的文本证据位于右侧与证据抽屉。" data-en="After selecting a result, this area displays the involved components from the two real IFC files. Equivalent text evidence is available in the results and evidence drawer.">选择结果后，本区域显示对应两份真实 IFC 中的构件；同一记录的文本证据位于右侧与证据抽屉。</p>
+          </section>
+
+          <section class="results-panel" aria-labelledby="results-title">
+            <div class="results-head">
+              <div><p class="panel-label">RESULTS</p><h3 id="results-title" data-zh="结果记录" data-en="Result records">结果记录</h3></div>
+              <p id="result-count-label">0</p>
+            </div>
+            <div class="filter-group" role="group" aria-label="结果筛选">
+              <button type="button" class="active" data-filter="all" data-zh="全部" data-en="All">全部</button>
+              <button type="button" data-filter="clash">CLASH</button>
+              <button type="button" data-filter="clearance" data-zh="净距" data-en="Clearance">净距</button>
+              <button type="button" data-filter="not-evaluated">NOT_EVALUATED</button>
+            </div>
+            <div class="result-list" id="result-list" role="listbox" aria-label="确定性结果列表"></div>
+            <div class="selected-summary" id="selected-summary" aria-live="polite"></div>
+          </section>
+        </div>
+
+        <aside class="evidence-drawer" id="evidence-drawer" aria-labelledby="evidence-title" hidden>
+          <div class="drawer-head">
+            <div><p class="section-index">03 / EVIDENCE</p><h3 id="evidence-title" data-zh="完整确定性证据" data-en="Full deterministic evidence">完整确定性证据</h3></div>
+            <button type="button" class="drawer-close" id="close-evidence" aria-label="关闭证据">×</button>
+          </div>
+          <div class="evidence-content" id="evidence-content"></div>
+          <section class="ai-entry" id="ai-entry">
+            <div>
+              <p class="panel-label">OPTIONAL AI INTERPRETATION</p>
+              <h4 data-zh="可选 AI 解读" data-en="Optional AI interpretation">可选 AI 解读</h4>
+              <p id="ai-description"></p>
+            </div>
+            <button type="button" id="preview-ai-fields" class="button button-secondary" disabled></button>
+          </section>
+          <div class="ai-preview" id="ai-preview" hidden></div>
+        </aside>
+      </section>
+    </main>
+
+    <script type="module" src="/app/ui/app.mjs"></script>
+  </body>
+</html>
