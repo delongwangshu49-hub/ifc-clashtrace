@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN" data-style="mainstream" data-theme="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Sanitized research, Gate, test, failure, repair, and public evidence history for IFC ClashTrace.">
+    <title>IFC ClashTrace — 研发进程</title>
+    <link rel="stylesheet" href="/app/ui/site.css">
+  </head>
+  <body class="development-page">
+    <a class="skip-link" href="#development-main" data-zh="跳到主要内容" data-en="Skip to main content">跳到主要内容</a>
+    <header class="site-header app-header">
+      <a class="compact-brand" href="/" aria-label="IFC ClashTrace 首页">
+        <span class="compact-mark" aria-hidden="true"><span></span></span>
+        <span>IFC ClashTrace</span>
+      </a>
+      <p class="local-badge"><span aria-hidden="true">◆</span><span data-zh="公开证据历史" data-en="Public evidence history">公开证据历史</span></p>
+      <div class="preferences-mount" data-control-mode="display"></div>
+    </header>
+
+    <main id="development-main" class="development-main">
+      <header class="development-hero">
+        <p class="eyebrow">RESEARCH · GATES · EVIDENCE</p>
+        <h1 data-zh="从问题，到证据链。" data-en="From question to evidence chain.">从问题，到证据链。</h1>
+        <p data-zh="IFC ClashTrace 的研发历史不是功能清单，而是一组逐步关闭风险的 Gate：每一步都保留本地权威提交、公开网页检查点、失败、修复和可复跑验证。" data-en="IFC ClashTrace development is not a feature list. It is a sequence of Gates that close risks one by one, preserving an authoritative local commit, a public web checkpoint, failures, repairs, and reproducible validation at each step.">IFC ClashTrace 的研发历史不是功能清单，而是一组逐步关闭风险的 Gate：每一步都保留本地权威提交、公开网页检查点、失败、修复和可复跑验证。</p>
+        <div class="hero-actions development-actions">
+          <a class="button button-primary" href="/app/" target="_blank" rel="noopener"><span data-zh="打开工作台" data-en="Open workspace">打开工作台</span><span aria-hidden="true">↗</span></a>
+          <a class="button button-secondary" href="https://github.com/delongwangshu49-hub/ifc-clashtrace"><span>GitHub</span><span aria-hidden="true">↗</span></a>
+        </div>
+      </header>
+
+      <section class="claim-grid" aria-labelledby="claims-title">
+        <div><p class="section-index">PROJECT QUESTION</p><h2 id="claims-title" data-zh="浏览器端真实几何，能否给出可复核的碰撞记录？" data-en="Can real browser geometry produce reviewable clash records?">浏览器端真实几何，能否给出可复核的碰撞记录？</h2></div>
+        <div class="claim-card"><strong>8 / 8</strong><span data-zh="冻结硬碰撞案例精确一致" data-en="frozen hard-clash cases exactly matched">冻结硬碰撞案例精确一致</span></div>
+        <div class="claim-card"><strong>100 / 100</strong><span data-zh="受控 CLASH Precision / Recall" data-en="controlled CLASH precision / recall">受控 CLASH Precision / Recall</span></div>
+        <div class="claim-card"><strong class="metric-value"><span>0 / 49 / 50 / 51</span><small>mm</small></strong><span data-zh="净距阈值与边界证据" data-en="clearance threshold boundary evidence">净距阈值与边界证据</span></div>
+        <div class="claim-card"><strong>12 / 12</strong><span data-zh="G3-R1 失败关闭守卫" data-en="G3-R1 failure-closed guards">G3-R1 失败关闭守卫</span></div>
+      </section>
+
+      <section class="timeline-section" aria-labelledby="timeline-title">
+        <div class="timeline-heading"><p class="section-index">GATE TIMELINE</p><h2 id="timeline-title" data-zh="每一个 PASS 都有边界。" data-en="Every PASS has a boundary.">每一个 PASS 都有边界。</h2></div>
+        <ol class="gate-timeline">
+          <li><span class="gate-id">G0A</span><div><h3 data-zh="治理与公开基线" data-en="Governance and public baseline">治理与公开基线</h3><p data-zh="建立本地权威 Git、零远程、脱敏公开候选与 Chrome 网页映射。" data-en="Established authoritative local Git, zero remotes, sanitized publication candidates, and Chrome web mapping.">建立本地权威 Git、零远程、脱敏公开候选与 Chrome 网页映射。</p></div><span class="gate-status">PASS</span></li>
+          <li><span class="gate-id">G1</span><div><h3 data-zh="双几何路线可行性" data-en="Dual geometry feasibility">双几何路线可行性</h3><p data-zh="IfcOpenShell 参考路径与 web-ifc / BVH 浏览器路径返回同一已知 GUID 碰撞对。" data-en="IfcOpenShell reference and web-ifc/BVH browser paths returned the same known GUID clash pair.">IfcOpenShell 参考路径与 web-ifc / BVH 浏览器路径返回同一已知 GUID 碰撞对。</p></div><span class="gate-status">PASS</span></li>
+          <li><span class="gate-id">G2</span><div><h3 data-zh="冻结标准答案" data-en="Frozen ground truth">冻结标准答案</h3><p data-zh="8 个确定性 IFC4 案例、操作台账、路径—SHA、机器真值与 CC0 数据许可。" data-en="Eight deterministic IFC4 cases, operation ledger, path–SHA mapping, machine truth, and CC0 data license.">8 个确定性 IFC4 案例、操作台账、路径—SHA、机器真值与 CC0 数据许可。</p></div><span class="gate-status">PASS</span></li>
+          <li><span class="gate-id">G3A</span><div><h3 data-zh="契约与基线不可变" data-en="Contract and baseline immutability">契约与基线不可变</h3><p data-zh="隔离生成、16 条冻结路径—SHA 与 8 类契约突变拒绝，测试不能静默修复基线。" data-en="Isolated generation, 16 frozen path–SHA entries, and eight rejected contract mutations prevent tests from silently repairing the baseline.">隔离生成、16 条冻结路径—SHA 与 8 类契约突变拒绝，测试不能静默修复基线。</p></div><span class="gate-status">PASS</span></li>
+          <li><span class="gate-id">G3B</span><div><h3 data-zh="2 mm 容差语义" data-en="2 mm tolerance semantics">2 mm 容差语义</h3><p data-zh="AABB 只保留为 C04 受控证据；一般几何使用可审计内部深度，退化内蚀核心失败关闭。" data-en="AABB remains only as controlled C04 evidence; general geometry uses auditable interior depth and degenerate eroded cores fail closed.">AABB 只保留为 C04 受控证据；一般几何使用可审计内部深度，退化内蚀核心失败关闭。</p></div><span class="gate-status">PASS</span></li>
+          <li><span class="gate-id">G3C</span><div><h3 data-zh="50 mm 净距规则" data-en="50 mm clearance rule">50 mm 净距规则</h3><p data-zh="0/49/50/51 mm、旋转、开洞、硬碰撞去重与缺失几何，共 9 个独立补充夹具。" data-en="Nine independent fixtures cover 0/49/50/51 mm, rotation, openings, hard-clash deduplication, and missing geometry.">0/49/50/51 mm、旋转、开洞、硬碰撞去重与缺失几何，共 9 个独立补充夹具。</p></div><span class="gate-status">PASS</span></li>
+          <li><span class="gate-id">G3</span><div><h3 data-zh="浏览器双规则核心" data-en="Browser dual-rule core">浏览器双规则核心</h3><p data-zh="两模型 IFC 输入、严格冻结阈值、真实三角几何、确定性记录、12 项对抗守卫与当前 Chrome 运行。" data-en="Two-model IFC input, strictly frozen thresholds, real triangle geometry, deterministic records, 12 adversarial guards, and current Chrome execution.">两模型 IFC 输入、严格冻结阈值、真实三角几何、确定性记录、12 项对抗守卫与当前 Chrome 运行。</p></div><span class="gate-status">PASS</span></li>
+          <li><span class="gate-id">DG</span><div><h3 data-zh="设计契约" data-en="Design contract">设计契约</h3><p data-zh="三页结构、大众体验/工程极简、双语、亮暗、AI 默认关闭与墙—管—碰撞—气泡原创品牌方向获批。" data-en="Approved the three-page structure, popular-experience/engineering-minimal profiles, bilingual and light/dark preferences, AI off by default, and original wall–pipe–collision–bubble brand direction.">三页结构、大众体验/工程极简、双语、亮暗、AI 默认关闭与墙—管—碰撞—气泡原创品牌方向获批。</p></div><span class="gate-status">PASS</span></li>
+        </ol>
+      </section>
+
+      <section class="failure-section" aria-labelledby="failure-title">
+        <div><p class="section-index">FAILURES → REPAIRS</p><h2 id="failure-title"><span class="title-line" data-zh="保留失败，" data-en="Keep failures visible.">保留失败，</span><span class="title-line" data-zh="边界才可信。" data-en="Make boundaries credible.">边界才可信。</span></h2></div>
+        <div class="failure-list">
+          <article><span>01</span><h3 data-zh="AABB 不是穿透深度" data-en="AABB is not penetration depth">AABB 不是穿透深度</h3><p data-zh="C04 暴露参考相交距离并非侵入深度。守卫被物理隔离，旋转薄构件证明世界轴重叠会产生假精度。" data-en="C04 showed that the reference intersection distance was not intrusion depth. The guard was isolated, and a rotated thin structure demonstrated false precision from world-axis overlap.">C04 暴露参考相交距离并非侵入深度。守卫被物理隔离，旋转薄构件证明世界轴重叠会产生假精度。</p></article>
+          <article><span>02</span><h3 data-zh="薄构件不能假阴性" data-en="Thin structures cannot become false negatives">薄构件不能假阴性</h3><p data-zh="内蚀核心为空时原逻辑可能输出 CLEAR。G3B-R1 改为 NOT_EVALUATED，并用十进制精确严格比较关闭浮点死区。" data-en="An empty eroded core could previously yield CLEAR. G3B-R1 changed it to NOT_EVALUATED and used exact decimal strict comparison to close the floating-point dead zone.">内蚀核心为空时原逻辑可能输出 CLEAR。G3B-R1 改为 NOT_EVALUATED，并用十进制精确严格比较关闭浮点死区。</p></article>
+          <article><span>03</span><h3 data-zh="部分几何不能给完整结论" data-en="Partial geometry cannot support a complete conclusion">部分几何不能给完整结论</h3><p data-zh="G3-R1 拒绝全退化、非法索引与部分 placed geometry 失败，受影响构件对整体失败关闭。" data-en="G3-R1 rejects fully degenerate meshes, invalid indices, and partial placed-geometry failures; the affected pair fails closed as a whole.">G3-R1 拒绝全退化、非法索引与部分 placed geometry 失败，受影响构件对整体失败关闭。</p></article>
+        </div>
+      </section>
+
+      <section class="public-ledger" aria-labelledby="ledger-title">
+        <div><p class="section-index">OPEN METHOD</p><h2 id="ledger-title"><span class="title-line" data-zh="规则、验证与边界，" data-en="Rules, validation, and scope">规则、验证与边界，</span><span class="title-line" data-zh="都有公开依据。" data-en="are open to inspection.">都有公开依据。</span></h2></div>
+        <p data-zh="IFC ClashTrace 公开碰撞规则、受控测试案例、已验证支持边界与许可证。任何人都可以查看算法约束、复跑示例并核对结果字段；模型始终在浏览器本地处理，AI 不能改写确定性结论。" data-en="IFC ClashTrace publishes its clash rules, controlled test cases, verified scope, and licenses. Anyone can inspect the constraints, rerun examples, and audit result fields. Models remain in the browser, and AI cannot rewrite deterministic outcomes.">IFC ClashTrace 公开碰撞规则、受控测试案例、已验证支持边界与许可证。任何人都可以查看算法约束、复跑示例并核对结果字段；模型始终在浏览器本地处理，AI 不能改写确定性结论。</p>
+        <div class="ledger-links">
+          <a href="https://github.com/delongwangshu49-hub/ifc-clashtrace" data-zh="项目源码 ↗" data-en="Source code ↗">项目源码 ↗</a>
+          <a href="https://github.com/delongwangshu49-hub/ifc-clashtrace/blob/main/docs/g3-browser-core.md" data-zh="验证方法 ↗" data-en="Validation method ↗">验证方法 ↗</a>
+          <a href="https://github.com/delongwangshu49-hub/ifc-clashtrace/blob/main/LICENSE" data-zh="MIT 代码许可 ↗" data-en="MIT code license ↗">MIT 代码许可 ↗</a>
+          <a href="https://github.com/delongwangshu49-hub/ifc-clashtrace/blob/main/data/generated/LICENSE.md" data-zh="CC0 数据许可 ↗" data-en="CC0 data license ↗">CC0 数据许可 ↗</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p><strong>IFC ClashTrace</strong><br><span data-zh="确定性 IFC 证据，逐步公开构建。" data-en="Deterministic IFC evidence, built step by step in public.">确定性 IFC 证据，逐步公开构建。</span></p>
+      <nav aria-label="页脚导航"><a href="/" data-zh="首页" data-en="Home">首页</a><a href="/app/" target="_blank" rel="noopener" data-zh="工作台" data-en="Workspace">工作台</a><a href="https://github.com/delongwangshu49-hub/ifc-clashtrace">GitHub</a><a href="/LICENSE">MIT</a></nav>
+      <p class="footer-note" data-zh="公开页面只陈述已验证事实 · 非认证工程审查" data-en="Public pages state verified facts only · Not certified engineering review">公开页面只陈述已验证事实 · 非认证工程审查</p>
+    </footer>
+    <script type="module" src="/app/ui/development.mjs"></script>
+  </body>
+</html>
