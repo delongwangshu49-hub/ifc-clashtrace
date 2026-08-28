@@ -5,8 +5,8 @@
 > 创建时间：2026-08-25（Asia/Hong_Kong）  
 > 目标完成时间：不晚于 2026-08-31 晚间（Asia/Hong_Kong）  
 > 项目根目录：`<PROJECT_ROOT>`  
-> 当前阶段：基础 G4 三页纵向切片及全部用户审阅修复已完成本地实现、自动测试、浏览器验收和本地提交；用户已基本认可当前前端，精确 22 文件公开候选正在完成发布前收口，尚未获得 GitHub 写入授权，未进入 G4AI
-> 当前 Gate：`G4 — Web vertical slice（IN_PROGRESS；LOCAL_ACCEPTANCE_PASS，PUBLICATION_PREPARED，等待明确 Chrome 上传授权）`
+> 当前阶段：基础 G4 三页纵向切片、全部用户审阅修复、精确 22 文件 Chrome 公开检查点及本地—公开映射已闭合；严格停在 G4，未进入 G4AI
+> 当前 Gate：`G4 — Web vertical slice（PASS；严格停止在 G4，等待用户决定下一阶段）`
 
 ---
 
@@ -2820,6 +2820,22 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 
 ---
 
+### L-0047 — G4 Chrome 公开检查点与映射闭合
+
+**时间：** 2026-08-28（Asia/Hong_Kong）
+
+**Gate：** G4 `PASS`（严格停止在 G4；未进入 G4AI、部署、公开访问变更或视频）
+
+**授权与范围：** 用户在收到完整 22 文件、七个初始上传组及两个映射尾更新的集中清单后明确回复批准，并指定使用已登录的 Google Chrome。Chrome 行动时再次确认仓库为 `Public`、当前分支为 `main`、登录账号具有写入权限，远端起点为 DG-R1 最终台账 `e1ef61ee96e50e7034b2449198f6349f75066565`。上传严格限于获批集合；本地总纲、所有 `scripts/audit-*.ps1`、依赖、数据、输出、浏览器状态、部署文件、G4AI 提供商/API 和视频均未上传。
+
+**七组初始公开链：** [测试与本地服务器 `07a89385c5e655965cf8a9e052e72bcd6c5f1fb7`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/07a89385c5e655965cf8a9e052e72bcd6c5f1fb7) → [UI 运行时 `301bbe5e0648cd9fe9fe458cd7490a7746614164`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/301bbe5e0648cd9fe9fe458cd7490a7746614164) → [四张预览媒体 `89c9592e936ffdc118e192710c4e45c91a2aea92`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/89c9592e936ffdc118e192710c4e45c91a2aea92) → [功能页路由 `71d4b20eefa1f1043a55449a80d5f545fad11759`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/71d4b20eefa1f1043a55449a80d5f545fad11759) → [研发页路由 `d1351d74bd466b2dd9e101b616b3f4fc3a46fe65`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/d1351d74bd466b2dd9e101b616b3f4fc3a46fe65) → [G4 纵向切片证据 `15cf379603b9d25f52f1904469a899d1526be72d`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/15cf379603b9d25f52f1904469a899d1526be72d) → [产品与治理根文件 `a0d9f080c11d40f12c494c5e28f8bb19fc60b702`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/a0d9f080c11d40f12c494c5e28f8bb19fc60b702)。七个提交的文件数精确为 `3 / 6 / 4 / 1 / 1 / 1 / 6`，父链逐项回查为 `e1ef61e → 07a8938 → 301bbe5 → 89c9592 → 71d4b20 → d1351d7 → 15cf379 → a0d9f08`。
+
+**网页核验与异常：** Chrome 逐项核验七个提交的精确文件树、完整父 SHA、提交标题、`main` 分支和 `Public` 可见性；远端树包含全部 22 个候选，且根目录无本地总纲、`scripts/` 无任何 `audit-*.ps1`。第七组首次点击隐藏文件输入时文件选择器超时；只读检查确认暂存文件为 `0`、提交摘要为空且远端无新提交，因此立即停止。用户确认 Chrome 文件访问权限始终开启后，改用页面可见选择控件成功选择精确六个根文件，没有重复提交或越界文件。
+
+**完成规则：** 本地实现、全部冻结测试、桌面 Chrome 产品验收、精确发布审计、用户行动时授权、七组网页上传、公开文件/父链/可见性核验和本地—公开映射均已通过。依据公开台账自引用闭合规则，只再发布本条已派生的公开总纲和最终 `PROGRESS_SYNC.md`；最终公开台账 SHA 只登记在随后一个不改文件的本地 `sync(G4)` 提交中，不递归重发。此后严格停止在 G4。
+
+---
+
 ## 21. 每日状态摘要模板
 
 ```text
@@ -2862,4 +2878,4 @@ GitHub 检查点：URL / 远程 SHA / 上传时间 / 回查结论
 - 暂不批准，继续讨论项目范围；
 - 否决当前方向并重新规划。
 
-用户已明确批准原 `0.2.0-draft` 并启动项目，随后又明确批准本次功能与展示范围扩展。G0A、G1、G2、G3A、G3B-R1、G3C-R1、原 G3 与 G3-R1 检查点均已完成；完整 DG R4 与其后三项限定 DG-R1 审计修复均已闭合为 `PASS`。用户现已单独明确授权开始基础 G4；三页正式 UI、真实确定性闭环、当前 Chrome 验收、精确发布审计与本地权威步骤提交已通过，G4 仍因 Chrome 公开检查点未获行动时授权/闭合而保持 `IN_PROGRESS`。未进入 G4AI、部署、公开访问变更或视频。
+用户已明确批准原 `0.2.0-draft` 并启动项目，随后又明确批准本次功能与展示范围扩展。G0A、G1、G2、G3A、G3B-R1、G3C-R1、原 G3 与 G3-R1 检查点均已完成；完整 DG R4 与其后三项限定 DG-R1 审计修复均已闭合为 `PASS`。用户已单独授权基础 G4，并在完整 22 文件清单后再次明确授权 Chrome 网页上传；三页正式 UI、真实确定性闭环、全部用户审阅、精确发布审计、七组公开链及本地—公开映射均已闭合，G4 为 `PASS`。严格停止在 G4，未进入 G4AI、部署、公开访问变更或视频。
