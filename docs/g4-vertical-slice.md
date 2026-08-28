@@ -1,6 +1,6 @@
 # G4 deterministic web vertical slice
 
-> Status: local implementation, current-desktop-Chrome acceptance, and local review-repair commits `PASS`; the bounded public checkpoint is still not authorized, so G4 remains `IN_PROGRESS`.
+> Status: base G4 and the bounded G4-R1 runtime-state/evidence correction are `PASS`. The correction is published, verified in Chrome, and mapped to the local technical history; the project remains strictly stopped at G4-R1.
 
 ## Scope delivered
 
@@ -90,4 +90,4 @@ G4 does not claim arbitrary IFC/exporter compatibility, large-model performance,
 
 ## Publication readiness
 
-The user has accepted the current three-page frontend for local G4 closure and requested preparation of the GitHub materials. The publication candidate is exactly the 22 files enforced by the local maintainer audit, including four reviewed real-route preview PNGs. Public README and governance wording are aligned with G4 while the DG-frozen package contract remains unchanged; maintainer-only audit scripts, local outputs, dependencies, browser state, model data, deployment files, G4AI provider work, and video remain excluded. External publication is still pending explicit user authorization and post-upload Chrome verification.
+The user accepted the three-page frontend and explicitly authorized the original GitHub checkpoint. Chrome verification closed an exact 22-file public set, including four reviewed real-route preview PNGs, followed by the bounded public-plan/public-ledger mapping tail. The authorized G4-R1 repair publishes the state-reset implementation and its regression contract as `914b0d92d0ae77b3cd4ed49885690acf2de37a8c` and `ae8f16784afbaaecf2b69ab80d98f75d6340e4b6`: stale review state is invalidated when inputs change, coordinate consent is revoked for a new custom pair, and the 3D source is forced to reload. The first web upload flattened both paths into the repository root (`72eda6c6e7c6c8f89afe8a4c11188f0d83b7fb83`); Chrome verification caught it before closure, and cleanup commits `3372a89` and `58bde53` removed both unintended root files before the correct path-scoped commits were made. Maintainer-only audit scripts, the local master plan, local outputs, dependencies, browser state, model data, deployment files, G4AI provider work, and video remain excluded from publication.
