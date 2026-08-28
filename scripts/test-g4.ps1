@@ -159,8 +159,8 @@ foreach ($contract in @(
     'NOT_EVALUATED'
     'state.sources.set'
     'viewer.focusRecord'
-    'G4 field preview (not sent)'
-    'No provider or API request exists in this Gate'
+    'Pre-send preview (nothing sent yet)'
+    'Deterministic results remain authoritative'
 )) { Assert-Contains $appScript $contract "G4 runtime contract missing: $contract" }
 if ($appScript -match '(?i)https://[^"''`\s]*(?:api|openai|anthropic|gemini|groq|together)') { throw "G4 base runtime contains a provider/API URL." }
 if ($appScript -match '(?i)(?:api[_-]?key|access[_-]?token|authorization\s*:)') { throw "G4 base runtime contains a credential-bearing API signal." }
@@ -282,7 +282,7 @@ Write-Output "G4_HOMEPAGE_COPY_MOTION_CONTRAST=PASS"
 Write-Output "G4_HOMEPAGE_NEUTRAL_DARK_I18N=PASS"
 Write-Output "G4_HOMEPAGE_INTERACTIVE_REAL_PREVIEWS=4/4"
 Write-Output "G4_WORKSPACE_ONLY_AI_CONTROL=PASS"
-Write-Output "G4_AI_DEFAULT_OFF_NO_PROVIDER=PASS"
+Write-Output "G4_AI_DEFAULT_OFF_PROVIDER_ISOLATED=PASS"
 Write-Output "G4_BILINGUAL_STATIC_CONTRACT=PASS"
 Write-Output "G4_LOCAL_OFFLINE_ROUTE_SMOKE=PASS"
 Write-Output "G4_G3_REGRESSION=PASS"
