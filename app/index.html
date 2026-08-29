@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Run deterministic IFC hard-clash and 50 mm clearance checks locally in the browser.">
     <title>IFC ClashTrace — 功能工作台</title>
-    <link rel="stylesheet" href="/app/ui/site.css">
+    <link rel="stylesheet" href="/app/ui/site.css?v=g4ai-r3">
     <script type="importmap">
       {
         "imports": {
@@ -121,14 +121,10 @@
           </label>
         </div>
 
-        <div class="workspace-ai-option">
-          <div>
-            <p class="section-index">OPTIONAL EXPLANATION</p>
-            <strong data-zh="AI 结果解读" data-en="AI result explanation">AI 结果解读</strong>
-            <p data-zh="默认关闭。只解释运行后已有的确定性字段；发送前必须预览并再次确认。失败时回到本地模板，不改变状态、规则或证据。" data-en="Off by default. It only explains existing deterministic fields; preview and a second confirmation are required before sending. Failure returns to a local template and never changes status, rules, or evidence.">默认关闭。只解释运行后已有的确定性字段；发送前必须预览并再次确认。失败时回到本地模板，不改变状态、规则或证据。</p>
-          </div>
-          <div class="preferences-mount" data-control-mode="ai"></div>
-        </div>
+        <p class="workspace-ai-note">
+          <strong data-zh="支持可选 AI 解读。" data-en="Optional AI interpretation is available.">支持可选 AI 解读。</strong>
+          <span data-zh="运行后可使用 GroqCloud · openai/gpt-oss-20b；发送前会展示并再次确认拟发送字段。服务可用性与数据处理规则以供应商当前公开说明为准。" data-en="After a run, GroqCloud · openai/gpt-oss-20b can provide an optional interpretation. The fields to be sent are shown for confirmation first; service availability and data handling follow the provider's current public terms.">运行后可使用 GroqCloud · openai/gpt-oss-20b；发送前会展示并再次确认拟发送字段。服务可用性与数据处理规则以供应商当前公开说明为准。</span>
+        </p>
 
         <div class="run-bar">
           <div>
@@ -158,6 +154,18 @@
           <article data-status="CLEAR"><span aria-hidden="true">✓</span><div><strong id="count-clear">0</strong><small>CLEAR</small></div></article>
           <article class="summary-meta"><div><strong id="count-pairs">0</strong><small data-zh="构件对" data-en="pairs">构件对</small></div><div><strong id="run-time">—</strong><small data-zh="运行时间" data-en="runtime">运行时间</small></div></article>
         </div>
+
+        <section class="ai-entry ai-entry-compact" id="ai-entry" aria-labelledby="ai-entry-title">
+          <div class="ai-entry-copy">
+            <h3 id="ai-entry-title" data-zh="可选 AI 解读" data-en="Optional AI interpretation">可选 AI 解读</h3>
+            <p id="ai-description"></p>
+          </div>
+          <div class="ai-entry-actions">
+            <div class="preferences-mount" data-control-mode="ai"></div>
+            <button type="button" id="preview-ai-fields" class="button button-primary" disabled></button>
+          </div>
+        </section>
+        <div class="ai-preview" id="ai-preview" hidden></div>
 
         <div class="review-workspace">
           <section class="viewport-panel" aria-labelledby="viewport-title">
@@ -202,19 +210,10 @@
             <button type="button" class="drawer-close" id="close-evidence" aria-label="关闭证据">×</button>
           </div>
           <div class="evidence-content" id="evidence-content"></div>
-          <section class="ai-entry" id="ai-entry">
-            <div>
-              <p class="panel-label">OPTIONAL AI INTERPRETATION</p>
-              <h4 data-zh="可选 AI 解读" data-en="Optional AI interpretation">可选 AI 解读</h4>
-              <p id="ai-description"></p>
-            </div>
-            <button type="button" id="preview-ai-fields" class="button button-secondary" disabled></button>
-          </section>
-          <div class="ai-preview" id="ai-preview" hidden></div>
         </aside>
       </section>
     </main>
 
-    <script type="module" src="/app/ui/app.mjs"></script>
+    <script type="module" src="/app/ui/app.mjs?v=g4ai-r3"></script>
   </body>
 </html>
