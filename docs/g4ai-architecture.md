@@ -1,6 +1,6 @@
 # G4AI optional interpretation architecture
 
-> Status: local implementation, simulated validation, and the separately authorized controlled live sequence are complete; the public checkpoint is required before G4AI can become `PASS`.
+> Status: base G4AI is `PASS`. The bounded G4AI-R1 usefulness/discoverability repair has passed local mock, regression, publication-audit, and no-key browser acceptance, but remains `IN_PROGRESS` until any separately authorized public checkpoint is completed. No new live call or public write is implied.
 
 ## Authority boundary
 
@@ -36,7 +36,9 @@ It explicitly excludes GUIDs, names, IFC bytes, meshes, filenames, paths, hashes
 
 There is no user-authored prose in the provider request. Local aliases replace GUIDs and all free-form model strings are discarded, so an IFC name or diagnostic cannot become a prompt instruction. The provider receives fixed system instructions, the minimized JSON facts, no tools, and a strict JSON Schema.
 
-The provider-return schema contains no free-form prose. It uses a closed object whose required property names are the exact actionable local references; each property permits only attention, rationale-category, and next-step-category enums. This makes missing, duplicate, and unknown references structurally impossible under strict decoding. The Groq adapter sorts the trusted properties by attention and materializes the codes through bilingual local templates; the provider-neutral validator then independently requires the exact actionable reference set. This keeps status and measurement presentation in deterministic UI components and makes arbitrary provider prose structurally impossible.
+The G4AI-R1 schema is a deliberately bounded relaxation of the live-closure enum contract. It remains a closed object whose required property names are the exact actionable local references, which keeps missing, duplicate, unknown, merged, and renamed references structurally impossible. Each required record may now contain a bounded coordination-analysis paragraph and one next step, and the response contains one bounded cross-record synthesis. Provider prose still has no status, rule, evidence, or measurement fields.
+
+The system prompt explicitly requires a two-to-four-sentence synthesis, a two-to-three-sentence evidence reading for every actionable record, and one concrete evidence-based next step. It asks the model to compare review priority and distinguish direct conflict, reduced clearance margin, and missing evidence when those facts are present; it also rejects status-label repetition and fragmentary copy. The model may not invent causes, locations, discipline ownership, design intent, code or safety outcomes, certification, new dimensions, or preferred engineering solutions. Local validation independently rejects wrong-language text, uppercase machine status tokens, numeric metre/millimetre claims, URLs, unknown references, incomplete coverage, and overlong content. Failure still closes to a richer local analysis derived only from the same structured fields.
 
 ## Key and runtime boundary
 
@@ -48,11 +50,13 @@ The original `scripts/g1-static-server.mjs` and `npm run g4:serve` remain availa
 
 - AI is off by default.
 - Turning it on sends nothing.
+- Before a run, one compact sentence discloses that optional AI interpretation is available, names the selected GroqCloud model, explains that the outbound fields are shown before confirmation, and points users to the provider's current public terms for availability and data handling. It contains no AI control and avoids account-specific implementation language.
+- After a deterministic run, one compact entry appears directly below the result summary. It is the only AI toggle on the page and pairs that toggle with the short `AI 解读 / Interpret` action; the earlier repeated card, three-step strip, and long CTA are removed.
 - The user must open a pre-send preview, inspect the exact minimized records, and check a fresh consent box before the send button becomes enabled.
 - The request can be cancelled.
 - Success can be copied or closed.
 - Retry is offered only for retryable errors.
-- The request locale follows the active UI language. Trusted code materialization uses Chinese only for `zh-CN` and English only for `en`; changing the UI language invalidates any earlier preview or interpretation so stale-language output cannot remain visible or be resent.
+- The request locale follows the active UI language. Both generated prose and the local fallback are validated as Chinese only for `zh-CN` and English only for `en`; changing the UI language invalidates any earlier preview or interpretation so stale-language output cannot remain visible or be resent.
 - Timeout, rate limit, quota exhaustion, missing key, network failure, provider failure, cross-origin rejection, and malformed response return a local deterministic template or explicit error without changing machine records.
 
 ## Automated evidence
@@ -62,6 +66,7 @@ The original `scripts/g1-static-server.mjs` and `npm run g4:serve` remain availa
 - minimal-field allowlisting and prohibited-field absence;
 - prompt-injection strings in GUID/name/diagnostic fields never reaching the provider body;
 - request/response schema validation and deterministic-input immutability;
+- substantive cross-record synthesis, per-record evidence reading, bounded prose, exact actionable references, and Chinese/English language matching;
 - mock success;
 - timeout, cancellation, rate limit, quota exhaustion, no network, missing provider, and malformed responses;
 - deterministic template fallback;
@@ -81,7 +86,15 @@ On 2026-08-28, four minimal-field calls were made from the local same-origin ser
 3. A static-array schema was accepted, but its actionable-reference set was not reliable and was rejected as `malformed_response`.
 4. A closed object with the exact required actionable keys (`R01`, `R02`, `R04`) and enum-only values passed. The adapter materialized trusted Simplified Chinese templates locally, the UI displayed the separate AI label, the deterministic summary remained `CLASH/WARNING/CLEAR/NOT_EVALUATED = 1/1/1/1`, the evidence drawer was unchanged, and Chrome reported zero warning/error console entries.
 
-The final contract returns language-independent codes only. Local trusted templates produce Chinese for `zh-CN` and English for `en`; automated tests cover both languages, and a language change cancels any in-flight request and invalidates prior preview/result state so stale-language output cannot remain visible. No additional live call is needed to validate that deterministic local mapping.
+That fourth call closed the original G4AI checkpoint and remains valid historical evidence for the enum-only contract used at the time. It does not prove the later G4AI-R1 bounded-prose contract. G4AI-R1 is therefore verified with mocks and local fallback first; any new live smoke remains a separately authorized action and is not inferred from the prior four approvals.
+
+## G4AI-R1 human-readability repair
+
+On 2026-08-29, the first review-pack trial exposed a real human-readability failure: the output was safe but reduced to generic status restatement and fragmented action labels, and the only generation entry sat inside the full-evidence drawer. The first repair moved the entry under the deterministic summary and rendered one synthesis plus coherent evidence-reading and coordination-focus blocks for each actionable record.
+
+A second annotated review then showed that the initial discoverability fix overcorrected: the pre-run AI card and post-run AI card duplicated one another, two synchronized switches were visible, and the three-step strip plus long CTA repeated the consent flow already explained in the preview. The revised hierarchy now uses a single pre-run disclosure sentence for capability/provider/terms and a single compact post-run control. Preview and fresh consent remain mandatory after the short action is selected.
+
+The change does not loosen deterministic authority. Exact record keys, minimal outbound fields, second consent, server-only key, same-origin guard, status/rule/evidence immutability, bilingual validation, timeout/cancel/retry, and failure closing all remain. The local fallback is also upgraded so a provider outage does not collapse the experience back to generic one-line fragments. Public UI copy describes the service state and fallback outcome without exposing internal provider error codes or account-level operational terminology; those details remain available only in technical evidence and tests.
 
 ## Current Chrome evidence
 
