@@ -355,3 +355,40 @@ This repository uses AI assistance for implementation planning and code drafting
 - Adopted output: pre-run and pre-send disclosures now describe the user-visible provider, confirmation step, excluded local data, and current public terms. `API READY`, `API NOT CONFIGURED`, account/ZDR wording, dated developer notes, and raw `{code}` rendering are removed from the public UI. Provider, busy/quota, connection, and other failures map to concise bilingual service messages while internal codes remain testable below the presentation layer.
 - Verification: the no-key browser route shows `当前将使用本地解读`, then `AI 服务暂时不可用，已切换为本地解读。检测结果不受影响。`; neither Chinese nor English DOM exposes `provider_unconfigured` or account-level terminology. G4AI/G4 regression and `git diff --check` pass without a provider request or quota use.
 - Rejected or deferred suggestions: no provider change, live credential configuration, live retry, consent removal, provider hiding, deterministic-result mutation, external publication, deployment, mobile computation, video, or G5 work.
+
+## P-037 — G4AI consent, concurrency, and capacity repair
+
+- Date: 2026-08-29
+- Goal: close the full-audit findings that retry could reuse a prior consent, stale asynchronous work could interfere with a newer AI flow, and the 40-record input boundary was incompatible with the bounded prose and 900-token completion budget.
+- Human constraints: the user explicitly authorized only this limited repair plus one current-contract live smoke; deterministic G3/G4 authority, minimized fields, server-only key, bilingual output, failure closing, and the existing provider remain unchanged. No GitHub upload, deployment, public-access change, mobile computation, video, or G5 work is authorized.
+- Adopted output: retry returns to a fresh field preview and unchecked consent; preview/send operations use monotonic identities and controller ownership checks so stale completion cannot render into or clear a newer operation; disabling AI, changing language, closing, changing input, and starting a new run invalidate the old operation; one AI request accepts at most six deterministic records and fails locally without sending when the boundary is exceeded.
+- Verification: the six/seven-record boundary, retry-to-preview, controller ownership, G4AI/G4/G3 regression, all current publication audits, and a desktop-Chrome offline retry flow pass. The one authorized sanitized review-pack live request reached the configured local service but ended in the connection-class fallback; no retry was made. Deterministic `1/1/1/1` records remained unchanged and the console stayed clean, so failure closing passed while current bounded-prose provider acceptance remains `LIVE_UNVERIFIED`.
+- Rejected or deferred suggestions: batching, automatic retries, reusing consent, raising the completion budget, changing the provider/model, uploading, deploying, entering G5, or altering deterministic records.
+
+## P-038 — G4AI-R2 separately authorized live retry
+
+- Date: 2026-08-29
+- Goal: retry the current bounded-prose live smoke exactly once after the initial connection-class fallback, without expanding the R2 repair or reusing old consent.
+- Human constraints: the user explicitly approved one retry only. Use the same generated review-pack minimum fields, obtain a fresh preview and consent, preserve the selected language, never auto-retry, and stop the service afterward. No upload, deployment, public-access change, provider/model change, mobile computation, video, or G5.
+- Verification: the first secure launcher attempt failed before server startup because the project-local Node path was unresolved; no request was sent and its process environment was cleared. After correction, the server reported the provider configured. The English UI recomputed `1/1/1/1`, previewed `R01`–`R04`, required fresh consent, and sent exactly one request. No acceptable AI interpretation was produced, so the local English analysis rendered; deterministic counts and evidence stayed unchanged and browser warning/error logs were zero. No further retry occurred.
+- Conclusion: failure closing and the R2 state machine passed, but current bounded-prose live acceptance remains `LIVE_UNVERIFIED`.
+
+## P-039 — G4AI-R3 provider-contract error repair
+
+- Date: 2026-08-29
+- Goal: repair reproducible provider-contract risks after two separately authorized bounded-prose live attempts failed closed.
+- Sanitized prompt: recheck current official Groq strict-output, API, quota, and data boundaries; align the strict provider schema to documented structural keywords; give the six-record prose contract credible output room; separate provider truncation, refusal, rejection, malformed content, and local semantic rejection; preserve deterministic authority and privacy.
+- Human constraints: local repair only. No new live call, key use, upload, deployment, public-access change, mobile computation, video, provider/model change, or G5 was authorized.
+- Adopted output: remove undocumented string-length keywords from the provider strict schema while retaining all local prose limits; raise the completion cap from 900 to 1,600 tokens; use temperature zero; add explicit output-limit, refusal, and semantic-rejection classifications without persisting provider content.
+- Verification: G4AI/G4/G3 regression, all nine current publication audits, and a Chinese-to-English no-key browser flow pass. The deterministic `1/1/1/1` summary remains unchanged; English output contains no Chinese text or internal provider code; no console issue or external request occurred.
+- Conclusion: local contract risks are closed, but provider acceptance remains `LIVE_UNVERIFIED` until a separately authorized live smoke succeeds.
+
+## P-040 — G4AI-R3 live-until-success closure
+
+- Date: 2026-08-29
+- Goal: continue controlled smoke testing until the current bounded-prose feature works successfully, without weakening deterministic authority or privacy.
+- Sanitized prompt: use only generated review-pack minimal fields and fresh UI consent; diagnose safe failure categories without retaining provider content; repair reproducible local semantic false positives; reject any provider prose that invents safety, constructability, design intent, ownership, compliance, certification, false-positive/negative, or physical solutions; stop immediately after English and Chinese success.
+- Human constraints: the user explicitly authorized smoke testing until success. IFC bytes, GUIDs, names, paths, diagnostics, raw provider responses, and keys remain excluded from evidence; no GitHub upload, deployment, access change, mobile computation, video, or G5 is implied.
+- Adopted output: a case-sensitive machine-status guard allows natural lowercase coordination vocabulary; strict-schema descriptions and the system prompt limit next steps to evidence review; a local unsupported-claim guard fails closed on ungrounded engineering, ownership, safety, and solution concepts.
+- Verification: five authorized requests were used. The first failed closed without retained subtype; the second safely classified `semantic_rejected`; the third reached provider mode but was rejected by human review for unsupported claims; the fourth English and fifth Simplified Chinese requests passed provider mode, language, content, consent, deterministic `1/1/1/1`, and zero-console checks.
+- Conclusion: the current G4AI-R3 bounded-prose path is `PASS`. Live use stopped, the key-bearing process and diagnostic proxy were terminated, and ignored temporary helpers were removed.
