@@ -43,13 +43,13 @@ const copy = {
     selectedPair: "构件对",
     selectedDistance: "实测净距",
     selectedTolerance: "容差",
-    aiOff: "AI 解读当前关闭。确定性检查、结果与 3D 证据不依赖 API，也不会发送任何数据。",
-    aiOn: "AI 解读已开启。只有在预览最小字段并再次确认后才会请求外部提供商；确定性结果始终权威。",
-    aiButtonOff: "先开启 AI 解读",
-    aiButtonOn: "预览并确认发送",
+    aiOff: "开启后先预览发送字段，再确认生成；检测结论不变。",
+    aiOn: "先预览字段，再确认生成；检测结论不变。",
+    aiButtonOff: "AI 未开启",
+    aiButtonOn: "AI 解读",
     aiPreviewTitle: "发送前预览（尚未发送）",
     aiPreviewBody: "仅发送语言、固定规则边界、状态汇总，以及每条记录的本地别名、状态、双方 IFC 类型和已存在的测量字段。GUID、名称、IFC 字节、网格、文件名、路径、哈希、诊断和浏览器元数据均排除。",
-    aiProviderBoundary: "首选提供商：GroqCloud · openai/gpt-oss-20b。官方资料核验于 2026-08-28：免费计划可用；默认推理不留存，但可靠性或滥用排查日志可能保留最多 30 天；账户可启用 ZDR。实际地区、账号和额度以当前账户为准。",
+    aiProviderBoundary: "AI 解读由 GroqCloud · openai/gpt-oss-20b 提供。仅在你确认后发送上方展示的最小字段；IFC 文件、构件标识和本地文件信息不会发送。服务可用性与数据处理规则以供应商当前公开说明为准。",
     aiConsent: "我已检查上述字段并同意将其发送给 GroqCloud 以生成一次可选解读。",
     aiSend: "发送最小字段",
     aiSending: "正在请求 AI 解读…确定性结果保持可用。",
@@ -57,13 +57,21 @@ const copy = {
     aiRetry: "重试",
     aiCopy: "复制解读",
     aiClose: "关闭",
-    aiGenerated: "AI 生成解读 · 不改变检测结论",
-    aiFallback: "确定性模板降级 · 未改变检测结论",
-    aiError: "AI 请求未完成（{code}）。已显示本地确定性模板。",
+    aiGenerated: "AI 协调分析 · 不改变检测结论",
+    aiFallback: "本地协调分析 · 未改变检测结论",
+    aiServiceReady: "AI 服务可用",
+    aiServiceLocal: "当前将使用本地解读",
+    aiUnavailable: "AI 服务暂时不可用，已切换为本地解读。检测结果不受影响。",
+    aiBusy: "AI 服务当前繁忙，已切换为本地解读。检测结果不受影响。",
+    aiConnectionFailed: "AI 服务连接未完成，已切换为本地解读。检测结果不受影响。",
+    aiNotGenerated: "AI 解读暂未生成，已切换为本地解读。检测结果不受影响。",
     aiCopied: "已复制",
     aiAttentionReviewFirst: "优先复核",
     aiAttentionReviewNext: "随后复核",
     aiAttentionInformational: "信息参考",
+    aiOverviewTitle: "综合分析",
+    aiRecordAnalysis: "证据解读",
+    aiReviewFocus: "协调重点",
     isolate: "隔离构件对",
     restore: "恢复场景",
     loading3d: "从真实 IFC 几何准备 3D 证据…",
@@ -104,13 +112,13 @@ const copy = {
     selectedPair: "Component pair",
     selectedDistance: "Measured clearance",
     selectedTolerance: "Tolerance",
-    aiOff: "AI interpretation is off. Deterministic checks, results, and 3D evidence need no API and send no data.",
-    aiOn: "AI interpretation is on. An external request occurs only after you preview the minimal fields and confirm again. Deterministic results remain authoritative.",
-    aiButtonOff: "Enable AI interpretation first",
-    aiButtonOn: "Preview and confirm send",
+    aiOff: "Enable it to preview the fields, then confirm; detection conclusions stay unchanged.",
+    aiOn: "Preview the fields, then confirm; detection conclusions stay unchanged.",
+    aiButtonOff: "AI is off",
+    aiButtonOn: "Interpret",
     aiPreviewTitle: "Pre-send preview (nothing sent yet)",
     aiPreviewBody: "Only locale, frozen rule boundaries, status counts, and each record's local alias, status, two IFC types, and existing measurement fields are sent. GUIDs, names, IFC bytes, meshes, filenames, paths, hashes, diagnostics, and browser metadata are excluded.",
-    aiProviderBoundary: "Selected provider: GroqCloud · openai/gpt-oss-20b. Official sources checked 2026-08-28: a Free Plan is available; inference is not retained by default, but reliability or abuse logs may be held for up to 30 days; account-level ZDR is available. Region, account, and quota availability remain account-specific.",
+    aiProviderBoundary: "AI interpretation is provided by GroqCloud · openai/gpt-oss-20b. Only the minimal fields shown above are sent after you confirm; IFC files, component identifiers, and local file information are not sent. Service availability and data handling follow the provider's current public terms.",
     aiConsent: "I reviewed the fields above and agree to send them to GroqCloud for one optional interpretation.",
     aiSend: "Send minimal fields",
     aiSending: "Requesting AI interpretation… deterministic results remain available.",
@@ -118,13 +126,21 @@ const copy = {
     aiRetry: "Retry",
     aiCopy: "Copy interpretation",
     aiClose: "Close",
-    aiGenerated: "AI-generated interpretation · does not change detection conclusions",
-    aiFallback: "Deterministic template fallback · detection conclusions unchanged",
-    aiError: "The AI request did not complete ({code}). A local deterministic template is shown.",
+    aiGenerated: "AI coordination analysis · detection conclusions unchanged",
+    aiFallback: "Local coordination analysis · detection conclusions unchanged",
+    aiServiceReady: "AI service available",
+    aiServiceLocal: "Local interpretation will be used for now",
+    aiUnavailable: "The AI service is temporarily unavailable, so a local interpretation is shown. Detection results are unaffected.",
+    aiBusy: "The AI service is currently busy, so a local interpretation is shown. Detection results are unaffected.",
+    aiConnectionFailed: "The AI service connection did not complete, so a local interpretation is shown. Detection results are unaffected.",
+    aiNotGenerated: "An AI interpretation was not generated, so a local interpretation is shown. Detection results are unaffected.",
     aiCopied: "Copied",
     aiAttentionReviewFirst: "Review first",
     aiAttentionReviewNext: "Review next",
     aiAttentionInformational: "Informational",
+    aiOverviewTitle: "Synthesis",
+    aiRecordAnalysis: "Evidence reading",
+    aiReviewFocus: "Coordination focus",
     isolate: "Isolate pair",
     restore: "Restore scene",
     loading3d: "Preparing 3D evidence from the real IFC geometry…",
@@ -508,7 +524,7 @@ async function showAiPreview() {
     <p class="ai-provider-boundary">${safe(msg("aiProviderBoundary"))}</p>
     <label class="ai-consent"><input type="checkbox" id="ai-send-consent"><span>${safe(msg("aiConsent"))}</span></label>
     <div class="ai-actions"><button type="button" class="button button-primary" data-ai-action="send" disabled>${safe(msg("aiSend"))}</button><button type="button" class="text-button" data-ai-action="close">${safe(msg("aiClose"))}</button></div>
-    <p class="ai-availability">${safe(state.aiStatus.configured ? "API READY" : "API NOT CONFIGURED · FALLBACK AVAILABLE")}</p>`;
+    <p class="ai-availability">${safe(msg(state.aiStatus.configured ? "aiServiceReady" : "aiServiceLocal"))}</p>`;
   elements.ai_preview.hidden = false;
   bindAiPanelActions();
 }
@@ -527,17 +543,24 @@ function interpretationText(result) {
   return [result.interpretation.overview, ...result.interpretation.ordered_records.flatMap(item => [`${item.record_ref} · ${attentionLabel(item.attention)}`, item.rationale, item.next_step]), ...result.interpretation.global_limits].join("\n");
 }
 
+function aiFailureMessage(code) {
+  if (code === "provider_unconfigured") return msg("aiUnavailable");
+  if (code === "rate_limited" || code === "quota_exhausted") return msg("aiBusy");
+  if (code === "timeout" || code === "network_error") return msg("aiConnectionFailed");
+  return msg("aiNotGenerated");
+}
+
 function renderAiResult(result) {
   state.aiResult = result;
   const badge = result.mode === "provider" ? msg("aiGenerated") : msg("aiFallback");
   const cards = result.interpretation.ordered_records.map(item => {
     const record = findRecordByRef(item.record_ref);
-    return `<article class="ai-record"><header><strong>${safe(item.record_ref)} · ${safe(attentionLabel(item.attention))}</strong><span>${safe(record?.status || "NOT_EVALUATED")}</span></header><p>${safe(item.rationale)}</p><p><b>${language() === "en" ? "Review" : "复核建议"}</b> · ${safe(item.next_step)}</p></article>`;
+    return `<article class="ai-record"><header><strong>${safe(item.record_ref)} · ${safe(attentionLabel(item.attention))}</strong><span>${safe(record?.status || "NOT_EVALUATED")}</span></header><div class="ai-record-body"><p><b>${safe(msg("aiRecordAnalysis"))}</b>${safe(item.rationale)}</p><p><b>${safe(msg("aiReviewFocus"))}</b>${safe(item.next_step)}</p></div></article>`;
   }).join("");
-  const error = result.error ? `<p class="ai-error">${safe(msg("aiError", { code: result.error.code }))}</p>` : "";
+  const error = result.error ? `<p class="ai-error">${safe(aiFailureMessage(result.error.code))}</p>` : "";
   elements.ai_preview.innerHTML = `
     <div class="ai-preview-head"><h5>${safe(badge)}</h5><button type="button" class="ai-close" data-ai-action="close" aria-label="${safe(msg("aiClose"))}">×</button></div>
-    ${error}<p class="ai-overview">${safe(result.interpretation.overview)}</p><div class="ai-records">${cards}</div>
+    ${error}<section class="ai-overview"><strong>${safe(msg("aiOverviewTitle"))}</strong><p>${safe(result.interpretation.overview)}</p></section><div class="ai-records">${cards}</div>
     <ul class="ai-limit-list">${result.interpretation.global_limits.map(item => `<li>${safe(item)}</li>`).join("")}</ul>
     <div class="ai-actions">${result.error?.retryable ? `<button type="button" class="button button-secondary" data-ai-action="retry">${safe(msg("aiRetry"))}</button>` : ""}<button type="button" class="button button-secondary" data-ai-action="copy">${safe(msg("aiCopy"))}</button><button type="button" class="text-button" data-ai-action="close">${safe(msg("aiClose"))}</button></div>`;
   bindAiPanelActions();
