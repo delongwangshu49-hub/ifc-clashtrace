@@ -1,7 +1,7 @@
 import { IfcAPI } from "web-ifc";
 
 import { evaluateIfcPair } from "/app/core/ifc-clash-engine.mjs";
-import { fetchAiStatus, prepareAiRequest, requestAiInterpretation } from "/app/ai/client.mjs";
+import { AI_MAX_RECORDS, fetchAiStatus, prepareAiRequest, requestAiInterpretation } from "/app/ai/client.mjs";
 import { getPreferences, initializePreferences } from "/app/ui/preferences.mjs";
 import { ClashViewer } from "/app/ui/viewer.mjs";
 
@@ -55,6 +55,7 @@ const copy = {
     aiSending: "正在请求 AI 解读…确定性结果保持可用。",
     aiCancel: "取消请求",
     aiRetry: "重试",
+    aiTooManyRecords: "单次 AI 解读最多支持 {count} 条记录。确定性结果仍可正常审阅；请缩小本次检查范围后再试。",
     aiCopy: "复制解读",
     aiClose: "关闭",
     aiGenerated: "AI 协调分析 · 不改变检测结论",
@@ -124,6 +125,7 @@ const copy = {
     aiSending: "Requesting AI interpretation… deterministic results remain available.",
     aiCancel: "Cancel request",
     aiRetry: "Retry",
+    aiTooManyRecords: "One AI interpretation supports up to {count} records. Deterministic results remain available; narrow the run before trying again.",
     aiCopy: "Copy interpretation",
     aiClose: "Close",
     aiGenerated: "AI coordination analysis · detection conclusions unchanged",
@@ -173,6 +175,7 @@ const state = {
   aiRequest: null,
   aiResult: null,
   aiController: null,
+  aiOperation: 0,
   aiStatus: null,
 };
 
@@ -195,12 +198,11 @@ function statusLabel(status) {
 }
 
 function translateStatic() {
-  if (state.aiRequest && state.aiRequest.locale !== language()) {
-    state.aiController?.abort();
-    state.aiController = null;
-    state.aiRequest = null;
-    state.aiResult = null;
-    elements.ai_preview.hidden = true;
+  const aiEnabled = getPreferences().aiEnabled;
+  if (!aiEnabled && (state.aiRequest || state.aiController || state.aiResult)) {
+    invalidateAiFlow();
+  } else if (state.aiRequest && state.aiRequest.locale !== language()) {
+    invalidateAiFlow();
   }
   const useEnglish = language() === "en";
   document.querySelectorAll("[data-zh][data-en]").forEach(element => { element.textContent = useEnglish ? element.dataset.en : element.dataset.zh; });
@@ -208,6 +210,16 @@ function translateStatic() {
   refreshAiState();
   refreshRunDescription();
   renderRecords();
+}
+
+function invalidateAiFlow({ hide = true } = {}) {
+  state.aiOperation += 1;
+  const controller = state.aiController;
+  state.aiController = null;
+  state.aiRequest = null;
+  state.aiResult = null;
+  controller?.abort();
+  if (hide) elements.ai_preview.hidden = true;
 }
 
 function updateDesktopBoundary() {
@@ -226,10 +238,7 @@ async function validateFile(file) {
 }
 
 function invalidateReviewState({ resetCoordinateConsent = false } = {}) {
-  state.aiController?.abort();
-  state.aiController = null;
-  state.aiRequest = null;
-  state.aiResult = null;
+  invalidateAiFlow();
   state.records = [];
   state.sources.clear();
   state.selected = null;
@@ -513,14 +522,34 @@ function requestPreviewHtml(request) {
 }
 
 async function showAiPreview() {
-  state.aiController?.abort();
-  state.aiRequest = prepareAiRequest(state.records, language());
+  state.aiOperation += 1;
+  const operation = state.aiOperation;
+  const priorController = state.aiController;
+  state.aiController = null;
+  priorController?.abort();
+  let aiRequest;
+  try {
+    aiRequest = prepareAiRequest(state.records, language());
+  } catch {
+    state.aiRequest = null;
+    state.aiResult = null;
+    elements.ai_preview.innerHTML = `
+      <div class="ai-preview-head"><h5>${safe(msg("aiPreviewTitle"))}</h5><button type="button" class="ai-close" data-ai-action="close" aria-label="${safe(msg("aiClose"))}">×</button></div>
+      <p class="ai-error">${safe(msg("aiTooManyRecords", { count: AI_MAX_RECORDS }))}</p>
+      <div class="ai-actions"><button type="button" class="text-button" data-ai-action="close">${safe(msg("aiClose"))}</button></div>`;
+    elements.ai_preview.hidden = false;
+    bindAiPanelActions();
+    return;
+  }
+  state.aiRequest = aiRequest;
   state.aiResult = null;
-  state.aiStatus = await fetchAiStatus();
+  const aiStatus = await fetchAiStatus();
+  if (operation !== state.aiOperation || state.aiRequest !== aiRequest) return;
+  state.aiStatus = aiStatus;
   elements.ai_preview.innerHTML = `
     <div class="ai-preview-head"><h5>${safe(msg("aiPreviewTitle"))}</h5><button type="button" class="ai-close" data-ai-action="close" aria-label="${safe(msg("aiClose"))}">×</button></div>
     <p>${safe(msg("aiPreviewBody"))}</p>
-    ${requestPreviewHtml(state.aiRequest)}
+    ${requestPreviewHtml(aiRequest)}
     <p class="ai-provider-boundary">${safe(msg("aiProviderBoundary"))}</p>
     <label class="ai-consent"><input type="checkbox" id="ai-send-consent"><span>${safe(msg("aiConsent"))}</span></label>
     <div class="ai-actions"><button type="button" class="button button-primary" data-ai-action="send" disabled>${safe(msg("aiSend"))}</button><button type="button" class="text-button" data-ai-action="close">${safe(msg("aiClose"))}</button></div>
@@ -568,26 +597,30 @@ function renderAiResult(result) {
 
 async function submitAiRequest() {
   if (!state.aiRequest || state.aiController) return;
-  state.aiController = new AbortController();
+  const aiRequest = state.aiRequest;
+  const operation = ++state.aiOperation;
+  const controller = new AbortController();
+  state.aiController = controller;
   elements.ai_preview.innerHTML = `<div class="ai-preview-head"><h5>${safe(msg("aiSending"))}</h5></div><div class="ai-actions"><button type="button" class="button button-secondary" data-ai-action="cancel">${safe(msg("aiCancel"))}</button></div>`;
   bindAiPanelActions();
   try {
-    renderAiResult(await requestAiInterpretation(state.aiRequest, { signal: state.aiController.signal }));
+    const result = await requestAiInterpretation(aiRequest, { signal: controller.signal });
+    if (operation !== state.aiOperation || state.aiController !== controller || state.aiRequest !== aiRequest) return;
+    renderAiResult(result);
   } catch (error) {
+    if (operation !== state.aiOperation || state.aiController !== controller || state.aiRequest !== aiRequest) return;
     if (error.code === "cancelled") {
       await showAiPreview();
       return;
     }
-    renderAiResult({ mode: "deterministic_fallback", interpretation: await import("/app/ai/contract.mjs").then(module => module.deterministicFallback(state.aiRequest)), error: { code: error.code || "unknown", retryable: error.retryable === true } });
+    renderAiResult({ mode: "deterministic_fallback", interpretation: await import("/app/ai/contract.mjs").then(module => module.deterministicFallback(aiRequest)), error: { code: error.code || "unknown", retryable: error.retryable === true } });
   } finally {
-    state.aiController = null;
+    if (state.aiController === controller) state.aiController = null;
   }
 }
 
 function closeAiPanel() {
-  state.aiController?.abort();
-  state.aiController = null;
-  elements.ai_preview.hidden = true;
+  invalidateAiFlow();
   elements.preview_ai_fields.focus();
 }
 
@@ -596,7 +629,8 @@ function bindAiPanelActions() {
   const send = elements.ai_preview.querySelector('[data-ai-action="send"]');
   consent?.addEventListener("change", () => { send.disabled = !consent.checked; });
   elements.ai_preview.querySelectorAll("[data-ai-action]").forEach(button => button.addEventListener("click", async () => {
-    if (button.dataset.aiAction === "send" || button.dataset.aiAction === "retry") await submitAiRequest();
+    if (button.dataset.aiAction === "send") await submitAiRequest();
+    if (button.dataset.aiAction === "retry") await showAiPreview();
     if (button.dataset.aiAction === "cancel") state.aiController?.abort();
     if (button.dataset.aiAction === "close") closeAiPanel();
     if (button.dataset.aiAction === "copy" && state.aiResult) {
