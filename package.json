@@ -11,7 +11,8 @@
     "g4:serve": "node scripts/g1-static-server.mjs",
     "g4:test": "pwsh -NoProfile -File scripts/test-g4.ps1",
     "g4ai:serve": "node scripts/g4ai-local-server.mjs",
-    "g4ai:test": "pwsh -NoProfile -File scripts/test-g4ai.ps1"
+    "g4ai:test": "pwsh -NoProfile -File scripts/test-g4ai.ps1",
+    "g5:test": "pwsh -NoProfile -File scripts/test-g5.ps1"
   },
   "dependencies": {
     "three": "0.185.1",

@@ -10,6 +10,8 @@ The R4 Design Gate package in `docs/design-brief.md` is user-approved. Base G4 a
 
 G4AI adds a separately controlled optional interpretation layer. It defaults off, requires a visible minimal-field preview plus a fresh consent checkbox before each external request, sends no IFC bytes/GUIDs/names/files/paths/hashes/diagnostics, and keeps provider authentication server-side. After reviewing alternatives, the user selected GroqCloud Free Plan with `openai/gpt-oss-20b` as the dated 2026-08-28 adapter; Gemini and Hugging Face were rejected for this implementation boundary. A bounded G4AI-R1 repair replaces enum-materialized fragments with a closed exact-key schema containing one cross-record synthesis plus bounded per-record analysis and next steps. Its refined UI uses one pre-run capability/provider/terms sentence and one compact post-run AI control directly below the deterministic summary, avoiding duplicate switches and instructions. G4AI-R2 limits one request to six deterministic records; retry always returns to a new preview and unchecked consent, while operation identities prevent cancelled or stale requests from overwriting a newer language, preview, or result. G4AI-R3 aligns the strict schema with Groq's currently documented structural subset, raises the bounded completion cap from 900 to 1,600 tokens, uses deterministic temperature zero, and separates output-limit, refusal, provider, malformed, and semantic failures without retaining raw content. Its live closure also fixes a case-insensitive status-token false positive and rejects unsupported safety, constructability, design-intent, ownership, compliance, certification, false-positive/negative, and physical-solution claims. Fresh-consent English and Simplified Chinese provider responses both passed with the deterministic `1/1/1/1` summary unchanged, so the current bounded-prose path is `PASS`. Wrong-language text, uppercase machine-status tokens, numeric claims, URLs, unknown references, incomplete coverage, and unsupported engineering claims still fail closed to a richer local analysis; no status, rule, measurement, or evidence record can be changed. See `docs/g4ai-provider-evaluation.md` and `docs/g4ai-architecture.md`. Deployment, public-access changes, mobile IFC computation, and video remain outside G4AI.
 
+G5 turns that implementation into a bounded evaluation record. The controlled suite has `8/8` three-way status agreement across the authored operation ledger, IfcOpenShell reference, and shipped browser core, with `3` true positives, `0` false positives, `0` false negatives, `4` true negatives, and `1` deliberate abstention. Both clearance routes match `9/9` supplemental fixtures. A buildingSMART PCERT IFC4 sample pair opens in web-ifc and IfcOpenShell but correctly fails the product contract closed because it uses millimetres and has no `IfcPipeSegment`; it is not accuracy ground truth. Six local mock AI checks preserve every deterministic fact, and all five invalid/unavailable paths return the exact local fallback. See `docs/evaluation.md`. Formal support remains IFC4 under the documented narrow boundary; IFC4X3 is exploratory only.
+
 The frozen G2/G3A contract includes:
 
 - 3 expected `CLASH` cases, 4 expected `CLEAR` cases, and 1 expected `NOT_EVALUATED` case;
@@ -157,6 +159,16 @@ Open `http://127.0.0.1:4173/app/`. The deterministic run remains browser-local. 
 - The Groq free plan, model, account access, quota, retention controls, and terms are time-sensitive. The recorded 2026-08-28 comparison and controlled live success are not a permanent-free, regional-availability, uptime, or production-capacity claim. Automated tests consume no live quota; use the approved reservation policy in `docs/g4ai-provider-evaluation.md` before reviews or demonstrations.
 - No deployment, public-access change, mobile IFC review, or video workflow is included.
 - No third-party or private project IFC is included in the G2 dataset.
+
+## G5 evaluation
+
+Run the public evaluation contract with PowerShell 7:
+
+```powershell
+pwsh -NoLogo -NoProfile -File .\scripts\test-g5.ps1
+```
+
+For the complete local acceptance run, first acquire the two named buildingSMART PCERT samples at the source commit and verify the SHA-256 values in `docs/evaluation.md`, then add `-RequireOfficialSamples`. External samples and machine-specific timing outputs remain ignored and are never publication candidates.
 
 ## AI assistance
 
