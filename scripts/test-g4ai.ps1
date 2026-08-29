@@ -34,13 +34,24 @@ $envExample = Get-Content -LiteralPath ".env.example" -Raw
 
 foreach ($required in @(
     "G4AI · OPTIONAL INTERPRETATION",
-    "preview and a second confirmation are required before sending",
+    "Optional AI interpretation is available.",
+    "GroqCloud · openai/gpt-oss-20b",
+    "service availability and data handling follow the provider's current public terms",
     "Minimal structured fields",
-    "never changes status, rules, or evidence"
+    "Optional AI interpretation"
 )) { if (-not $appHtml.Contains($required)) { throw "G4AI page contract missing: $required" } }
+if (($appHtml.Split('data-control-mode="ai"').Count - 1) -ne 1) { throw "G4AI must expose one post-result AI control." }
+foreach ($obsolete in @("workspace-ai-option", "Turn the results into a coordination analysis", "Generate AI coordination analysis", "Preview fields", "Confirm and analyze")) {
+    if ($appHtml.Contains($obsolete) -or $appScript.Contains($obsolete)) { throw "Obsolete verbose AI entry remains: $obsolete" }
+}
 
 foreach ($required in @(
     "Pre-send preview (nothing sent yet)",
+    'aiButtonOn: "Interpret"',
+    "Synthesis",
+    "Evidence reading",
+    "Coordination focus",
+    "detection conclusions stay unchanged",
     "ai-send-consent",
     'data-ai-action="send"',
     'data-ai-action="cancel"',
@@ -53,8 +64,30 @@ foreach ($required in @(
     "GUIDs, names, IFC bytes, meshes, filenames, paths, hashes, diagnostics, and browser metadata are excluded"
 )) { if (-not $appScript.Contains($required)) { throw "G4AI runtime contract missing: $required" } }
 
+foreach ($publicCopy in @($appHtml, $appScript)) {
+    foreach ($developerPhrase in @(
+        "当前账户",
+        "账户可启用 ZDR",
+        "account-level ZDR",
+        "account-specific",
+        "API READY",
+        "API NOT CONFIGURED"
+    )) {
+        if ($publicCopy.Contains($developerPhrase)) { throw "Developer-facing AI copy remains public: $developerPhrase" }
+    }
+}
+foreach ($required in @(
+    "当前将使用本地解读",
+    "AI 服务暂时不可用，已切换为本地解读。检测结果不受影响。",
+    "Local interpretation will be used for now",
+    "The AI service is temporarily unavailable, so a local interpretation is shown. Detection results are unaffected.",
+    "aiFailureMessage(result.error.code)"
+)) { if (-not $appScript.Contains($required)) { throw "Public AI failure copy contract missing: $required" } }
+if ($appScript.Contains('AI 请求未完成（{code}）') -or $appScript.Contains('did not complete ({code})')) { throw "Internal AI error codes remain exposed in public copy." }
+
 if ($appScript -match '(?i)api\.groq\.com|authorization\s*:|GROQ_API_KEY') { throw "Browser runtime contains provider endpoint or credential handling." }
 if ($contract -notmatch 'deterministic_results_are_authoritative:\s*true') { throw "Minimal request does not lock deterministic authority." }
+if ($contract -notmatch 'G4AI_COORDINATION_ANALYSIS_V2') { throw "Coordination-analysis contract version is missing." }
 if ($contract -match '(?i)global_id|model_a_sha256|model_b_sha256|diagnostic|file(?:name)?|absolute.path|browser.metadata') { throw "AI contract references prohibited model or browser fields." }
 if ($server -notmatch 'process\.env\.GROQ_API_KEY') { throw "Server does not source the provider key from the environment." }
 if ($server -match 'console\.log\([^\r\n]*GROQ_API_KEY') { throw "Server risks logging the provider key." }

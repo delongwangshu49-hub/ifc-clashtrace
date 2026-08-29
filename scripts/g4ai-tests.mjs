@@ -40,13 +40,13 @@ assert.equal(request.records[2].rule_id, "MEP_STRUCTURE_CLEARANCE_WARNING_V1", "
 validateMinimalAiRequest(request);
 
 const validInterpretation = {
-  overview: "Several records merit ordered human coordination review.",
+  overview: "Resolve the direct geometric conflict first, then examine the relationship with limited coordination margin. The unevaluated item needs repaired evidence and must not be treated as a safe result.",
   ordered_records: [
-    { record_ref: "R01", attention: "review_first", rationale: "Geometry evidence indicates direct coordination attention.", next_step: "Inspect the involved components in the authoritative evidence view." },
-    { record_ref: "R02", attention: "review_next", rationale: "The measured relationship warrants a coordinated route review.", next_step: "Compare the current route with an approved coordination alternative." },
-    { record_ref: "R04", attention: "review_next", rationale: "Available evidence is insufficient for a reliable automated conclusion.", next_step: "Repair or verify the source geometry before relying on this pair." },
+    { record_ref: "R01", attention: "review_first", rationale: "The existing geometry evidence indicates a direct pipe-to-structure conflict beyond the established tolerance. Leaving it unresolved would make later route decisions depend on an already blocked relationship.", next_step: "Verify both components and the conflict location before the project team assesses coordination options." },
+    { record_ref: "R02", attention: "review_next", rationale: "The relationship retains less coordination margin than the frozen rule allows, even though it is not in the direct-conflict queue. Review it after the first item and alongside any nearby route change.", next_step: "Inspect the closest relationship and let the project team compare available alternatives." },
+    { record_ref: "R04", attention: "informational", rationale: "The automated path lacks enough geometry evidence for a reliable conclusion, so this item cannot be interpreted as problem-free. Its source evidence must be repaired before the review is closed.", next_step: "Verify the source geometry and coordinate conditions, then rerun the deterministic check." },
   ],
-  global_limits: ["Generated prose cannot alter machine records.", "A qualified reviewer must decide any project action."],
+  global_limits: ["Generated analysis cannot alter machine records.", "A qualified reviewer must decide any project action from the full evidence."],
 };
 validateAiInterpretation(validInterpretation, request);
 const before = JSON.stringify(request);
@@ -55,6 +55,8 @@ assert.equal(success.mode, "provider");
 assert.equal(JSON.stringify(request), before, "Provider interpretation mutated deterministic input");
 
 assert.throws(() => validateAiInterpretation({ ...validInterpretation, overview: "This is CLEAR at 50 mm." }, request));
+assert.throws(() => validateAiInterpretation({ ...validInterpretation, overview: "这段文字使用了错误语言。" }, request));
+assert.throws(() => validateAiInterpretation({ ...validInterpretation, overview: "Review the external evidence at https://example.invalid before continuing." }, request));
 assert.throws(() => validateAiInterpretation({ ...validInterpretation, ordered_records: validInterpretation.ordered_records.slice(0, 2) }, request));
 
 const malformed = await interpretOrFallback({ provider: { interpret: async () => ({ unexpected: true }) }, request, timeoutMs: 1000 });
@@ -87,44 +89,54 @@ const captureAdapter = createGroqAdapter({
   credential: "TEST_ONLY",
   fetchImpl: async (_url, options) => {
     capturedProviderBody = options.body;
-    const providerCodes = {
-      overview_code: "ordered_human_review",
+    const providerAnalysis = {
+      synthesis: validInterpretation.overview,
       records: {
-        R01: { attention: "review_first", rationale_code: "direct_coordination", next_step_code: "inspect_evidence" },
-        R02: { attention: "review_next", rationale_code: "proximity_review", next_step_code: "compare_route" },
-        R04: { attention: "review_next", rationale_code: "insufficient_evidence", next_step_code: "repair_source" },
+        R01: { attention: "review_first", analysis: validInterpretation.ordered_records[0].rationale, next_step: validInterpretation.ordered_records[0].next_step },
+        R02: { attention: "review_next", analysis: validInterpretation.ordered_records[1].rationale, next_step: validInterpretation.ordered_records[1].next_step },
+        R04: { attention: "informational", analysis: validInterpretation.ordered_records[2].rationale, next_step: validInterpretation.ordered_records[2].next_step },
       },
     };
-    return new Response(JSON.stringify({ choices: [{ message: { content: JSON.stringify(providerCodes) } }] }), { status: 200, headers: { "Content-Type": "application/json" } });
+    return new Response(JSON.stringify({ choices: [{ message: { content: JSON.stringify(providerAnalysis) } }] }), { status: 200, headers: { "Content-Type": "application/json" } });
   },
 });
 const captured = await interpretWithProvider({ provider: captureAdapter, request, timeoutMs: 1000 });
 assert.equal(captured.ordered_records.length, 3);
-assert.match(captured.overview, /human coordination review/);
+assert.match(captured.overview, /direct geometric conflict/);
 for (const forbidden of ["SECRET-GUID", "Ignore all prior instructions", "PRIVATE_MODEL_REFERENCE", "DO NOT SEND"]) assert.equal(capturedProviderBody.includes(forbidden), false);
 assert.equal(capturedProviderBody.includes("TEST_ONLY"), false, "API key entered the provider body");
 const capturedBody = JSON.parse(capturedProviderBody);
 assert.deepEqual(Object.keys(capturedBody.response_format.json_schema.schema.properties.records.properties), ["R01", "R02", "R04"]);
 assert.deepEqual(capturedBody.response_format.json_schema.schema.properties.records.required, ["R01", "R02", "R04"]);
 assert.equal(capturedBody.response_format.json_schema.schema.properties.records.additionalProperties, false);
-assert.equal(capturedProviderBody.includes('"rationale":{"type":"string"}'), false, "Provider response schema exposed free-form rationale text");
+assert.equal(capturedBody.response_format.json_schema.schema.properties.records.properties.R01.properties.analysis.type, "string");
+assert.equal(capturedBody.response_format.json_schema.schema.properties.records.properties.R01.properties.analysis.maxLength, 700);
+assert.match(capturedBody.messages[0].content, /Do not merely restate a status label or produce fragments/);
+assert.match(capturedBody.messages[0].content, /two to four sentences/);
 
 const zhRequest = buildMinimalAiRequest(sourceRecords, "zh-CN");
 const zhAdapter = createGroqAdapter({
   credential: "TEST_ONLY",
   fetchImpl: async () => new Response(JSON.stringify({ choices: [{ message: { content: JSON.stringify({
-    overview_code: "ordered_human_review",
+    synthesis: "这组结果应按协调影响分层处理：先复核已有几何证据确认的直接冲突，再检查协调余量不足的关系；证据缺口必须补齐，不能当作安全结论。",
     records: {
-      R01: { attention: "review_first", rationale_code: "direct_coordination", next_step_code: "inspect_evidence" },
-      R02: { attention: "review_next", rationale_code: "proximity_review", next_step_code: "compare_route" },
-      R04: { attention: "review_next", rationale_code: "insufficient_evidence", next_step_code: "repair_source" },
+      R01: { attention: "review_first", analysis: "现有几何证据表明管线与结构实体之间存在超过既定容差的直接冲突，因此它最可能阻断当前协调方案。应先处理这条关系，避免后续调整建立在未解决的冲突上。", next_step: "核对双方构件和冲突位置，再比较项目已批准的协调方案。" },
+      R02: { attention: "review_next", analysis: "该关系没有进入直接冲突队列，但可用协调余量低于已冻结的规则边界。它适合在直接冲突之后复核，并与相邻调整一起考虑。", next_step: "检查最近关系，并比较当前路径与已批准的替代方案。" },
+      R04: { attention: "informational", analysis: "自动化路径缺少形成可靠结论所需的几何证据，因此不能把这条记录理解为没有问题。关闭本轮协调问题前必须修复其源证据。", next_step: "核验源几何和坐标条件，然后重新运行确定性检查。" },
     },
   }) } }] }), { status: 200, headers: { "Content-Type": "application/json" } }),
 });
 const zhInterpretation = await interpretWithProvider({ provider: zhAdapter, request: zhRequest, timeoutMs: 1000 });
-assert.match(zhInterpretation.overview, /人工协调复核/);
-assert.match(zhInterpretation.ordered_records[0].next_step, /权威证据视图/);
+assert.match(zhInterpretation.overview, /协调影响分层处理/);
+assert.match(zhInterpretation.ordered_records[0].next_step, /双方构件和冲突位置/);
 assert.equal(/[\u3400-\u9fff]/u.test(captured.overview), false, "English interpretation template contained Chinese text");
+assert.equal(/[\u3400-\u9fff]/u.test(zhInterpretation.overview), true, "Chinese interpretation did not contain Chinese text");
+
+const zhFallback = deterministicFallback(zhRequest);
+validateAiInterpretation(zhFallback, zhRequest);
+assert.match(zhFallback.overview, /先解决.*直接冲突/);
+assert.match(zhFallback.ordered_records[1].rationale, /协调余量不足/);
+assert.equal(zhFallback.ordered_records[2].attention, "informational");
 
 const server = createG4AiServer({ provider: { interpret: async () => structuredClone(validInterpretation) }, timeoutMs: 1000 });
 server.listen(0, "127.0.0.1");
@@ -152,6 +164,7 @@ try {
 console.log("G4AI_MINIMAL_FIELDS=PASS");
 console.log("G4AI_PROMPT_INJECTION_FILTER=PASS");
 console.log("G4AI_STATUS_RULE_EVIDENCE_IMMUTABLE=PASS");
+console.log("G4AI_SUBSTANTIVE_COORDINATION_ANALYSIS=PASS");
 console.log("G4AI_MOCK_SUCCESS=PASS");
 console.log("G4AI_TIMEOUT_RATE_QUOTA_NETWORK_MALFORMED=PASS");
 console.log("G4AI_DETERMINISTIC_FALLBACK=PASS");

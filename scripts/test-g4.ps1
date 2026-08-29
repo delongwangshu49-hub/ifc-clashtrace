@@ -72,13 +72,15 @@ foreach ($contract in @(
     'id="preview-ai-fields"'
     'data-control-mode="display"'
     'data-control-mode="ai"'
-    'workspace-ai-option'
+    'workspace-ai-note'
     'controlled-example-title'
     'Review pack · C01 / C03 / C05 / C08'
     '<p class="card-index">A1</p>'
     '<p class="card-index">A2</p>'
     '<p class="card-index">B · DEMO</p>'
 )) { Assert-Contains $app $contract "Functional workspace contract missing: $contract" }
+if (($app.Split('data-control-mode="ai"').Count - 1) -ne 1) { throw "Functional workspace must expose exactly one AI control after results." }
+if ($app.Contains('workspace-ai-option') -or $app.Contains('OPTIONAL EXPLANATION')) { throw "Obsolete pre-run AI control card remains." }
 foreach ($obsoleteInputIndex in @('<p class="card-index">B1</p>', '<p class="card-index">B2</p>', '<p class="card-index">A · DEMO</p>', '<p class="card-index">B</p>')) {
     if ($app.Contains($obsoleteInputIndex)) { throw "Obsolete functional-workspace input index remains: $obsoleteInputIndex" }
 }
@@ -160,7 +162,7 @@ foreach ($contract in @(
     'state.sources.set'
     'viewer.focusRecord'
     'Pre-send preview (nothing sent yet)'
-    'Deterministic results remain authoritative'
+    'detection conclusions stay unchanged'
 )) { Assert-Contains $appScript $contract "G4 runtime contract missing: $contract" }
 if ($appScript -match '(?i)https://[^"''`\s]*(?:api|openai|anthropic|gemini|groq|together)') { throw "G4 base runtime contains a provider/API URL." }
 if ($appScript -match '(?i)(?:api[_-]?key|access[_-]?token|authorization\s*:)') { throw "G4 base runtime contains a credential-bearing API signal." }
