@@ -58,11 +58,19 @@ foreach ($required in @(
     'data-ai-action="retry"',
     'data-ai-action="copy"',
     'data-ai-action="close"',
+    'AI_MAX_RECORDS',
+    'aiOperation',
+    'state.aiController === controller',
+    'operation !== state.aiOperation',
+    'if (button.dataset.aiAction === "retry") await showAiPreview()',
     'state.aiRequest.locale !== language()',
     'state.aiRequest = null',
     'state.aiResult = null',
     "GUIDs, names, IFC bytes, meshes, filenames, paths, hashes, diagnostics, and browser metadata are excluded"
 )) { if (-not $appScript.Contains($required)) { throw "G4AI runtime contract missing: $required" } }
+if ($appScript.Contains('button.dataset.aiAction === "send" || button.dataset.aiAction === "retry"')) { throw "Retry bypasses the fresh-consent preview." }
+if ($contract -notmatch 'AI_MAX_RECORDS\s*=\s*6') { throw "AI request boundary is not aligned to the supported capacity." }
+if ($contract -notmatch 'AI_MAX_COMPLETION_TOKENS\s*=\s*1600') { throw "AI completion cap does not leave bounded room for six prose records." }
 
 foreach ($publicCopy in @($appHtml, $appScript)) {
     foreach ($developerPhrase in @(

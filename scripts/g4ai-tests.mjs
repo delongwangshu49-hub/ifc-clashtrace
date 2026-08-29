@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { once } from "node:events";
 import { createGroqAdapter } from "../app/ai/adapters/groq.mjs";
-import { buildMinimalAiRequest, deterministicFallback, validateAiInterpretation, validateMinimalAiRequest } from "../app/ai/contract.mjs";
+import { AI_MAX_COMPLETION_TOKENS, AI_MAX_RECORDS, buildMinimalAiRequest, deterministicFallback, validateAiInterpretation, validateMinimalAiRequest } from "../app/ai/contract.mjs";
 import { AiServiceError, interpretOrFallback, interpretWithProvider } from "../app/ai/provider-neutral.mjs";
 import { createG4AiServer } from "./g4ai-local-server.mjs";
 
@@ -38,6 +38,10 @@ assert.deepEqual(request.summary, { CLASH: 1, WARNING: 1, CLEAR: 1, NOT_EVALUATE
 assert.equal(request.records[1].measurement.value_m, 0.049);
 assert.equal(request.records[2].rule_id, "MEP_STRUCTURE_CLEARANCE_WARNING_V1", "Allowlisted deterministic rule IDs must be preserved");
 validateMinimalAiRequest(request);
+assert.equal(AI_MAX_RECORDS, 6);
+const boundaryRecords = [...sourceRecords, sourceRecords[0], sourceRecords[1]];
+validateMinimalAiRequest(buildMinimalAiRequest(boundaryRecords, "en"));
+assert.throws(() => buildMinimalAiRequest([...boundaryRecords, sourceRecords[2]], "en"), /limited to 6/);
 
 const validInterpretation = {
   overview: "Resolve the direct geometric conflict first, then examine the relationship with limited coordination margin. The unevaluated item needs repaired evidence and must not be treated as a safe result.",
@@ -49,19 +53,22 @@ const validInterpretation = {
   global_limits: ["Generated analysis cannot alter machine records.", "A qualified reviewer must decide any project action from the full evidence."],
 };
 validateAiInterpretation(validInterpretation, request);
+validateAiInterpretation({ ...validInterpretation, overview: "Use a clear review sequence and treat warning signs as coordination context rather than machine conclusions." }, request);
 const before = JSON.stringify(request);
 const success = await interpretOrFallback({ provider: { interpret: async () => structuredClone(validInterpretation) }, request, timeoutMs: 1000 });
 assert.equal(success.mode, "provider");
 assert.equal(JSON.stringify(request), before, "Provider interpretation mutated deterministic input");
 
 assert.throws(() => validateAiInterpretation({ ...validInterpretation, overview: "This is CLEAR at 50 mm." }, request));
+assert.throws(() => validateAiInterpretation({ ...validInterpretation, overview: "This creates a safety and constructability risk that may be a false negative." }, request));
+assert.throws(() => validateAiInterpretation({ ...validInterpretation, ordered_records: validInterpretation.ordered_records.map((item, index) => index === 0 ? { ...item, next_step: "Modify the pipe route or relocate the wall to remove the conflict." } : item) }, request));
 assert.throws(() => validateAiInterpretation({ ...validInterpretation, overview: "这段文字使用了错误语言。" }, request));
 assert.throws(() => validateAiInterpretation({ ...validInterpretation, overview: "Review the external evidence at https://example.invalid before continuing." }, request));
 assert.throws(() => validateAiInterpretation({ ...validInterpretation, ordered_records: validInterpretation.ordered_records.slice(0, 2) }, request));
 
 const malformed = await interpretOrFallback({ provider: { interpret: async () => ({ unexpected: true }) }, request, timeoutMs: 1000 });
 assert.equal(malformed.mode, "deterministic_fallback");
-assert.equal(malformed.error.code, "malformed_response");
+assert.equal(malformed.error.code, "semantic_rejected");
 
 const noProvider = await interpretOrFallback({ provider: null, request, timeoutMs: 1000 });
 assert.equal(noProvider.error.code, "provider_unconfigured");
@@ -110,9 +117,40 @@ assert.deepEqual(Object.keys(capturedBody.response_format.json_schema.schema.pro
 assert.deepEqual(capturedBody.response_format.json_schema.schema.properties.records.required, ["R01", "R02", "R04"]);
 assert.equal(capturedBody.response_format.json_schema.schema.properties.records.additionalProperties, false);
 assert.equal(capturedBody.response_format.json_schema.schema.properties.records.properties.R01.properties.analysis.type, "string");
-assert.equal(capturedBody.response_format.json_schema.schema.properties.records.properties.R01.properties.analysis.maxLength, 700);
+assert.equal(capturedBody.response_format.json_schema.schema.properties.records.properties.R01.properties.analysis.maxLength, undefined);
+assert.match(capturedBody.response_format.json_schema.schema.properties.records.properties.R01.properties.next_step.description, /Evidence-review action only/);
+assert.equal(capturedBody.max_completion_tokens, AI_MAX_COMPLETION_TOKENS);
+assert.equal(AI_MAX_COMPLETION_TOKENS, 1600);
 assert.match(capturedBody.messages[0].content, /Do not merely restate a status label or produce fragments/);
 assert.match(capturedBody.messages[0].content, /two to four sentences/);
+
+const strictSchemaKeywords = new Set(["type", "properties", "required", "additionalProperties", "enum", "description", "anyOf", "items", "$defs", "$ref"]);
+function assertStrictSchemaSubset(value, path = "schema") {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return;
+  for (const [key, item] of Object.entries(value)) {
+    if (path.endsWith(".properties") || path.endsWith(".$defs")) {
+      assertStrictSchemaSubset(item, `${path}.${key}`);
+      continue;
+    }
+    assert.equal(strictSchemaKeywords.has(key), true, `Unsupported strict-schema keyword at ${path}.${key}`);
+    if (key === "properties" || key === "$defs") assertStrictSchemaSubset(item, `${path}.${key}`);
+    else if (key === "items") assertStrictSchemaSubset(item, `${path}.items`);
+    else if (key === "anyOf") item.forEach((branch, index) => assertStrictSchemaSubset(branch, `${path}.anyOf[${index}]`));
+  }
+}
+assertStrictSchemaSubset(capturedBody.response_format.json_schema.schema);
+
+const lengthAdapter = createGroqAdapter({
+  credential: "TEST_ONLY",
+  fetchImpl: async () => new Response(JSON.stringify({ choices: [{ finish_reason: "length", message: { content: "{}" } }] }), { status: 200, headers: { "Content-Type": "application/json" } }),
+});
+await assert.rejects(() => interpretWithProvider({ provider: lengthAdapter, request, timeoutMs: 1000 }), error => error instanceof AiServiceError && error.code === "output_limit" && error.retryable);
+
+const refusalAdapter = createGroqAdapter({
+  credential: "TEST_ONLY",
+  fetchImpl: async () => new Response(JSON.stringify({ choices: [{ finish_reason: "stop", message: { refusal: "refused", content: null } }] }), { status: 200, headers: { "Content-Type": "application/json" } }),
+});
+await assert.rejects(() => interpretWithProvider({ provider: refusalAdapter, request, timeoutMs: 1000 }), error => error instanceof AiServiceError && error.code === "provider_refused" && !error.retryable);
 
 const zhRequest = buildMinimalAiRequest(sourceRecords, "zh-CN");
 const zhAdapter = createGroqAdapter({
@@ -165,6 +203,9 @@ console.log("G4AI_MINIMAL_FIELDS=PASS");
 console.log("G4AI_PROMPT_INJECTION_FILTER=PASS");
 console.log("G4AI_STATUS_RULE_EVIDENCE_IMMUTABLE=PASS");
 console.log("G4AI_SUBSTANTIVE_COORDINATION_ANALYSIS=PASS");
+console.log("G4AI_UNSUPPORTED_CLAIM_GUARD=PASS");
+console.log("G4AI_GROQ_STRICT_SCHEMA_SUBSET=PASS");
+console.log("G4AI_OUTPUT_LIMIT_REFUSAL_CLASSIFICATION=PASS");
 console.log("G4AI_MOCK_SUCCESS=PASS");
 console.log("G4AI_TIMEOUT_RATE_QUOTA_NETWORK_MALFORMED=PASS");
 console.log("G4AI_DETERMINISTIC_FALLBACK=PASS");
