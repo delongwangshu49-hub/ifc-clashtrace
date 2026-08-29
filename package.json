@@ -5,6 +5,8 @@
   "type": "module",
   "description": "Deterministic IFC hard-clash and controlled surface-clearance evidence.",
   "scripts": {
+    "build": "node scripts/g6-prepare-build.mjs && vite build && vite build --config vite.worker.config.mjs",
+    "preview": "vite preview --outDir dist/client --host 127.0.0.1 --port 4173",
     "g1:node": "node scripts/g1-web-ifc-spike.mjs",
     "g3:test": "node scripts/g3-engine-tests.mjs",
     "g3:case": "node scripts/g3-run-controlled.mjs",
@@ -12,11 +14,16 @@
     "g4:test": "pwsh -NoProfile -File scripts/test-g4.ps1",
     "g4ai:serve": "node scripts/g4ai-local-server.mjs",
     "g4ai:test": "pwsh -NoProfile -File scripts/test-g4ai.ps1",
-    "g5:test": "pwsh -NoProfile -File scripts/test-g5.ps1"
+    "g5:test": "pwsh -NoProfile -File scripts/test-g5.ps1",
+    "g6:test": "pwsh -NoProfile -File scripts/test-g6.ps1"
   },
   "dependencies": {
     "three": "0.185.1",
     "three-mesh-bvh": "0.9.14",
     "web-ifc": "0.0.77"
+  },
+  "devDependencies": {
+    "@openai/sites-vite-plugin": "^0.2.0",
+    "vite": "^8.2.2"
   }
 }

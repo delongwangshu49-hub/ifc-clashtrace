@@ -402,3 +402,58 @@ This repository uses AI assistance for implementation planning and code drafting
 - Adopted output: three reproducible evaluation scripts, one public PowerShell acceptance contract, a local-only publication audit, a bounded public evaluation report, ignored exact-hash external samples, and an O-005 decision retaining formal IFC4-only support with IFC4X3 exploratory.
 - Verification: controlled status and pair matches are `8/8`; three-way status agreement is `8/8`; hard-clash precision/recall are `1.00/1.00` with one deliberate abstention; both clearance routes match `9/9`; web-ifc and IfcOpenShell open both official files, while the product and Chrome UI return explicit `NOT_EVALUATED` for prefixed units; AI fact preservation is `6/6` and degradation is `5/5`; the four-case review pack and official-sample failure route remain usable in desktop Chrome.
 - Rejected or deferred suggestions: unit normalization, generic HVAC segment support, IFC4X3 claims, deriving accuracy from the official directory, large-model performance claims, a fresh live AI call, publishing third-party IFC, deployment, G6, mobile IFC computation, video, or public-access changes.
+
+## P-042 — G6 private deployment candidate and publication audit
+
+- Date: 2026-08-29
+- Goal: package the completed G5-R1 product as a public-capable but not publicly accessible Sites candidate, verify a private preview, and close the G6 privacy/license/provider evidence without entering VG or G7.
+- Sanitized prompt: independently reverify the current local and public G5-R1 evidence; preserve the three-page browser architecture and all deterministic contracts; add the smallest Sites-compatible static/Worker build; stage only generated public IFC data and required runtime assets; audit secrets, identity, paths, archive/media metadata, screenshots, licenses, AI data flow, server key, logs, quota, retention, and current provider terms; update README, prompt record, architecture, and evaluation evidence; stop for human preview and action-time authorization before any external write.
+- Human constraints: local Git remains authoritative with zero remotes and one saved worktree; GitHub writes, Sites project creation/deployment, hosted secret use, and access changes require action-time authorization. The local master plan and every `scripts/audit-*.ps1` are never publication candidates. AI defaults off, receives only the already approved minimal derivative after fresh consent, fails closed, and cannot alter deterministic records.
+- Adopted output: a Vite multi-page build, Worker-compatible same-origin AI entry, ignored exact-input staging, public no-key Worker/media/license tests, complete third-party inventory, G6 architecture and privacy/provider audit, and a private-preview-only access decision. Four existing preview files were found to contain JPEG bytes under PNG names and were content-preserving re-encoded as real PNG files without EXIF/text metadata.
+- Verification boundary: builds and local owner preview make no external write or live provider request. A hosted owner-only preview, GitHub checkpoint, or public access is recorded only after the user grants the separately listed action-time authorization and the resulting URL/commit is rechecked.
+- Rejected or deferred suggestions: Cloudflare local tool packages with unresolved development-time advisories, source maps, analytics, durable logs, databases, public access, hosted key configuration, fresh live AI use, external/private IFC redistribution, mobile computation, video, VG, or G7.
+
+## P-043 — G6 private Sites deployment authorization excluding GitHub
+
+- Date: 2026-08-29
+- Goal: complete the previously enumerated G6 deployment actions except GitHub upload, then present the owner-only URL for human acceptance.
+- Human authorization: the user explicitly approved “完成除上传github外的操作”. This covers one Sites project, project-ID persistence, final local test/audit, a local technical commit, temporary-credential source push, saved version, owner-only private deployment, and deployment/access readback.
+- Exclusions: no GitHub write, no public access, no hosted AI key, no Groq live request, no extra viewer/group, no environment secret change, no VG/G7, mobile IFC computation, or video.
+- Stop condition: after the private deployment succeeds, return the private URL and wait for human acceptance. Do not infer acceptance or public-access approval from this authorization.
+- Verification: version 1 deployed successfully from a parentless sanitized source commit; access readback shows owner/custom, one allowed account, no groups, no external visitors, and zero hosted environment variables. The private URL is supplied only for the user's acceptance step.
+
+## P-044 — G6 private-preview static asset binding repair
+
+- Date: 2026-08-29
+- Goal: diagnose the user's inaccessible owner-only preview and repair the production route without changing access, AI, or deterministic behavior.
+- Evidence: the screenshot showed an HTTP response-code failure rather than an authorization screen. Sites readback remained active and owner-only; production Worker logs showed authenticated `GET /` requests returning 404 with successful execution. The saved archive contained the static pages, but they were emitted at `dist/` root while Sites binds static assets from `dist/client`.
+- Adopted output: emit the three pages, generated IFC pack, WASM, license documents, and browser assets under `dist/client`; keep the Cloudflare-compatible Worker at `dist/server/index.js`; make local preview and public tests assert the same directory contract.
+- Preserved boundary: no GitHub write, public access, extra viewer/group, hosted key, Groq live request, deterministic-rule change, AI authority expansion, VG/G7, mobile computation, or video.
+- Verification: G6 five-route local preview, Worker boundary, license inventory, vulnerability/media/privacy checks, G4AI/G4/G3 regression, and G5 evaluation pass. A first repair archive was rejected before deployment because stale root assets remained; the build now clears only reproducible `dist` output and asserts the exact root layout. Clean version 3 deployed privately with owner-only/key-free readback; user refresh and acceptance remain required.
+
+## P-045 — G6 private-preview validation-link repair
+
+- Date: 2026-08-29
+- Goal: replace the development-page validation action after human review found that its GitHub target had no useful content.
+- Human feedback: the user selected `验证方法 ↗` in the owner-only version 3 preview, reported the empty GitHub destination, and asked whether a different target should be used.
+- Adopted output: rename the action to `受控验证 / Controlled validation`; open `/app/#controlled-review` in a new tab; add a stable anchor to the existing C01/C03/C05/C08 frozen-example card; lock the new target and the removal of the obsolete GitHub document path in public tests.
+- Preserved boundary: deterministic G3/G4 results remain authoritative; AI remains optional, default-off, consent-gated, and fail-closed. No GitHub write, public access, extra viewer/group, hosted key, Groq live request, VG/G7, mobile computation, or video is included.
+- Verification: the G4 public-surface contract and full G6/G4AI/G4/G3/G5 regression pass locally. The exact pending public candidate is now 29 files, while the local master and every audit script remain excluded. Owner-only version 4 deployed successfully from the exact sanitized source and clean archive; access remains custom with one allowed account, no groups/external visitors, and no hosted environment variables. User refresh and recheck are still required.
+
+## P-046 — G6 private-preview acceptance and GitHub candidate organization
+
+- Date: 2026-08-29
+- Goal: register the user's acceptance of the basic private-preview experience and organize, but do not upload, the exact GitHub publication candidate.
+- Human evidence: after version 4 deployed with the controlled-validation repair, the user stated “基本使用体验我觉得没问题，现在整理需要上传github的内容”.
+- Adopted output: close only the private-preview human-acceptance gate; preserve the 29-file allowlist; group 27 technical/evidence paths into seven directory-correct Chrome batches, followed by separate one-file public-plan and final-ledger mapping steps; prepare exact commit labels, exclusions, and per-step verification for one later collective authorization.
+- Preserved boundary: this instruction is not GitHub write approval. No Git remote, `gh`, GitHub API/CLI remote, public Sites access, hosted key, Groq live request, extra viewer/group, VG/G7, mobile computation, or video is allowed.
+- Stop condition: complete local tests, audit, candidate manifest, and local Git evidence, then stop before the first GitHub browser write and request one explicit collective authorization for the exact scope.
+
+## P-047 — Presentation-readiness scope and schedule revision
+
+- Date: 2026-08-29
+- Goal: revise the authoritative plan before video production to close stale public-progress content, add a GitHub animated logo, provide a near-realistic engineering UAT pack, and embed the final video on the homepage only after it passes QA.
+- Human evidence: the user observed that the development timeline still stops at DG while G6 is closing, requested a full visible-content audit and corrections, allowed advance drafting of G7 copy for presentation completeness, requested a GitHub-homepage animated product logo, and asked for engineering-like files for final manual website testing.
+- Adopted governance: insert mandatory PG after G6 and before VG. PG-C audits all visible claims and allows future copy only when hidden or explicitly marked planned; PG-B adapts the already approved DG brand into a GitHub-rendered finite animation with a static fallback; PG-E creates a synthetic/appropriately licensed engineering-context IFC pair with sentinel expectations and user UAT. Split final work into G7A video QA and G7B homepage embedding, redeployment, and Hong Kong anonymous-access verification.
+- Preserved boundary: this plan edit does not alter the website, README, logo assets, sample files, deployment, access policy, hosted keys, provider calls, GitHub, or video. Because document contents and hashes changed, the exact 29-path candidate was re-audited locally and passed; no remote write was performed.
+- Truthfulness rule: prewritten G7 content may be labeled `DRAFT/PLANNED`, “计划中”, “即将开展”, or “尚未开始”; it must not use completion language, evidence, dates, metrics, links, or acceptance claims until the corresponding Gate actually passes.
