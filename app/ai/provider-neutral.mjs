@@ -27,7 +27,11 @@ export async function interpretWithProvider({ provider, request, timeoutMs = 15_
   signal?.addEventListener("abort", abortFromCaller, { once: true });
   try {
     const value = await provider.interpret(request, { signal: timeoutController.signal });
-    return validateAiInterpretation(value, request);
+    try {
+      return validateAiInterpretation(value, request);
+    } catch (error) {
+      throw new AiServiceError("semantic_rejected", "AI provider prose failed the local safety contract", { retryable: true, cause: error });
+    }
   } catch (error) {
     if (error instanceof AiServiceError) throw error;
     if (timeoutController.signal.aborted) {

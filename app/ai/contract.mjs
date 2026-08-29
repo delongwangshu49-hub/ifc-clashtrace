@@ -1,6 +1,8 @@
 export const AI_CONTRACT_VERSION = "G4AI_COORDINATION_ANALYSIS_V2";
 export const AI_PROVIDER_ID = "groq";
 export const AI_PROVIDER_MODEL = "openai/gpt-oss-20b";
+export const AI_MAX_RECORDS = 6;
+export const AI_MAX_COMPLETION_TOKENS = 1600;
 
 export const RULE_BOUNDARIES = Object.freeze({
   hard_clash: Object.freeze({
@@ -19,7 +21,9 @@ const STATUS_VALUES = new Set(["CLASH", "WARNING", "CLEAR", "NOT_EVALUATED"]);
 const ENTITY_A_VALUES = new Set(["IfcPipeSegment"]);
 const ENTITY_B_VALUES = new Set(["IfcWall", "IfcBeam"]);
 const ATTENTION_VALUES = new Set(["review_first", "review_next", "informational"]);
-const FORBIDDEN_AI_TEXT = /\b(?:CLASH|WARNING|CLEAR|NOT_EVALUATED)\b|\b\d+(?:\.\d+)?\s*(?:mm|m)\b|https?:\/\//iu;
+const FORBIDDEN_MACHINE_STATUS = /\b(?:CLASH|WARNING|CLEAR|NOT_EVALUATED)\b/u;
+const FORBIDDEN_MEASUREMENT_OR_URL = /\b\d+(?:\.\d+)?\s*(?:mm|m)\b|https?:\/\//iu;
+const FORBIDDEN_UNSUPPORTED_CLAIM = /\b(?:safety|unsafe|constructab\w*|design intent|responsible discipline|discipline owner|false positive|false negative|latent issue|code[- ]compliance|regulatory|certif\w*|modify|adjust\w*|rerout\w*|relocat\w*|move (?:the )?(?:pipe|wall)|create (?:an )?opening)\b|(?:安全(?:与可施工)?风险|安全隐患|不安全|构成安全|可施工|施工风险|设计意图|责任专业|专业负责人|误报|漏报|潜在问题|法规|合规|认证|改线|开洞|移动(?:管线|墙体)|调整(?:管线|墙体))/iu;
 
 function finiteOrNull(value) {
   return Number.isFinite(value) ? value : null;
@@ -58,7 +62,7 @@ function recordMeasurement(record, status) {
 
 export function buildMinimalAiRequest(records, locale = "en") {
   if (!Array.isArray(records) || records.length === 0) throw new Error("At least one deterministic record is required");
-  if (records.length > 40) throw new Error("AI interpretation is limited to 40 deterministic records per request");
+  if (records.length > AI_MAX_RECORDS) throw new Error(`AI interpretation is limited to ${AI_MAX_RECORDS} deterministic records per request`);
   const safeLocale = locale === "zh-CN" ? "zh-CN" : "en";
   const minimalRecords = records.map((record, index) => {
     const status = normalizedStatus(record);
@@ -98,7 +102,7 @@ export function validateMinimalAiRequest(value) {
   if (value.deterministic_results_are_authoritative !== true) throw new Error("Deterministic authority acknowledgement is required");
   if (JSON.stringify(value.rule_boundaries) !== JSON.stringify(RULE_BOUNDARIES)) throw new Error("Rule boundaries do not match the frozen contract");
   assertExactKeys(value.summary, [...STATUS_VALUES], "Summary");
-  if (!Array.isArray(value.records) || value.records.length === 0 || value.records.length > 40) throw new Error("Record count is outside the supported boundary");
+  if (!Array.isArray(value.records) || value.records.length === 0 || value.records.length > AI_MAX_RECORDS) throw new Error("Record count is outside the supported boundary");
   const refs = new Set();
   const computedSummary = Object.fromEntries([...STATUS_VALUES].map(status => [status, 0]));
   value.records.forEach((record, index) => {
@@ -120,7 +124,8 @@ export function validateMinimalAiRequest(value) {
 
 function validateText(value, label, maxLength) {
   if (typeof value !== "string" || value.trim().length === 0 || value.length > maxLength) throw new Error(`${label} is missing or too long`);
-  if (FORBIDDEN_AI_TEXT.test(value)) throw new Error(`${label} attempts to restate a deterministic status, measurement, or URL`);
+  if (FORBIDDEN_MACHINE_STATUS.test(value) || FORBIDDEN_MEASUREMENT_OR_URL.test(value)) throw new Error(`${label} attempts to restate a deterministic status, measurement, or URL`);
+  if (FORBIDDEN_UNSUPPORTED_CLAIM.test(value)) throw new Error(`${label} introduces an unsupported engineering, ownership, safety, or solution claim`);
 }
 
 function validateLocaleText(value, locale, label) {
@@ -164,11 +169,11 @@ export function deterministicFallback(request, locale = request?.locale) {
     CLASH: zh ? {
       attention: "review_first",
       rationale: "现有几何证据表明管线与结构实体之间存在超过既定容差的直接冲突，因此这条关系最可能阻断当前协调方案。它应先于净距问题和证据补齐项处理，避免后续方案建立在尚未消除的冲突上。",
-      next_step: "先在确定性证据视图中核对双方构件与冲突位置，再由项目团队评估是否需要改线、开洞或其他协调措施。",
+      next_step: "先在确定性证据视图中核对双方构件与冲突位置，再由合格审阅者依据完整证据决定后续项目行动。",
     } : {
       attention: "review_first",
       rationale: "The geometry evidence shows a direct pipe-to-structure conflict beyond the established tolerance, so this relationship is the most likely to block the current coordination route. Review it before clearance and evidence-repair items so later decisions are not built around an unresolved conflict.",
-      next_step: "Verify both components and the conflict location in the deterministic evidence view, then let the project team assess whether rerouting, an opening, or another coordination measure is needed.",
+      next_step: "Verify both components and the conflict location in the deterministic evidence view, then let qualified reviewers decide any subsequent project action from the full evidence.",
     },
     WARNING: zh ? {
       attention: "review_next",
@@ -195,7 +200,7 @@ export function deterministicFallback(request, locale = request?.locale) {
       : "These results should not be treated as one type of issue: resolve the evidence-backed direct conflict first, then review the below-threshold relationship, while repairing evidence for the unevaluated item rather than treating it as safe. Evaluated-clear relationships can stay outside the active coordination queue while their machine records remain intact.",
     ordered_records: records.map(record => ({ record_ref: record.record_ref, ...content[record.status] })),
     global_limits: zh
-      ? ["这是依据既有结构化字段生成的本地降级分析，不是新的检测结论。", "任何改线、开洞、放行或其他项目行动仍须由合格审阅者依据完整证据决定。"]
-      : ["This is a local fallback analysis derived only from existing structured fields, not a new detection conclusion.", "A qualified reviewer must decide any rerouting, opening, acceptance, or other project action from the full evidence."],
+      ? ["这是依据既有结构化字段生成的本地降级分析，不是新的检测结论。", "任何项目行动仍须由合格审阅者依据完整证据决定。"]
+      : ["This is a local fallback analysis derived only from existing structured fields, not a new detection conclusion.", "A qualified reviewer must decide any project action from the full evidence."],
   };
 }

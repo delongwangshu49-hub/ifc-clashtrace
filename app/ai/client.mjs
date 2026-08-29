@@ -1,4 +1,6 @@
-import { buildMinimalAiRequest, deterministicFallback, validateAiInterpretation } from "./contract.mjs";
+import { AI_MAX_RECORDS, buildMinimalAiRequest, deterministicFallback, validateAiInterpretation } from "./contract.mjs";
+
+export { AI_MAX_RECORDS };
 
 export class AiClientError extends Error {
   constructor(code, { retryable = false } = {}) {
