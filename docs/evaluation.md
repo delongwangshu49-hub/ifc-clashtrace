@@ -1,6 +1,6 @@
 # G5 evaluation and external-sample evidence
 
-Status: local technical `PASS` on 2026-08-29. This report is a bounded acceptance result, not a claim of arbitrary IFC, exporter, project, or engineering accuracy. The public checkpoint remains pending until the separately authorized browser publication and SHA-mapping tail are complete.
+Status: G5 `PASS` on 2026-08-29. The original public checkpoint and SHA-mapping tail are complete. This report is a bounded acceptance result, not a claim of arbitrary IFC, exporter, project, or engineering accuracy; the later G5-R1 consistency repair does not change the recorded metrics or product scope.
 
 ## Answer first
 
