@@ -328,3 +328,30 @@ This repository uses AI assistance for implementation planning and code drafting
 - Adopted output: replace provider-authored prose with a strict required-key object containing enum codes only; materialize trusted bilingual prose locally; cancel and invalidate stale AI state when the UI language changes; stop live use after the fourth attempt passed.
 - Verification: the first three authorized attempts failed closed as malformed/provider-rejected/malformed without changing records; the fourth returned the exact actionable set and rendered Chinese locally while the deterministic `1/1/1/1` summary and evidence remained unchanged and Chrome console issues stayed at zero. Offline tests cover both languages and stale-language invalidation.
 - Rejected or deferred suggestions: no fifth live call, arbitrary prose acceptance, AI-authored status/rule/evidence, deployment, public-access change, mobile computation, video, or broader IFC claim was added.
+
+## P-034 — G4AI coordination-analysis usefulness and entry repair
+
+- Date: 2026-08-29
+- Goal: respond to the first human trial showing that the safe enum-materialized result was too generic and fragmented, while the generation entry was hidden inside the evidence drawer.
+- Human constraints: make the AI useful enough to explain why items matter, how records relate, and what to review next; move the entry into the visible result flow; keep deterministic status/rules/evidence authoritative; default off, preview, fresh consent, key isolation, minimal fields, failure closing, and Chinese/English matching remain mandatory; no live call, upload, deployment, mobile computation, video, or new deterministic rule is implied.
+- Adopted output: a prominent result-summary entry with a synchronized AI toggle and explicit `Enable -> Preview fields -> Confirm and analyze` path; a bounded exact-key response with one cross-record synthesis plus two-to-three-sentence per-record evidence readings and one coordination focus; an upgraded local fallback with the same useful structure.
+- Verification plan: mock both languages, reject wrong-language/unknown/incomplete/status-restating/numeric/URL output, retain timeout/rate/quota/network/origin/key guards, rerun G4/G3 regression, and inspect the updated first-sample flow in the local browser without consuming live quota.
+- Rejected or deferred suggestions: unconstrained chat, provider-authored statuses or measurements, invented causes/locations/solutions, client-side key use, automatic sending, a fifth live call without separate approval, external publication, deployment, and any G5 work.
+
+## P-035 — G4AI entry hierarchy simplification
+
+- Date: 2026-08-29
+- Goal: remove the duplicated pre-run/post-run AI modules and shorten the result action after the second annotated human review.
+- Human constraints: before results, keep only one sentence saying the product can use AI and move provider/model, preview/confirmation, quota, region, and dated data-term context forward; after results, keep the AI area compact and make the button materially shorter. Preserve default-off, field preview, fresh consent, server-only key, deterministic authority, bilingual output, and failure closing.
+- Adopted output: the pre-run AI card and switch are replaced by one compact disclosure line; the result area contains the page's only AI switch, the title `可选 AI 解读 / Optional AI interpretation`, and the action `AI 解读 / Interpret`. The large outcome headline, three-step path, visible duplicate switch label, and long CTA are removed.
+- Verification plan: assert exactly one AI control, reject all obsolete entry markers and long copy, run the G4AI/G4/G3 regression and publication audit, then capture both the pre-run disclosure and post-run compact control in the local no-key browser without a live call.
+- Rejected or deferred suggestions: removing pre-send preview or consent, hiding the provider at send time, changing the provider, making AI automatic, consuming live quota, uploading, deploying, entering G5, mobile computation, or video work.
+
+## P-036 — G4AI public-facing service and privacy copy
+
+- Date: 2026-08-29
+- Goal: remove account-specific and developer-oriented wording from the public AI flow after the third annotated review, and explain the no-key fallback without exposing an internal error code.
+- Human constraints: retain the selected provider/model, field preview, fresh consent, minimal-field privacy boundary, deterministic authority, bilingual output, and failure closing; do not configure a key, make a fifth live call, upload, deploy, or enter G5.
+- Adopted output: pre-run and pre-send disclosures now describe the user-visible provider, confirmation step, excluded local data, and current public terms. `API READY`, `API NOT CONFIGURED`, account/ZDR wording, dated developer notes, and raw `{code}` rendering are removed from the public UI. Provider, busy/quota, connection, and other failures map to concise bilingual service messages while internal codes remain testable below the presentation layer.
+- Verification: the no-key browser route shows `当前将使用本地解读`, then `AI 服务暂时不可用，已切换为本地解读。检测结果不受影响。`; neither Chinese nor English DOM exposes `provider_unconfigured` or account-level terminology. G4AI/G4 regression and `git diff --check` pass without a provider request or quota use.
+- Rejected or deferred suggestions: no provider change, live credential configuration, live retry, consent removal, provider hiding, deterministic-result mutation, external publication, deployment, mobile computation, video, or G5 work.
