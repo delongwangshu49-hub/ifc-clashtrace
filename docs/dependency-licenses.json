@@ -1,0 +1,316 @@
+{
+  "schema_version": 1,
+  "verified_on": "2026-08-29",
+  "source": "package-lock.json",
+  "package_count": 44,
+  "packages": [
+    {
+      "name": "@openai/sites-vite-plugin",
+      "version": "0.2.0",
+      "license": "MIT",
+      "direct": "build",
+      "optional": false
+    },
+    {
+      "name": "@oxc-project/types",
+      "version": "0.147.0",
+      "license": "MIT",
+      "direct": "transitive",
+      "optional": false
+    },
+    {
+      "name": "@rolldown/binding-android-arm-eabi",
+      "version": "1.2.6",
+      "license": "MIT",
+      "direct": "transitive",
+      "optional": true
+    },
+    {
+      "name": "@rolldown/binding-android-arm64",
+      "version": "1.2.6",
+      "license": "MIT",
+      "direct": "transitive",
+      "optional": true
+    },
+    {
+      "name": "@rolldown/binding-darwin-arm64",
+      "version": "1.2.6",
+      "license": "MIT",
+      "direct": "transitive",
+      "optional": true
+    },
+    {
+      "name": "@rolldown/binding-darwin-x64",
+      "version": "1.2.6",
+      "license": "MIT",
+      "direct": "transitive",
+      "optional": true
+    },
+    {
+      "name": "@rolldown/binding-freebsd-x64",
+      "version": "1.2.6",
+      "license": "MIT",
+      "direct": "transitive",
+      "optional": true
+    },
+    {
+      "name": "@rolldown/binding-linux-arm-gnueabihf",
+      "version": "1.2.6",
+      "license": "MIT",
+      "direct": "transitive",
+      "optional": true
+    },
+    {
+      "name": "@rolldown/binding-linux-arm64-gnu",
+      "version": "1.2.6",
+      "license": "MIT",
+      "direct": "transitive",
+      "optional": true
+    },
+    {
+      "name": "@rolldown/binding-linux-arm64-musl",
+      "version": "1.2.6",
+      "license": "MIT",
+      "direct": "transitive",
+      "optional": true
+    },
+    {
+      "name": "@rolldown/binding-linux-ppc64-gnu",
+      "version": "1.2.6",
+      "license": "MIT",
+      "direct": "transitive",
+      "optional": true
+    },
+    {
+      "name": "@rolldown/binding-linux-s390x-gnu",
+      "version": "1.2.6",
+      "license": "MIT",
+      "direct": "transitive",
+      "optional": true
+    },
+    {
+      "name": "@rolldown/binding-linux-x64-gnu",
+      "version": "1.2.6",
+      "license": "MIT",
+      "direct": "transitive",
+      "optional": true
+    },
+    {
+      "name": "@rolldown/binding-linux-x64-musl",
+      "version": "1.2.6",
+      "license": "MIT",
+      "direct": "transitive",
+      "optional": true
+    },
+    {
+      "name": "@rolldown/binding-openharmony-arm64",
+      "version": "1.2.6",
+      "license": "MIT",
+      "direct": "transitive",
+      "optional": true
+    },
+    {
+      "name": "@rolldown/binding-win32-arm64-msvc",
+      "version": "1.2.6",
+      "license": "MIT",
+      "direct": "transitive",
+      "optional": true
+    },
+    {
+      "name": "@rolldown/binding-win32-x64-msvc",
+      "version": "1.2.6",
+      "license": "MIT",
+      "direct": "transitive",
+      "optional": true
+    },
+    {
+      "name": "@rolldown/pluginutils",
+      "version": "1.0.1",
+      "license": "MIT",
+      "direct": "transitive",
+      "optional": false
+    },
+    {
+      "name": "detect-libc",
+      "version": "2.1.2",
+      "license": "Apache-2.0",
+      "direct": "transitive",
+      "optional": false
+    },
+    {
+      "name": "fdir",
+      "version": "6.5.0",
+      "license": "MIT",
+      "direct": "transitive",
+      "optional": false
+    },
+    {
+      "name": "fsevents",
+      "version": "2.3.3",
+      "license": "MIT",
+      "direct": "transitive",
+      "optional": true
+    },
+    {
+      "name": "lightningcss",
+      "version": "1.33.0",
+      "license": "MPL-2.0",
+      "direct": "transitive",
+      "optional": false
+    },
+    {
+      "name": "lightningcss-android-arm64",
+      "version": "1.33.0",
+      "license": "MPL-2.0",
+      "direct": "transitive",
+      "optional": true
+    },
+    {
+      "name": "lightningcss-darwin-arm64",
+      "version": "1.33.0",
+      "license": "MPL-2.0",
+      "direct": "transitive",
+      "optional": true
+    },
+    {
+      "name": "lightningcss-darwin-x64",
+      "version": "1.33.0",
+      "license": "MPL-2.0",
+      "direct": "transitive",
+      "optional": true
+    },
+    {
+      "name": "lightningcss-freebsd-x64",
+      "version": "1.33.0",
+      "license": "MPL-2.0",
+      "direct": "transitive",
+      "optional": true
+    },
+    {
+      "name": "lightningcss-linux-arm-gnueabihf",
+      "version": "1.33.0",
+      "license": "MPL-2.0",
+      "direct": "transitive",
+      "optional": true
+    },
+    {
+      "name": "lightningcss-linux-arm64-gnu",
+      "version": "1.33.0",
+      "license": "MPL-2.0",
+      "direct": "transitive",
+      "optional": true
+    },
+    {
+      "name": "lightningcss-linux-arm64-musl",
+      "version": "1.33.0",
+      "license": "MPL-2.0",
+      "direct": "transitive",
+      "optional": true
+    },
+    {
+      "name": "lightningcss-linux-x64-gnu",
+      "version": "1.33.0",
+      "license": "MPL-2.0",
+      "direct": "transitive",
+      "optional": true
+    },
+    {
+      "name": "lightningcss-linux-x64-musl",
+      "version": "1.33.0",
+      "license": "MPL-2.0",
+      "direct": "transitive",
+      "optional": true
+    },
+    {
+      "name": "lightningcss-win32-arm64-msvc",
+      "version": "1.33.0",
+      "license": "MPL-2.0",
+      "direct": "transitive",
+      "optional": true
+    },
+    {
+      "name": "lightningcss-win32-x64-msvc",
+      "version": "1.33.0",
+      "license": "MPL-2.0",
+      "direct": "transitive",
+      "optional": true
+    },
+    {
+      "name": "nanoid",
+      "version": "3.3.18",
+      "license": "MIT",
+      "direct": "transitive",
+      "optional": false
+    },
+    {
+      "name": "picocolors",
+      "version": "1.1.1",
+      "license": "ISC",
+      "direct": "transitive",
+      "optional": false
+    },
+    {
+      "name": "picomatch",
+      "version": "4.0.7",
+      "license": "MIT",
+      "direct": "transitive",
+      "optional": false
+    },
+    {
+      "name": "postcss",
+      "version": "8.5.26",
+      "license": "MIT",
+      "direct": "transitive",
+      "optional": false
+    },
+    {
+      "name": "rolldown",
+      "version": "1.2.6",
+      "license": "MIT",
+      "direct": "transitive",
+      "optional": false
+    },
+    {
+      "name": "source-map-js",
+      "version": "1.2.1",
+      "license": "BSD-3-Clause",
+      "direct": "transitive",
+      "optional": false
+    },
+    {
+      "name": "three",
+      "version": "0.185.1",
+      "license": "MIT",
+      "direct": "runtime",
+      "optional": false
+    },
+    {
+      "name": "three-mesh-bvh",
+      "version": "0.9.14",
+      "license": "MIT",
+      "direct": "runtime",
+      "optional": false
+    },
+    {
+      "name": "tinyglobby",
+      "version": "0.2.17",
+      "license": "MIT",
+      "direct": "transitive",
+      "optional": false
+    },
+    {
+      "name": "vite",
+      "version": "8.2.2",
+      "license": "MIT",
+      "direct": "build",
+      "optional": false
+    },
+    {
+      "name": "web-ifc",
+      "version": "0.0.77",
+      "license": "MPL-2.0",
+      "direct": "runtime",
+      "optional": false
+    }
+  ]
+}

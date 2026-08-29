@@ -59,6 +59,12 @@ Allowed claims are limited to the exact public controlled metrics, the dated loc
 
 Known product boundaries remain: IFC4 STEP only; unprefixed metre units; explicitly established shared project coordinates with equal transforms; `IfcPipeSegment` against `IfcWall`/`IfcBeam`; closed reliable tessellations; the frozen 2 mm and 50 mm rules; unsupported or unreliable geometry returns `NOT_EVALUATED`. IFC4X3, prefixed units, generic HVAC flow segments, automatic registration, extra rules, mobile computation, deployment, public-access changes, and video are outside G5.
 
+## G6 deployment-candidate validation
+
+G6 does not change any G5 metric or broaden the supported IFC contract. It packages the same browser core and controlled public data into three static routes plus one optional same-origin Worker AI boundary. The build verifies all 16 controlled IFC files and `web-ifc.wasm`, emits no source maps, keeps the provider endpoint and authorization construction out of browser assets, and returns the deterministic fallback when the Worker has no key. The local private-preview smoke covers `/`, `/app/`, `/development/`, one controlled IFC, and the WASM asset.
+
+The dependency lock and full transitive license inventory contain no missing license entry, and the current package audit reports zero known vulnerabilities. Four existing preview images were found to contain JPEG bytes despite `.png` filenames; G6 normalized them to actual PNG byte streams and verified the absence of EXIF and text metadata chunks. These are packaging/privacy findings, not a new product-accuracy result. Hosted preview evidence and user acceptance are tracked separately because they require action-time external authorization.
+
 ## Reproduce
 
 Run PowerShell 7 from the repository root after the ignored official samples have been locally acquired and their hashes verified:

@@ -1,6 +1,6 @@
 # G4AI optional interpretation architecture
 
-> Status: base G4AI, G4AI-R1, and the current G4AI-R3 bounded-prose path are `PASS`. R3 closes the strict-schema, capacity, semantic false-positive, unsupported-claim, bilingual live, and failure-classification boundaries while retaining every deterministic and privacy guard. No GitHub upload, deployment, access change, or later Gate is implied.
+> Status: base G4AI, G4AI-R1, and the current G4AI-R3 bounded-prose path are `PASS`. G6 adds a private-candidate Worker entry without changing the contract. No public access or hosted key is implied.
 
 ## Authority boundary
 
@@ -42,7 +42,7 @@ The system prompt explicitly requires a two-to-four-sentence synthesis, a two-to
 
 ## Key and runtime boundary
 
-`scripts/g4ai-local-server.mjs` reads `GROQ_API_KEY` from the process environment and never returns or logs it. The browser has no provider endpoint, authorization header, or key handling. `.env.example` contains an empty placeholder only; real `.env*` files remain ignored. The adapter uses the built-in Node `fetch`, so G4AI adds no dependency and does not change the frozen G3 geometry packages.
+`scripts/g4ai-local-server.mjs` reads `GROQ_API_KEY` from the local process environment and never returns or logs it. The G6 `worker/index.mjs` entry can read the same name only from a hosting secret binding. The browser has no provider endpoint, authorization header, or key handling. `.env.example` contains an empty placeholder only; real `.env*` files remain ignored. Both server routes use the runtime `fetch`, and neither changes the frozen G3 geometry packages.
 
 The original `scripts/g1-static-server.mjs` and `npm run g4:serve` remain available for fully offline G4 operation. `npm run g4ai:serve` adds the optional same-origin API. If the key, network, quota, provider, or response is unavailable, the deterministic UI and 3D review continue to work.
 
