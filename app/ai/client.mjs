@@ -16,18 +16,19 @@ export function prepareAiRequest(records, locale) {
 }
 
 export async function fetchAiStatus({ fetchImpl = fetch, signal } = {}) {
+  const fallback = { configured: false, provider: "groq", model: "openai/gpt-oss-20b", verified_on: "2026-08-29" };
   try {
     const response = await fetchImpl("/api/g4ai/status", { headers: { "Accept": "application/json" }, signal });
-    if (!response.ok) return { configured: false, provider: "groq", model: "openai/gpt-oss-20b", verified_on: "2026-08-28" };
+    if (!response.ok) return fallback;
     const body = await response.json();
     return {
       configured: body?.configured === true,
       provider: body?.provider === "groq" ? "groq" : "groq",
       model: body?.model === "openai/gpt-oss-20b" ? body.model : "openai/gpt-oss-20b",
-      verified_on: body?.verified_on === "2026-08-28" ? body.verified_on : "2026-08-28",
+      verified_on: /^\d{4}-\d{2}-\d{2}$/.test(body?.verified_on || "") ? body.verified_on : fallback.verified_on,
     };
   } catch {
-    return { configured: false, provider: "groq", model: "openai/gpt-oss-20b", verified_on: "2026-08-28" };
+    return fallback;
   }
 }
 
