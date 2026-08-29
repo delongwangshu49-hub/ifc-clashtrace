@@ -2,6 +2,8 @@
 
 Status: `PASS`. Local G2 data generation, ground-truth validation, reference comparison, audited step commit, GitHub web checkpoint, and Chrome verification all pass. The authoritative local step commit is `7da4adfcdaef7729ba52d2a2c98c8741fdcc9c01`; the continuous 11-commit GitHub checkpoint runs from [`d4b974f101348d5707418c4078965dea0d8d7fc2`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/d4b974f101348d5707418c4078965dea0d8d7fc2) through [`4fcc3cd47197a10771f5ce52b2e0a039d6434dc1`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/4fcc3cd47197a10771f5ce52b2e0a039d6434dc1).
 
+G5 additionally uses two buildingSMART PCERT sample files as ignored local compatibility inputs only. They remain copyright buildingSMART International and licensed CC BY 4.0 at the source repository; this project does not redistribute them. Their source commit, exact hashes, parser observations, and accuracy limitation are recorded in `docs/evaluation.md`.
+
 ## Dataset contract
 
 The dataset identifier is `IFC_CLASHTRACE_CONTROLLED_G2_V1`. It contains eight deterministic IFC4 case pairs in metre units and shared project coordinates. The human-authored source of truth is `data/g2-operation-ledger.json`; detector output is never used to rewrite expected status.
