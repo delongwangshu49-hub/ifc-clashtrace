@@ -77,7 +77,9 @@ def main() -> None:
             item["schema"] == "IFC4"
             and item["unit_scale_to_metre"] == 0.001
             and item["geometry_built"] > 0
-            and item["products_with_global_id"] == item["unique_product_global_ids"]
+            and item["geometry_failed"] == 0
+            and item["products_with_global_id"] == item["product_count"]
+            and item["unique_product_global_ids"] == item["product_count"]
             for item in results
         ) else "FAIL",
         "evaluated_on": "2026-08-29",

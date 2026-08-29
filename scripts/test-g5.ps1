@@ -66,6 +66,13 @@ if ($officialAvailable) {
         $pythonOfficial.status -ne "PASS" -or $pythonOfficial.accuracy_claim_permitted -ne $false) {
         throw "G5 official-sample compatibility boundary differs from the accepted failure-closed result."
     }
+    foreach ($sample in @($pythonOfficial.samples)) {
+        if ($sample.geometry_built -le 0 -or $sample.geometry_failed -ne 0 -or
+            $sample.products_with_global_id -ne $sample.product_count -or
+            $sample.unique_product_global_ids -ne $sample.product_count) {
+            throw "G5 official-sample geometry or product GUID completeness differs from the accepted evidence."
+        }
+    }
 }
 
 $evaluation = Get-Content -LiteralPath "docs/evaluation.md" -Raw
@@ -75,8 +82,10 @@ foreach ($required in @(
     "not an accuracy result",
     "first-byte and completion",
     "No key or external request was used",
-    "NOT_EVALUATED"
+    "NOT_EVALUATED",
+    "public checkpoint and SHA-mapping tail are complete"
 )) { if (-not $evaluation.Contains($required)) { throw "G5 evaluation report is missing: $required" } }
+if ($evaluation.Contains("public checkpoint remains pending")) { throw "G5 evaluation report retains a stale pending-publication statement." }
 
 $master = Get-Content -LiteralPath "BIMCLASH_AGENT_MASTER_PLAN.md" -Raw
 if ($master -notmatch '\| O-005 \| 正式支持 IFC4X3 与否 \| 已决') { throw "O-005 is not closed in the authoritative plan." }
@@ -92,6 +101,8 @@ Write-Output "G5_CLEARANCE_MESH_MATCHES=9/9"
 Write-Output "G5_THREE_WAY_STATUS_MATCHES=8/8"
 Write-Output "G5_AI_FACT_PRESERVATION=6/6"
 Write-Output "G5_AI_DEGRADATION=5/5"
+Write-Output "G5_OFFICIAL_GEOMETRY_FAILURES=$(if ($officialAvailable) { '0' } else { 'NOT_RUN' })"
+Write-Output "G5_OFFICIAL_PRODUCT_GUID_COMPLETENESS=$(if ($officialAvailable) { 'PASS' } else { 'NOT_RUN' })"
 Write-Output "G5_OFFICIAL_SAMPLE_RUN=$(if ($officialAvailable) { 'PASS_FAILURE_CLOSED' } else { 'SKIPPED_NOT_PRESENT' })"
 Write-Output "G5_O005=IFC4_ONLY_IFC4X3_EXPLORATORY"
 Write-Output "G5_LOCAL_TEST=PASS"
