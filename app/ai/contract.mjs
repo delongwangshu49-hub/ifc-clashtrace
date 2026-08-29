@@ -1,4 +1,4 @@
-export const AI_CONTRACT_VERSION = "G4AI_MINIMAL_RECORDS_V1";
+export const AI_CONTRACT_VERSION = "G4AI_COORDINATION_ANALYSIS_V2";
 export const AI_PROVIDER_ID = "groq";
 export const AI_PROVIDER_MODEL = "openai/gpt-oss-20b";
 
@@ -123,6 +123,12 @@ function validateText(value, label, maxLength) {
   if (FORBIDDEN_AI_TEXT.test(value)) throw new Error(`${label} attempts to restate a deterministic status, measurement, or URL`);
 }
 
+function validateLocaleText(value, locale, label) {
+  const containsHan = /[\u3400-\u9fff]/u.test(value);
+  if (locale === "zh-CN" && !containsHan) throw new Error(`${label} does not match the requested Chinese locale`);
+  if (locale === "en" && containsHan) throw new Error(`${label} does not match the requested English locale`);
+}
+
 export function actionableRecordRefs(request) {
   return request.records.filter(record => record.status !== "CLEAR").map(record => record.record_ref);
 }
@@ -130,7 +136,8 @@ export function actionableRecordRefs(request) {
 export function validateAiInterpretation(value, request) {
   if (!value || typeof value !== "object" || Array.isArray(value)) throw new Error("AI response must be an object");
   assertExactKeys(value, ["overview", "ordered_records", "global_limits"], "AI response");
-  validateText(value.overview, "Overview", 600);
+  validateText(value.overview, "Overview", 900);
+  validateLocaleText(value.overview, request.locale, "Overview");
   if (!Array.isArray(value.ordered_records)) throw new Error("Ordered records must be an array");
   const expectedRefs = new Set(actionableRecordRefs(request));
   const receivedRefs = new Set();
@@ -138,8 +145,10 @@ export function validateAiInterpretation(value, request) {
     assertExactKeys(item, ["record_ref", "attention", "rationale", "next_step"], "AI record");
     if (!expectedRefs.has(item.record_ref) || receivedRefs.has(item.record_ref)) throw new Error("AI response contains an unknown or duplicate record reference");
     if (!ATTENTION_VALUES.has(item.attention)) throw new Error("AI attention label is invalid");
-    validateText(item.rationale, "Rationale", 400);
-    validateText(item.next_step, "Next step", 400);
+    validateText(item.rationale, "Rationale", 700);
+    validateText(item.next_step, "Next step", 360);
+    validateLocaleText(item.rationale, request.locale, "Rationale");
+    validateLocaleText(item.next_step, request.locale, "Next step");
     receivedRefs.add(item.record_ref);
   }
   if (receivedRefs.size !== expectedRefs.size || [...expectedRefs].some(ref => !receivedRefs.has(ref))) throw new Error("AI response must cover every non-clear deterministic record exactly once");
@@ -149,41 +158,44 @@ export function validateAiInterpretation(value, request) {
 }
 
 export function deterministicFallback(request, locale = request?.locale) {
-  const refs = actionableRecordRefs(request);
-  if (locale === "zh-CN") {
-    return {
-      overview: "AI 解读当前不可用。确定性结果仍完整可用；请按原始记录与证据抽屉进行人工复核。",
-      ordered_records: refs.map((record_ref, index) => ({ record_ref, attention: index === 0 ? "review_first" : "review_next", rationale: "该条记录需要依据确定性证据人工复核。", next_step: "检查双方构件身份、规则边界与原始几何证据。" })),
-      global_limits: ["此文本由本地确定性模板生成，并非模型输出。", "模板不会新增、删除或改变任何检测记录。"],
-    };
-  }
+  const records = request.records.filter(record => record.status !== "CLEAR");
+  const zh = locale === "zh-CN";
+  const content = {
+    CLASH: zh ? {
+      attention: "review_first",
+      rationale: "现有几何证据表明管线与结构实体之间存在超过既定容差的直接冲突，因此这条关系最可能阻断当前协调方案。它应先于净距问题和证据补齐项处理，避免后续方案建立在尚未消除的冲突上。",
+      next_step: "先在确定性证据视图中核对双方构件与冲突位置，再由项目团队评估是否需要改线、开洞或其他协调措施。",
+    } : {
+      attention: "review_first",
+      rationale: "The geometry evidence shows a direct pipe-to-structure conflict beyond the established tolerance, so this relationship is the most likely to block the current coordination route. Review it before clearance and evidence-repair items so later decisions are not built around an unresolved conflict.",
+      next_step: "Verify both components and the conflict location in the deterministic evidence view, then let the project team assess whether rerouting, an opening, or another coordination measure is needed.",
+    },
+    WARNING: zh ? {
+      attention: "review_next",
+      rationale: "这条关系没有进入直接冲突队列，但现有表面净距低于已冻结的协调阈值，说明可用协调余量不足。它适合在直接冲突之后复核，并与相邻调整一起考虑，避免方案修改后形成新的冲突。",
+      next_step: "核对最近位置及双方构件，再由项目团队比较当前路径与可评估的协调替代方案。",
+    } : {
+      attention: "review_next",
+      rationale: "This relationship is not in the direct-conflict queue, but its existing surface clearance is below the frozen coordination threshold, leaving limited coordination margin. Review it after the direct conflict and alongside nearby changes so a revised route does not introduce a new conflict.",
+      next_step: "Verify the closest location and both components, then let the project team compare the current route with available coordination alternatives.",
+    },
+    NOT_EVALUATED: zh ? {
+      attention: "informational",
+      rationale: "自动化路径缺少形成可靠结论所需的几何证据，因此这条记录不能被理解为没有问题。它的处置可晚于已确认的冲突，但在关闭本轮协调问题之前必须补齐源几何或坐标证据。",
+      next_step: "先修复或核验源模型的几何与坐标条件，重新运行确定性检查后再决定是否需要协调动作。",
+    } : {
+      attention: "informational",
+      rationale: "The automated path lacks enough geometry evidence for a reliable conclusion, so this record must not be read as problem-free. It can follow confirmed conflicts in the queue, but its source geometry or coordinate evidence must be repaired before this review is closed.",
+      next_step: "Repair or verify the source geometry and coordinate conditions, rerun the deterministic check, and only then decide whether coordination action is needed.",
+    },
+  };
   return {
-    overview: "AI interpretation is unavailable. The deterministic results remain complete; review the original records and evidence drawer.",
-    ordered_records: refs.map((record_ref, index) => ({ record_ref, attention: index === 0 ? "review_first" : "review_next", rationale: "This record requires human review against its deterministic evidence.", next_step: "Check both component identities, the rule boundary, and the original geometry evidence." })),
-    global_limits: ["This text is a local deterministic template, not model output.", "The template cannot add, remove, or change any detection record."],
+    overview: zh
+      ? "这组结果不应被当作同一种问题处理：先解决已有几何证据确认的直接冲突，再检查低于协调阈值的邻近关系；无法求值的记录需要补齐证据，不能被当作安全结论。已求值清晰的关系可暂不进入当前协调队列，但其机器记录仍完整保留。"
+      : "These results should not be treated as one type of issue: resolve the evidence-backed direct conflict first, then review the below-threshold relationship, while repairing evidence for the unevaluated item rather than treating it as safe. Evaluated-clear relationships can stay outside the active coordination queue while their machine records remain intact.",
+    ordered_records: records.map(record => ({ record_ref: record.record_ref, ...content[record.status] })),
+    global_limits: zh
+      ? ["这是依据既有结构化字段生成的本地降级分析，不是新的检测结论。", "任何改线、开洞、放行或其他项目行动仍须由合格审阅者依据完整证据决定。"]
+      : ["This is a local fallback analysis derived only from existing structured fields, not a new detection conclusion.", "A qualified reviewer must decide any rerouting, opening, acceptance, or other project action from the full evidence."],
   };
 }
-
-export const GROQ_RESPONSE_SCHEMA = Object.freeze({
-  type: "object",
-  properties: {
-    overview: { type: "string" },
-    ordered_records: {
-      type: "array",
-      items: {
-        type: "object",
-        properties: {
-          record_ref: { type: "string" },
-          attention: { type: "string", enum: ["review_first", "review_next", "informational"] },
-          rationale: { type: "string" },
-          next_step: { type: "string" },
-        },
-        required: ["record_ref", "attention", "rationale", "next_step"],
-        additionalProperties: false,
-      },
-    },
-    global_limits: { type: "array", minItems: 2, maxItems: 2, items: { type: "string" } },
-  },
-  required: ["overview", "ordered_records", "global_limits"],
-  additionalProperties: false,
-});
