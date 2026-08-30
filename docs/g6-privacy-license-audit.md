@@ -37,4 +37,4 @@ These are dated facts, not promises of permanent free access, regional availabil
 
 ## Access decision and stop gate
 
-O-006 remains pending until the user reviews the private preview. The candidate may be deployed only with owner-only private access at this stage. A public Sites deployment, hosted API-key configuration, repository upload, or access-policy change requires separate action-time authorization. Privacy or license regression blocks any public action.
+The owner-only version 4 preview has completed user review. O-006 remains pending only for a separate public-access decision; private-preview acceptance does not authorize public Sites access. Any later public Sites deployment, hosted API-key configuration, repository repair upload, or access-policy change requires separate action-time authorization. Privacy or license regression blocks any public action.
