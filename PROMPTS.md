@@ -545,3 +545,12 @@ This repository uses AI assistance for implementation planning and code drafting
 - Sites result: sanitized source commit `b85fb0d99e84392ff3642abfa3e4649b8dad1ed9` produced owner-only version 9 and successful deployment `appgdep_6a9410376c248191952546a2416970fc`. Access remains one owner with zero groups/external visitors and no key or environment-variable change.
 - Hosted clinic result: Chrome loaded `PG-E · Realistic one-storey clinic · 88 pairs`, returned `4 CLASH / 1 WARNING / 11 NOT_EVALUATED / 72 CLEAR`, rendered the coherent one-storey 3D model, and reported no warning/error logs.
 - Gate boundary: PG-B-R1 becomes `PASS`; PG-E is `EXTERNAL_SYNC_PASS_USER_HOSTED_UAT_PENDING`, not yet `PASS`. The user must still perform the final hosted-candidate trial. VG/G7, public Sites access, provider calls, permissions, keys, mobile computation, and video remain untouched.
+
+## P-057 — PG-E audit repair and smaller cropped Logo candidate
+
+- Date: 2026-08-30
+- User authorization: repair the audited PG-E logic gaps and make the GitHub Logo moderately smaller with less transparent-border occupancy, using the visually restrained plugin README screenshot as scale guidance. Complete local work without intermediate approval, then stop before public release for one collective authorization.
+- PG-E repair: retain the IFC files and frozen detector behavior, but state their real composition precisely: seven represented ceiling routes plus one deliberately geometry-free imported segment; 88 candidate records comprise 77 evaluated outcomes and 11 failure-closed records. Add a structured UAT record so a status-only edit cannot produce PASS.
+- Evidence repair: distinguish prior GitHub final evidence head `b1727db600ae169eb603c5dd6863b417faef1b9f`, Sites version 9 functional preflight, and version 10 evidence tail. Change the release audit so live mapping is either verified from a supplied full SHA or explicitly `PENDING_PUBLICATION`.
+- Logo repair: do not use generative editing. Crop the original alpha canvas deterministically to 951 × 679 with 48 px transparent margins, preserve all visible pixels without resampling or recoloring, and set README width to 240 px. Freeze local desktop/narrow render evidence and leave remote evidence pending.
+- Stop gate: local implementation, regression, browser verification, and a local commit are authorized. GitHub/Sites writes, deployment, access/permission/key changes, provider calls, later Gates, mobile computation, and video remain prohibited until one exact collective authorization is given.
