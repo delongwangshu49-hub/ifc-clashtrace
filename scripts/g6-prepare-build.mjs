@@ -25,6 +25,8 @@ for (let caseNumber = 1; caseNumber <= 8; caseNumber += 1) {
   copy(path.join("data", "generated", "g2", `${stem}-mep.ifc`));
   copy(path.join("data", "generated", "g2", `${stem}-structure.ifc`));
 }
+copy(path.join("data", "generated", "pg-e", "pg-e-engineering-mep.ifc"));
+copy(path.join("data", "generated", "pg-e", "pg-e-engineering-structure.ifc"));
 copy("LICENSE");
 copy(path.join("data", "generated", "LICENSE.md"));
 copy(path.join("docs", "data-and-licenses.md"));

@@ -101,6 +101,7 @@ foreach ($contract in @(
     'controlled-example-title'
     'id="controlled-review"'
     'Review pack · C01 / C03 / C05 / C08'
+    'PG-E · Realistic one-storey clinic · 88 pairs'
     '<p class="card-index">A1</p>'
     '<p class="card-index">A2</p>'
     '<p class="card-index">B · DEMO</p>'
@@ -162,6 +163,8 @@ foreach ($contract in @(
     '.toggle-track { position: relative; width: 78px; height: 34px'
     '@media (max-width: 1180px)'
     '.review-workspace { display: grid; grid-template-columns: minmax(0, 3fr) minmax(360px, 2fr)'
+    'align-items: start; min-height: 700px'
+    '.viewport-panel { min-width: 0; height: 700px; position: sticky'
 )) { Assert-Contains $styles $contract "Style/accessibility contract missing: $contract" }
 $labelBackgroundMatch = [regex]::Match($styles, '(?s)\.scene-label\s*\{.*?background:\s*(#[0-9a-fA-F]{6})')
 $labelAMatch = [regex]::Match($styles, '(?s)\.label-a\s*\{.*?color:\s*(#[0-9a-fA-F]{6})')
@@ -196,6 +199,9 @@ foreach ($contract in @(
     'evaluateIfcPair'
     'CASES'
     '["C01", "C03", "C05", "C08"]'
+    '"realistic-clinic": ["PGE"]'
+    '/data/generated/pg-e/pg-e-engineering-mep.ifc'
+    '/data/generated/pg-e/pg-e-engineering-structure.ifc'
     'run_status !== "PASS"'
     'NOT_EVALUATED'
     'state.sources.set'
@@ -219,7 +225,7 @@ foreach ($contract in @('if (focusRun) elements.run_checks.focus();','elements.u
     Assert-Contains $appScript $contract "Workspace top-entry focus contract missing: $contract"
 }
 
-foreach ($contract in @("StreamAllMeshesWithTypes", "IFCPIPESEGMENT", "IFCWALL", "IFCBEAM", "OrbitControls", "focusRecord", "toggleIsolate", "fitModels")) {
+foreach ($contract in @("StreamAllMeshesWithTypes", "IFCPIPESEGMENT", "IFCWALL", "IFCBEAM", "IFCCOLUMN", "IFCSLAB", "OrbitControls", "focusRecord", "toggleIsolate", "fitModels")) {
     Assert-Contains $viewerScript $contract "3D viewer contract missing: $contract"
 }
 

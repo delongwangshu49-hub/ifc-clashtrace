@@ -35,6 +35,11 @@ try {
             if (-not (Test-Path -LiteralPath (Join-Path $projectRoot "dist/client/data/generated/g2/$stem-$role.ifc") -PathType Leaf)) { throw "Missing deployed controlled IFC: $stem-$role" }
         }
     }
+    foreach ($role in @('mep', 'structure')) {
+        if (-not (Test-Path -LiteralPath (Join-Path $projectRoot "dist/client/data/generated/pg-e/pg-e-engineering-$role.ifc") -PathType Leaf)) {
+            throw "Missing deployed realistic-clinic IFC: $role"
+        }
+    }
     if (Get-ChildItem -LiteralPath (Join-Path $projectRoot 'dist') -Recurse -File -Filter '*.map') { throw 'Source maps must not be present in the G6 artifact.' }
     $unexpectedDistEntries = @(Get-ChildItem -LiteralPath (Join-Path $projectRoot 'dist') -Force | Where-Object Name -notin @('.openai', 'client', 'server'))
     if ($unexpectedDistEntries.Count -ne 0) { throw "Unexpected stale G6 distribution entry: $($unexpectedDistEntries.Name -join ', ')" }
@@ -77,7 +82,7 @@ try {
             } catch { Start-Sleep -Milliseconds 250 }
         }
         if (-not $ready) { throw 'Private local preview did not become ready.' }
-        foreach ($route in @('/', '/app/', '/development/', '/node_modules/web-ifc/web-ifc.wasm', '/data/generated/g2/c01-mep.ifc')) {
+        foreach ($route in @('/', '/app/', '/development/', '/node_modules/web-ifc/web-ifc.wasm', '/data/generated/g2/c01-mep.ifc', '/data/generated/pg-e/pg-e-engineering-mep.ifc', '/data/generated/pg-e/pg-e-engineering-structure.ifc')) {
             $response = Invoke-WebRequest -Uri "http://127.0.0.1:4173$route" -TimeoutSec 10 -SkipHttpErrorCheck
             if ($response.StatusCode -ne 200) { throw "Private preview route failed: $route" }
         }

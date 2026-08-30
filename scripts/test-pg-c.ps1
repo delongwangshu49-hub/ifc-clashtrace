@@ -35,7 +35,7 @@ try {
 
     foreach ($required in @(
         'Latest closed checkpoint: `PG-B · PASS`',
-        'Status: `PG-B · PASS`',
+        'Status: `PG-E · IN_PROGRESS`',
         'Homepage', 'Functional workspace', 'Development log', 'README',
         'Navigation and footer', 'Metadata', 'Error and empty states', 'Demo screenshots',
         '| S-06 | Every load of the shared homepage route resets to Popular experience, English, and Light.',
@@ -46,7 +46,7 @@ try {
 
     foreach ($plan in @($localPlan, $publicPlan)) {
         foreach ($required in @(
-            '当前 Gate：`PG-B — PASS`',
+            '当前 Gate：`PG-E — IN_PROGRESS`',
             '直至项目结束的所有后续阶段文案和组件',
             '不得伪造完成状态、日期、指标、链接、验收、公开可用性、权限或证据',
             '预写不构成阶段启动、Gate 通过、用户验收、外部写入、部署/公开访问授权',
@@ -58,6 +58,12 @@ try {
             '### L-0072 — PG-C-R2 共享主页重置、功能页顶部与审计修复',
             '### L-0073 — PG-B 浅色品牌动效与 README 本地候选',
             '### L-0074 — PG-B 取消 GIF 并采用静态 GitHub Logo',
+            '| D-070 | 2026-08-30 |',
+            '### L-0075 — PG-E 工程情境样例技术候选与用户 UAT 门',
+            '| D-071 | 2026-08-30 |',
+            '### L-0076 — PG-E 拟真单层社区诊所修复',
+            '| D-072 | 2026-08-30 |',
+            '### L-0077 — 拟真诊所实例与 Logo v2 集体在线更新候选',
             '**Gate：** `PG-C-R2 PASS`',
             '40c7270b6fc9b56f6976b938297d2b475eef7e39'
         )) { Assert-Contains $plan $required "Expanded governance contract missing: $required" }
@@ -85,7 +91,7 @@ try {
     if ($sanitizedLocal -cne $publicPlan.TrimEnd()) { throw 'Sanitized public master is not equivalent to the local master.' }
 
     foreach ($required in @(
-        'PG-B · PASS', 'PG-E · 尚未开始', 'PG-E · Not started', '仅所有者 · 私有', 'Owner-only · Private',
+        'PG-B · PASS', 'PG-E · 技术通过 / 在线更新待授权', 'PG-E · Technical pass / online update authorization pending', '仅所有者 · 私有', 'Owner-only · Private',
         '8/8', '9/9', '1.00 / 1.00', '3/0/0/4', 'data-claim-stage="PG-C"', 'data-claim-state="closed"'
     )) { Assert-Contains $development $required "Current development claim missing: $required" }
 
@@ -98,11 +104,18 @@ try {
 
     $closedPgB = [regex]::Match($development, '(?s)<li[^>]*data-claim-stage="PG-B"[^>]*data-claim-state="closed"[^>]*>(.*?)</li>')
     if (-not $closedPgB.Success) { throw 'PG-B closed marker is missing.' }
-    foreach ($required in @('透明静态产品标', 'transparent static product mark', '不再使用 GIF', 'no GIF', '>PASS<', '12文件映射', '12-file mapping')) {
+    foreach ($required in @('透明 Logo v2', 'transparent Logo v2', '仍无 GIF', 'still with no GIF', '>PASS<', '集体授权', 'collectively authorized')) {
         Assert-Contains $closedPgB.Value $required "PG-B closure wording is incomplete: $required"
     }
 
-    $plannedGates = @('PG-E','VG','G7A','G7B','G7')
+    $activePgE = [regex]::Match($development, '(?s)<li[^>]*data-claim-stage="PG-E"[^>]*data-claim-state="in_progress"[^>]*>(.*?)</li>')
+    if (-not $activePgE.Success) { throw 'PG-E in-progress marker is missing.' }
+    foreach ($required in @('12m × 8m', '12 m × 8 m', '8段吊顶管线', 'Eight ceiling-level pipes', '88个候选对', '88 candidate pairs', '6/6', '用户已确认', 'user has accepted', '实例选项', 'example selector', '>IN PROGRESS<')) {
+        Assert-Contains $activePgE.Value $required "PG-E in-progress wording is incomplete: $required"
+    }
+    if ($activePgE.Value -match '>PASS<' -or $activePgE.Value -match '(?i)completed') { throw 'PG-E is presented as complete before the online update closes.' }
+
+    $plannedGates = @('VG','G7A','G7B','G7')
     foreach ($gate in $plannedGates) {
         $match = [regex]::Match($development, "(?s)<li[^>]*data-claim-stage=`"$([regex]::Escape($gate))`"[^>]*data-claim-state=`"planned`"[^>]*>(.*?)</li>")
         if (-not $match.Success) { throw "Planned-stage marker is missing: $gate" }
@@ -179,7 +192,7 @@ try {
 
     $builtDevelopment = Get-Content -LiteralPath 'dist/client/development/index.html' -Raw
     $builtHome = Get-Content -LiteralPath 'dist/client/index.html' -Raw
-    foreach ($marker in @('PG-B · PASS','data-claim-state="closed"','data-claim-stage="PG-B"','data-claim-stage="PG-E"','data-claim-state="planned"','data-claim-stage="G7"')) {
+    foreach ($marker in @('PG-B · PASS','data-claim-state="closed"','data-claim-stage="PG-B"','data-claim-stage="PG-E"','data-claim-state="in_progress"','data-claim-state="planned"','data-claim-stage="G7"')) {
         Assert-Contains $builtDevelopment $marker "Private-candidate build disagrees with development source: $marker"
     }
     foreach ($marker in @('data-snapshot-gate="G4"','data-snapshot-state="historical"')) {
@@ -192,6 +205,7 @@ try {
     'PGC_SURFACES_INVENTORIED=8/8'
     "PGC_CLOSED_GATES=$($closedGates.Count)/$($closedGates.Count)"
     "PGC_PLANNED_GATES=$($plannedGates.Count)/$($plannedGates.Count)"
+    'PGC_ACTIVE_GATE=PG-E/IN_PROGRESS'
     'PGC_BILINGUAL_METADATA=3/3'
     'PGC_EMPTY_TARGET_GUARD=PASS'
     'PGC_FUTURE_COMPLETION_GUARD=PASS'

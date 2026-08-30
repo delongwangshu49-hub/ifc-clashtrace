@@ -26,25 +26,24 @@ try {
     $brandAudit = Get-Content -LiteralPath 'docs/pg-b-github-logo.md' -Raw
     $development = Get-Content -LiteralPath 'development/index.html' -Raw
 
-    if ($manifest.status -cne 'PASS') { throw 'PG-B manifest status drifted.' }
+    if ($manifest.gate -cne 'PG-B-R1' -or $manifest.status -cne 'TECH_PASS_EXTERNAL_SYNC_PENDING') { throw 'PG-B-R1 manifest status drifted.' }
     if ($manifest.asset_type -cne 'static GitHub README logo') { throw 'PG-B asset type drifted.' }
-    if ($manifest.canvas.width -ne 1672 -or $manifest.canvas.height -ne 941) { throw 'PG-B canvas dimensions drifted.' }
+    if ($manifest.canvas.width -ne 1024 -or $manifest.canvas.height -ne 1024) { throw 'PG-B canvas dimensions drifted.' }
     if ($manifest.canvas.color_type -cne 'RGBA' -or -not $manifest.canvas.transparency) { throw 'PG-B transparency contract drifted.' }
-    Assert-Sequence @($manifest.canvas.alpha_bounds) @(214,68,1377,892) 'PG-B alpha bounds drifted.'
-    if ($manifest.readme.display_width_px -ne 520) { throw 'PG-B README display width drifted.' }
+    Assert-Sequence @($manifest.canvas.alpha_bounds) @(84,220,938,802) 'PG-B alpha bounds drifted.'
+    if ($manifest.readme.display_width_px -ne 420) { throw 'PG-B README display width drifted.' }
     if ($manifest.motion.gif_usage -ne $false -or @($manifest.motion.animated_assets).Count -ne 0) { throw 'PG-B must not use animated assets.' }
 
-    Assert-Sequence @($manifest.local_render.desktop.rendered_image) @(520,293) 'PG-B local desktop render evidence drifted.'
-    Assert-Sequence @($manifest.local_render.narrow.rendered_image) @(328,185) 'PG-B local narrow render evidence drifted.'
-    Assert-Sequence @($manifest.local_render.github.desktop_rendered_image) @(520,293) 'PG-B GitHub desktop render evidence drifted.'
-    Assert-Sequence @($manifest.local_render.github.narrow_rendered_image) @(279,157) 'PG-B GitHub narrow render evidence drifted.'
-    Assert-Sequence @($manifest.local_render.github.natural_image) @(1672,941) 'PG-B GitHub natural-size evidence drifted.'
-    if ($manifest.local_render.github.horizontal_overflow -ne $false) { throw 'PG-B GitHub overflow evidence drifted.' }
-    if ($manifest.local_render.github.console_warnings_or_errors -ne 0) { throw 'PG-B GitHub console evidence drifted.' }
-    if ($manifest.local_render.github.verified_technical_chain_tip -cne 'b4ce6d56282111c585f757042fa7cfefc057da0e') { throw 'PG-B technical-chain evidence drifted.' }
-    if ($manifest.local_render.github.verified_status_tail_parent_tip -cne '6f58bf246fc53cdc5d06a0dd61175cd24d1e3993') { throw 'PG-B status-tail parent evidence drifted.' }
-    if ($manifest.local_render.github.mapped_public_paths -ne 12) { throw 'PG-B declared public path count drifted.' }
-    if ($manifest.local_render.github.current_public_head_claim_is_self_referential -ne $true) { throw 'PG-B current-HEAD self-reference policy drifted.' }
+    Assert-Sequence @($manifest.local_render.desktop.rendered_image) @(420,420) 'PG-B local desktop render evidence drifted.'
+    Assert-Sequence @($manifest.local_render.narrow.rendered_image) @(328,328) 'PG-B local narrow render evidence drifted.'
+    Assert-Sequence @($manifest.local_render.natural_image) @(1024,1024) 'PG-B local natural-size evidence drifted.'
+    Assert-Sequence @($manifest.previous_public_evidence.natural_image) @(1672,941) 'PG-B historical v1 natural size drifted.'
+    if ($manifest.previous_public_evidence.verified_technical_chain_tip -cne 'b4ce6d56282111c585f757042fa7cfefc057da0e' -or
+        $manifest.previous_public_evidence.verified_status_tail_parent_tip -cne '6f58bf246fc53cdc5d06a0dd61175cd24d1e3993' -or
+        $manifest.previous_public_evidence.mapped_public_paths -ne 12) { throw 'PG-B historical public evidence drifted.' }
+    if ($manifest.external_update.v2_upload_authorized -ne $false -or
+        $manifest.external_update.github_mapping_verified -ne $false -or
+        $manifest.external_update.sites_update_authorized -ne $false) { throw 'PG-B-R1 external stop gate drifted.' }
 
     if (-not (Test-Path -LiteralPath $assetPath -PathType Leaf)) { throw "Missing PG-B asset: $assetPath" }
     $asset = Get-Item -LiteralPath $assetPath
@@ -61,21 +60,21 @@ try {
     }
     $width = ([uint32]$png[16] -shl 24) -bor ([uint32]$png[17] -shl 16) -bor ([uint32]$png[18] -shl 8) -bor [uint32]$png[19]
     $height = ([uint32]$png[20] -shl 24) -bor ([uint32]$png[21] -shl 16) -bor ([uint32]$png[22] -shl 8) -bor [uint32]$png[23]
-    if ($width -ne 1672 -or $height -ne 941) { throw 'PNG intrinsic dimensions drifted.' }
+    if ($width -ne 1024 -or $height -ne 1024) { throw 'PNG intrinsic dimensions drifted.' }
     if ($png[25] -ne 6) { throw 'PNG must use RGBA color type 6.' }
 
     $ascii = [Text.Encoding]::ASCII.GetString($png)
-    foreach ($forbidden in @('C:\Users\','AppData','Photoshop','XML:com.adobe','xmpmeta','Exif')) {
+    $absoluteUserRootMarker = 'C:' + '\Users\'
+    foreach ($forbidden in @($absoluteUserRootMarker,'AppData','Photoshop','XML:com.adobe','xmpmeta','Exif')) {
         if ($ascii.Contains($forbidden, [StringComparison]::OrdinalIgnoreCase)) { throw "Metadata/path marker leaked into static logo: $forbidden" }
     }
 
     foreach ($required in @(
         'src="docs/assets/brand/ifc-clashtrace-github-logo.png"',
-        'width="520"',
-        'alt="IFC ClashTrace product logo: a teal pipe crosses two wall panels at a coral collision ring beside an inspection alert."',
-        'PG-B is `PASS` and is the latest closed presentation-readiness checkpoint',
-        'technical mapping through `b4ce6d56282111c585f757042fa7cfefc057da0e`',
-        'the mutable final public tip is recorded only by a local empty sync commit',
+        'width="420"',
+        'alt="IFC ClashTrace product logo: a metallic pipe crosses layered wall panels beside an outlined clash marker and inspection alert."',
+        'PG-B remains the latest closed presentation-readiness checkpoint',
+        'Logo v2 is `TECH_PASS_EXTERNAL_SYNC_PENDING`',
         'docs/pg-b-github-logo.md'
     )) { Assert-Contains $readme $required "README PG-B contract missing: $required" }
     foreach ($forbidden in @('.gif','<picture>','<source','prefers-reduced-motion','ifc-clashtrace-lockup-light')) {
@@ -83,15 +82,15 @@ try {
     }
 
     foreach ($required in @(
-        'Status: `PASS`',
+        'Status: `PG-B PASS / PG-B-R1 TECH_PASS_EXTERNAL_SYNC_PENDING`',
         'Latest closed checkpoint: `PG-B · PASS`',
-        '1672 × 941',
+        '1024 × 1024',
         'RGBA',
-        '468,496 bytes',
+        '45,662 bytes',
         'GIF usage is cancelled',
         'frozen local evidence record only',
         'does not perform a live GitHub mapping check',
-        'No Sites, permission, key, public-access, PG-E, VG, G7, or video action'
+        'No GitHub/Sites write'
     )) { Assert-Contains $brandAudit $required "PG-B audit contract missing: $required" }
 
     foreach ($obsolete in @(
@@ -107,7 +106,7 @@ try {
 
     $closedPgB = [regex]::Match($development, '(?s)<li[^>]*data-claim-stage="PG-B"[^>]*data-claim-state="closed"[^>]*>(.*?)</li>')
     if (-not $closedPgB.Success -or $closedPgB.Value -notmatch '>PASS<') { throw 'Development page does not show PG-B as closed.' }
-    foreach ($required in @('透明静态产品标','transparent static product mark','不再使用 GIF','no GIF')) {
+    foreach ($required in @('透明 Logo v2','transparent Logo v2','仍无 GIF','still with no GIF')) {
         Assert-Contains $closedPgB.Value $required "Development PG-B static-logo wording missing: $required"
     }
 
@@ -120,7 +119,7 @@ try {
     if ($gitStateAfter -cne $gitStateBefore) { throw 'Git worktree state changed during the PG-B suite.' }
 
     'PGB_STATIC_GITHUB_LOGO=PASS'
-    'PGB_CANVAS=1672x941'
+    'PGB_CANVAS=1024x1024'
     'PGB_COLOR_TYPE=RGBA'
     'PGB_GIF_USAGE=ABSENT'
     'PGB_BINARY_IDENTITY=PASS'
@@ -128,9 +127,9 @@ try {
     'PGB_README_ALT_AND_SCALE=PASS'
     'PGB_PUBLIC_ASSET_MAX_LT_1MIB=PASS'
     'PGB_MANIFEST_EVIDENCE_FIELDS=PASS'
-    'PGB_REMOTE_EVIDENCE_DECLARED=12/12'
-    'PGB_REMOTE_LIVE_CHECK=EXTERNAL_BROWSER_ONLY'
-    'PGB_STATUS=PASS'
+    'PGB_PREVIOUS_REMOTE_EVIDENCE_DECLARED=12/12'
+    'PGB_V2_REMOTE_LIVE_CHECK=PENDING_AUTHORIZATION'
+    'PGB_STATUS=PASS_WITH_R1_EXTERNAL_SYNC_PENDING'
 }
 finally {
     Pop-Location
