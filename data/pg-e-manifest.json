@@ -1,0 +1,94 @@
+{
+  "dataset_id": "IFC_CLASHTRACE_ENGINEERING_CONTEXT_PGE_V2",
+  "version": "2.0.0",
+  "generated_by": "scripts/pg-e-generate-engineering.py",
+  "origin": "programmatically_generated",
+  "license_spdx_or_name": "CC0-1.0",
+  "license_file": "data/generated/LICENSE.md",
+  "redistribution_permitted": true,
+  "schema": "IFC4",
+  "length_unit": "metre",
+  "coordinate_system": "shared_project_coordinates",
+  "engineering_context": {
+    "project_name": "PG-E One-storey Community Clinic",
+    "site_name": "Synthetic Urban Infill Site",
+    "building_name": "Community Clinic Demonstration Building",
+    "storey_name": "Ground Floor \u00b7 Consultation and Services",
+    "storey_elevation_m": 0.0,
+    "building_use": "Small community clinic demonstration",
+    "footprint_m": [
+      12.0,
+      8.0
+    ],
+    "floor_to_floor_height_m": 3.2,
+    "planning_summary": "A compact one-storey rectangular clinic with two consultation wings, a central circulation band, perimeter walls, internal door gaps, a ground slab, a regular column/beam frame, and ceiling-level pipe routes serving rooms on both sides.",
+    "limitation": "Programmatically constructed but dimensionally plausible demonstration geometry. It is not a real customer, employer, school, or field project and is not evidence of arbitrary IFC or real-project accuracy."
+  },
+  "counts": {
+    "pipe_segments": 8,
+    "walls": 8,
+    "beams": 3,
+    "structures": 11,
+    "rule_structures": 11,
+    "columns": 6,
+    "slabs": 1,
+    "context_elements": 7,
+    "grid_axes": 7,
+    "display_elements": 26,
+    "candidate_pairs": 88,
+    "sentinels": 6
+  },
+  "files": [
+    {
+      "role": "mep",
+      "path": "data/generated/pg-e/pg-e-engineering-mep.ifc",
+      "bytes": 6992,
+      "sha256": "df47be1eccd006cb6b9ffd50058d545eb2373cc42e9a9227b19b9adc604909fb"
+    },
+    {
+      "role": "structure",
+      "path": "data/generated/pg-e/pg-e-engineering-structure.ifc",
+      "bytes": 18153,
+      "sha256": "3a8d42abdbc93b8f02519d0108fb91599dc64189091696c528317502adffc872"
+    }
+  ],
+  "element_guids": {
+    "pipes": {
+      "P-CLASH-WALL": "0kHcQAV_nIygnF62GFhVV6",
+      "P-WARNING-49": "3yc9ioc01UhQBlMXZpDij9",
+      "P-BOUNDARY-50": "1HNDB43sfQ4x5W4PIxTOJ9",
+      "P-SAFE-200": "0WH_3nyePIjue3u6lyosmu",
+      "P-CLASH-BEAM": "1qlNGUU5rNzPvBYIzlit3d",
+      "P-CLEAR-EAST": "3no6Bh0R1SdAvQyDu1fGGJ",
+      "P-NORTH-MAIN": "1s6fmd0FzNtAmHJjN6CpcX",
+      "P-MISSING-GEOMETRY": "2NV9DAmm1OZueUkvcGuA2s"
+    },
+    "structures": {
+      "W-EXT-SOUTH": "34sFxniAPQVPCJrjyzponM",
+      "W-EXT-NORTH": "0H9xtBHlTUkAfAOGVZx14P",
+      "W-EXT-WEST": "1XiKlwC9zIoOzxDOTakj58",
+      "W-EXT-EAST": "3z5HLuQEfUfRM3FTyV9rzJ",
+      "W-WEST-SOUTH": "2dERsIBLDG$x0OsH9eU2Is",
+      "W-WEST-NORTH": "0CQAR4$6PQdhoWa$QfwkxM",
+      "W-EAST-SOUTH": "2RLrWAcyfQJgp2ZquX8YMF",
+      "W-EAST-NORTH": "25u06_Rj9SbwxNUAPp1Qkn",
+      "B-CORRIDOR": "2sVZe14hXS5eGoAOnHmBLs",
+      "B-GRID-2": "38TDFJ4dnPZA6kQy3JMQ6s",
+      "B-GRID-3": "1HABFvMxrRSR3lP7nfl1Kr"
+    },
+    "context": {
+      "SLAB-GROUND": "262JAIplLHo8L_bPJVzszx",
+      "COL-A1": "1IaBXY25TLShBckOZRsRJb",
+      "COL-A4": "0FNhPumKLKjPFNWeEzYY6V",
+      "COL-C1": "06SRz3kCfMUuE$8dtCLy19",
+      "COL-C4": "1j8_NAfSHTxRdXf76eFP7i",
+      "COL-B2": "3INfVLFqbRb9RKQDr1Y3Z1",
+      "COL-B3": "0NSwgtlurRAAXYDNCjq6uO"
+    }
+  },
+  "limitations": [
+    "Programmatically constructed but dimensionally plausible demonstration geometry. It is not a real customer, employer, school, or field project and is not evidence of arbitrary IFC or real-project accuracy.",
+    "Sentinel expectations cover six named pairs only; other pair outputs are review context, not independently authored ground truth.",
+    "The pack remains inside the frozen IFC4, metre, shared-coordinate, supported-type, and geometry-certificate boundary."
+  ]
+}

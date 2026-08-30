@@ -1,0 +1,121 @@
+{
+  "dataset_id": "IFC_CLASHTRACE_ENGINEERING_CONTEXT_PGE_V2",
+  "version": "2.0.0",
+  "title": "Synthetic one-storey community clinic coordination model",
+  "origin": "programmatically_generated",
+  "schema": "IFC4",
+  "length_unit": "metre",
+  "coordinate_system": "shared_project_coordinates",
+  "license_spdx_or_name": "CC0-1.0",
+  "attribution": "IFC ClashTrace contributors (optional under CC0-1.0)",
+  "redistribution_permitted": true,
+  "engineering_context": {
+    "project_name": "PG-E One-storey Community Clinic",
+    "site_name": "Synthetic Urban Infill Site",
+    "building_name": "Community Clinic Demonstration Building",
+    "storey_name": "Ground Floor · Consultation and Services",
+    "storey_elevation_m": 0.0,
+    "building_use": "Small community clinic demonstration",
+    "footprint_m": [12.0, 8.0],
+    "floor_to_floor_height_m": 3.2,
+    "planning_summary": "A compact one-storey rectangular clinic with two consultation wings, a central circulation band, perimeter walls, internal door gaps, a ground slab, a regular column/beam frame, and ceiling-level pipe routes serving rooms on both sides.",
+    "limitation": "Programmatically constructed but dimensionally plausible demonstration geometry. It is not a real customer, employer, school, or field project and is not evidence of arbitrary IFC or real-project accuracy."
+  },
+  "grid": {
+    "u_axes": [
+      {"tag": "A", "start_m": [0.0, 0.0], "end_m": [12.0, 0.0]},
+      {"tag": "B", "start_m": [0.0, 4.0], "end_m": [12.0, 4.0]},
+      {"tag": "C", "start_m": [0.0, 8.0], "end_m": [12.0, 8.0]}
+    ],
+    "v_axes": [
+      {"tag": "1", "start_m": [0.0, 0.0], "end_m": [0.0, 8.0]},
+      {"tag": "2", "start_m": [4.0, 0.0], "end_m": [4.0, 8.0]},
+      {"tag": "3", "start_m": [8.0, 0.0], "end_m": [8.0, 8.0]},
+      {"tag": "4", "start_m": [12.0, 0.0], "end_m": [12.0, 8.0]}
+    ]
+  },
+  "rules": {
+    "hard_clash": {"rule_id": "MEP_STRUCTURE_HARD_CLASH_V1", "tolerance_m": 0.002},
+    "clearance": {"rule_id": "MEP_STRUCTURE_CLEARANCE_WARNING_V1", "threshold_m": 0.05}
+  },
+  "pipes": [
+    {
+      "key": "P-CLASH-WALL", "guid_seed": "PGE-V2-pipe-wall-penetration",
+      "name": "CHW-B01 Consultation branch · uncoordinated wall crossing", "representation_present": true,
+      "axis_start_m": [3.6, 2.0, 2.4], "axis_direction": [1.0, 0.0, 0.0], "profile_x_axis": [0.0, 1.0, 0.0],
+      "length_m": 2.0, "radius_m": 0.075
+    },
+    {
+      "key": "P-WARNING-49", "guid_seed": "PGE-V2-pipe-west-service-49mm",
+      "name": "CWS-B02 West room branch · 49 mm wall clearance", "representation_present": true,
+      "axis_start_m": [4.401, 0.6, 2.35], "axis_direction": [0.0, 1.0, 0.0], "profile_x_axis": [1.0, 0.0, 0.0],
+      "length_m": 2.4, "radius_m": 0.05
+    },
+    {
+      "key": "P-BOUNDARY-50", "guid_seed": "PGE-V2-pipe-east-service-50mm",
+      "name": "CWS-B03 East room branch · 50 mm boundary", "representation_present": true,
+      "axis_start_m": [7.89999999, 0.6, 2.35], "axis_direction": [0.0, 1.0, 0.0], "profile_x_axis": [1.0, 0.0, 0.0],
+      "length_m": 2.4, "radius_m": 0.05
+    },
+    {
+      "key": "P-SAFE-200", "guid_seed": "PGE-V2-pipe-corridor-main-safe",
+      "name": "CHW-M01 Central corridor main · coordinated below beam", "representation_present": true,
+      "axis_start_m": [1.0, 4.0, 2.50101786], "axis_direction": [1.0, 0.0, 0.0], "profile_x_axis": [0.0, 1.0, 0.0],
+      "length_m": 10.0, "radius_m": 0.1
+    },
+    {
+      "key": "P-CLASH-BEAM", "guid_seed": "PGE-V2-pipe-beam-penetration",
+      "name": "HWS-B04 Treatment branch · uncoordinated beam crossing", "representation_present": true,
+      "axis_start_m": [6.2, 3.0, 2.95], "axis_direction": [0.0, 1.0, 0.0], "profile_x_axis": [1.0, 0.0, 0.0],
+      "length_m": 2.0, "radius_m": 0.075
+    },
+    {
+      "key": "P-CLEAR-EAST", "guid_seed": "PGE-V2-pipe-east-room-clear",
+      "name": "CWS-B05 East consultation branch · clear route", "representation_present": true,
+      "axis_start_m": [10.5, 0.7, 2.35], "axis_direction": [0.0, 1.0, 0.0], "profile_x_axis": [1.0, 0.0, 0.0],
+      "length_m": 2.4, "radius_m": 0.05
+    },
+    {
+      "key": "P-NORTH-MAIN", "guid_seed": "PGE-V2-pipe-north-main",
+      "name": "CHW-M02 North room main · coordination review route", "representation_present": true,
+      "axis_start_m": [1.0, 6.0, 2.45], "axis_direction": [1.0, 0.0, 0.0], "profile_x_axis": [0.0, 1.0, 0.0],
+      "length_m": 10.0, "radius_m": 0.075
+    },
+    {
+      "key": "P-MISSING-GEOMETRY", "guid_seed": "PGE-V2-pipe-import-failure",
+      "name": "CWS-B06 Imported branch · missing representation", "representation_present": false,
+      "axis_start_m": [10.5, 5.0, 2.35], "axis_direction": [0.0, 1.0, 0.0], "profile_x_axis": [1.0, 0.0, 0.0],
+      "length_m": 2.0, "radius_m": 0.05
+    }
+  ],
+  "structures": [
+    {"key":"W-EXT-SOUTH","guid_seed":"PGE-V2-wall-exterior-south","entity_type":"IfcWall","name":"Exterior wall · South facade","origin_m":[0.0,0.0,0.0],"rotation_z_deg":0.0,"length_m":12.0,"thickness_m":0.2,"height_m":3.2},
+    {"key":"W-EXT-NORTH","guid_seed":"PGE-V2-wall-exterior-north","entity_type":"IfcWall","name":"Exterior wall · North facade","origin_m":[0.0,7.8,0.0],"rotation_z_deg":0.0,"length_m":12.0,"thickness_m":0.2,"height_m":3.2},
+    {"key":"W-EXT-WEST","guid_seed":"PGE-V2-wall-exterior-west","entity_type":"IfcWall","name":"Exterior wall · West facade","origin_m":[0.2,0.0,0.0],"rotation_z_deg":90.0,"length_m":8.0,"thickness_m":0.2,"height_m":3.2},
+    {"key":"W-EXT-EAST","guid_seed":"PGE-V2-wall-exterior-east","entity_type":"IfcWall","name":"Exterior wall · East facade","origin_m":[12.0,0.0,0.0],"rotation_z_deg":90.0,"length_m":8.0,"thickness_m":0.2,"height_m":3.2},
+    {"key":"W-WEST-SOUTH","guid_seed":"PGE-V2-wall-west-south","entity_type":"IfcWall","name":"Consultation partition W1 · South segment","origin_m":[4.65,0.2,0.0],"rotation_z_deg":90.0,"length_m":3.2,"thickness_m":0.15,"height_m":3.2},
+    {"key":"W-WEST-NORTH","guid_seed":"PGE-V2-wall-west-north","entity_type":"IfcWall","name":"Consultation partition W1 · North segment","origin_m":[4.65,4.2,0.0],"rotation_z_deg":90.0,"length_m":3.6,"thickness_m":0.15,"height_m":3.2},
+    {"key":"W-EAST-SOUTH","guid_seed":"PGE-V2-wall-east-south","entity_type":"IfcWall","name":"Consultation partition W2 · South segment","origin_m":[8.15,0.2,0.0],"rotation_z_deg":90.0,"length_m":3.2,"thickness_m":0.15,"height_m":3.2},
+    {"key":"W-EAST-NORTH","guid_seed":"PGE-V2-wall-east-north","entity_type":"IfcWall","name":"Consultation partition W2 · North segment","origin_m":[8.15,4.2,0.0],"rotation_z_deg":90.0,"length_m":3.6,"thickness_m":0.15,"height_m":3.2},
+    {"key":"B-CORRIDOR","guid_seed":"PGE-V2-beam-corridor","entity_type":"IfcBeam","name":"Primary beam · Grid B corridor","origin_m":[0.2,3.85,2.8],"rotation_z_deg":0.0,"length_m":11.6,"thickness_m":0.3,"height_m":0.4},
+    {"key":"B-GRID-2","guid_seed":"PGE-V2-beam-grid-2","entity_type":"IfcBeam","name":"Secondary beam · Grid 2","origin_m":[4.15,0.2,2.8],"rotation_z_deg":90.0,"length_m":7.6,"thickness_m":0.3,"height_m":0.4},
+    {"key":"B-GRID-3","guid_seed":"PGE-V2-beam-grid-3","entity_type":"IfcBeam","name":"Secondary beam · Grid 3","origin_m":[8.15,0.2,2.8],"rotation_z_deg":90.0,"length_m":7.6,"thickness_m":0.3,"height_m":0.4}
+  ],
+  "context_elements": [
+    {"key":"SLAB-GROUND","guid_seed":"PGE-V2-slab-ground","entity_type":"IfcSlab","predefined_type":"FLOOR","name":"Ground floor slab","origin_m":[0.0,0.0,-0.2],"rotation_z_deg":0.0,"length_m":12.0,"thickness_m":8.0,"height_m":0.2},
+    {"key":"COL-A1","guid_seed":"PGE-V2-column-a1","entity_type":"IfcColumn","name":"Column A1","origin_m":[0.2,0.2,0.0],"rotation_z_deg":0.0,"length_m":0.3,"thickness_m":0.3,"height_m":3.2},
+    {"key":"COL-A4","guid_seed":"PGE-V2-column-a4","entity_type":"IfcColumn","name":"Column A4","origin_m":[11.5,0.2,0.0],"rotation_z_deg":0.0,"length_m":0.3,"thickness_m":0.3,"height_m":3.2},
+    {"key":"COL-C1","guid_seed":"PGE-V2-column-c1","entity_type":"IfcColumn","name":"Column C1","origin_m":[0.2,7.5,0.0],"rotation_z_deg":0.0,"length_m":0.3,"thickness_m":0.3,"height_m":3.2},
+    {"key":"COL-C4","guid_seed":"PGE-V2-column-c4","entity_type":"IfcColumn","name":"Column C4","origin_m":[11.5,7.5,0.0],"rotation_z_deg":0.0,"length_m":0.3,"thickness_m":0.3,"height_m":3.2},
+    {"key":"COL-B2","guid_seed":"PGE-V2-column-b2","entity_type":"IfcColumn","name":"Column B2","origin_m":[3.85,3.85,0.0],"rotation_z_deg":0.0,"length_m":0.3,"thickness_m":0.3,"height_m":3.2},
+    {"key":"COL-B3","guid_seed":"PGE-V2-column-b3","entity_type":"IfcColumn","name":"Column B3","origin_m":[7.85,3.85,0.0],"rotation_z_deg":0.0,"length_m":0.3,"thickness_m":0.3,"height_m":3.2}
+  ],
+  "sentinels": [
+    {"sentinel_id":"S01-WALL-CLASH","pipe_key":"P-CLASH-WALL","structure_key":"W-WEST-SOUTH","expected_hard_status":"CLASH","expected_clearance_emission":false,"expected_clearance_status":null,"expected_clearance_m":null,"basis":"The consultation branch crosses the complete 150 mm internal partition thickness at a plausible ceiling-service elevation."},
+    {"sentinel_id":"S02-WARNING-49MM","pipe_key":"P-WARNING-49","structure_key":"W-WEST-SOUTH","expected_hard_status":"CLEAR","expected_clearance_emission":true,"expected_clearance_status":"WARNING","expected_clearance_m":0.049,"basis":"The west room branch runs parallel to the internal partition with an authored 49 mm surface clearance."},
+    {"sentinel_id":"S03-BOUNDARY-50MM","pipe_key":"P-BOUNDARY-50","structure_key":"W-EAST-SOUTH","expected_hard_status":"CLEAR","expected_clearance_emission":true,"expected_clearance_status":"CLEAR","expected_clearance_m":0.05000001,"basis":"The east room branch runs parallel to the partition at 50.00001 mm; the disclosed 0.01 micrometre offset keeps tessellation on the non-warning side."},
+    {"sentinel_id":"S04-SAFE-200MM","pipe_key":"P-SAFE-200","structure_key":"B-CORRIDOR","expected_hard_status":"CLEAR","expected_clearance_emission":true,"expected_clearance_status":"CLEAR","expected_clearance_m":0.2,"basis":"The corridor main is coordinated beneath the primary beam with 200 mm vertical surface separation and passes through aligned door gaps."},
+    {"sentinel_id":"S05-BEAM-CLASH","pipe_key":"P-CLASH-BEAM","structure_key":"B-CORRIDOR","expected_hard_status":"CLASH","expected_clearance_emission":false,"expected_clearance_status":null,"expected_clearance_m":null,"basis":"The treatment branch crosses the 300 mm primary beam at ceiling level without a coordinated opening."},
+    {"sentinel_id":"S06-FAILURE-CLOSED","pipe_key":"P-MISSING-GEOMETRY","structure_key":"W-EXT-EAST","expected_hard_status":"NOT_EVALUATED","expected_clearance_emission":true,"expected_clearance_status":"NOT_EVALUATED","expected_clearance_m":null,"basis":"An imported room branch intentionally has no geometric representation and must fail closed against the east facade."}
+  ]
+}
