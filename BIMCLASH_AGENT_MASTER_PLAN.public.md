@@ -3434,7 +3434,7 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 
 **时间：** 2026-08-30（Asia/Hong_Kong）
 
-**Gate：** `PG-C-R2 LOCAL_AND_PRIVATE_PASS / GITHUB_SYNC_PENDING`；PG-C 历史检查点保持 `PASS`，后续阶段仍为 `NOT_STARTED`
+**Gate：** `PG-C-R2 PASS`；本地、所有者私有 Sites 与 GitHub `main` 同步均已通过，后续阶段仍为 `NOT_STARTED`
 
 **用户澄清：** D-065 取代 D-063 的入口解释。审查团队收到的是主页根链接，因此无论同标签页再次进入或新标签页点击，每次加载 `/` 都恢复大众体验、英语、亮色。站内“Launch app”“Development log”及跨页工作台入口恢复新标签页；合法的功能/研发页新标签不再被重定向回主页。
 
@@ -3444,7 +3444,7 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 
 **内容一致性：** 研发页的 G7B `PLANNED` 文案同步 D-064，改为 YouTube `Unlisted` 上传、双语字幕与香港未登录直链复验，并明确不回嵌首页。主页、README、主张台账与进度记录同步 D-065；A/B 高对比修复保持有效。
 
-**外部边界：** 所有者私有 Sites 可部署并回查，权限不得改变。GitHub 仍是待授权外部动作：本轮只形成精确公共路径清单，必须在用户一次集体授权后再通过 Chrome 执行上传与回查；授权前状态保持 `GITHUB_SYNC_PENDING`。
+**外部闭合：** 用户对精确 14 个公开路径给予一次集体授权后，仅通过已登录 Chrome GitHub 网页完成上传。技术链顶点为 [`40c7270b6fc9b56f6976b938297d2b475eef7e39`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/40c7270b6fc9b56f6976b938297d2b475eef7e39)；逐文件编辑差异复核为 `14/14` 一致，本地权威总纲与 `scripts/audit-pg-c.ps1` 均在公开仓库返回 `File not found`。Sites 保持版本 8、所有者私有、仅 1 个允许账号、0 个组、0 个外部访客和 0 个环境变量；未改变访问权限。
 
 ---
 
