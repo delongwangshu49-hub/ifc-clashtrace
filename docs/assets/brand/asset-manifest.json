@@ -1,7 +1,7 @@
 {
   "gate": "PG-B",
   "status": "PASS",
-  "generated_at": "2026-08-30T20:30:00+08:00",
+  "generated_at": "2026-08-30T16:40:32+08:00",
   "asset_type": "static GitHub README logo",
   "source": "exact user-selected RGBA PNG copied byte-for-byte",
   "canvas": {
@@ -43,8 +43,11 @@
       "natural_image": [1672, 941],
       "horizontal_overflow": false,
       "console_warnings_or_errors": 0,
-      "remote_tip": "b4ce6d56282111c585f757042fa7cfefc057da0e",
-      "mapped_public_paths": 12
+      "verified_technical_chain_tip": "b4ce6d56282111c585f757042fa7cfefc057da0e",
+      "verified_status_tail_parent_tip": "6f58bf246fc53cdc5d06a0dd61175cd24d1e3993",
+      "mapped_public_paths": 12,
+      "current_public_head_claim_is_self_referential": true,
+      "current_public_head_policy": "record the observed head in a local empty sync commit; do not claim a mutable current HEAD inside a public file"
     }
   },
   "assets": {
