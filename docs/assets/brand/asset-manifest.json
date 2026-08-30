@@ -1,6 +1,6 @@
 {
   "gate": "PG-B",
-  "status": "TECH_PASS_EXTERNAL_SYNC_PENDING",
+  "status": "PASS",
   "generated_at": "2026-08-30T20:30:00+08:00",
   "asset_type": "static GitHub README logo",
   "source": "exact user-selected RGBA PNG copied byte-for-byte",
@@ -15,7 +15,7 @@
     "display_width_px": 520,
     "height": "derived from intrinsic aspect ratio",
     "alignment": "center",
-    "external_verification": "pending action-time authorization for GitHub README rendering"
+    "external_verification": "PASS on public GitHub main"
   },
   "motion": {
     "gif_usage": false,
@@ -36,7 +36,16 @@
       "horizontal_overflow": false
     },
     "natural_image": [1672, 941],
-    "selected_source": "static PNG"
+    "selected_source": "static PNG",
+    "github": {
+      "desktop_rendered_image": [520, 293],
+      "narrow_rendered_image": [279, 157],
+      "natural_image": [1672, 941],
+      "horizontal_overflow": false,
+      "console_warnings_or_errors": 0,
+      "remote_tip": "b4ce6d56282111c585f757042fa7cfefc057da0e",
+      "mapped_public_paths": 12
+    }
   },
   "assets": {
     "ifc-clashtrace-github-logo.png": {
