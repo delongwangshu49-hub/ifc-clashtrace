@@ -31,7 +31,9 @@ GIF usage is cancelled. The README contains no GIF reference, `picture` source, 
 - The selected PNG is below the 1 MiB per-file budget.
 - The binary scan checks for local paths, EXIF/XMP markers, and account-identifying metadata.
 - `docs/assets/brand/asset-manifest.json` freezes the exact dimensions, size, hash, alpha mode, and no-GIF decision.
-- `scripts/test-pg-b.ps1` verifies the PNG signature, RGBA color type, dimensions, hash, README path/width/alt text, and absence of the obsolete animation chain.
+- `scripts/test-pg-b.ps1` verifies the PNG signature, RGBA color type, dimensions, alpha bounds, hash, README path/width/alt text, frozen render evidence fields, and absence of the obsolete animation chain.
+
+The script validates the frozen local evidence record only. It does not perform a live GitHub mapping check and its output must not be interpreted as current network verification. Live public mapping and rendering remain browser evidence.
 
 The local Chromium README harness loaded the exact 1672 × 941 source successfully. It rendered at 520 × 293 in a 1280 × 720 viewport and 328 × 185 in a 360 × 640 viewport, with no horizontal overflow in either case. This is local layout evidence only and does not replace verification on the public GitHub page.
 
@@ -45,6 +47,6 @@ The user authorized the exact 12-path public set. Signed-in Chrome uploaded it d
 4. Logo contract and claim ledger: `8c133019642d7d7210a3eaacb230bf9a2a598c40` (2 paths);
 5. public regression guards: `b4ce6d56282111c585f757042fa7cfefc057da0e` (2 paths).
 
-The public README loaded the exact 1672 × 941 image, rendered it at 520 × 293 in a 1280 × 720 viewport and 279 × 157 in a 360 × 640 viewport, had no horizontal overflow, and emitted zero browser warnings/errors. The GitHub file page reported the expected static asset and source commit. The 12/12 path mapping and five-commit parent order were verified in Chrome, so PG-B is closed as `PASS`.
+The public README loaded the exact 1672 × 941 image, rendered it at 520 × 293 in a 1280 × 720 viewport and 279 × 157 in a 360 × 640 viewport, had no horizontal overflow, and emitted zero browser warnings/errors. The GitHub file page reported the expected static asset and source commit. The 12/12 path mapping and five-commit parent order through technical-chain tip `b4ce6d56282111c585f757042fa7cfefc057da0e` were verified in Chrome, so PG-B is closed as `PASS`. A later browser audit verified status-tail parent `6f58bf246fc53cdc5d06a0dd61175cd24d1e3993`. The mutable current public HEAD is deliberately not asserted inside a public file because publishing that assertion would create a newer HEAD; it is recorded by the local empty sync commit instead.
 
 No Sites, permission, key, public-access, PG-E, VG, G7, or video action occurred during PG-B closure.
