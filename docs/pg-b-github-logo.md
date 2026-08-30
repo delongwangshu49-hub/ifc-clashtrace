@@ -1,10 +1,10 @@
 # PG-B-R2 static GitHub Logo canvas and scale repair
 
-Status: `PG-B PASS / PG-B-R1 PASS / PG-B-R2 LOCAL_REPAIR_CANDIDATE_EXTERNAL_SYNC_PENDING`
+Status: `PG-B PASS / PG-B-R1 PASS / PG-B-R2 PASS`
 
-Latest closed checkpoint: `PG-B · PASS`
+Latest closed checkpoint: `PG-E · PASS`
 
-The published Logo v2 remains independently closed as `PG-B-R1 PASS` on public GitHub `main`. The user then found its README presentation visually oversized and authorized a bounded local `PG-B-R2` repair. That repair is technically local only and must not be described as publicly verified until collective authorization and a fresh GitHub render/mapping pass.
+The user found the original Logo v2 README presentation visually oversized and authorized a bounded `PG-B-R2` repair. The cropped canonical asset is now publicly verified on GitHub and included in the owner-only Sites version 11 deployment.
 
 ## Answer first
 
@@ -28,10 +28,12 @@ The mark still depicts the same metallic pipe crossing layered light/dark wall p
 
 - The binary signature, RGBA color type, intrinsic dimensions, alpha bounds, file size, SHA-256, metadata markers, README path, width, and alt text are guarded by `scripts/test-pg-b.ps1`.
 - Local Chromium renders the candidate at 240 × 171.3542 at both 1280 × 720 and 360 × 640; natural size remains 951 × 679, document widths match their viewports, and console warnings/errors are zero.
-- `docs/assets/brand/asset-manifest.json` freezes the cropped identity and separates local evidence from the previous public PG-B-R1 record.
+- The immutable GitHub README at technical head `3038d431157c0e1eb1e1f2b4a9870ddb01609921` reports natural size 951 × 679 and renders it at 240 × 171.354 px; console warnings/errors are zero.
+- All 30 audited public paths, including the PNG bytes, match the local candidate. A brief stale `raw/main` CDN response is not used as evidence; the immutable commit render and byte mapping are authoritative.
+- `docs/assets/brand/asset-manifest.json` freezes the cropped identity and separates the final PG-B-R2 evidence from previous PG-B-R1 history.
 - The source-named `ifc-clashtrace-github-logo-v2.png` is not a publication path; only the canonical filename is included in the upload candidate.
 
-The previous public GitHub technical chain runs from root commit `33190860ebd64d1a3f2f2a215a0ffe74318136e4` through tip `b3b03046982011567f1108967dd84672cfad69bd`, with final evidence head `b1727db600ae169eb603c5dd6863b417faef1b9f`. That published PG-B-R1 asset is still the 1024-square, 420 px presentation. It is historical evidence only and must not be reused as proof for the cropped PG-B-R2 candidate.
+The previous public GitHub technical chain from `33190860ebd64d1a3f2f2a215a0ffe74318136e4` through `b1727db600ae169eb603c5dd6863b417faef1b9f` remains historical PG-B-R1 evidence only; it is not reused as proof for PG-B-R2.
 
 ## Historical v1 evidence
 
@@ -39,6 +41,6 @@ The superseded 1672 × 941 v1 PNG had SHA-256 `b56f3a2a3d3ef5d37599a8a84c54cf1a5
 
 ## Closure boundary
 
-The prior 29-path update keeps `PG-B-R1` at `PASS`. The cropped PG-B-R2 candidate is intentionally stopped before public release. It may become `PASS` only after the user gives collective publication authorization and the canonical path is rechecked for intrinsic 951 × 679 size, 240 px desktop rendering, responsive narrow rendering, transparency, alt text, layout stability, console output, binary hash, and local-to-remote mapping.
+The user gave collective publication authorization. The canonical path passed intrinsic 951 × 679 size, 240 px desktop rendering, transparency, alt text, console, binary hash, and 30/30 local-to-remote mapping checks, so `PG-B-R2` is `PASS`.
 
-Owner-only Sites version 9 remains the prior functional preflight and version 10 the prior evidence tail. Neither contains this local repair candidate. No access, permission, key, provider, VG/G7, mobile-computation, or video change is authorized by PG-B-R2.
+Owner-only Sites version 11 contains the repair. Access remains restricted to one owner; no access, permission, key, provider, VG/G7, mobile-computation, or video change was introduced by PG-B-R2.
