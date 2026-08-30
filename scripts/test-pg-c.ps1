@@ -28,6 +28,7 @@ try {
     $appScript = Get-Content -LiteralPath 'app/ui/app.mjs' -Raw
     $developmentScript = Get-Content -LiteralPath 'app/ui/development.mjs' -Raw
     $readme = Get-Content -LiteralPath 'README.md' -Raw
+    $progress = Get-Content -LiteralPath 'PROGRESS_SYNC.md' -Raw
     $ledger = Get-Content -LiteralPath 'docs/content-claim-ledger.md' -Raw
     $localPlan = Get-Content -LiteralPath 'BIMCLASH_AGENT_MASTER_PLAN.md' -Raw
     $publicPlan = Get-Content -LiteralPath 'BIMCLASH_AGENT_MASTER_PLAN.public.md' -Raw
@@ -38,7 +39,7 @@ try {
         'Homepage', 'Functional workspace', 'Development log', 'README',
         'Navigation and footer', 'Metadata', 'Error and empty states', 'Demo screenshots',
         '| S-06 | Every load of the shared homepage route resets to Popular experience, English, and Light.',
-        '`LOCAL_AND_PRIVATE_PASS` / `PUBLIC_SYNC_PENDING`',
+        'GitHub technical-chain tip `40c7270b6fc9b56f6976b938297d2b475eef7e39`',
         'A/B scene-label contrast ratio below 4.5:1',
         'completion state, dates, metrics, links, acceptance, public availability, permissions, or evidence'
     )) { Assert-Contains $ledger $required "Claim-ledger contract missing: $required" }
@@ -53,11 +54,26 @@ try {
             '| D-063 | 2026-08-30 |',
             '### L-0070 — PG-C 新会话入口与亮色图注定向修复',
             '| D-065 | 2026-08-30 |',
-            '### L-0072 — PG-C-R2 共享主页重置、功能页顶部与审计修复'
+            '### L-0072 — PG-C-R2 共享主页重置、功能页顶部与审计修复',
+            '**Gate：** `PG-C-R2 PASS`',
+            '40c7270b6fc9b56f6976b938297d2b475eef7e39'
         )) { Assert-Contains $plan $required "Expanded governance contract missing: $required" }
-        foreach ($obsolete in @('允许预先编写 G7 文案和组件', '可以提前编写 G7 文案，但只能')) {
+        foreach ($obsolete in @('允许预先编写 G7 文案和组件', '可以提前编写 G7 文案，但只能', 'PG-C-R2 LOCAL_AND_PRIVATE_PASS / GITHUB_SYNC_PENDING')) {
             if ($plan.Contains($obsolete, [StringComparison]::Ordinal)) { throw "Obsolete G7-only prewriting scope remains: $obsolete" }
         }
+    }
+
+    foreach ($required in @(
+        '- Status: `PASS`. Local verification, owner-only Sites version 8, and the approved GitHub `main` checkpoint are complete.',
+        'Direct `/app/` and `/development/` visits remain valid; homepage destinations and cross-page workspace links open in new tabs.',
+        'Technical-chain tip `40c7270b6fc9b56f6976b938297d2b475eef7e39`'
+    )) { Assert-Contains $progress $required "Progress-sync repair closure missing: $required" }
+    foreach ($obsolete in @(
+        'The first direct visit to `/app/` or `/development/` in a new tab returns to `/`',
+        'internal routes stay in the current tab',
+        'LOCAL_AND_PRIVATE_PASS / GITHUB_SYNC_PENDING'
+    )) {
+        if ($progress.Contains($obsolete, [StringComparison]::Ordinal)) { throw "Obsolete PG-C entry/sync claim remains in progress ledger: $obsolete" }
     }
     $legacyReferenceRoot = Join-Path (Split-Path -Qualifier $projectRoot) 'CODEX-RA'
     $sanitizedLocal = $localPlan.Replace($projectRoot, '<PROJECT_ROOT>').Replace($legacyReferenceRoot, '<LEGACY_REFERENCE_ROOT>').TrimEnd()
