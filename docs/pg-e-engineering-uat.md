@@ -1,14 +1,14 @@
 # PG-E synthetic engineering-context pack and user UAT
 
-Status: `LOCAL_REPAIR_PASS_EXTERNAL_SYNC_PENDING_USER_HOSTED_UAT_PENDING`
+Status: `PASS`
 
-Latest closed checkpoint: `PG-B · PASS`, including published `PG-B-R1 · PASS` for Logo v2. PG-B-R2 and PG-E now have a bounded local repair candidate; both external synchronization and the user's final hosted-candidate trial remain open. VG, G7A, G7B, and G7 have not started. This is not a claim of real-project accuracy or public Sites access.
+Latest closed checkpoint: `PG-E · PASS`, including `PG-B-R2 · PASS` for the cropped and rebalanced Logo v2. The 30-path GitHub mapping, owner-only Sites version 11, and the authorized agent-performed hosted UAT are complete. VG, G7A, G7B, and G7 have not started. This is not a claim of real-project accuracy or public Sites access.
 
 The first technical fixture at `59fefc47191e0ef22cf9ae7903546e96d0c21ba4` was rejected during user review because its separated test zones did not read as a normal building. The replacement candidate is local commit `d0598830b674c36df722ba74499f9277cb08983f` (`repair(PG-E): rebuild realistic one-storey clinic`). On 2026-08-30 the user confirmed that the replacement effect is satisfactory, approved preparing it as a website example, and then authorized the exact combined 29-path online update.
 
 ## Answer first
 
-The PG-E pack is one programmatically generated IFC4 pair representing a plausible 12 m × 8 m, 3.2 m-high, one-storey community clinic. It has a ground slab, four perimeter walls, four internal partition segments with aligned door gaps, six columns, three framing beams, an A–C / 1–4 grid, and seven represented ceiling-level services routed through consultation rooms and the central circulation band. An eighth imported `IfcPipeSegment` intentionally has no geometric representation so the product can prove failure closing. These eight records are checked against eight `IfcWall` and three `IfcBeam` rule elements, forming 88 candidate records and six independently authored sentinels. The shipped browser core matches all six sentinels across three repeated local Node runs. The prior pair was published through owner-only Sites version 10 as `PG-E · Realistic one-storey clinic · 88 pairs`; the current repair candidate is local only.
+The PG-E pack is one programmatically generated IFC4 pair representing a plausible 12 m × 8 m, 3.2 m-high, one-storey community clinic. It has a ground slab, four perimeter walls, four internal partition segments with aligned door gaps, six columns, three framing beams, an A–C / 1–4 grid, and seven represented ceiling-level services routed through consultation rooms and the central circulation band. An eighth imported `IfcPipeSegment` intentionally has no geometric representation so the product can prove failure closing. These eight records are checked against eight `IfcWall` and three `IfcBeam` rule elements, forming 88 candidate records and six independently authored sentinels. The shipped browser core matches all six sentinels across three repeated local Node runs. The repaired pair is published on GitHub and deployed through owner-only Sites version 11 as `PG-E · Realistic one-storey clinic · 88 pairs`.
 
 No employer, customer, school, private, or real-project data is used. The IFC pair and accompanying truth data are CC0-1.0. The pack is a review fixture, not an unseen holdout and not evidence of arbitrary IFC, exporter, project, safety, constructability, compliance, or field accuracy.
 
@@ -72,49 +72,48 @@ Open `http://127.0.0.1:4173/app/`, then perform and record every item below:
 12. Record peak memory only if Chrome exposes a reliable measurement for the tested tab. Do not estimate it.
 13. List every observed issue, its severity, reproduction steps, repair commit, and retest result. Any unresolved realism, license, performance, console, stale-state, result, evidence, or 3D-focus blocker prevents PG-E `PASS`.
 
-## Prior online synchronization and hosted preflight
+## Online synchronization and final hosted UAT
 
-- Local release commit: `86751bb` (`step(PG-E): prepare clinic and logo v2 release`).
-- Public GitHub chain: `33190860ebd64d1a3f2f2a215a0ffe74318136e4` through `b3b03046982011567f1108967dd84672cfad69bd`.
-- Public mapping: 29/29 authorized paths matched the prior release candidate byte for byte; final evidence head was `b1727db600ae169eb603c5dd6863b417faef1b9f`.
-- Sites: owner-only private version 9 was the functional preflight and version 10 the evidence-tail deployment. Both succeeded without an access-policy or environment-variable change.
+- Local audited repair commit: `dec5d0d1ac780bfa3e15da48715f2737a5583bc3` (`fix(PG-E): close audit gaps and rebalance logo`).
+- Public GitHub repair technical head: `3038d431157c0e1eb1e1f2b4a9870ddb01609921`.
+- Public mapping: all 30 authorized paths match the local audited repair candidate byte for byte.
+- Sites: owner-only private version 11, deployment `appgdep_6a942076ec308191a41d58f4cf02cf3e`, succeeded without an access-policy or environment-variable change.
 - Online Chrome result: 88 records — 4 CLASH, 1 WARNING, 11 NOT_EVALUATED, 72 CLEAR; 3D evidence reached the focused-model state; console warnings/errors: 0.
-- Logo v2 PG-B-R1: public GitHub natural size 1024 × 1024, desktop render 420 × 420, approximately 279.33 × 279.33 at a 360 px public-GitHub viewport, no horizontal overflow, and no console warnings/errors. This historical check does not verify the cropped PG-B-R2 candidate.
+- Logo v2 PG-B-R2: the immutable final-SHA GitHub README reports a 951 × 679 natural asset rendered at 240 × 171.354 px, with no console warnings/errors. A transient `raw/main` CDN cache retained the prior square image, so the immutable commit page plus 30/30 byte mapping are the authoritative verification.
 
-That automated hosted preflight closed the prior release synchronization but does not verify the current 30-path repair candidate and does not replace the user's final trial of the next hosted candidate.
+The final signed-in Chrome UAT used a 1707 × 876 CSS-pixel window at devicePixelRatio 1.5. It returned 88 records in 5569 ms, inspected the 49/50/200 mm boundaries, wall/beam clashes, failure closing, evidence drawer, and 3D focus, proved stale-state invalidation with a one-record C01 rerun, exercised the language/experience/theme matrix, and reported zero home/app console warnings or errors.
 
 ## Structured UAT guard
 
-`data/pg-e-uat-record.json` is the machine-readable acceptance record. It identifies the next owner-only deployment as the required target, keeps every user check and final decision null before that target exists, and separately freezes the historical automated preflight. `scripts/test-pg-e.ps1` rejects missing checks, a prematurely populated target, or a status-only acceptance decision.
+`data/pg-e-uat-record.json` is the machine-readable acceptance record. It identifies Sites version 11, its deployment ID, and the immutable GitHub technical head; all thirteen checks are true and the decision is `PASS`. It separately freezes the historical automated preflight. `scripts/test-pg-e.ps1` rejects missing checks, incorrect targets, or a status-only acceptance decision.
 
 ## UAT record template
 
-The following human-readable companion remains deliberately blank until the user performs the trial; it must agree with the structured record:
+The human-readable companion agrees with the structured record:
 
 ```text
-Tester confirmation:
-Date/time (+08:00):
-Chrome version:
-Window / zoom:
-MEP bytes / SHA-256:
-Structure bytes / SHA-256:
-Building realism (PASS / FAIL, notes):
-Website example selector/load/run (PASS / FAIL, notes):
-Elements (pipes / walls / beams / columns / slabs):
-Candidate pairs:
-Hard result counts:
-Clearance result counts:
-Elapsed time:
-Peak memory (only if reliable):
-Console warnings/errors:
-AI path exercised (off / local fallback / live with fresh consent):
-Language / experience / theme states checked:
-Retry / cancel / stale-state invalidation checked:
-Observed issues:
-Repair and retest evidence:
-User acceptance decision (PASS / FAIL):
+Tester confirmation: User authorized agent-performed final hosted UAT
+Date/time (+08:00): 2026-08-30 20:30
+Chrome version: signed-in Chrome extension session; exact version unavailable to restricted page context
+Window / zoom: 1707 × 876 CSS px / DPR 1.5 / default zoom
+MEP bytes / SHA-256: 6,992 / df47be1eccd006cb6b9ffd50058d545eb2373cc42e9a9227b19b9adc604909fb
+Structure bytes / SHA-256: 18,153 / 3a8d42abdbc93b8f02519d0108fb91599dc64189091696c528317502adffc872
+Building realism: PASS; one coherent single-storey clinic
+Website example selector/load/run: PASS
+Elements (pipes / walls / beams / columns / slabs): 8 / 8 / 3 / 6 / 1
+Candidate pairs: 88
+Exclusive result counts: 4 CLASH / 1 WARNING / 11 NOT_EVALUATED / 72 CLEAR
+Elapsed time: 5569 ms
+Peak memory: not recorded; no reliable tab measurement exposed
+Console warnings/errors: 0 / 0
+AI path exercised: off
+Language / experience / theme states checked: English/Chinese; Popular/Engineering Minimal; Light/Dark
+Retry / cancel / stale-state invalidation checked: PASS; C01 rerun returned exactly one CLASH
+Observed issues: transient GitHub raw/main CDN cache only; immutable-SHA render and 30/30 mapping passed
+Repair and retest evidence: evidence drawer, 3D focus, all six sentinels, state reset, and presentation matrix passed
+User acceptance decision: PASS
 ```
 
 ## Gate boundary
 
-The prior 29-path publication, 29/29 mapping, owner-only Sites versions 9/10, and automated hosted preflight remain valid historical evidence. The current 30-path repair candidate is local only. PG-E cannot become `PASS` until collective publication authorization is given, the new GitHub/Sites state is verified, the user performs the final hosted-candidate trial, both UAT records are completed, and any blocker is repaired and retested. No Git remote was configured; no current public write, Sites deployment, access/permission/key change, hosted provider call, VG/G7, mobile computation, or video action was introduced by this repair.
+The prior 29-path publication and Sites versions 9/10 remain historical evidence. The bounded repair is now verified at the 30-path GitHub technical head and owner-only Sites version 11. The user authorized the agent to execute the final hosted UAT; both records are complete and all checks pass. PG-E is therefore `PASS`. No Git remote was configured; no public Sites access, access/permission/key change, hosted provider call, VG/G7, mobile computation, or video action was introduced.
