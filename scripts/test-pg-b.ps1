@@ -26,7 +26,7 @@ try {
     $brandAudit = Get-Content -LiteralPath 'docs/pg-b-github-logo.md' -Raw
     $development = Get-Content -LiteralPath 'development/index.html' -Raw
 
-    if ($manifest.gate -cne 'PG-B-R2' -or $manifest.status -cne 'LOCAL_REPAIR_CANDIDATE_EXTERNAL_SYNC_PENDING') { throw 'PG-B-R2 manifest status drifted.' }
+    if ($manifest.gate -cne 'PG-B-R2' -or $manifest.status -cne 'PASS') { throw 'PG-B-R2 manifest status drifted.' }
     if ($manifest.asset_type -cne 'static GitHub README logo') { throw 'PG-B asset type drifted.' }
     if ($manifest.canvas.width -ne 951 -or $manifest.canvas.height -ne 679) { throw 'PG-B canvas dimensions drifted.' }
     if ($manifest.canvas.color_type -cne 'RGBA' -or -not $manifest.canvas.transparency) { throw 'PG-B transparency contract drifted.' }
@@ -51,9 +51,12 @@ try {
         $manifest.current_public_v2_evidence.mapped_public_paths -ne 29) { throw 'PG-B-R1 historical remote mapping evidence drifted.' }
     Assert-Sequence @($manifest.current_public_v2_evidence.desktop.rendered_image) @(420,420) 'PG-B-R1 historical desktop rendering drifted.'
     Assert-Sequence @($manifest.current_public_v2_evidence.desktop.natural_image) @(1024,1024) 'PG-B-R1 historical natural size drifted.'
-    if ($manifest.external_update.repair_upload_authorized -ne $false -or
-        $manifest.external_update.github_mapping_verified -ne $false -or
-        $manifest.external_update.sites_update_authorized -ne $false -or
+    if ($manifest.external_update.repair_upload_authorized -ne $true -or
+        $manifest.external_update.github_mapping_verified -ne $true -or
+        $manifest.external_update.sites_update_authorized -ne $true -or
+        $manifest.external_update.current_public_head -cne '3038d431157c0e1eb1e1f2b4a9870ddb01609921' -or
+        $manifest.external_update.repair_functional_sites_version -ne 11 -or
+        $manifest.external_update.mapped_public_paths -ne 30 -or
         $manifest.external_update.prior_functional_sites_version -ne 9 -or
         $manifest.external_update.prior_evidence_tail_sites_version -ne 10 -or
         $manifest.external_update.sites_access -cne 'owner-only private') { throw 'PG-B-R1 external closure evidence drifted.' }
@@ -86,9 +89,8 @@ try {
         'src="docs/assets/brand/ifc-clashtrace-github-logo.png"',
         'width="240"',
         'alt="IFC ClashTrace product logo: a metallic pipe crosses layered wall panels beside an outlined clash marker and inspection alert."',
-        'PG-B remains the latest closed presentation-readiness checkpoint',
-        'published Logo v2 replacement independently closed as `PG-B-R1 PASS`',
-        '`PG-B-R2` local repair',
+        'PG-B and its Logo revisions are closed',
+        '`PG-B-R2 PASS`',
         'docs/pg-b-github-logo.md'
     )) { Assert-Contains $readme $required "README PG-B contract missing: $required" }
     foreach ($forbidden in @('.gif','<picture>','<source','prefers-reduced-motion','ifc-clashtrace-lockup-light')) {
@@ -96,15 +98,15 @@ try {
     }
 
     foreach ($required in @(
-        'Status: `PG-B PASS / PG-B-R1 PASS / PG-B-R2 LOCAL_REPAIR_CANDIDATE_EXTERNAL_SYNC_PENDING`',
-        'Latest closed checkpoint: `PG-B · PASS`',
+        'Status: `PG-B PASS / PG-B-R1 PASS / PG-B-R2 PASS`',
+        'Latest closed checkpoint: `PG-E · PASS`',
         '951 × 679',
         'RGBA',
         '43,185 bytes',
         'GIF usage remains cancelled',
         '240 px',
-        'stopped before public release',
-        'version 10 the prior evidence tail'
+        '30/30 local-to-remote mapping',
+        'Sites version 11 contains the repair'
     )) { Assert-Contains $brandAudit $required "PG-B audit contract missing: $required" }
 
     foreach ($obsolete in @(
@@ -120,7 +122,7 @@ try {
 
     $closedPgB = [regex]::Match($development, '(?s)<li[^>]*data-claim-stage="PG-B"[^>]*data-claim-state="closed"[^>]*>(.*?)</li>')
     if (-not $closedPgB.Success -or $closedPgB.Value -notmatch '>PASS<') { throw 'Development page does not show PG-B as closed.' }
-    foreach ($required in @('裁减透明画布','crops transparent canvas','240 px','无 GIF','no-GIF')) {
+    foreach ($required in @('裁减透明画布','crops the transparent canvas','240 px','无 GIF','no-GIF')) {
         Assert-Contains $closedPgB.Value $required "Development PG-B static-logo wording missing: $required"
     }
 
@@ -143,9 +145,9 @@ try {
     'PGB_MANIFEST_EVIDENCE_FIELDS=PASS'
     'PGB_PREVIOUS_REMOTE_EVIDENCE_DECLARED=12/12'
     'PGB_R2_LOCAL_RENDER=PASS'
-    'PGB_R2_REMOTE_LIVE_CHECK=PENDING_COLLECTIVE_AUTHORIZATION'
-    'PGB_R2_PUBLIC_MAPPING=PENDING_COLLECTIVE_AUTHORIZATION'
-    'PGB_STATUS=PG-B-R1_PASS_WITH_R2_LOCAL_REPAIR_PENDING'
+    'PGB_R2_REMOTE_LIVE_CHECK=PASS'
+    'PGB_R2_PUBLIC_MAPPING=30/30'
+    'PGB_STATUS=PG-B-R2_PASS'
 }
 finally {
     Pop-Location
