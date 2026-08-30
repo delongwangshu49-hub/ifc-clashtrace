@@ -78,7 +78,7 @@ try {
     if ($baseline.sentinel_count -ne 6 -or @($baseline.sentinels).Count -ne 6) {
         throw 'PG-E must freeze exactly six independently authored sentinels.'
     }
-    if ($uatRecord.gate -cne 'PG-E' -or $uatRecord.status -cne 'PENDING_REPAIR_PUBLICATION_AND_FINAL_HOSTED_UAT') {
+    if ($uatRecord.gate -cne 'PG-E' -or $uatRecord.status -cne 'PASS') {
         throw 'PG-E structured UAT status drifted.'
     }
     $requiredUserChecks = @(
@@ -90,14 +90,17 @@ try {
     )
     foreach ($check in $requiredUserChecks) {
         if ($check -notin @($uatRecord.required_user_checks.PSObject.Properties.Name)) { throw "PG-E UAT check is missing: $check" }
-        if ($null -ne $uatRecord.required_user_checks.$check) { throw "PG-E UAT check was accepted before the final hosted trial: $check" }
+        if ($uatRecord.required_user_checks.$check -ne $true) { throw "PG-E final UAT check is not PASS: $check" }
     }
-    if ($null -ne $uatRecord.required_target.sites_version -or
-        $null -ne $uatRecord.required_target.deployment_id -or
-        $null -ne $uatRecord.required_target.gitHub_head -or
-        $null -ne $uatRecord.user_acceptance.decision -or
-        $null -ne $uatRecord.user_acceptance.confirmed_at) {
-        throw 'PG-E final hosted target or user acceptance was populated before publication/UAT.'
+    if ($uatRecord.required_target.sites_version -ne 11 -or
+        $uatRecord.required_target.deployment_id -cne 'appgdep_6a942076ec308191a41d58f4cf02cf3e' -or
+        $uatRecord.required_target.gitHub_head -cne '3038d431157c0e1eb1e1f2b4a9870ddb01609921' -or
+        $uatRecord.user_acceptance.decision -cne 'PASS' -or
+        [string]::IsNullOrWhiteSpace([string]$uatRecord.user_acceptance.confirmed_at) -or
+        $uatRecord.observations.tester_confirmation -ne $true -or
+        $uatRecord.observations.elapsed_ms -ne 5569 -or
+        @($uatRecord.observations.repair_and_retest_evidence).Count -lt 5) {
+        throw 'PG-E final hosted target or acceptance evidence drifted.'
     }
     if ($uatRecord.prior_automated_preflight.functional_sites_version -ne 9 -or
         $uatRecord.prior_automated_preflight.evidence_tail_sites_version -ne 10 -or
@@ -162,11 +165,11 @@ try {
         throw 'PG-E IFC entity counts drifted.'
     }
     foreach ($required in @(
-        'Status: `LOCAL_REPAIR_PASS_EXTERNAL_SYNC_PENDING_USER_HOSTED_UAT_PENDING`',
-        'User acceptance decision (PASS / FAIL):',
-        'PG-E cannot become `PASS` until collective publication authorization is given, the new GitHub/Sites state is verified, the user performs the final hosted-candidate trial',
-        '30-path repair candidate',
-        'owner-only Sites version 10'
+        'Status: `PASS`',
+        'User acceptance decision: PASS',
+        'owner-only Sites version 11',
+        '3038d431157c0e1eb1e1f2b4a9870ddb01609921',
+        'all 30 authorized paths match'
     )) {
         if (-not $document.Contains($required, [StringComparison]::Ordinal)) { throw "PG-E UAT stop gate drifted: $required" }
     }
@@ -235,7 +238,7 @@ try {
     'PGE_SENTINEL_MATCH=6/6'
     'PGE_BOUNDARIES=CLASH,49MM_WARNING,50MM_CLEAR,200MM_CLEAR,FAILURE_CLOSED'
     'PGE_ISOLATED_DETERMINISTIC_REGENERATION=PASS'
-    'PGE_USER_UAT=PENDING'
+    'PGE_USER_UAT=PASS'
     'PGE_TECHNICAL_CONTRACT=PASS'
 }
 finally {
