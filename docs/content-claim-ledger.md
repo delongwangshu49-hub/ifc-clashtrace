@@ -1,6 +1,6 @@
 # IFC ClashTrace content claim ledger
 
-Status: `PG-B · PASS`
+Status: `PG-E · IN_PROGRESS`
 
 Latest closed checkpoint: `PG-B · PASS`
 
@@ -13,9 +13,9 @@ This ledger controls factual claims in the homepage, functional workspace, devel
 | Claim ID | Public-safe claim | Authority | Allowed state |
 |---|---|---|---|
 | S-01 | PG-B is the latest closed checkpoint. | Master plan L-0074; `PROGRESS_SYNC.md` PG-B closure | `PASS` |
-| S-02 | PG-C closed the content audit; PG-B published and verified the user-selected static GitHub Logo. | Master plan PG-C/PG-B; automated PG-B asset checks; Chrome GitHub verification | PG-C and PG-B `PASS` |
+| S-02 | PG-C closed the content audit; PG-B published and verified Logo v1. The byte-identical Logo v2 local replacement is technically prepared but not yet uploaded or externally verified. | Master plan PG-C/PG-B; v2 asset manifest and local checks; historical Chrome GitHub verification applies only to v1 | PG-C and original PG-B `PASS`; Logo v2 `TECH_PASS_EXTERNAL_SYNC_PENDING` |
 | S-03 | The Sites project remains owner-only and private. | Read-only Sites access verification on 2026-08-30 | `OWNER_ONLY_PRIVATE` |
-| S-04 | PG-B is `PASS`; PG-E, VG, G7A, G7B, and G7 have not started. | Master-plan PG-B closure and later-stage stop gates | PG-B `PASS`; others `PLANNED` / not started only |
+| S-04 | PG-B remains the latest closed checkpoint. PG-E is in progress with accepted visual realism, a selectable local clinic example, and 6/6 local technical sentinel preflight; full update verification, collective authorization, and online mapping are pending. VG, G7A, G7B, and G7 have not started. | Master-plan D-071/D-072; `docs/pg-e-engineering-uat.md`; PG-E public contract | PG-E `IN_PROGRESS`, never `PASS`; later stages `PLANNED` / not started only |
 | S-05 | The GitHub repository is public on `main`; this does not make Sites public. | Read-only Chrome GitHub verification; Sites access verification | factual distinction only |
 | S-06 | Every load of the shared homepage route resets to Popular experience, English, and Light. Homepage destinations open in new tabs; non-anchored workspace/development entries start at the top, while intentional hash links retain their target. | Master plan D-065/L-0072; executable entry tests; Chrome verification; GitHub technical-chain tip `40c7270b6fc9b56f6976b938297d2b475eef7e39` | `PASS` |
 
@@ -31,6 +31,8 @@ This ledger controls factual claims in the homepage, functional workspace, devel
 | C-06 | Development, README | Owner-only Sites version 4 completed basic usability acceptance; no hosted key is configured. | G6/G6-R1 deployment and privacy evidence. This is not public-access authorization. |
 | C-07 | Footer, development | Code is MIT; project-generated IFC data is CC0-1.0. | `LICENSE`, `data/generated/LICENSE.md`, and data/license documentation. |
 | C-08 | Workspace | Current computation support is desktop Chrome at `>= 1024 CSS px`, IFC4, uncompressed STEP, metre units, shared project coordinates, and a candidate `<= 25 MiB` limit per file. | G3/G4 bounded support contract; do not imply mobile computation or broad exporter support. |
+| C-09 | Development, README, workspace | The repaired PG-E pair is a coherent 12 m × 8 m one-storey clinic with enclosure, door-gapped partitions, slab, six columns, three beams, seven grid axes, and eight ceiling-level pipe routes. Eight walls and three beams form 88 rule pairs; shipped-core preflight matches 6/6 sentinels. The user accepted its visual realism and it is now a local selectable website example. | `data/pg-e-manifest.json`, operation ledger, sentinel baseline, runtime selector, static-build packaging, and `scripts/test-pg-e.ps1`. Online upload and mapping remain pending. |
+| C-10 | Development, README | PG-E includes plausible room/corridor services containing wall/beam clashes, 49 mm Warning, a disclosed 0.01 µm offset above the 50 mm non-warning boundary, 200 mm safe separation, and missing-geometry failure closing. | Human-authored operations plus shipped-core observation. Only six named pairs are independent expectations; no real-project accuracy claim. |
 
 ## Surface inventory
 
@@ -38,8 +40,8 @@ This ledger controls factual claims in the homepage, functional workspace, devel
 |---|---|
 | Homepage | Product capability claims C-01/C-02/C-03; every homepage load follows S-06; development screenshot is explicitly historical G4 evidence; metadata is bilingual; GitHub, development, license, and data-license targets are non-empty. |
 | Functional workspace | Input boundary C-08; error and empty states fail closed; AI boundary C-05; metadata and static interface copy are bilingual. The eyebrow is capability wording, not a stale Gate label. |
-| Development log | Closed timeline through PG-B with the verified static GitHub Logo; every stage after PG-B shown as `PLANNED` and “尚未开始” / “Not started”; metrics use C-04; Sites privacy uses S-03. |
-| README | Closed technical evidence through PG-B; published static PNG with no GIF dependency; later stages not started; Sites-private/public-repository distinction explicit. |
+| Development log | Closed timeline through PG-B with Logo v1 historical verification and the pending Logo v2 update distinguished; PG-E shown as `IN_PROGRESS` with technical/online-update separation; VG and G7 stages remain `PLANNED`; metrics use C-04/C-09/C-10; Sites privacy uses S-03. |
+| README | Closed evidence through PG-B is retained; Logo v2 local readiness is distinguished from pending GitHub verification; the PG-E selectable-example candidate and pending online update are explicit; the static PNG has no GIF dependency. |
 | Navigation and footer | Targets must be non-empty and resolve to a local route, anchored workspace route, license/document route, or the established GitHub repository. Homepage destinations and cross-page workspace links open new tabs with `noopener`; ordinary page entries start at the top and intentional hash links retain their anchor. |
 | Metadata | Page title and description preserve the same product and progress scope in Simplified Chinese and English. |
 | Error and empty states | Missing input, no selected file, zero filtered records, unsupported input, provider failure, and incomplete geometry must not imply success or completion. |
@@ -61,11 +63,11 @@ Only actual Gate evidence and required user authorization may promote a planned 
 
 1. a latest-closed checkpoint other than PG-B after PG-B closure;
 2. an empty or placeholder target;
-3. PG-B without `data-claim-state="closed"` and `PASS`, or a stage after PG-B without `data-claim-state="planned"`, `PLANNED`, and matched “尚未开始” / “Not started” wording;
+3. PG-B without `data-claim-state="closed"`, historical `PASS`, and an explicit pending Logo v2 external update; PG-E without `data-claim-state="in_progress"`, `IN PROGRESS`, accepted visual realism, a selectable one-storey clinic example, 6/6 technical evidence, and explicit pending authorization/online mapping; or VG/G7 stages without `planned`/`PLANNED` and matched “尚未开始” / “Not started” wording;
 4. mismatched Simplified Chinese/English claim pairs or metadata;
 5. a historical development screenshot without its G4/historical markers;
 6. source/build disagreement on the status-band and planned-stage facts;
 7. regression of the G6 deployment and product contracts.
 8. a homepage load that does not reset to Popular experience, English, and Light; a homepage destination that does not open a new tab with `noopener`; a non-hash workspace/development entry that does not start at the top; storage failure that breaks display controls; or an A/B scene-label contrast ratio below 4.5:1.
 
-The user's PG-B authorization covered the exact 12-path GitHub upload and verification now recorded as complete. It did not authorize Sites writes, deployment, access changes, keys, PG-E, VG, G7, mobile computation, or video production.
+The user accepted the clinic's visual effect and requested preparation of one combined online update containing the selectable example and Logo v2. This authorizes local candidate work and exact upload accounting only; it does not yet authorize GitHub/Sites writes, deployment, access changes, keys, VG, G7, mobile computation, or video production.

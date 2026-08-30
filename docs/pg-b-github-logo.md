@@ -1,52 +1,43 @@
-# PG-B static GitHub Logo and README asset audit
+# PG-B-R1 static GitHub Logo v2 update
 
-Status: `PASS`
+Status: `PG-B PASS / PG-B-R1 TECH_PASS_EXTERNAL_SYNC_PENDING`
 
 Latest closed checkpoint: `PG-B · PASS`
 
-Scope date: 2026-08-30 (Asia/Hong_Kong)
+The original PG-B publication remains historical `PASS`. This document defines a local replacement candidate only; it does not claim that Logo v2 is already on GitHub or verified there.
 
-The user cancelled the GIF direction and selected one supplied transparent PNG as the GitHub Logo. The repository copies that exact file byte-for-byte; it is not regenerated, retouched, recomposed, or animated.
+## Answer first
 
-## Static asset contract
+The user-selected Logo v2 is copied byte-for-byte to the existing canonical README path, so GitHub needs one binary replacement rather than a new duplicate asset. The README displays it at 420 px with updated alternative text. GIF usage is cancelled and no animation path is reintroduced.
 
-- Path: `docs/assets/brand/ifc-clashtrace-github-logo.png`
+## Logo v2 contract
+
+- Canonical path: `docs/assets/brand/ifc-clashtrace-github-logo.png`
 - Format: PNG, RGBA, transparent background
-- Intrinsic size: 1672 × 941
-- Alpha content bounds: `(214, 68)–(1377, 892)`
-- File size: 468,496 bytes
-- SHA-256: `b56f3a2a3d3ef5d37599a8a84c54cf1a5f56527057db487601d7bced24793142`
-- README display width: 520 px with height derived from the intrinsic aspect ratio
+- Intrinsic size: 1024 × 1024
+- Alpha content bounds: `(84, 220)–(938, 802)`
+- File size: 45,662 bytes
+- SHA-256: `2da1f6c80b25d85495ffcd4932424ef7316a1be5d2334ceca941af13932de597`
+- README display width: 420 px with height derived from the intrinsic aspect ratio
+- Copy operation: binary identity only; no re-encoding, cropping, recoloring, or image generation
 
-The mark depicts two polished wall panels, a muted-teal pipe, a coral collision ring, and a coral inspection bubble. Its transparency lets GitHub supply the surrounding page background without baking in a white or black field.
+The mark depicts a metallic pipe crossing layered light/dark wall panels, with a framed clash marker and inspection alert. The transparent 1024-square canvas is preserved exactly as supplied.
 
-## Cancelled motion route
+## Local verification
 
-GIF usage is cancelled. The README contains no GIF reference, `picture` source, reduced-motion branch, generated animation layers, or motion-build script. The prior animated candidates remain recoverable from Git history but are not publication candidates.
+- The binary signature, RGBA color type, intrinsic dimensions, alpha bounds, file size, SHA-256, metadata markers, README path, width, and alt text are guarded by `scripts/test-pg-b.ps1`.
+- At 1280 × 720 the README image candidate renders at 420 × 420; at 360 × 640 it scales to 328 × 328 without horizontal overflow.
+- `docs/assets/brand/asset-manifest.json` freezes the v2 identity and explicitly marks external synchronization as pending.
+- The source-named `ifc-clashtrace-github-logo-v2.png` is not a publication path; only the canonical filename is included in the upload candidate.
 
-## Accessibility and local verification
+The public test validates the frozen local evidence record only. It does not perform a live GitHub mapping check.
 
-- Alt text describes the wall–pipe–collision–inspection meaning without treating the image as text.
-- The fixed README width prevents the large intrinsic canvas from dominating the page while remaining responsive on narrow layouts.
-- The selected PNG is below the 1 MiB per-file budget.
-- The binary scan checks for local paths, EXIF/XMP markers, and account-identifying metadata.
-- `docs/assets/brand/asset-manifest.json` freezes the exact dimensions, size, hash, alpha mode, and no-GIF decision.
-- `scripts/test-pg-b.ps1` verifies the PNG signature, RGBA color type, dimensions, alpha bounds, hash, README path/width/alt text, frozen render evidence fields, and absence of the obsolete animation chain.
+## Historical v1 evidence
 
-The script validates the frozen local evidence record only. It does not perform a live GitHub mapping check and its output must not be interpreted as current network verification. Live public mapping and rendering remain browser evidence.
+The current public README still carries the previously verified 1672 × 941 v1 PNG with SHA-256 `b56f3a2a3d3ef5d37599a8a84c54cf1a5f56527057db487601d7bced24793142`. Its desktop/narrow rendering and 12-path mapping through technical-chain tip `b4ce6d56282111c585f757042fa7cfefc057da0e`, plus status-tail parent `6f58bf246fc53cdc5d06a0dd61175cd24d1e3993`, remain historical evidence for v1 only and must not be presented as verification of v2.
 
-The local Chromium README harness loaded the exact 1672 × 941 source successfully. It rendered at 520 × 293 in a 1280 × 720 viewport and 328 × 185 in a 360 × 640 viewport, with no horizontal overflow in either case. This is local layout evidence only and does not replace verification on the public GitHub page.
+## External stop gate
 
-## External verification and mapping
+Logo v2 may be uploaded only with the exact collectively authorized online-update set. After upload, GitHub must be rechecked for natural 1024 × 1024 size, 420 px desktop rendering, responsive narrow rendering, transparency, alt text, layout stability, console output, canonical binary hash, and local-to-remote mapping. Until then `PG-B-R1` remains `TECH_PASS_EXTERNAL_SYNC_PENDING`.
 
-The user authorized the exact 12-path public set. Signed-in Chrome uploaded it directly to public GitHub `main` in a continuous five-commit chain:
-
-1. root files: `9a48c0cc350328c8138440f2bfe60c3b68f5adab` (5 paths);
-2. static Logo and manifest: `729298eef672937c3407a7e1545c7998cccd2cf4` (2 paths);
-3. development status: `460d803b27bbc239ddce9daa73ccb8afe65b1e62` (1 path);
-4. Logo contract and claim ledger: `8c133019642d7d7210a3eaacb230bf9a2a598c40` (2 paths);
-5. public regression guards: `b4ce6d56282111c585f757042fa7cfefc057da0e` (2 paths).
-
-The public README loaded the exact 1672 × 941 image, rendered it at 520 × 293 in a 1280 × 720 viewport and 279 × 157 in a 360 × 640 viewport, had no horizontal overflow, and emitted zero browser warnings/errors. The GitHub file page reported the expected static asset and source commit. The 12/12 path mapping and five-commit parent order through technical-chain tip `b4ce6d56282111c585f757042fa7cfefc057da0e` were verified in Chrome, so PG-B is closed as `PASS`. A later browser audit verified status-tail parent `6f58bf246fc53cdc5d06a0dd61175cd24d1e3993`. The mutable current public HEAD is deliberately not asserted inside a public file because publishing that assertion would create a newer HEAD; it is recorded by the local empty sync commit instead.
-
-No Sites, permission, key, public-access, PG-E, VG, G7, or video action occurred during PG-B closure.
+No GitHub/Sites write, deployment, access/permission/key change, provider request, VG/G7, mobile computation, or video action is authorized by this local candidate.

@@ -96,3 +96,9 @@ The JSON artifacts describe only programmatically constructed finite cylinders a
 - Third-party software and any future external dataset retain their own licenses.
 - Generated IFC headers use the non-personal `IFC ClashTrace contributors` label, contain no email or local path, and declare `CC0-1.0`.
 - No private, employer, client, school, or real-project IFC is included.
+
+## PG-E synthetic engineering-context UAT pair
+
+PG-E adds one programmatically generated IFC4 pair under `data/generated/pg-e/`. It is organized as a synthetic site, building, and 12 m × 8 m community-clinic storey with perimeter walls, door-gapped partitions, a ground slab, six columns, three beams, a seven-axis grid, and ceiling-level room services. Eight pipe segments are checked against eight walls and three beams. The exact two-file identity, CC0-1.0 redistribution permission, element GUIDs, limitations, and sizes are recorded in `data/pg-e-manifest.json`; six human-authored sentinel expectations are frozen separately in `data/ground-truth/pg-e-sentinel-baseline.json`.
+
+The six sentinels cover wall and beam clashes, 49 mm warning, the non-warning side of the 50 mm boundary, 200 mm separation, and missing-geometry failure closing. Only those six pairs are independent expectations. The full 88-pair output is an engineering-context review surface, not a hidden holdout or evidence of real-project accuracy. The user has accepted the building's visual realism; both IFC files are now included in the local website example and static-build candidate. PG-E remains in progress until full update verification, collective upload authorization, and online mapping close.
