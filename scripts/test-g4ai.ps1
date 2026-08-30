@@ -33,7 +33,7 @@ $server = Get-Content -LiteralPath "scripts/g4ai-local-server.mjs" -Raw
 $envExample = Get-Content -LiteralPath ".env.example" -Raw
 
 foreach ($required in @(
-    "G4AI · OPTIONAL INTERPRETATION",
+    "DETERMINISTIC REVIEW · OPTIONAL AI",
     "Optional AI interpretation is available.",
     "GroqCloud · openai/gpt-oss-20b",
     "service availability and data handling follow the provider's current public terms",

@@ -89,7 +89,7 @@ if ($app -match '<input\s+id="shared-coordinates"[^>]*\schecked(?:\s|>)') {
     throw "Shared-coordinate confirmation must be unchecked by default."
 }
 
-foreach ($contract in @("G0A", "G3A", "G3B", "G3C", "G3", "DG", "8 / 8", "100 / 100", "12 / 12", 'href="/app/#controlled-review" target="_blank"', "data/generated/LICENSE.md")) {
+foreach ($contract in @("G0A", "G3A", "G3B", "G3C", "G3", "DG", "8 / 8", "1.00 / 1.00", "12 / 12", 'href="/app/#controlled-review" target="_blank"', "data/generated/LICENSE.md")) {
     Assert-Contains $development $contract "Development-history evidence missing: $contract"
 }
 if ($development.Contains('docs/g3-browser-core.md')) { throw "Development page still links to the obsolete empty validation document." }
