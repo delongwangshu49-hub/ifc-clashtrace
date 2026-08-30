@@ -1,21 +1,22 @@
 {
-  "gate": "PG-B-R1",
-  "status": "PASS",
-  "generated_at": "2026-08-30T19:17:00+08:00",
+  "gate": "PG-B-R2",
+  "status": "LOCAL_REPAIR_CANDIDATE_EXTERNAL_SYNC_PENDING",
+  "generated_at": "2026-08-30T20:42:00+08:00",
   "asset_type": "static GitHub README logo",
-  "source": "exact user-selected v2 RGBA PNG copied byte-for-byte",
+  "source": "exact user-selected v2 RGBA pixels with a deterministic transparent-canvas crop",
   "canvas": {
-    "width": 1024,
-    "height": 1024,
+    "width": 951,
+    "height": 679,
     "color_type": "RGBA",
     "transparency": true,
-    "alpha_bounds": [84, 220, 938, 802]
+    "alpha_bounds": [48, 48, 902, 630],
+    "transparent_margin_px": 48
   },
   "readme": {
-    "display_width_px": 420,
+    "display_width_px": 240,
     "height": "derived from intrinsic aspect ratio",
     "alignment": "center",
-    "external_verification": "PASS on public GitHub main"
+    "external_verification": "PENDING collective publication authorization"
   },
   "motion": {
     "gif_usage": false,
@@ -24,23 +25,27 @@
     "build_script_required": false
   },
   "local_render": {
+    "status": "PASS",
     "browser": "Codex in-app Chromium",
     "desktop": {
       "viewport": [1280, 720],
-      "rendered_image": [420, 420],
+      "rendered_image": [240, 171.3542],
       "horizontal_overflow": false
     },
     "narrow": {
       "viewport": [360, 640],
-      "rendered_image": [328, 328],
+      "rendered_image": [240, 171.3542],
+      "document_scroll_width": 360,
       "horizontal_overflow": false
     },
-    "natural_image": [1024, 1024],
-    "selected_source": "static PNG v2",
+    "natural_image": [951, 679],
+    "selected_source": "cropped static PNG v2",
     "console_warnings_or_errors": 0
   },
-  "remote_render": {
+  "current_public_v2_evidence": {
+    "asset_sha256": "2da1f6c80b25d85495ffcd4932424ef7316a1be5d2334ceca941af13932de597",
     "github_technical_chain_tip": "b3b03046982011567f1108967dd84672cfad69bd",
+    "github_final_evidence_head": "b1727db600ae169eb603c5dd6863b417faef1b9f",
     "mapped_public_paths": 29,
     "desktop": {
       "browser": "Google Chrome",
@@ -66,24 +71,25 @@
     "scope": "Historical evidence for the superseded v1 public asset only."
   },
   "external_update": {
-    "v2_upload_authorized": true,
-    "github_mapping_verified": true,
-    "sites_update_authorized": true,
-    "github_technical_chain_tip": "b3b03046982011567f1108967dd84672cfad69bd",
-    "sites_version": 9,
-    "sites_deployment_id": "appgdep_6a9410376c248191952546a2416970fc",
+    "repair_upload_authorized": false,
+    "github_mapping_verified": false,
+    "sites_update_authorized": false,
+    "current_public_head": "b1727db600ae169eb603c5dd6863b417faef1b9f",
+    "prior_functional_sites_version": 9,
+    "prior_evidence_tail_sites_version": 10,
     "sites_access": "owner-only private",
-    "required_next_gate": "PG-E final hosted user UAT"
+    "required_next_gate": "collective publication authorization, external verification, then PG-E final hosted user UAT"
   },
   "assets": {
     "ifc-clashtrace-github-logo.png": {
-      "bytes": 45662,
-      "sha256": "2da1f6c80b25d85495ffcd4932424ef7316a1be5d2334ceca941af13932de597"
+      "bytes": 43185,
+      "sha256": "07e2d9285312ff9905b300dbd62d1fdce96e20cad2c4d7d797bde53f774862fb"
     }
   },
   "export": {
-    "operation": "binary copy only",
-    "reencoded": false,
+    "operation": "crop the original 1024-square RGBA canvas to x=36..986 and y=172..850, preserving a 48 px transparent margin around the unchanged alpha content",
+    "reencoded": true,
+    "pixel_content_policy": "all non-transparent source pixels and alpha values are preserved without resampling, recoloring, or generative editing",
     "metadata_policy": "no local path, EXIF, XMP, account marker, or reference-media metadata",
     "source_v2_file_is_not_a_publication_path": true,
     "obsolete_animation_assets": "excluded from the publication candidate and recoverable from Git history"
