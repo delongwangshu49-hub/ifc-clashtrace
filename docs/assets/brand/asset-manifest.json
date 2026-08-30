@@ -1,6 +1,6 @@
 {
   "gate": "PG-B-R2",
-  "status": "LOCAL_REPAIR_CANDIDATE_EXTERNAL_SYNC_PENDING",
+  "status": "PASS",
   "generated_at": "2026-08-30T20:42:00+08:00",
   "asset_type": "static GitHub README logo",
   "source": "exact user-selected v2 RGBA pixels with a deterministic transparent-canvas crop",
@@ -16,7 +16,7 @@
     "display_width_px": 240,
     "height": "derived from intrinsic aspect ratio",
     "alignment": "center",
-    "external_verification": "PENDING collective publication authorization"
+    "external_verification": "PASS at immutable GitHub head 3038d431157c0e1eb1e1f2b4a9870ddb01609921"
   },
   "motion": {
     "gif_usage": false,
@@ -71,14 +71,17 @@
     "scope": "Historical evidence for the superseded v1 public asset only."
   },
   "external_update": {
-    "repair_upload_authorized": false,
-    "github_mapping_verified": false,
-    "sites_update_authorized": false,
-    "current_public_head": "b1727db600ae169eb603c5dd6863b417faef1b9f",
+    "repair_upload_authorized": true,
+    "github_mapping_verified": true,
+    "sites_update_authorized": true,
+    "current_public_head": "3038d431157c0e1eb1e1f2b4a9870ddb01609921",
     "prior_functional_sites_version": 9,
     "prior_evidence_tail_sites_version": 10,
     "sites_access": "owner-only private",
-    "required_next_gate": "collective publication authorization, external verification, then PG-E final hosted user UAT"
+    "repair_functional_sites_version": 11,
+    "repair_deployment_id": "appgdep_6a942076ec308191a41d58f4cf02cf3e",
+    "mapped_public_paths": 30,
+    "required_next_gate": "none; PG-B-R2 external verification is complete"
   },
   "assets": {
     "ifc-clashtrace-github-logo.png": {
