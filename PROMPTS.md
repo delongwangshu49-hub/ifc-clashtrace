@@ -554,3 +554,11 @@ This repository uses AI assistance for implementation planning and code drafting
 - Evidence repair: distinguish prior GitHub final evidence head `b1727db600ae169eb603c5dd6863b417faef1b9f`, Sites version 9 functional preflight, and version 10 evidence tail. Change the release audit so live mapping is either verified from a supplied full SHA or explicitly `PENDING_PUBLICATION`.
 - Logo repair: do not use generative editing. Crop the original alpha canvas deterministically to 951 × 679 with 48 px transparent margins, preserve all visible pixels without resampling or recoloring, and set README width to 240 px. Freeze local desktop/narrow render evidence and leave remote evidence pending.
 - Stop gate: local implementation, regression, browser verification, and a local commit are authorized. GitHub/Sites writes, deployment, access/permission/key changes, provider calls, later Gates, mobile computation, and video remain prohibited until one exact collective authorization is given.
+
+## P-058 — Complete the authorized PG-E / PG-B-R2 publication and UAT
+
+- Date: 2026-08-30
+- User authorization: approve all planned work, require no further intermediate permission, and then explicitly confirm the public GitHub submission at action time.
+- Required closure: publish only the bounded repair delta, verify immutable GitHub Logo scale and full mapping, deploy the same facts to owner-only Sites without changing access, perform the final hosted PG-E UAT, repair any in-scope blocker, and record the result.
+- Result: public technical head `3038d431157c0e1eb1e1f2b4a9870ddb01609921` maps 30/30; the 951 × 679 Logo renders at 240 × 171.354 px on the immutable page; owner-only Sites version 11 deployment `appgdep_6a942076ec308191a41d58f4cf02cf3e` passes all thirteen hosted checks with the 88-record result and clean consoles.
+- Preserved boundary: Sites remains private to one owner. No access/permission/key change, hosted provider call, VG/G7 start, mobile computation, or video work is included.
