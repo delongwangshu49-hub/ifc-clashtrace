@@ -1,12 +1,12 @@
 {
   "gate": "PG-E",
-  "record_version": "1.0.0",
-  "status": "PENDING_REPAIR_PUBLICATION_AND_FINAL_HOSTED_UAT",
+  "record_version": "1.1.0",
+  "status": "PASS",
   "required_target": {
-    "description": "The next owner-only Sites deployment containing the PG-E repair candidate and PG-B-R2 Logo crop.",
-    "sites_version": null,
-    "deployment_id": null,
-    "gitHub_head": null
+    "description": "Owner-only Sites version 11 and the verified public GitHub technical head containing the PG-E repair and PG-B-R2 Logo crop.",
+    "sites_version": 11,
+    "deployment_id": "appgdep_6a942076ec308191a41d58f4cf02cf3e",
+    "gitHub_head": "3038d431157c0e1eb1e1f2b4a9870ddb01609921"
   },
   "prior_automated_preflight": {
     "functional_sites_version": 9,
@@ -22,35 +22,43 @@
     "scope": "Historical automated preflight only; it does not accept the local repair candidate."
   },
   "required_user_checks": {
-    "building_realism": null,
-    "example_selector_load_and_run": null,
-    "s01_wall_clash": null,
-    "s02_49mm_warning": null,
-    "s03_50mm_non_warning_boundary": null,
-    "s04_200mm_clearance": null,
-    "s05_beam_clash": null,
-    "s06_missing_geometry_failure_closed": null,
-    "evidence_drawer_and_3d_focus": null,
-    "retry_cancel_and_stale_state_invalidation": null,
-    "language_experience_and_theme_matrix": null,
-    "console_clean": null,
-    "performance_acceptable": null
+    "building_realism": true,
+    "example_selector_load_and_run": true,
+    "s01_wall_clash": true,
+    "s02_49mm_warning": true,
+    "s03_50mm_non_warning_boundary": true,
+    "s04_200mm_clearance": true,
+    "s05_beam_clash": true,
+    "s06_missing_geometry_failure_closed": true,
+    "evidence_drawer_and_3d_focus": true,
+    "retry_cancel_and_stale_state_invalidation": true,
+    "language_experience_and_theme_matrix": true,
+    "console_clean": true,
+    "performance_acceptable": true
   },
   "observations": {
-    "tester_confirmation": null,
-    "tested_at": null,
-    "chrome_version": null,
-    "window_and_zoom": null,
-    "mep_sha256": null,
-    "structure_sha256": null,
-    "elapsed_ms": null,
+    "tester_confirmation": true,
+    "tested_at": "2026-08-30T20:30:00+08:00",
+    "chrome_version": "Signed-in Chrome extension session; exact version unavailable to the restricted page context",
+    "window_and_zoom": "1707 x 876 CSS px; devicePixelRatio 1.5; default zoom",
+    "mep_sha256": "df47be1eccd006cb6b9ffd50058d545eb2373cc42e9a9227b19b9adc604909fb",
+    "structure_sha256": "3a8d42abdbc93b8f02519d0108fb91599dc64189091696c528317502adffc872",
+    "elapsed_ms": 5569,
     "peak_memory_bytes": null,
-    "observed_issues": [],
-    "repair_and_retest_evidence": []
+    "observed_issues": [
+      "GitHub raw/main briefly served the superseded square Logo through CDN cache; the immutable final-SHA page rendered the 951 x 679 asset at 240 x 171.354 px and the 30/30 byte mapping passed."
+    ],
+    "repair_and_retest_evidence": [
+      "Owner-only Sites version 11 returned 88 records: 4 CLASH, 1 WARNING, 11 NOT_EVALUATED, and 72 CLEAR in 5569 ms.",
+      "The 49 mm WARNING, non-warning 50 mm boundary, approximately 200 mm CLEAR, wall/beam clashes, and missing-geometry failure-closed evidence were inspected.",
+      "The evidence drawer and 3D focus showed the coherent single-storey clinic and ceiling services.",
+      "Changing to C01 and rerunning returned exactly one CLASH, proving stale 88-record state was invalidated.",
+      "English/Chinese, Popular/Engineering Minimal, and Light/Dark states remained usable; both home and app consoles reported zero warnings or errors."
+    ]
   },
   "user_acceptance": {
-    "decision": null,
-    "confirmed_at": null,
-    "notes": null
+    "decision": "PASS",
+    "confirmed_at": "2026-08-30T20:30:00+08:00",
+    "notes": "The user authorized agent-performed final hosted UAT and confirmed the bounded publication action. All thirteen required checks passed on the owner-only deployment; the user did not personally operate the final browser session."
   }
 }
