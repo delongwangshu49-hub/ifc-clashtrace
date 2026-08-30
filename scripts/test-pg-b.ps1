@@ -12,6 +12,13 @@ try {
         if (-not $Text.Contains($Needle, [StringComparison]::Ordinal)) { throw $Message }
     }
 
+    function Assert-Sequence([object[]]$Actual, [object[]]$Expected, [string]$Message) {
+        if ($Actual.Count -ne $Expected.Count) { throw $Message }
+        for ($index = 0; $index -lt $Expected.Count; $index++) {
+            if ([int]$Actual[$index] -ne [int]$Expected[$index]) { throw $Message }
+        }
+    }
+
     $gitStateBefore = (git status --short) -join "`n"
     $assetPath = 'docs/assets/brand/ifc-clashtrace-github-logo.png'
     $manifest = Get-Content -LiteralPath 'docs/assets/brand/asset-manifest.json' -Raw | ConvertFrom-Json
@@ -23,8 +30,21 @@ try {
     if ($manifest.asset_type -cne 'static GitHub README logo') { throw 'PG-B asset type drifted.' }
     if ($manifest.canvas.width -ne 1672 -or $manifest.canvas.height -ne 941) { throw 'PG-B canvas dimensions drifted.' }
     if ($manifest.canvas.color_type -cne 'RGBA' -or -not $manifest.canvas.transparency) { throw 'PG-B transparency contract drifted.' }
+    Assert-Sequence @($manifest.canvas.alpha_bounds) @(214,68,1377,892) 'PG-B alpha bounds drifted.'
     if ($manifest.readme.display_width_px -ne 520) { throw 'PG-B README display width drifted.' }
     if ($manifest.motion.gif_usage -ne $false -or @($manifest.motion.animated_assets).Count -ne 0) { throw 'PG-B must not use animated assets.' }
+
+    Assert-Sequence @($manifest.local_render.desktop.rendered_image) @(520,293) 'PG-B local desktop render evidence drifted.'
+    Assert-Sequence @($manifest.local_render.narrow.rendered_image) @(328,185) 'PG-B local narrow render evidence drifted.'
+    Assert-Sequence @($manifest.local_render.github.desktop_rendered_image) @(520,293) 'PG-B GitHub desktop render evidence drifted.'
+    Assert-Sequence @($manifest.local_render.github.narrow_rendered_image) @(279,157) 'PG-B GitHub narrow render evidence drifted.'
+    Assert-Sequence @($manifest.local_render.github.natural_image) @(1672,941) 'PG-B GitHub natural-size evidence drifted.'
+    if ($manifest.local_render.github.horizontal_overflow -ne $false) { throw 'PG-B GitHub overflow evidence drifted.' }
+    if ($manifest.local_render.github.console_warnings_or_errors -ne 0) { throw 'PG-B GitHub console evidence drifted.' }
+    if ($manifest.local_render.github.verified_technical_chain_tip -cne 'b4ce6d56282111c585f757042fa7cfefc057da0e') { throw 'PG-B technical-chain evidence drifted.' }
+    if ($manifest.local_render.github.verified_status_tail_parent_tip -cne '6f58bf246fc53cdc5d06a0dd61175cd24d1e3993') { throw 'PG-B status-tail parent evidence drifted.' }
+    if ($manifest.local_render.github.mapped_public_paths -ne 12) { throw 'PG-B declared public path count drifted.' }
+    if ($manifest.local_render.github.current_public_head_claim_is_self_referential -ne $true) { throw 'PG-B current-HEAD self-reference policy drifted.' }
 
     if (-not (Test-Path -LiteralPath $assetPath -PathType Leaf)) { throw "Missing PG-B asset: $assetPath" }
     $asset = Get-Item -LiteralPath $assetPath
@@ -54,6 +74,8 @@ try {
         'width="520"',
         'alt="IFC ClashTrace product logo: a teal pipe crosses two wall panels at a coral collision ring beside an inspection alert."',
         'PG-B is `PASS` and is the latest closed presentation-readiness checkpoint',
+        'technical mapping through `b4ce6d56282111c585f757042fa7cfefc057da0e`',
+        'the mutable final public tip is recorded only by a local empty sync commit',
         'docs/pg-b-github-logo.md'
     )) { Assert-Contains $readme $required "README PG-B contract missing: $required" }
     foreach ($forbidden in @('.gif','<picture>','<source','prefers-reduced-motion','ifc-clashtrace-lockup-light')) {
@@ -67,7 +89,8 @@ try {
         'RGBA',
         '468,496 bytes',
         'GIF usage is cancelled',
-        '12/12 path mapping',
+        'frozen local evidence record only',
+        'does not perform a live GitHub mapping check',
         'No Sites, permission, key, public-access, PG-E, VG, G7, or video action'
     )) { Assert-Contains $brandAudit $required "PG-B audit contract missing: $required" }
 
@@ -104,7 +127,9 @@ try {
     'PGB_METADATA_SCAN=PASS'
     'PGB_README_ALT_AND_SCALE=PASS'
     'PGB_PUBLIC_ASSET_MAX_LT_1MIB=PASS'
-    'PGB_REMOTE_MAPPING=12/12'
+    'PGB_MANIFEST_EVIDENCE_FIELDS=PASS'
+    'PGB_REMOTE_EVIDENCE_DECLARED=12/12'
+    'PGB_REMOTE_LIVE_CHECK=EXTERNAL_BROWSER_ONLY'
     'PGB_STATUS=PASS'
 }
 finally {
