@@ -17,6 +17,7 @@ This ledger controls factual claims in the homepage, functional workspace, devel
 | S-03 | The Sites project remains owner-only and private. | Read-only Sites access verification on 2026-08-30 | `OWNER_ONLY_PRIVATE` |
 | S-04 | PG-B, PG-E, VG, G7A, G7B, and G7 have not started. | Master-plan stop gates | `PLANNED` / not started only |
 | S-05 | The GitHub repository is public on `main`; this does not make Sites public. | Read-only Chrome GitHub verification; Sites access verification | factual distinction only |
+| S-06 | Every load of the shared homepage route resets to Popular experience, English, and Light. Homepage destinations open in new tabs; non-anchored workspace/development entries start at the top, while intentional hash links retain their target. | Master plan D-065/L-0072; executable entry tests and Chrome verification | `LOCAL_AND_PRIVATE_PASS` / `PUBLIC_SYNC_PENDING` |
 
 ## Product and evidence claims
 
@@ -35,11 +36,11 @@ This ledger controls factual claims in the homepage, functional workspace, devel
 
 | Surface | Gate/status/date/metric/link/capability controls |
 |---|---|
-| Homepage | Product capability claims C-01/C-02/C-03; development screenshot is explicitly historical G4 evidence; metadata is bilingual; GitHub, development, license, and data-license targets are non-empty. |
+| Homepage | Product capability claims C-01/C-02/C-03; every homepage load follows S-06; development screenshot is explicitly historical G4 evidence; metadata is bilingual; GitHub, development, license, and data-license targets are non-empty. |
 | Functional workspace | Input boundary C-08; error and empty states fail closed; AI boundary C-05; metadata and static interface copy are bilingual. The eyebrow is capability wording, not a stale Gate label. |
 | Development log | Closed timeline through PG-C; every later stage shown as `PLANNED` and “尚未开始” / “Not started”; metrics use C-04; Sites privacy uses S-03. |
 | README | Closed technical evidence through PG-C; strict stop and later stages not started; Sites-private/public-repository distinction explicit. |
-| Navigation and footer | Targets must be non-empty and resolve to a local route, anchored workspace route, license/document route, or the established GitHub repository. Opening a local app route in a new tab is not a public-availability claim. |
+| Navigation and footer | Targets must be non-empty and resolve to a local route, anchored workspace route, license/document route, or the established GitHub repository. Homepage destinations and cross-page workspace links open new tabs with `noopener`; ordinary page entries start at the top and intentional hash links retain their anchor. |
 | Metadata | Page title and description preserve the same product and progress scope in Simplified Chinese and English. |
 | Error and empty states | Missing input, no selected file, zero filtered records, unsupported input, provider failure, and incomplete geometry must not imply success or completion. |
 | Demo screenshots | Four existing PNGs are historical, program-generated product captures. The development-page PNG is marked `historical` at G4 and points readers to the live development page for current status. |
@@ -65,5 +66,6 @@ Only actual Gate evidence and required user authorization may promote a planned 
 5. a historical development screenshot without its G4/historical markers;
 6. source/build disagreement on the status-band and planned-stage facts;
 7. regression of the G6 deployment and product contracts.
+8. a homepage load that does not reset to Popular experience, English, and Light; a homepage destination that does not open a new tab with `noopener`; a non-hash workspace/development entry that does not start at the top; storage failure that breaks display controls; or an A/B scene-label contrast ratio below 4.5:1.
 
 PG-C passing does not start PG-B or PG-E and does not authorize GitHub/Sites writes, deployment, access changes, keys, VG, G7, mobile computation, or video production.
