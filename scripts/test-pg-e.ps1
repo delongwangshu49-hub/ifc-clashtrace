@@ -132,9 +132,11 @@ try {
         throw 'PG-E IFC entity counts drifted.'
     }
     foreach ($required in @(
-        'Status: `TECH_PASS_USER_UAT_PENDING`',
+        'Status: `TECH_PASS_EXTERNAL_SYNC_PASS_USER_HOSTED_UAT_PENDING`',
         'User acceptance decision (PASS / FAIL):',
-        'PG-E cannot become `PASS` until the user UAT record is complete'
+        'PG-E cannot become `PASS` until the user performs the final hosted-candidate trial',
+        '29/29 local-to-remote mapping',
+        'owner-only Sites version 9'
     )) {
         if (-not $document.Contains($required, [StringComparison]::Ordinal)) { throw "PG-E UAT stop gate drifted: $required" }
     }
