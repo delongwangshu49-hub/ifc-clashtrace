@@ -1,7 +1,7 @@
 # IFC ClashTrace
 
 <p align="center">
-  <img src="docs/assets/brand/ifc-clashtrace-github-logo.png" width="520" alt="IFC ClashTrace product logo: a teal pipe crosses two wall panels at a coral collision ring beside an inspection alert.">
+  <img src="docs/assets/brand/ifc-clashtrace-github-logo.png" width="420" alt="IFC ClashTrace product logo: a metallic pipe crosses layered wall panels beside an outlined clash marker and inspection alert.">
 </p>
 
 IFC ClashTrace is a deterministic browser/Web IFC feasibility project for traceable MEP-to-structure hard-clash detection. It is a Web micro-prototype, not a runtime LLM agent and not a certified engineering compliance tool.
@@ -16,9 +16,11 @@ G4AI adds a separately controlled optional interpretation layer. It defaults off
 
 G5 turns that implementation into a bounded evaluation record. The controlled suite has `8/8` three-way status agreement across the authored operation ledger, IfcOpenShell reference, and shipped browser core, with `3` true positives, `0` false positives, `0` false negatives, `4` true negatives, and `1` deliberate abstention. Both clearance routes match `9/9` supplemental fixtures. A buildingSMART PCERT IFC4 sample pair opens in web-ifc and IfcOpenShell but correctly fails the product contract closed because it uses millimetres and has no `IfcPipeSegment`; it is not accuracy ground truth. Six local mock AI checks preserve every deterministic fact, and all five invalid/unavailable paths return the exact local fallback. See `docs/evaluation.md`. Formal support remains IFC4 under the documented narrow boundary; IFC4X3 is exploratory only.
 
-G6 packages the same three-page application as an owner-only private deployment candidate. The build contains the browser-local deterministic runtime, the 16 public generated IFC files, an optional same-origin Worker AI boundary, no source maps, and no hosted key. Privacy, path, media metadata, dependency license, package vulnerability, and no-key failure-closing checks pass locally. The owner-only version 4 preview has completed user acceptance; that acceptance does not authorize public Sites access, which remains a separate pending O-006 decision. See `docs/g6-deployment-architecture.md`, `docs/g6-privacy-license-audit.md`, and `THIRD-PARTY-NOTICES.md`.
+G6 packages the same three-page application as an owner-only private deployment candidate. The current local build contains the browser-local deterministic runtime, the 16 frozen G2 IFC files plus the two-file realistic PG-E clinic example, an optional same-origin Worker AI boundary, no source maps, and no hosted key. Privacy, path, media metadata, dependency license, package vulnerability, and no-key failure-closing checks pass locally. The owner-only version 4 preview completed the earlier usability acceptance; the clinic-enabled update remains an unuploaded local candidate and does not authorize public Sites access. See `docs/g6-deployment-architecture.md`, `docs/g6-privacy-license-audit.md`, and `THIRD-PARTY-NOTICES.md`.
 
-PG-B is `PASS` and is the latest closed presentation-readiness checkpoint. The user-selected transparent static GitHub Logo is published directly in this README with fixed dimensions, descriptive alt text, metadata/weight audit, and no GIF dependency. Chrome verified the public `main` README at desktop and narrow widths, the original 1672 × 941 RGBA dimensions, stable layout, and the complete 12-file local-to-remote technical mapping through `b4ce6d56282111c585f757042fa7cfefc057da0e`; the later verified status-tail parent is `6f58bf246fc53cdc5d06a0dd61175cd24d1e3993`. Because publishing a current HEAD inside this file would immediately create a newer HEAD, the mutable final public tip is recorded only by a local empty sync commit. PG-C remains closed; the homepage, workspace, development log, README, metadata, links, error/empty states, and historical screenshots follow one verified claim ledger. Sites remains owner-only and private. PG-E, VG, G7A, G7B, and G7 have not started. Copy or components for later stages may be prepared only when hidden or explicitly marked `DRAFT`/`PLANNED`/not started; prewriting is not a completion claim, user acceptance, Gate bypass, deployment authorization, or public-access authorization. See `docs/content-claim-ledger.md` and `docs/pg-b-github-logo.md`.
+PG-B remains the latest closed presentation-readiness checkpoint. A new user-selected 1024 × 1024 transparent static Logo v2 now replaces the canonical README image in the local candidate, displayed at 420 px with updated descriptive alt text, metadata/weight checks, and no GIF dependency. The current public `main` still carries the previously verified 1672 × 941 v1 asset; its Chrome rendering and 12-file mapping remain historical evidence for v1 only. Logo v2 is `TECH_PASS_EXTERNAL_SYNC_PENDING` until the exact collective upload is authorized and GitHub desktop/narrow rendering and mapping are rechecked. PG-C remains closed; Sites remains owner-only and private.
+
+PG-E is `IN_PROGRESS`. The user has accepted the visual realism of the rebuilt 12 m × 8 m, one-storey community clinic: perimeter and door-gapped internal walls, a ground slab, six columns, three beams, an A–C / 1–4 grid, and room-serving ceiling pipe routes. Eight `IfcPipeSegment` elements are checked against eight walls and three beams, forming 88 candidate pairs and six independently authored sentinels with 6/6 repeated technical agreement. The local website candidate now exposes this pair as `PG-E · Realistic one-storey clinic · 88 pairs` in the example selector and packages both IFC files for the static build. Full end-to-end update verification, exact collective authorization, online upload, and GitHub/Sites mapping remain pending, so PG-E and overall PG are not `PASS`. VG, G7A, G7B, and G7 have not started. See `docs/pg-e-engineering-uat.md`.
 
 The frozen G2/G3A contract includes:
 
@@ -214,6 +216,16 @@ pwsh -NoLogo -NoProfile -File .\scripts\test-pg-b.ps1
 ```
 
 The published asset is the exact user-selected 1672 × 941 RGBA PNG, copied byte-for-byte and displayed at a restrained 520 px README width. It keeps its transparent background, declares descriptive alt text, and has no animation, GIF, reduced-motion source, generated layers, or motion-build dependency. The test performs no GitHub or Sites write; the completed Chrome verification and remote mapping are recorded in `docs/pg-b-github-logo.md`.
+
+## Reproduce the PG-E technical contract
+
+Run the deterministic engineering-pack generation, hash, spatial-organization, sentinel, failure-closing, and regression guard with PowerShell 7:
+
+```powershell
+pwsh -NoLogo -NoProfile -File .\scripts\test-pg-e.ps1
+```
+
+The test regenerates the CC0 pair twice in ignored isolated roots, checks byte-for-byte identity, validates the realistic one-storey planning context, and evaluates all 88 candidate pairs through the shipped browser core. A local technical pass does not substitute for the user Chrome UAT checklist in `docs/pg-e-engineering-uat.md` and performs no GitHub, Sites, permission, key, provider, VG/G7, mobile, or video action.
 
 ## AI assistance
 

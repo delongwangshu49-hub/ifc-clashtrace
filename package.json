@@ -17,7 +17,8 @@
     "g5:test": "pwsh -NoProfile -File scripts/test-g5.ps1",
     "g6:test": "pwsh -NoProfile -File scripts/test-g6.ps1",
     "pgc:test": "pwsh -NoProfile -File scripts/test-pg-c.ps1",
-    "pgb:test": "pwsh -NoProfile -File scripts/test-pg-b.ps1"
+    "pgb:test": "pwsh -NoProfile -File scripts/test-pg-b.ps1",
+    "pge:test": "pwsh -NoProfile -File scripts/test-pg-e.ps1"
   },
   "dependencies": {
     "three": "0.185.1",

@@ -507,3 +507,31 @@ This repository uses AI assistance for implementation planning and code drafting
 - README contract: center the static PNG at width 520 px with descriptive alt text; do not use GIF, `picture/source`, reduced-motion branches, animation layers, generated lockups, or a motion-build script.
 - Supersession: D-066 through D-068 remain historical evidence but no longer define the current PG-B output.
 - Main-flow and external closure: commit locally and immediately fast-forward local `main`; the user then approved the exact 12-path public set. Signed-in Chrome uploaded five ordered groups to public `main`, forming the technical chain through `b4ce6d56282111c585f757042fa7cfefc057da0e`, and verified 12/12 paths plus desktop/narrow README rendering. A later browser audit verified status-tail parent `6f58bf246fc53cdc5d06a0dd61175cd24d1e3993`; the mutable current public HEAD is recorded only by the local empty sync commit to avoid self-reference. No Sites, access, permission, key, or later-Gate change occurred.
+
+## P-053 — PG-E synthetic engineering-context pack and UAT gate
+
+- Date: 2026-08-30
+- User instruction: begin PG-E on the saved-project local `main` workflow; do not create a branch or worktree, do not regress PG-B/PG-C, and do not write GitHub/Sites, change access/permissions/keys, or start later Gates without action-time authorization.
+- Adopted data route: resolve O-014 to a programmatically generated, CC0-1.0, publicly redistributable single-storey IFC4 pair. The MEP model contains six pipe segments; the structure model contains four walls and two beams; site/building/storey hierarchy provides spatial organization; all 36 cross-product pairs remain inside the frozen metre/shared-coordinate/type boundary.
+- Sentinel contract: independently author six expected pairs for wall clash, 49 mm Warning, 50 mm non-warning boundary, 200 mm safe separation, beam clash, and missing-geometry failure closing. Use a disclosed 0.01 micrometre offset above 50 mm so Float32 tessellation cannot move nominal equality below the strict threshold; do not alter the frozen `< 0.05 m` rule or add an epsilon.
+- Verification: freeze relative paths, sizes, SHA-256 values, stable GUIDs, license/privacy limitations, and a human-authored operation ledger; require two isolated byte-identical generations and 6/6 sentinel agreement through the shipped core across three normalized repeats. Preserve all PG-B/PG-C/G6 regressions.
+- Truthfulness boundary: technical preflight is `TECH_PASS_USER_UAT_PENDING`, not PG-E `PASS`. The user must complete the Chrome end-to-end checklist and any issue repair/retest; exact public candidates must then receive separate action-time authorization and mapping verification.
+- Preserved boundary: no GitHub or Sites write, deployment, access/permission/key change, hosted or live provider request, VG/G7, mobile computation, or video action is included.
+
+## P-054 — PG-E realistic one-storey building correction
+
+- Date: 2026-08-30
+- User finding: the first generated files did not resemble a normal real-world building, which weakened their value for demonstration and testing. The replacement may be simple or only one storey, but it must look and behave like a plausible building.
+- Adopted correction: replace the separated test zones with one coherent 12 m × 8 m, 3.2 m-high community clinic. Add complete perimeter enclosure, internal partition segments with aligned door gaps, a ground slab, six columns, three framing beams, an A–C / 1–4 grid, and ceiling pipe mains/branches that serve rooms and use the corridor.
+- Preserved detector contract: walls and beams remain the only structure types used by the deterministic clash rule. Slab, columns, and grid improve architectural/structural context and the viewer without silently broadening the frozen classification boundary. The six independent clash/49 mm/50 mm/200 mm/beam/failure-closed sentinels remain, now embedded in plausible service routes.
+- Verification: require 8 pipes, 8 walls, 3 beams, 6 columns, 1 slab, 7 grid axes, 88 rule pairs, byte-deterministic regeneration, 6/6 sentinel agreement across three runs, and a user visual-realism check before PG-E can close.
+- Preserved boundary: the rejected first candidate remains historical only. This repair does not authorize GitHub/Sites writes, access/permission/key changes, provider calls, later Gates, mobile computation, or video work.
+
+## P-055 — Combined clinic-example and Logo v2 online-update candidate
+
+- Date: 2026-08-30
+- User decision: accept the realistic clinic effect, prepare it as a selectable website example, and replace the existing GitHub README Logo with the supplied refactored Logo v2. Complete local work and exact upload accounting first; the user will provide one collective authorization afterward.
+- Example implementation: add `PG-E · Realistic one-storey clinic · 88 pairs` to the existing example selector, route it to the two committed PG-E IFC files, preserve the deterministic 88-record/6-sentinel result, and copy both IFCs into the static G6/Sites build so the online option cannot resolve to missing files.
+- Brand implementation: copy the supplied 1024 × 1024 RGBA PNG byte-for-byte onto the canonical `docs/assets/brand/ifc-clashtrace-github-logo.png` path, update README width/alt text and frozen asset evidence, retain the no-GIF decision, and keep the source-named v2 PNG/SVG outside the publication set.
+- Truthfulness boundary: prior public Logo v1 rendering/mapping remains historical evidence for v1 only. Logo v2, the online clinic selector, and the combined upload remain `TECH_PASS_EXTERNAL_SYNC_PENDING` until the exact file set receives collective action-time authorization and post-upload GitHub/Sites checks pass.
+- Preserved boundary: local preparation and auditing do not authorize GitHub/Sites writes, deployment, access/permission/key changes, provider calls, later Gates, mobile computation, or video work.
