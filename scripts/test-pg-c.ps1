@@ -13,7 +13,7 @@ try {
     }
 
     function Test-ClaimCandidate([hashtable]$Candidate) {
-        if ($Candidate.LatestClosed -cne 'G6-R1') { return $false }
+        if ($Candidate.LatestClosed -cne 'PG-C') { return $false }
         if (@($Candidate.Targets | Where-Object { [string]::IsNullOrWhiteSpace($_) -or $_ -eq '#' }).Count -ne 0) { return $false }
         if ($Candidate.FutureState -cne 'PLANNED') { return $false }
         if ([string]::IsNullOrWhiteSpace($Candidate.Zh) -or [string]::IsNullOrWhiteSpace($Candidate.En)) { return $false }
@@ -33,8 +33,8 @@ try {
     $publicPlan = Get-Content -LiteralPath 'BIMCLASH_AGENT_MASTER_PLAN.public.md' -Raw
 
     foreach ($required in @(
-        'Latest closed checkpoint: `G6-R1 · PASS`',
-        'Status: `PG-C · IN_PROGRESS`',
+        'Latest closed checkpoint: `PG-C · PASS`',
+        'Status: `PG-C · PASS`',
         'Homepage', 'Functional workspace', 'Development log', 'README',
         'Navigation and footer', 'Metadata', 'Error and empty states', 'Demo screenshots',
         'completion state, dates, metrics, links, acceptance, public availability, permissions, or evidence'
@@ -42,7 +42,7 @@ try {
 
     foreach ($plan in @($localPlan, $publicPlan)) {
         foreach ($required in @(
-            '当前 Gate：`PG-C — IN_PROGRESS`',
+            '当前 Gate：`PG-C — PASS`',
             '直至项目结束的所有后续阶段文案和组件',
             '不得伪造完成状态、日期、指标、链接、验收、公开可用性、权限或证据',
             '预写不构成阶段启动、Gate 通过、用户验收、外部写入、部署/公开访问授权',
@@ -57,11 +57,11 @@ try {
     if ($sanitizedLocal -cne $publicPlan.TrimEnd()) { throw 'Sanitized public master is not equivalent to the local master.' }
 
     foreach ($required in @(
-        'G6-R1 · PASS', 'PG-C · IN PROGRESS', '仅所有者 · 私有', 'Owner-only · Private',
-        '8/8', '9/9', '1.00 / 1.00', '3/0/0/4', 'data-claim-stage="PG-C"', 'data-claim-state="current"'
+        'PG-C · PASS', '严格停止在 PG-C', 'Strict stop at PG-C', '仅所有者 · 私有', 'Owner-only · Private',
+        '8/8', '9/9', '1.00 / 1.00', '3/0/0/4', 'data-claim-stage="PG-C"', 'data-claim-state="closed"'
     )) { Assert-Contains $development $required "Current development claim missing: $required" }
 
-    $closedGates = @('G0A','G1','G2','G3A','G3B','G3C','G3','DG','G4','G4AI','G5','G6-R1')
+    $closedGates = @('G0A','G1','G2','G3A','G3B','G3C','G3','DG','G4','G4AI','G5','G6-R1','PG-C')
     foreach ($gate in $closedGates) {
         if ($development -notmatch "(?s)<span class=`"gate-id`">$([regex]::Escape($gate))</span>.*?<span class=`"gate-status`">PASS</span>") {
             throw "Closed Gate is not represented as PASS: $gate"
@@ -121,13 +121,13 @@ try {
     if ($workspace.Contains('G4AI · OPTIONAL INTERPRETATION', [StringComparison]::Ordinal)) { throw 'Workspace still presents a stale Gate label.' }
     Assert-Contains $workspace 'DETERMINISTIC REVIEW · OPTIONAL AI' 'Workspace capability eyebrow is missing.'
 
-    $validCandidate = @{ LatestClosed='G6-R1'; Targets=@('/','/app/'); FutureState='PLANNED'; Zh='尚未开始'; En='Not started' }
+    $validCandidate = @{ LatestClosed='PG-C'; Targets=@('/','/app/'); FutureState='PLANNED'; Zh='尚未开始'; En='Not started' }
     if (-not (Test-ClaimCandidate $validCandidate)) { throw 'Positive claim-guard self-test failed.' }
     $negativeCandidates = @(
         @{ LatestClosed='DG'; Targets=@('/'); FutureState='PLANNED'; Zh='尚未开始'; En='Not started' },
-        @{ LatestClosed='G6-R1'; Targets=@(''); FutureState='PLANNED'; Zh='尚未开始'; En='Not started' },
-        @{ LatestClosed='G6-R1'; Targets=@('/'); FutureState='PASS'; Zh='已完成'; En='Completed' },
-        @{ LatestClosed='G6-R1'; Targets=@('/'); FutureState='PLANNED'; Zh='尚未开始'; En='' }
+        @{ LatestClosed='PG-C'; Targets=@(''); FutureState='PLANNED'; Zh='尚未开始'; En='Not started' },
+        @{ LatestClosed='PG-C'; Targets=@('/'); FutureState='PASS'; Zh='已完成'; En='Completed' },
+        @{ LatestClosed='PG-C'; Targets=@('/'); FutureState='PLANNED'; Zh='尚未开始'; En='' }
     )
     foreach ($candidate in $negativeCandidates) {
         if (Test-ClaimCandidate $candidate) { throw 'A negative claim-guard self-test was not rejected.' }
@@ -143,7 +143,7 @@ try {
 
     $builtDevelopment = Get-Content -LiteralPath 'dist/client/development/index.html' -Raw
     $builtHome = Get-Content -LiteralPath 'dist/client/index.html' -Raw
-    foreach ($marker in @('G6-R1 · PASS','PG-C · IN PROGRESS','data-claim-stage="PG-B"','data-claim-stage="G7"')) {
+    foreach ($marker in @('PG-C · PASS','data-claim-state="closed"','data-claim-stage="PG-B"','data-claim-stage="G7"')) {
         Assert-Contains $builtDevelopment $marker "Private-candidate build disagrees with development source: $marker"
     }
     foreach ($marker in @('data-snapshot-gate="G4"','data-snapshot-state="historical"')) {
