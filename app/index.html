@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Run deterministic IFC hard-clash and 50 mm clearance checks locally in the browser.">
+    <meta name="description" content="在浏览器本地运行确定性 IFC 硬碰撞与 50 mm 净距检查。" data-zh-content="在浏览器本地运行确定性 IFC 硬碰撞与 50 mm 净距检查。" data-en-content="Run deterministic IFC hard-clash and 50 mm clearance checks locally in the browser.">
     <title>IFC ClashTrace — 功能工作台</title>
     <link rel="stylesheet" href="/app/ui/site.css?v=g4ai-r3">
     <script type="importmap">
@@ -20,7 +20,7 @@
   <body class="app-page">
     <a class="skip-link" href="#app-main" data-zh="跳到主要内容" data-en="Skip to main content">跳到主要内容</a>
     <header class="site-header app-header">
-      <a class="compact-brand" href="/" aria-label="IFC ClashTrace 首页">
+      <a class="compact-brand" href="/" aria-label="IFC ClashTrace 首页" data-zh-aria="IFC ClashTrace 首页" data-en-aria="IFC ClashTrace home">
         <span class="compact-mark" aria-hidden="true"><span></span></span>
         <span>IFC ClashTrace</span>
       </a>
@@ -36,7 +36,7 @@
     <main id="app-main" class="app-main">
       <section class="app-intro" aria-labelledby="app-title">
         <div>
-          <p class="eyebrow">G4AI · OPTIONAL INTERPRETATION</p>
+          <p class="eyebrow">DETERMINISTIC REVIEW · OPTIONAL AI</p>
           <h1 id="app-title" data-zh="管线—结构审阅工作台" data-en="Pipe–structure review workspace">管线—结构审阅工作台</h1>
         </div>
         <p data-zh="选择受控示例集，或分别提供一份 MEP IFC 与结构 IFC。两条规则始终在浏览器内执行；只有主动启用、预览并确认后，最小结构化字段才会发送用于可选 AI 解读。" data-en="Choose the controlled review set, or provide one MEP IFC and one structural IFC. Both rules always run in the browser. Minimal structured fields are sent for optional AI interpretation only after you enable, preview, and confirm.">选择受控示例集，或分别提供一份 MEP IFC 与结构 IFC。两条规则始终在浏览器内执行；只有主动启用、预览并确认后，最小结构化字段才会发送用于可选 AI 解读。</p>
@@ -128,7 +128,7 @@
 
         <div class="run-bar">
           <div>
-            <p id="run-description" data-zh="当前：受控 review pack；将在断网条件下从本地资源执行 4 次真实计算。" data-en="Current: controlled review pack; four real computations will run from local assets while offline.">当前：受控 review pack；将在断网条件下从本地资源执行 4 次真实计算。</p>
+            <p id="run-description" data-runtime-copy="true" data-zh="当前：受控 review pack；将在断网条件下从本地资源执行 4 次真实计算。" data-en="Current: controlled review pack; four real computations will run from local assets while offline.">当前：受控 review pack；将在断网条件下从本地资源执行 4 次真实计算。</p>
             <p class="disclaimer" data-zh="这不是正式工程、法规、消防或结构安全认证。" data-en="This is not certified engineering, regulatory, fire, or structural safety review.">这不是正式工程、法规、消防或结构安全认证。</p>
           </div>
           <button class="button button-primary run-button" id="run-checks" type="button">
@@ -147,7 +147,7 @@
           <button class="text-button" id="new-run" type="button" data-zh="新建运行" data-en="New run">新建运行</button>
         </div>
 
-        <div class="summary-strip" aria-label="结果汇总">
+        <div class="summary-strip" aria-label="结果汇总" data-zh-aria="结果汇总" data-en-aria="Result summary">
           <article data-status="CLASH"><span aria-hidden="true">!</span><div><strong id="count-clash">0</strong><small>CLASH</small></div></article>
           <article data-status="WARNING"><span aria-hidden="true">△</span><div><strong id="count-warning">0</strong><small>WARNING</small></div></article>
           <article data-status="NOT_EVALUATED"><span aria-hidden="true">?</span><div><strong id="count-ne">0</strong><small>NOT_EVALUATED</small></div></article>
@@ -174,7 +174,7 @@
                 <p class="panel-label" id="viewport-title">3D VIEWPORT</p>
                 <p id="viewport-case">—</p>
               </div>
-              <div class="tool-group" role="group" aria-label="3D 视图控制">
+              <div class="tool-group" role="group" aria-label="3D 视图控制" data-zh-aria="3D 视图控制" data-en-aria="3D view controls">
                 <button type="button" id="focus-selected" data-zh="聚焦记录" data-en="Focus record">聚焦记录</button>
                 <button type="button" id="fit-models" data-zh="适合模型" data-en="Fit models">适合模型</button>
                 <button type="button" id="toggle-isolate" data-zh="隔离构件对" data-en="Isolate pair">隔离构件对</button>
@@ -193,7 +193,7 @@
               <div><p class="panel-label">RESULTS</p><h3 id="results-title" data-zh="结果记录" data-en="Result records">结果记录</h3></div>
               <p id="result-count-label">0</p>
             </div>
-            <div class="filter-group" role="group" aria-label="结果筛选">
+            <div class="filter-group" role="group" aria-label="结果筛选" data-zh-aria="结果筛选" data-en-aria="Result filters">
               <button type="button" class="active" data-filter="all" data-zh="全部" data-en="All">全部</button>
               <button type="button" data-filter="clash">CLASH</button>
               <button type="button" data-filter="clearance" data-zh="净距" data-en="Clearance">净距</button>
@@ -207,7 +207,7 @@
         <aside class="evidence-drawer" id="evidence-drawer" aria-labelledby="evidence-title" hidden>
           <div class="drawer-head">
             <div><p class="section-index">03 / EVIDENCE</p><h3 id="evidence-title" data-zh="完整确定性证据" data-en="Full deterministic evidence">完整确定性证据</h3></div>
-            <button type="button" class="drawer-close" id="close-evidence" aria-label="关闭证据">×</button>
+            <button type="button" class="drawer-close" id="close-evidence" aria-label="关闭证据" data-zh-aria="关闭证据" data-en-aria="Close evidence">×</button>
           </div>
           <div class="evidence-content" id="evidence-content"></div>
         </aside>
