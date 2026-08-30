@@ -15,6 +15,21 @@ function Assert-Contains([string]$Text, [string]$Needle, [string]$Message) {
     if (-not $Text.Contains($Needle)) { throw $Message }
 }
 
+function Get-RelativeLuminance([string]$Hex) {
+    $value = $Hex.TrimStart('#')
+    $channels = @(0, 2, 4 | ForEach-Object { [Convert]::ToInt32($value.Substring($_, 2), 16) / 255 })
+    $linear = @($channels | ForEach-Object { if ($_ -le 0.03928) { $_ / 12.92 } else { [Math]::Pow(($_ + 0.055) / 1.055, 2.4) } })
+    return 0.2126 * $linear[0] + 0.7152 * $linear[1] + 0.0722 * $linear[2]
+}
+
+function Get-ContrastRatio([string]$Foreground, [string]$Background) {
+    $first = Get-RelativeLuminance $Foreground
+    $second = Get-RelativeLuminance $Background
+    $lighter = [Math]::Max($first, $second)
+    $darker = [Math]::Min($first, $second)
+    return ($lighter + 0.05) / ($darker + 0.05)
+}
+
 $gitStateBefore = Get-GitWorktreeState
 $requiredFiles = @(
     "index.html"
@@ -26,6 +41,7 @@ $requiredFiles = @(
     "app/ui/app.mjs"
     "app/ui/viewer.mjs"
     "app/ui/development.mjs"
+    "scripts/g4-entry-tests.mjs"
 )
 $missing = @($requiredFiles | Where-Object { -not (Test-Path -LiteralPath $_ -PathType Leaf) })
 if ($missing.Count -ne 0) { throw "Missing G4 product files: $($missing -join ', ')" }
@@ -39,8 +55,8 @@ $appScript = Get-Content -LiteralPath "app/ui/app.mjs" -Raw
 $viewerScript = Get-Content -LiteralPath "app/ui/viewer.mjs" -Raw
 
 foreach ($contract in @(
-    'href="/app/" target="_blank"'
-    'href="/development/" target="_blank"'
+    'href="/app/" target="_blank" rel="noopener"'
+    'href="/development/" target="_blank" rel="noopener"'
     'IFC ClashTrace'
     'brand-mark'
     'home.statement.lead'
@@ -58,6 +74,15 @@ foreach ($contract in @(
     '/app/ui/previews/workspace-en-dark.png'
     '/app/ui/previews/development-zh-light.png'
 )) { Assert-Contains $homePage $contract "Homepage contract missing: $contract" }
+foreach ($contract in @('lang="en" data-style="mainstream" data-theme="light"','ifc-clashtrace.reset-preferences.v2','sessionStorage.setItem(resetKey, "true")')) {
+    Assert-Contains $homePage $contract "Homepage reset contract missing: $contract"
+}
+foreach ($page in @($app, $development)) {
+    foreach ($contract in @('lang="en" data-style="mainstream" data-theme="light"','history.scrollRestoration = "manual"','if (!location.hash)','addEventListener("pageshow"','scrollTo(0, 0)')) {
+        Assert-Contains $page $contract "New-page top-entry contract missing: $contract"
+    }
+    if ($page.Contains('location.replace("/")')) { throw 'Functional and development pages must not redirect a legitimate new-tab launch back to the homepage.' }
+}
 if ($homePage.Contains('class="site-nav"')) { throw "Obsolete homepage section navigation remains." }
 
 foreach ($contract in @(
@@ -89,7 +114,7 @@ if ($app -match '<input\s+id="shared-coordinates"[^>]*\schecked(?:\s|>)') {
     throw "Shared-coordinate confirmation must be unchecked by default."
 }
 
-foreach ($contract in @("G0A", "G3A", "G3B", "G3C", "G3", "DG", "8 / 8", "1.00 / 1.00", "12 / 12", 'href="/app/#controlled-review" target="_blank"', "data/generated/LICENSE.md")) {
+foreach ($contract in @("G0A", "G3A", "G3B", "G3C", "G3", "DG", "8 / 8", "1.00 / 1.00", "12 / 12", 'href="/app/#controlled-review" target="_blank" rel="noopener"', 'YouTube upload and direct-link validation', "data/generated/LICENSE.md")) {
     Assert-Contains $development $contract "Development-history evidence missing: $contract"
 }
 if ($development.Contains('docs/g3-browser-core.md')) { throw "Development page still links to the obsolete empty validation document." }
@@ -125,6 +150,9 @@ foreach ($contract in @(
     'background: #0b0d10'
     '.assurance-list { display: grid'
     '.record-status .status-icon::before'
+    'background: #11161b'
+    'color: #d9fff4'
+    'color: #fff2d9'
     '.home-header { grid-template-columns: 1fr auto'
     '.feature-showcase {'
     '.showcase-card:hover .feature-preview'
@@ -135,13 +163,22 @@ foreach ($contract in @(
     '@media (max-width: 1180px)'
     '.review-workspace { display: grid; grid-template-columns: minmax(0, 3fr) minmax(360px, 2fr)'
 )) { Assert-Contains $styles $contract "Style/accessibility contract missing: $contract" }
+$labelBackgroundMatch = [regex]::Match($styles, '(?s)\.scene-label\s*\{.*?background:\s*(#[0-9a-fA-F]{6})')
+$labelAMatch = [regex]::Match($styles, '(?s)\.label-a\s*\{.*?color:\s*(#[0-9a-fA-F]{6})')
+$labelBMatch = [regex]::Match($styles, '(?s)\.label-b\s*\{.*?color:\s*(#[0-9a-fA-F]{6})')
+if (-not $labelBackgroundMatch.Success -or -not $labelAMatch.Success -or -not $labelBMatch.Success) { throw 'Trace-scene label colors could not be resolved from the active CSS rules.' }
+$labelAContrast = Get-ContrastRatio $labelAMatch.Groups[1].Value $labelBackgroundMatch.Groups[1].Value
+$labelBContrast = Get-ContrastRatio $labelBMatch.Groups[1].Value $labelBackgroundMatch.Groups[1].Value
+if ($labelAContrast -lt 4.5 -or $labelBContrast -lt 4.5) { throw "Trace-scene labels do not meet 4.5:1 contrast. A=$labelAContrast B=$labelBContrast" }
 
 foreach ($contract in @(
     'style: "mainstream"'
-    'language: "zh-CN"'
-    'theme: "dark"'
+    'language: "en"'
+    'theme: "light"'
     'aiEnabled: false'
-    'localStorage.setItem'
+    'sessionStorage.setItem'
+    'sessionStorage.getItem'
+    'Display controls must continue working when session storage is unavailable.'
     'ifcclashtrace:preferences'
 )) { Assert-Contains $preferences $contract "Preference contract missing: $contract" }
 foreach ($contract in @("preference-trigger", "preference-menu", 'role="listbox"', 'role="option"', "Popular experience", "Engineering minimal", "home.trace.status", "Hard clash · CLASH", 'controlMode === "ai"', 'class="toggle-knob"', "data-i18n-alt")) {
@@ -172,11 +209,14 @@ if ($appScript -match 'shared_coordinates\.checked\s*=\s*true') { throw "Runtime
 $stateResetContract = (
     $appScript -match '(?s)function invalidateReviewState\(.*?state\.records\s*=\s*\[\].*?state\.sources\.clear\(\).*?state\.selected\s*=\s*null.*?state\.viewerSource\s*=\s*null.*?elements\.review_panel\.hidden\s*=\s*true.*?elements\.evidence_drawer\.hidden\s*=\s*true.*?elements\.ai_preview\.hidden\s*=\s*true.*?resetCoordinateConsent.*?elements\.shared_coordinates\.checked\s*=\s*false' -and
     $appScript -match '(?s)async function handleFile\(role, file\).*?invalidateReviewState\(\{ resetCoordinateConsent: true \}\);' -and
-    $appScript -match '(?s)function chooseExample\(\).*?invalidateReviewState\(\{ resetCoordinateConsent: true \}\);' -and
+    $appScript -match '(?s)function chooseExample\(\{ focusRun = true \} = \{\}\).*?invalidateReviewState\(\{ resetCoordinateConsent: true \}\);' -and
     $appScript -match '(?s)async function runChecks\(\).*?state\.running\s*=\s*true;\s*invalidateReviewState\(\);'
 )
 if (-not $stateResetContract) {
     throw "G4 input mutation must revoke coordinate consent, invalidate stale evidence, and force the 3D viewer to reload."
+}
+foreach ($contract in @('if (focusRun) elements.run_checks.focus();','elements.use_example.addEventListener("click", () => chooseExample());','chooseExample({ focusRun: false });')) {
+    Assert-Contains $appScript $contract "Workspace top-entry focus contract missing: $contract"
 }
 
 foreach ($contract in @("StreamAllMeshesWithTypes", "IFCPIPESEGMENT", "IFCWALL", "IFCBEAM", "OrbitControls", "focusRecord", "toggleIsolate", "fitModels")) {
@@ -195,6 +235,8 @@ foreach ($script in @("app/ui/preferences.mjs", "app/ui/home.mjs", "app/ui/app.m
     & $nodePath --check $script
     if ($LASTEXITCODE -ne 0) { throw "JavaScript syntax check failed: $script" }
 }
+& $nodePath "scripts/g4-entry-tests.mjs"
+if ($LASTEXITCODE -ne 0) { throw "G4 entry-behavior tests failed." }
 
 $serverProcess = $null
 $previousPort = $null
