@@ -39,14 +39,16 @@ try {
     $ledgerPath = 'data/pg-e-operation-ledger.json'
     $manifestPath = 'data/pg-e-manifest.json'
     $baselinePath = 'data/ground-truth/pg-e-sentinel-baseline.json'
+    $uatRecordPath = 'data/pg-e-uat-record.json'
     $documentPath = 'docs/pg-e-engineering-uat.md'
-    foreach ($path in @($ledgerPath,$manifestPath,$baselinePath,$documentPath)) {
+    foreach ($path in @($ledgerPath,$manifestPath,$baselinePath,$uatRecordPath,$documentPath)) {
         if (-not (Test-Path -LiteralPath $path -PathType Leaf)) { throw "Missing PG-E contract file: $path" }
     }
 
     $ledger = Get-Content -LiteralPath $ledgerPath -Raw | ConvertFrom-Json
     $manifest = Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json
     $baseline = Get-Content -LiteralPath $baselinePath -Raw | ConvertFrom-Json
+    $uatRecord = Get-Content -LiteralPath $uatRecordPath -Raw | ConvertFrom-Json
     $document = Get-Content -LiteralPath $documentPath -Raw
     if ($ledger.dataset_id -cne 'IFC_CLASHTRACE_ENGINEERING_CONTEXT_PGE_V2' -or
         $manifest.dataset_id -cne $ledger.dataset_id -or $baseline.dataset_id -cne $ledger.dataset_id) {
@@ -76,6 +78,34 @@ try {
     if ($baseline.sentinel_count -ne 6 -or @($baseline.sentinels).Count -ne 6) {
         throw 'PG-E must freeze exactly six independently authored sentinels.'
     }
+    if ($uatRecord.gate -cne 'PG-E' -or $uatRecord.status -cne 'PENDING_REPAIR_PUBLICATION_AND_FINAL_HOSTED_UAT') {
+        throw 'PG-E structured UAT status drifted.'
+    }
+    $requiredUserChecks = @(
+        'building_realism','example_selector_load_and_run','s01_wall_clash','s02_49mm_warning',
+        's03_50mm_non_warning_boundary','s04_200mm_clearance','s05_beam_clash',
+        's06_missing_geometry_failure_closed','evidence_drawer_and_3d_focus',
+        'retry_cancel_and_stale_state_invalidation','language_experience_and_theme_matrix',
+        'console_clean','performance_acceptable'
+    )
+    foreach ($check in $requiredUserChecks) {
+        if ($check -notin @($uatRecord.required_user_checks.PSObject.Properties.Name)) { throw "PG-E UAT check is missing: $check" }
+        if ($null -ne $uatRecord.required_user_checks.$check) { throw "PG-E UAT check was accepted before the final hosted trial: $check" }
+    }
+    if ($null -ne $uatRecord.required_target.sites_version -or
+        $null -ne $uatRecord.required_target.deployment_id -or
+        $null -ne $uatRecord.required_target.gitHub_head -or
+        $null -ne $uatRecord.user_acceptance.decision -or
+        $null -ne $uatRecord.user_acceptance.confirmed_at) {
+        throw 'PG-E final hosted target or user acceptance was populated before publication/UAT.'
+    }
+    if ($uatRecord.prior_automated_preflight.functional_sites_version -ne 9 -or
+        $uatRecord.prior_automated_preflight.evidence_tail_sites_version -ne 10 -or
+        $uatRecord.prior_automated_preflight.candidate_records -ne 88 -or
+        $uatRecord.prior_automated_preflight.evaluated_records -ne 77 -or
+        $uatRecord.prior_automated_preflight.not_evaluated -ne 11) {
+        throw 'PG-E prior hosted preflight evidence drifted.'
+    }
     $expectedSentinels = @(
         'S01-WALL-CLASH','S02-WARNING-49MM','S03-BOUNDARY-50MM',
         'S04-SAFE-200MM','S05-BEAM-CLASH','S06-FAILURE-CLOSED'
@@ -97,7 +127,7 @@ try {
         throw 'PG-E failure-closed sentinel drifted.'
     }
 
-    $protectedPaths = @($ledgerPath,$manifestPath,$baselinePath)
+    $protectedPaths = @($ledgerPath,$manifestPath,$baselinePath,$uatRecordPath)
     $ifcPaths = @()
     foreach ($file in $manifest.files) {
         if ([IO.Path]::IsPathRooted([string]$file.path)) { throw "PG-E manifest path is absolute: $($file.path)" }
@@ -132,11 +162,11 @@ try {
         throw 'PG-E IFC entity counts drifted.'
     }
     foreach ($required in @(
-        'Status: `TECH_PASS_EXTERNAL_SYNC_PASS_USER_HOSTED_UAT_PENDING`',
+        'Status: `LOCAL_REPAIR_PASS_EXTERNAL_SYNC_PENDING_USER_HOSTED_UAT_PENDING`',
         'User acceptance decision (PASS / FAIL):',
-        'PG-E cannot become `PASS` until the user performs the final hosted-candidate trial',
-        '29/29 local-to-remote mapping',
-        'owner-only Sites version 9'
+        'PG-E cannot become `PASS` until collective publication authorization is given, the new GitHub/Sites state is verified, the user performs the final hosted-candidate trial',
+        '30-path repair candidate',
+        'owner-only Sites version 10'
     )) {
         if (-not $document.Contains($required, [StringComparison]::Ordinal)) { throw "PG-E UAT stop gate drifted: $required" }
     }

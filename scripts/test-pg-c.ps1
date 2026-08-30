@@ -66,6 +66,8 @@ try {
             '### L-0077 — 拟真诊所实例与 Logo v2 集体在线更新候选',
             '| D-073 | 2026-08-30 |',
             '### L-0078 — 拟真诊所实例与 Logo v2 集体在线同步',
+            '| D-074 | 2026-08-30 |',
+            '### L-0079 — PG-E 审计闭环与 PG-B-R2 Logo 比例修复候选',
             '**Gate：** `PG-C-R2 PASS`',
             '40c7270b6fc9b56f6976b938297d2b475eef7e39'
         )) { Assert-Contains $plan $required "Expanded governance contract missing: $required" }
@@ -93,7 +95,7 @@ try {
     if ($sanitizedLocal -cne $publicPlan.TrimEnd()) { throw 'Sanitized public master is not equivalent to the local master.' }
 
     foreach ($required in @(
-        'PG-B · PASS', 'PG-E · 在线同步通过 / 托管试用待确认', 'PG-E · Online sync passed / hosted trial pending', '仅所有者 · 私有', 'Owner-only · Private',
+        'PG-B · PASS', 'PG-E · 本地修复通过 / 公开同步与托管试用待完成', 'PG-E · Local repair passed / public sync and hosted trial pending', '仅所有者 · 私有', 'Owner-only · Private',
         '8/8', '9/9', '1.00 / 1.00', '3/0/0/4', 'data-claim-stage="PG-C"', 'data-claim-state="closed"'
     )) { Assert-Contains $development $required "Current development claim missing: $required" }
 
@@ -106,13 +108,13 @@ try {
 
     $closedPgB = [regex]::Match($development, '(?s)<li[^>]*data-claim-stage="PG-B"[^>]*data-claim-state="closed"[^>]*>(.*?)</li>')
     if (-not $closedPgB.Success) { throw 'PG-B closed marker is missing.' }
-    foreach ($required in @('透明 Logo v2', 'transparent Logo v2', '仍无 GIF', 'still with no GIF', '>PASS<', '29路径映射', '29-path mapping')) {
+    foreach ($required in @('裁减透明画布', 'crops transparent canvas', '240 px', '无 GIF', 'no-GIF', '>PASS<', '等待集体授权', 'await collective authorization')) {
         Assert-Contains $closedPgB.Value $required "PG-B closure wording is incomplete: $required"
     }
 
     $activePgE = [regex]::Match($development, '(?s)<li[^>]*data-claim-stage="PG-E"[^>]*data-claim-state="in_progress"[^>]*>(.*?)</li>')
     if (-not $activePgE.Success) { throw 'PG-E in-progress marker is missing.' }
-    foreach ($required in @('12m × 8m', '12 m × 8 m', '8段吊顶管线', 'Eight ceiling-level pipes', '88个候选对', '88 candidate pairs', '6/6', '用户已确认', 'The user accepted', '实例选项', 'example selector', '>IN PROGRESS<')) {
+    foreach ($required in @('12m × 8m', '12 m × 8 m', '7条具象吊顶管线', 'seven represented ceiling routes', '1个故意缺失几何', 'one deliberately geometry-free', '88条候选记录', '88 candidate records', '77条完成评估', '77 evaluated', '11条失败关闭', '11 failed closed', '6/6', '用户已确认', 'The user accepted', '结构化 UAT', 'Structured UAT', '>IN PROGRESS<')) {
         Assert-Contains $activePgE.Value $required "PG-E in-progress wording is incomplete: $required"
     }
     if ($activePgE.Value -match '>PASS<' -or $activePgE.Value -match '(?i)completed') { throw 'PG-E is presented as complete before the final hosted trial closes.' }
