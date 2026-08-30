@@ -1,10 +1,10 @@
 # PG-B-R1 static GitHub Logo v2 update
 
-Status: `PG-B PASS / PG-B-R1 TECH_PASS_EXTERNAL_SYNC_PENDING`
+Status: `PG-B PASS / PG-B-R1 PASS`
 
 Latest closed checkpoint: `PG-B · PASS`
 
-The original PG-B publication remains historical `PASS`. This document defines a local replacement candidate only; it does not claim that Logo v2 is already on GitHub or verified there.
+The original PG-B publication remains historical `PASS`, and the Logo v2 replacement is now independently closed as `PG-B-R1 PASS` on public GitHub `main`.
 
 ## Answer first
 
@@ -23,21 +23,21 @@ The user-selected Logo v2 is copied byte-for-byte to the existing canonical READ
 
 The mark depicts a metallic pipe crossing layered light/dark wall panels, with a framed clash marker and inspection alert. The transparent 1024-square canvas is preserved exactly as supplied.
 
-## Local verification
+## Local and public verification
 
 - The binary signature, RGBA color type, intrinsic dimensions, alpha bounds, file size, SHA-256, metadata markers, README path, width, and alt text are guarded by `scripts/test-pg-b.ps1`.
 - At 1280 × 720 the README image candidate renders at 420 × 420; at 360 × 640 it scales to 328 × 328 without horizontal overflow.
-- `docs/assets/brand/asset-manifest.json` freezes the v2 identity and explicitly marks external synchronization as pending.
+- `docs/assets/brand/asset-manifest.json` freezes the v2 identity and the completed external mapping.
 - The source-named `ifc-clashtrace-github-logo-v2.png` is not a publication path; only the canonical filename is included in the upload candidate.
 
-The public test validates the frozen local evidence record only. It does not perform a live GitHub mapping check.
+The public GitHub technical chain runs from root commit `33190860ebd64d1a3f2f2a215a0ffe74318136e4` through tip `b3b03046982011567f1108967dd84672cfad69bd`. All 29 authorized publication paths match the local candidate byte for byte. On the real public README, Google Chrome renders the logo at 420 × 420 with natural size 1024 × 1024; a 360 px public-GitHub viewport renders it at approximately 279.33 × 279.33 with document width 345 and no horizontal overflow. Both checks reported zero console warnings or errors.
 
 ## Historical v1 evidence
 
-The current public README still carries the previously verified 1672 × 941 v1 PNG with SHA-256 `b56f3a2a3d3ef5d37599a8a84c54cf1a5f56527057db487601d7bced24793142`. Its desktop/narrow rendering and 12-path mapping through technical-chain tip `b4ce6d56282111c585f757042fa7cfefc057da0e`, plus status-tail parent `6f58bf246fc53cdc5d06a0dd61175cd24d1e3993`, remain historical evidence for v1 only and must not be presented as verification of v2.
+The superseded 1672 × 941 v1 PNG had SHA-256 `b56f3a2a3d3ef5d37599a8a84c54cf1a5f56527057db487601d7bced24793142`. Its desktop/narrow rendering and 12-path mapping through technical-chain tip `b4ce6d56282111c585f757042fa7cfefc057da0e`, plus status-tail parent `6f58bf246fc53cdc5d06a0dd61175cd24d1e3993`, remain historical evidence for v1 only.
 
-## External stop gate
+## Closure boundary
 
-Logo v2 may be uploaded only with the exact collectively authorized online-update set. After upload, GitHub must be rechecked for natural 1024 × 1024 size, 420 px desktop rendering, responsive narrow rendering, transparency, alt text, layout stability, console output, canonical binary hash, and local-to-remote mapping. Until then `PG-B-R1` remains `TECH_PASS_EXTERNAL_SYNC_PENDING`.
+The user authorized the exact 29-path combined online update. Logo v2 was uploaded only at the canonical path, then rechecked for natural 1024 × 1024 size, 420 px desktop rendering, responsive narrow rendering, transparency, alt text, layout stability, console output, canonical binary hash, and local-to-remote mapping. `PG-B-R1` is therefore `PASS`.
 
-No GitHub/Sites write, deployment, access/permission/key change, provider request, VG/G7, mobile computation, or video action is authorized by this local candidate.
+The same authorization produced owner-only Sites version 9 without changing access, permissions, keys, provider configuration, VG/G7, mobile computation, or video state.

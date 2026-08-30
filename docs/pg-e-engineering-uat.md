@@ -1,14 +1,14 @@
 # PG-E synthetic engineering-context pack and user UAT
 
-Status: `TECH_PASS_USER_UAT_PENDING`
+Status: `TECH_PASS_EXTERNAL_SYNC_PASS_USER_HOSTED_UAT_PENDING`
 
-Latest closed checkpoint: `PG-B · PASS`. PG-E is now `IN_PROGRESS`; VG, G7A, G7B, and G7 have not started. This document records a local/publication candidate and a manual checklist. It is not a user acceptance record, GitHub mapping, Sites deployment, public-access authorization, or claim of real-project accuracy.
+Latest closed checkpoint: `PG-B · PASS`, including `PG-B-R1 · PASS` for Logo v2. PG-E remains `IN_PROGRESS`; VG, G7A, G7B, and G7 have not started. This document now records the completed GitHub/Sites synchronization and automated hosted verification, while the user's final hosted-candidate trial remains open. It is not a claim of real-project accuracy or public Sites access.
 
-The first technical fixture at `59fefc47191e0ef22cf9ae7903546e96d0c21ba4` was rejected during user review because its separated test zones did not read as a normal building. The replacement candidate is local commit `d0598830b674c36df722ba74499f9277cb08983f` (`repair(PG-E): rebuild realistic one-storey clinic`). On 2026-08-30 the user confirmed that the replacement effect is satisfactory and approved preparing it as a website example. It has not been uploaded.
+The first technical fixture at `59fefc47191e0ef22cf9ae7903546e96d0c21ba4` was rejected during user review because its separated test zones did not read as a normal building. The replacement candidate is local commit `d0598830b674c36df722ba74499f9277cb08983f` (`repair(PG-E): rebuild realistic one-storey clinic`). On 2026-08-30 the user confirmed that the replacement effect is satisfactory, approved preparing it as a website example, and then authorized the exact combined 29-path online update.
 
 ## Answer first
 
-The PG-E pack is one programmatically generated IFC4 pair representing a plausible 12 m × 8 m, 3.2 m-high, one-storey community clinic. It has a ground slab, four perimeter walls, four internal partition segments with aligned door gaps, six columns, three framing beams, an A–C / 1–4 grid, and ceiling-level services routed through consultation rooms and the central circulation band. Eight `IfcPipeSegment` elements are checked against eight `IfcWall` and three `IfcBeam` rule elements, forming 88 candidate pairs and six independently authored sentinels. The shipped browser core matches all six sentinels across three repeated local Node runs, and the pair is now included in the local website selector as `PG-E · Realistic one-storey clinic · 88 pairs`.
+The PG-E pack is one programmatically generated IFC4 pair representing a plausible 12 m × 8 m, 3.2 m-high, one-storey community clinic. It has a ground slab, four perimeter walls, four internal partition segments with aligned door gaps, six columns, three framing beams, an A–C / 1–4 grid, and ceiling-level services routed through consultation rooms and the central circulation band. Eight `IfcPipeSegment` elements are checked against eight `IfcWall` and three `IfcBeam` rule elements, forming 88 candidate pairs and six independently authored sentinels. The shipped browser core matches all six sentinels across three repeated local Node runs, and the pair is included in the public website selector and owner-only Sites version 9 as `PG-E · Realistic one-storey clinic · 88 pairs`.
 
 No employer, customer, school, private, or real-project data is used. The IFC pair and accompanying truth data are CC0-1.0. The pack is a review fixture, not an unseen holdout and not evidence of arbitrary IFC, exporter, project, safety, constructability, compliance, or field accuracy.
 
@@ -50,7 +50,7 @@ The current technical observation is 6/6 sentinel agreement, 88 evaluated produc
 
 ## User Chrome UAT checklist
 
-Use the current desktop Chrome and the local product server. No provider key is needed.
+Use the current desktop Chrome and the owner-only hosted candidate, or reproduce locally with the commands below. No provider key is needed.
 
 ```powershell
 .\.tools\node-v24.19.0-win-x64\node.exe .\scripts\g1-static-server.mjs
@@ -71,6 +71,17 @@ Open `http://127.0.0.1:4173/app/`, then perform and record every item below:
 11. Switch Simplified Chinese/English, Popular/Engineering Minimal, and Light/Dark; repeat a run and verify filters, evidence, and 3D focus remain usable.
 12. Record peak memory only if Chrome exposes a reliable measurement for the tested tab. Do not estimate it.
 13. List every observed issue, its severity, reproduction steps, repair commit, and retest result. Any unresolved realism, license, performance, console, stale-state, result, evidence, or 3D-focus blocker prevents PG-E `PASS`.
+
+## Online synchronization and hosted preflight
+
+- Local release commit: `86751bb` (`step(PG-E): prepare clinic and logo v2 release`).
+- Public GitHub chain: `33190860ebd64d1a3f2f2a215a0ffe74318136e4` through `b3b03046982011567f1108967dd84672cfad69bd`.
+- Public mapping: 29/29 authorized paths match the local candidate byte for byte.
+- Sites: owner-only private version 9; deployment `appgdep_6a9410376c248191952546a2416970fc` succeeded without an access-policy or environment-variable change.
+- Online Chrome result: 88 records — 4 CLASH, 1 WARNING, 11 NOT_EVALUATED, 72 CLEAR; 3D evidence reached the focused-model state; console warnings/errors: 0.
+- Logo v2: public GitHub natural size 1024 × 1024, desktop render 420 × 420, approximately 279.33 × 279.33 at a 360 px public-GitHub viewport, no horizontal overflow, and no console warnings/errors.
+
+This automated hosted preflight closes external synchronization but does not replace the user's final trial of the hosted candidate.
 
 ## UAT record template
 
@@ -102,4 +113,4 @@ User acceptance decision (PASS / FAIL):
 
 ## Gate boundary
 
-PG-E cannot become `PASS` until the user UAT record is complete, blockers are repaired and retested, the exact public file set receives action-time authorization, GitHub is updated through the approved signed-in Chrome web flow, and the local-to-remote mapping is verified. No Git remote, GitHub CLI/API, Sites write, access/permission/key change, hosted provider call, VG/G7, mobile computation, or video action is authorized by this technical package.
+The authorization, signed-in Chrome GitHub upload, 29/29 local-to-remote mapping, owner-only Sites version 9 deployment, and automated hosted preflight are complete. PG-E cannot become `PASS` until the user performs the final hosted-candidate trial, the UAT record is completed, and any blocker is repaired and retested. No Git remote was configured; no public Sites access, GitHub CLI/API write, access/permission/key change, hosted provider call, VG/G7, mobile computation, or video action was introduced.
