@@ -1,7 +1,7 @@
 {
   "gate": "PG-B-R1",
-  "status": "TECH_PASS_EXTERNAL_SYNC_PENDING",
-  "generated_at": "2026-08-30T22:00:00+08:00",
+  "status": "PASS",
+  "generated_at": "2026-08-30T19:17:00+08:00",
   "asset_type": "static GitHub README logo",
   "source": "exact user-selected v2 RGBA PNG copied byte-for-byte",
   "canvas": {
@@ -15,7 +15,7 @@
     "display_width_px": 420,
     "height": "derived from intrinsic aspect ratio",
     "alignment": "center",
-    "external_verification": "PENDING for v2; the current public README still carries the previously verified v1 asset"
+    "external_verification": "PASS on public GitHub main"
   },
   "motion": {
     "gif_usage": false,
@@ -39,19 +39,41 @@
     "selected_source": "static PNG v2",
     "console_warnings_or_errors": 0
   },
+  "remote_render": {
+    "github_technical_chain_tip": "b3b03046982011567f1108967dd84672cfad69bd",
+    "mapped_public_paths": 29,
+    "desktop": {
+      "browser": "Google Chrome",
+      "rendered_image": [420, 420],
+      "natural_image": [1024, 1024],
+      "console_warnings_or_errors": 0
+    },
+    "narrow": {
+      "browser": "Codex in-app Chromium against public GitHub",
+      "viewport": [360, 720],
+      "rendered_image": [279.3333, 279.3333],
+      "natural_image": [1024, 1024],
+      "document_scroll_width": 345,
+      "console_warnings_or_errors": 0
+    }
+  },
   "previous_public_evidence": {
     "asset_sha256": "b56f3a2a3d3ef5d37599a8a84c54cf1a5f56527057db487601d7bced24793142",
     "natural_image": [1672, 941],
     "verified_technical_chain_tip": "b4ce6d56282111c585f757042fa7cfefc057da0e",
     "verified_status_tail_parent_tip": "6f58bf246fc53cdc5d06a0dd61175cd24d1e3993",
     "mapped_public_paths": 12,
-    "scope": "Historical evidence for the superseded v1 public asset only; it does not verify v2."
+    "scope": "Historical evidence for the superseded v1 public asset only."
   },
   "external_update": {
-    "v2_upload_authorized": false,
-    "github_mapping_verified": false,
-    "sites_update_authorized": false,
-    "required_next_gate": "collective action-time authorization for the exact upload set"
+    "v2_upload_authorized": true,
+    "github_mapping_verified": true,
+    "sites_update_authorized": true,
+    "github_technical_chain_tip": "b3b03046982011567f1108967dd84672cfad69bd",
+    "sites_version": 9,
+    "sites_deployment_id": "appgdep_6a9410376c248191952546a2416970fc",
+    "sites_access": "owner-only private",
+    "required_next_gate": "PG-E final hosted user UAT"
   },
   "assets": {
     "ifc-clashtrace-github-logo.png": {
