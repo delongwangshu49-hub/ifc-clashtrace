@@ -1,0 +1,53 @@
+{
+  "gate": "PG-B",
+  "status": "TECH_PASS_EXTERNAL_SYNC_PENDING",
+  "generated_at": "2026-08-30T20:30:00+08:00",
+  "asset_type": "static GitHub README logo",
+  "source": "exact user-selected RGBA PNG copied byte-for-byte",
+  "canvas": {
+    "width": 1672,
+    "height": 941,
+    "color_type": "RGBA",
+    "transparency": true,
+    "alpha_bounds": [214, 68, 1377, 892]
+  },
+  "readme": {
+    "display_width_px": 520,
+    "height": "derived from intrinsic aspect ratio",
+    "alignment": "center",
+    "external_verification": "pending action-time authorization for GitHub README rendering"
+  },
+  "motion": {
+    "gif_usage": false,
+    "animated_assets": [],
+    "reduced_motion_branch_required": false,
+    "build_script_required": false
+  },
+  "local_render": {
+    "browser": "Codex in-app Chromium",
+    "desktop": {
+      "viewport": [1280, 720],
+      "rendered_image": [520, 293],
+      "horizontal_overflow": false
+    },
+    "narrow": {
+      "viewport": [360, 640],
+      "rendered_image": [328, 185],
+      "horizontal_overflow": false
+    },
+    "natural_image": [1672, 941],
+    "selected_source": "static PNG"
+  },
+  "assets": {
+    "ifc-clashtrace-github-logo.png": {
+      "bytes": 468496,
+      "sha256": "b56f3a2a3d3ef5d37599a8a84c54cf1a5f56527057db487601d7bced24793142"
+    }
+  },
+  "export": {
+    "operation": "binary copy only",
+    "reencoded": false,
+    "metadata_policy": "no local path, EXIF, XMP, account marker, or reference-media metadata",
+    "obsolete_animation_assets": "excluded from the publication candidate and recoverable from Git history"
+  }
+}
