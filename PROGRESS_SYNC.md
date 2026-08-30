@@ -348,6 +348,15 @@ Chrome verification confirmed the repository remained `Public`; the 11 exact com
 - Logo candidate: visible source pixels are unchanged. The transparent canvas is cropped from 1024 × 1024 to 951 × 679 with a 48 px alpha margin, and README width changes from 420 px to 240 px. Local Chromium renders 240 × 171.3542 at both 1280 × 720 and 360 × 640, with no horizontal overflow or console warnings/errors.
 - Publication boundary: the repair allowlist contains 30 public paths; source-named Logo PNG/SVG, the local master, and audit scripts remain excluded. No GitHub/Sites write, deployment, access/permission/key change, provider call, VG/G7, mobile computation, or video action is performed before collective authorization.
 
+## PG-E and PG-B-R2 final closure
+
+- Status: `PASS`. The user approved the planned work and confirmed the public GitHub action at submission time.
+- GitHub: the bounded 15-file delta was published inside the existing 30-path allowlist. Technical head `3038d431157c0e1eb1e1f2b4a9870ddb01609921` passes a fixed-SHA 30/30 byte mapping. One combined docs submission returned HTTP 400 and created no commit; split retries succeeded without changing scope.
+- Logo: immutable GitHub rendering reports a 951 × 679 natural image at 240 × 171.354 px with zero console warnings/errors. A transient stale `raw/main` CDN response is recorded but does not override immutable-SHA rendering and byte identity.
+- Sites: owner-only version 11, source `dfe46aca1b033a7f80c409af0f9b907f619d3de4`, deployed successfully as `appgdep_6a942076ec308191a41d58f4cf02cf3e`. Access remains custom with one owner, zero groups, and zero external visitors; no access or environment setting changed.
+- Hosted UAT: signed-in Chrome at 1707 × 876 CSS px and DPR 1.5 produced 88 records in 5569 ms (`4 CLASH / 1 WARNING / 11 NOT_EVALUATED / 72 CLEAR`). The 49/50/200 mm boundaries, wall/beam clashes, failure closing, evidence drawer, 3D focus, stale-state invalidation, bilingual/experience/theme matrix, and zero-console-error contract passed. All thirteen structured checks are true; user-authorized agent-performed UAT decision is `PASS`.
+- Boundary: PG-E and PG-B-R2 are closed. Sites remains owner-only; no key, provider, VG/G7, mobile-computation, or video action was introduced.
+
 ## Verification checklist
 
 - [x] PowerShell 7 major version is at least 7 (`7.6.4`).
