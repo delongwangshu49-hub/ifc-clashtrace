@@ -1,8 +1,8 @@
 # IFC ClashTrace content claim ledger
 
-Status: `PG-C · IN_PROGRESS`
+Status: `PG-C · PASS`
 
-Latest closed checkpoint: `G6-R1 · PASS`
+Latest closed checkpoint: `PG-C · PASS`
 
 Scope date: 2026-08-30 (Asia/Hong_Kong)
 
@@ -12,8 +12,8 @@ This ledger controls factual claims in the homepage, functional workspace, devel
 
 | Claim ID | Public-safe claim | Authority | Allowed state |
 |---|---|---|---|
-| S-01 | G6-R1 is the latest closed checkpoint. | Master plan L-0067; `PROGRESS_SYNC.md` G6-R1 closure | `PASS` |
-| S-02 | PG-C is the current content and progress audit. | Master plan PG-C; current user authorization | `IN_PROGRESS` until its external mapping closes |
+| S-01 | PG-C is the latest closed checkpoint. | Master plan L-0069; `PROGRESS_SYNC.md` PG-C closure | `PASS` |
+| S-02 | PG-C closed the content and progress audit; the project is strictly stopped there. | Master plan PG-C; automated, Chrome, GitHub, and owner-only Sites evidence | `PASS` |
 | S-03 | The Sites project remains owner-only and private. | Read-only Sites access verification on 2026-08-30 | `OWNER_ONLY_PRIVATE` |
 | S-04 | PG-B, PG-E, VG, G7A, G7B, and G7 have not started. | Master-plan stop gates | `PLANNED` / not started only |
 | S-05 | The GitHub repository is public on `main`; this does not make Sites public. | Read-only Chrome GitHub verification; Sites access verification | factual distinction only |
@@ -37,8 +37,8 @@ This ledger controls factual claims in the homepage, functional workspace, devel
 |---|---|
 | Homepage | Product capability claims C-01/C-02/C-03; development screenshot is explicitly historical G4 evidence; metadata is bilingual; GitHub, development, license, and data-license targets are non-empty. |
 | Functional workspace | Input boundary C-08; error and empty states fail closed; AI boundary C-05; metadata and static interface copy are bilingual. The eyebrow is capability wording, not a stale Gate label. |
-| Development log | Closed timeline through G6-R1; PG-C shown as current; every later stage shown as `PLANNED` and “尚未开始” / “Not started”; metrics use C-04; Sites privacy uses S-03. |
-| README | Closed technical evidence through G6-R1; PG-C current; later stages not started; Sites-private/public-repository distinction explicit. |
+| Development log | Closed timeline through PG-C; every later stage shown as `PLANNED` and “尚未开始” / “Not started”; metrics use C-04; Sites privacy uses S-03. |
+| README | Closed technical evidence through PG-C; strict stop and later stages not started; Sites-private/public-repository distinction explicit. |
 | Navigation and footer | Targets must be non-empty and resolve to a local route, anchored workspace route, license/document route, or the established GitHub repository. Opening a local app route in a new tab is not a public-availability claim. |
 | Metadata | Page title and description preserve the same product and progress scope in Simplified Chinese and English. |
 | Error and empty states | Missing input, no selected file, zero filtered records, unsupported input, provider failure, and incomplete geometry must not imply success or completion. |
@@ -58,7 +58,7 @@ Only actual Gate evidence and required user authorization may promote a planned 
 
 `scripts/test-pg-c.ps1` must fail on:
 
-1. a latest-closed checkpoint other than G6-R1 while PG-C is in progress;
+1. a latest-closed checkpoint other than PG-C after PG-C closure;
 2. an empty or placeholder target;
 3. a later-stage item without `data-claim-state="planned"`, `PLANNED`, and matched “尚未开始” / “Not started” wording;
 4. mismatched Simplified Chinese/English claim pairs or metadata;
