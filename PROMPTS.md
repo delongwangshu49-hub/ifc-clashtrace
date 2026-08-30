@@ -457,3 +457,22 @@ This repository uses AI assistance for implementation planning and code drafting
 - Adopted governance: insert mandatory PG after G6 and before VG. PG-C audits all visible claims and allows future copy only when hidden or explicitly marked planned; PG-B adapts the already approved DG brand into a GitHub-rendered finite animation with a static fallback; PG-E creates a synthetic/appropriately licensed engineering-context IFC pair with sentinel expectations and user UAT. Split final work into G7A video QA and G7B homepage embedding, redeployment, and Hong Kong anonymous-access verification.
 - Preserved boundary: this plan edit does not alter the website, README, logo assets, sample files, deployment, access policy, hosted keys, provider calls, GitHub, or video. Because document contents and hashes changed, the exact 29-path candidate was re-audited locally and passed; no remote write was performed.
 - Truthfulness rule: prewritten G7 content may be labeled `DRAFT/PLANNED`, “计划中”, “即将开展”, or “尚未开始”; it must not use completion language, evidence, dates, metrics, links, or acceptance claims until the corresponding Gate actually passes.
+
+## P-048 — G6 authorized Chrome technical publication chain
+
+- Date: 2026-08-29
+- Goal: publish and verify the authorized, 0.4.0-audited G6 technical/evidence subset without changing the 29-path allowlist or using a Git remote/API.
+- Human authorization: the user explicitly confirmed the displayed 29-file plan, including the technical chain, one-file public-plan mapping, one-file final ledger, and browser readback.
+- Browser constraint: GitHub's upload input supports multiple files but not directory selection. To preserve nested paths, the six `app` files were safely split into `app`, `app/ai`, and `app/ui/previews` commits; no file or content was added.
+- Verification: nine Chrome commits form a continuous chain from the G5-R1 ledger to `e7217d65cfe43fc965c8c0a192656113a3a11aaf`; exact counts are `1/1/1/4/1/5/6/1/7 = 27`, and every parent, nested path, file count, and `Public/main` state was checked before continuing.
+- Mapping note: technical titles retain the previously displayed local upload-plan short SHA `2469294`; the later local plan commit `4910437cdcdfdae4b97c38ad7aa760bf4061dbb2` contains the actual audited 0.4.0 content. The mapping records both instead of misrepresenting one as the other.
+- Preserved boundary: the local master, all audit scripts, local/external IFC, outputs, dependencies, credentials, provider data, Sites access, hosted secrets, PG/VG/G7, mobile computation, and video remain excluded. Only the two authorized mapping-tail files remain.
+
+## P-049 — G6-R1 bounded evidence-consistency repair
+
+- Date: 2026-08-30
+- Goal: repair only the G6 public evidence inconsistencies found by a read-only audit, without changing the completed technical result or starting PG.
+- Human authorization: the user approved one limited repair after being shown that base G6 was substantively complete but README/privacy wording still described private review as pending, the final ledger retained pre-publication future tense, a checklist heading had a literal leading plus, and the local audit did not guard those states.
+- Adopted output: distinguish completed owner-only version 4 acceptance from the still-pending O-006 public-access decision; state the base G6 final-ledger and empty-sync SHAs as completed facts; repair the Markdown heading; add local semantic, ancestry, empty-tree, and commit-message guards; record the bounded G6-R1 in the master pair and ledger.
+- Preserved boundary: no application code, deterministic status/rule/evidence, AI contract, dependency, IFC, media, build artifact, Sites version/access/environment, key, provider request, PG/VG/G7, mobile computation, or video changes. The local master and audit script remain prohibited from publication.
+- External stop: this approval authorizes the limited local repair only. After local validation and commit, request one exact Chrome GitHub authorization for the sanitized repair subset and mapping tail; until then G6-R1 remains `LOCAL_PASS_EXTERNAL_SYNC_PENDING`.
