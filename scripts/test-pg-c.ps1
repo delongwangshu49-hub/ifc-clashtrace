@@ -37,6 +37,9 @@ try {
         'Status: `PG-C · PASS`',
         'Homepage', 'Functional workspace', 'Development log', 'README',
         'Navigation and footer', 'Metadata', 'Error and empty states', 'Demo screenshots',
+        '| S-06 | Every load of the shared homepage route resets to Popular experience, English, and Light.',
+        '`LOCAL_AND_PRIVATE_PASS` / `PUBLIC_SYNC_PENDING`',
+        'A/B scene-label contrast ratio below 4.5:1',
         'completion state, dates, metrics, links, acceptance, public availability, permissions, or evidence'
     )) { Assert-Contains $ledger $required "Claim-ledger contract missing: $required" }
 
@@ -46,7 +49,11 @@ try {
             '直至项目结束的所有后续阶段文案和组件',
             '不得伪造完成状态、日期、指标、链接、验收、公开可用性、权限或证据',
             '预写不构成阶段启动、Gate 通过、用户验收、外部写入、部署/公开访问授权',
-            '| D-054 | 2026-08-29；2026-08-30 扩展 |'
+            '| D-054 | 2026-08-29；2026-08-30 扩展 |',
+            '| D-063 | 2026-08-30 |',
+            '### L-0070 — PG-C 新会话入口与亮色图注定向修复',
+            '| D-065 | 2026-08-30 |',
+            '### L-0072 — PG-C-R2 共享主页重置、功能页顶部与审计修复'
         )) { Assert-Contains $plan $required "Expanded governance contract missing: $required" }
         foreach ($obsolete in @('允许预先编写 G7 文案和组件', '可以提前编写 G7 文案，但只能')) {
             if ($plan.Contains($obsolete, [StringComparison]::Ordinal)) { throw "Obsolete G7-only prewriting scope remains: $obsolete" }
@@ -77,6 +84,8 @@ try {
         }
         if ($match.Value -match '>PASS<' -or $match.Value -match '(?i)completed|accepted') { throw "Later stage is presented as complete: $gate" }
     }
+    Assert-Contains $development 'YouTube upload and direct-link validation' 'Current G7B planned route is missing from the development page.'
+    if ($development.Contains('Video embed and public-access revalidation', [StringComparison]::Ordinal)) { throw 'Superseded G7B homepage-embed plan remains on the development page.' }
 
     foreach ($surface in @(
         @{ Name = 'workspace'; Text = $workspace },
