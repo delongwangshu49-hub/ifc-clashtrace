@@ -326,6 +326,17 @@ Chrome verification confirmed the repository remained `Public`; the 11 exact com
 - Upload accounting: the audited union contains 29 possible public paths and 3 local-only governance/audit paths. The final report will list only byte-changed public paths; unchanged allowlist entries and source-named Logo v2 PNG/SVG files are excluded.
 - Stop gate: no GitHub/Sites write, deployment, access/permission/key change, provider call, VG/G7, mobile computation, or video action occurs before one collective authorization for the exact reported set.
 
+## PG-E/PG-B-R1 combined online synchronization
+
+- Status: `EXTERNAL_SYNC_PASS / USER_HOSTED_UAT_PENDING`. PG-B-R1 is `PASS`; PG-E and overall PG remain `IN_PROGRESS` until the user completes the final hosted-candidate trial.
+- Authorization: after reviewing the exact 29-path, 909,289-byte publication set, the user gave one collective action-time approval. The two source-named Logo v2 files, local authoritative master, and local audit scripts remained excluded.
+- Local release checkpoint: `86751bb` (`step(PG-E): prepare clinic and logo v2 release`).
+- Public GitHub chain: [`33190860ebd64d1a3f2f2a215a0ffe74318136e4`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/33190860ebd64d1a3f2f2a215a0ffe74318136e4) → `4595fb35e993a8ceb9393912ddfbf1c304f1e9df` → `4bd136be16787260c27e5936c3fdf2081231e282` → `c31263c403176ef919f70433ece97a7fd42e83e3` → `69ab5789a57d0d0876410e72d10e3ba3e12a665b` → `18a4756ed5e1dfdca11726f69d3f619e1acdda5e` → `2d093320109bbb64e0a3a3851d6438df23b971b4` → `73f077245297381be45ee3f774b34d5b18f29f69` → `7878d5b5bc4c1cf36a3e8ea7bf1f5b77fc5c05f4` → [technical tip `b3b03046982011567f1108967dd84672cfad69bd`](https://github.com/delongwangshu49-hub/ifc-clashtrace/commit/b3b03046982011567f1108967dd84672cfad69bd). All 29 authorized paths match the local candidate byte for byte.
+- Logo v2 verification: public GitHub reports natural 1024 × 1024; Google Chrome renders 420 × 420 on desktop, while a 360 px public-GitHub viewport renders approximately 279.33 × 279.33 with no horizontal overflow. Console warnings/errors are zero.
+- Sites verification: sanitized source commit `b85fb0d99e84392ff3642abfa3e4649b8dad1ed9` produced owner-only private version 9 and successful deployment `appgdep_6a9410376c248191952546a2416970fc`. Access remains `custom`, one allowed owner, zero groups, and zero external visitors; no environment variable or key was added.
+- Hosted clinic preflight: Chrome loaded the public selector option and both IFC assets, produced 88 records (`4 CLASH / 1 WARNING / 11 NOT_EVALUATED / 72 CLEAR`), reached the focused 3D model state, and logged zero warnings/errors.
+- Stop gate: this closes the combined external synchronization and PG-B-R1, but not PG-E user UAT. No public Sites access, permission/key change, live provider call, VG/G7, mobile computation, or video action occurred.
+
 ## Verification checklist
 
 - [x] PowerShell 7 major version is at least 7 (`7.6.4`).

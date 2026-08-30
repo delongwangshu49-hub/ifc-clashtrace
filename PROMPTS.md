@@ -535,3 +535,13 @@ This repository uses AI assistance for implementation planning and code drafting
 - Brand implementation: copy the supplied 1024 × 1024 RGBA PNG byte-for-byte onto the canonical `docs/assets/brand/ifc-clashtrace-github-logo.png` path, update README width/alt text and frozen asset evidence, retain the no-GIF decision, and keep the source-named v2 PNG/SVG outside the publication set.
 - Truthfulness boundary: prior public Logo v1 rendering/mapping remains historical evidence for v1 only. Logo v2, the online clinic selector, and the combined upload remain `TECH_PASS_EXTERNAL_SYNC_PENDING` until the exact file set receives collective action-time authorization and post-upload GitHub/Sites checks pass.
 - Preserved boundary: local preparation and auditing do not authorize GitHub/Sites writes, deployment, access/permission/key changes, provider calls, later Gates, mobile computation, or video work.
+
+## P-056 — Collective authorization and combined online synchronization
+
+- Date: 2026-08-30
+- User authorization: after receiving the exact 29-file, 909,289-byte public upload inventory and the five explicit exclusions, the user replied “批准”. This is the action-time collective authorization for the prepared GitHub update, owner-only Sites deployment, online verification, and non-recursive evidence tail.
+- GitHub result: signed-in Chrome uploaded the ten directory-preserving groups to public `main`, forming a continuous chain from `33190860ebd64d1a3f2f2a215a0ffe74318136e4` through `b3b03046982011567f1108967dd84672cfad69bd`. Independent immutable-HEAD downloads matched all 29 local files byte for byte.
+- Logo result: the canonical 45,662-byte PNG has SHA-256 `2da1f6c80b25d85495ffcd4932424ef7316a1be5d2334ceca941af13932de597`; public GitHub natural size is 1024 × 1024, desktop rendering is 420 × 420, 360 px rendering is approximately 279.33 × 279.33, and console warnings/errors are zero. The source-named v2 PNG/SVG were not uploaded.
+- Sites result: sanitized source commit `b85fb0d99e84392ff3642abfa3e4649b8dad1ed9` produced owner-only version 9 and successful deployment `appgdep_6a9410376c248191952546a2416970fc`. Access remains one owner with zero groups/external visitors and no key or environment-variable change.
+- Hosted clinic result: Chrome loaded `PG-E · Realistic one-storey clinic · 88 pairs`, returned `4 CLASH / 1 WARNING / 11 NOT_EVALUATED / 72 CLEAR`, rendered the coherent one-storey 3D model, and reported no warning/error logs.
+- Gate boundary: PG-B-R1 becomes `PASS`; PG-E is `EXTERNAL_SYNC_PASS_USER_HOSTED_UAT_PENDING`, not yet `PASS`. The user must still perform the final hosted-candidate trial. VG/G7, public Sites access, provider calls, permissions, keys, mobile computation, and video remain untouched.
