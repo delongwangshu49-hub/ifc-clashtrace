@@ -1,8 +1,12 @@
 <!doctype html>
-<html lang="zh-CN" data-style="mainstream" data-theme="dark">
+<html lang="en" data-style="mainstream" data-theme="light">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+      try { history.scrollRestoration = "manual"; } catch {}
+      if (!location.hash) addEventListener("pageshow", () => scrollTo(0, 0), { once: true });
+    </script>
     <meta name="description" content="IFC ClashTrace 的已验证 Gate、测试、失败关闭边界与计划中阶段。" data-zh-content="IFC ClashTrace 的已验证 Gate、测试、失败关闭边界与计划中阶段。" data-en-content="Verified IFC ClashTrace Gates, tests, fail-closed boundaries, and clearly planned later stages.">
     <title>IFC ClashTrace — 研发进程</title>
     <link rel="stylesheet" href="/app/ui/site.css">
@@ -63,7 +67,7 @@
           <li class="gate-planned" data-claim-stage="PG-E" data-claim-state="planned"><span class="gate-id">PG-E</span><div><h3 data-zh="近真实样例与人工试用" data-en="Near-real scenario and human trial">近真实样例与人工试用</h3><p data-zh="尚未开始；将使用许可清晰的工程情境化双 IFC、独立哨兵预期与用户端到端试用。" data-en="Not started; it will use a clearly licensed, engineering-contextualized IFC pair, independent sentinel expectations, and an end-to-end user trial.">尚未开始；将使用许可清晰的工程情境化双 IFC、独立哨兵预期与用户端到端试用。</p></div><span class="gate-status">PLANNED</span></li>
           <li class="gate-planned" data-claim-stage="VG" data-claim-state="planned"><span class="gate-id">VG</span><div><h3 data-zh="视频预制作" data-en="Video pre-production">视频预制作</h3><p data-zh="尚未开始；脚本、风格帧、旁白样例、音乐与镜头清单须经用户确认后才能进入正式制作。" data-en="Not started; the script, style frame, voice sample, music choice, and shot list require user confirmation before final production.">尚未开始；脚本、风格帧、旁白样例、音乐与镜头清单须经用户确认后才能进入正式制作。</p></div><span class="gate-status">PLANNED</span></li>
           <li class="gate-planned" data-claim-stage="G7A" data-claim-state="planned"><span class="gate-id">G7A</span><div><h3 data-zh="视频成片制作与质量验收" data-en="Video production and quality acceptance">视频成片制作与质量验收</h3><p data-zh="尚未开始；只有 VG 通过后才可录屏、生成旁白、剪辑、字幕并完成事实/隐私/许可 QA。" data-en="Not started; recording, voice generation, editing, captions, and factual/privacy/license QA can begin only after VG passes.">尚未开始；只有 VG 通过后才可录屏、生成旁白、剪辑、字幕并完成事实/隐私/许可 QA。</p></div><span class="gate-status">PLANNED</span></li>
-          <li class="gate-planned" data-claim-stage="G7B" data-claim-state="planned"><span class="gate-id">G7B</span><div><h3 data-zh="成片回嵌与公开访问复验" data-en="Video embed and public-access revalidation">成片回嵌与公开访问复验</h3><p data-zh="尚未开始；只有 G7A 通过且获得公开授权后，才可回嵌并验证性能、回退与香港未登录可达性。" data-en="Not started; embedding and validation of performance, fallback, and signed-out Hong Kong access require G7A to pass and explicit public-access authorization.">尚未开始；只有 G7A 通过且获得公开授权后，才可回嵌并验证性能、回退与香港未登录可达性。</p></div><span class="gate-status">PLANNED</span></li>
+          <li class="gate-planned" data-claim-stage="G7B" data-claim-state="planned"><span class="gate-id">G7B</span><div><h3 data-zh="YouTube 上传与直链复验" data-en="YouTube upload and direct-link validation">YouTube 上传与直链复验</h3><p data-zh="尚未开始；只有 G7A 通过且获得行动时授权后，才可上传 Unlisted 成片、复核双语字幕与香港未登录直链；视频不回嵌首页。" data-en="Not started; an Unlisted upload, bilingual-caption checks, and signed-out Hong Kong direct-link validation require G7A to pass and action-time authorization; the video will not be embedded on the homepage.">尚未开始；只有 G7A 通过且获得行动时授权后，才可上传 Unlisted 成片、复核双语字幕与香港未登录直链；视频不回嵌首页。</p></div><span class="gate-status">PLANNED</span></li>
           <li class="gate-planned" data-claim-stage="G7" data-claim-state="planned"><span class="gate-id">G7</span><div><h3 data-zh="最终交付" data-en="Final delivery">最终交付</h3><p data-zh="尚未开始；只有所有前置 Gate、用户验收、发布审计与必要外部授权真实闭合后才可完成。" data-en="Not started; it can complete only after all prerequisite Gates, user acceptance, publication audits, and required external authorizations actually close.">尚未开始；只有所有前置 Gate、用户验收、发布审计与必要外部授权真实闭合后才可完成。</p></div><span class="gate-status">PLANNED</span></li>
         </ol>
       </section>
