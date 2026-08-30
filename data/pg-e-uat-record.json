@@ -1,0 +1,56 @@
+{
+  "gate": "PG-E",
+  "record_version": "1.0.0",
+  "status": "PENDING_REPAIR_PUBLICATION_AND_FINAL_HOSTED_UAT",
+  "required_target": {
+    "description": "The next owner-only Sites deployment containing the PG-E repair candidate and PG-B-R2 Logo crop.",
+    "sites_version": null,
+    "deployment_id": null,
+    "gitHub_head": null
+  },
+  "prior_automated_preflight": {
+    "functional_sites_version": 9,
+    "evidence_tail_sites_version": 10,
+    "final_public_gitHub_head": "b1727db600ae169eb603c5dd6863b417faef1b9f",
+    "candidate_records": 88,
+    "evaluated_records": 77,
+    "clash": 4,
+    "warning": 1,
+    "not_evaluated": 11,
+    "clear": 72,
+    "console_warnings_or_errors": 0,
+    "scope": "Historical automated preflight only; it does not accept the local repair candidate."
+  },
+  "required_user_checks": {
+    "building_realism": null,
+    "example_selector_load_and_run": null,
+    "s01_wall_clash": null,
+    "s02_49mm_warning": null,
+    "s03_50mm_non_warning_boundary": null,
+    "s04_200mm_clearance": null,
+    "s05_beam_clash": null,
+    "s06_missing_geometry_failure_closed": null,
+    "evidence_drawer_and_3d_focus": null,
+    "retry_cancel_and_stale_state_invalidation": null,
+    "language_experience_and_theme_matrix": null,
+    "console_clean": null,
+    "performance_acceptable": null
+  },
+  "observations": {
+    "tester_confirmation": null,
+    "tested_at": null,
+    "chrome_version": null,
+    "window_and_zoom": null,
+    "mep_sha256": null,
+    "structure_sha256": null,
+    "elapsed_ms": null,
+    "peak_memory_bytes": null,
+    "observed_issues": [],
+    "repair_and_retest_evidence": []
+  },
+  "user_acceptance": {
+    "decision": null,
+    "confirmed_at": null,
+    "notes": null
+  }
+}
