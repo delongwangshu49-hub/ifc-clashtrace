@@ -17,7 +17,7 @@ This ledger controls factual claims in the homepage, functional workspace, devel
 | S-03 | The Sites project remains owner-only and private. | Read-only Sites access verification on 2026-08-30 | `OWNER_ONLY_PRIVATE` |
 | S-04 | PG-B, PG-E, VG, G7A, G7B, and G7 have not started. | Master-plan stop gates | `PLANNED` / not started only |
 | S-05 | The GitHub repository is public on `main`; this does not make Sites public. | Read-only Chrome GitHub verification; Sites access verification | factual distinction only |
-| S-06 | Every load of the shared homepage route resets to Popular experience, English, and Light. Homepage destinations open in new tabs; non-anchored workspace/development entries start at the top, while intentional hash links retain their target. | Master plan D-065/L-0072; executable entry tests and Chrome verification | `LOCAL_AND_PRIVATE_PASS` / `PUBLIC_SYNC_PENDING` |
+| S-06 | Every load of the shared homepage route resets to Popular experience, English, and Light. Homepage destinations open in new tabs; non-anchored workspace/development entries start at the top, while intentional hash links retain their target. | Master plan D-065/L-0072; executable entry tests; Chrome verification; GitHub technical-chain tip `40c7270b6fc9b56f6976b938297d2b475eef7e39` | `PASS` |
 
 ## Product and evidence claims
 
