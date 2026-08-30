@@ -14,6 +14,8 @@ G5 turns that implementation into a bounded evaluation record. The controlled su
 
 G6 packages the same three-page application as an owner-only private deployment candidate. The build contains the browser-local deterministic runtime, the 16 public generated IFC files, an optional same-origin Worker AI boundary, no source maps, and no hosted key. Privacy, path, media metadata, dependency license, package vulnerability, and no-key failure-closing checks pass locally. The owner-only version 4 preview has completed user acceptance; that acceptance does not authorize public Sites access, which remains a separate pending O-006 decision. See `docs/g6-deployment-architecture.md`, `docs/g6-privacy-license-audit.md`, and `THIRD-PARTY-NOTICES.md`.
 
+PG-C is the current presentation-readiness audit. G6-R1 remains the latest closed checkpoint while the homepage, workspace, development log, README, metadata, links, error/empty states, and historical screenshots are checked against one claim ledger. The deployed Sites project remains owner-only and private. PG-B, PG-E, VG, G7A, G7B, and G7 have not started. Copy or components for any later stage may be prepared only when hidden or explicitly marked `DRAFT`/`PLANNED`/not started; prewriting is not a completion claim, user acceptance, Gate bypass, GitHub or Sites write authorization, deployment authorization, or public-access authorization. See `docs/content-claim-ledger.md`.
+
 The frozen G2/G3A contract includes:
 
 - 3 expected `CLASH` cases, 4 expected `CLEAR` cases, and 1 expected `NOT_EVALUATED` case;
@@ -139,7 +141,7 @@ $env:GROQ_API_KEY = '<local secret>'
 
 Open `http://127.0.0.1:4173/app/`. The deterministic run remains browser-local. Enabling AI sends nothing; the user must preview the exact derivative, check a fresh consent box, and click the send button. Without a key or network, the original `g4:serve` route and all deterministic functions remain available.
 
-## Boundaries through G4AI
+## Product boundaries through G6-R1
 
 - G3 supports exact IFC4 files with unprefixed metre units and an explicitly established shared project coordinate system; both models must expose the same valid web-ifc coordination transform.
 - The v1 rule IDs require the exact finite `0.002 m` hard-clash and `0.05 m` clearance constants; caller-supplied alternatives fail closed instead of silently changing rule meaning.
@@ -188,6 +190,16 @@ npm run preview
 ```
 
 Open `http://127.0.0.1:4173/`. No Sites project creation, deployment, public-access change, GitHub write, or live AI call is performed by the test. A hosted private preview and any later public access each require separate owner authorization.
+
+## Reproduce the PG-C content contract
+
+Run the public claim-ledger, bilingual metadata, link, planned-stage, build-parity, and regression guard with PowerShell 7:
+
+```powershell
+pwsh -NoLogo -NoProfile -File .\scripts\test-pg-c.ps1
+```
+
+The test rejects a stale latest-closed Gate, empty targets, a later stage presented as complete, mismatched Chinese/English claim pairs, or an unmarked historical screenshot. It does not write to GitHub or Sites, change access, configure a key, or start any later Gate.
 
 ## AI assistance
 
