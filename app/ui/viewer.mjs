@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { IFCBEAM, IFCPIPESEGMENT, IFCWALL, IfcAPI } from "web-ifc";
+import { IFCBEAM, IFCCOLUMN, IFCPIPESEGMENT, IFCSLAB, IFCWALL, IfcAPI } from "web-ifc";
 
 function vectorItems(vector) {
   const items = [];
@@ -94,15 +94,25 @@ export class ClashViewer {
   }
 
   collectModel(ifcApi, modelId, role, typeCodes) {
-    const color = role === "mep" ? 0x78b7a6 : 0xd3c5ad;
     ifcApi.StreamAllMeshesWithTypes(modelId, typeCodes, flatMesh => {
       const line = ifcApi.GetLine(modelId, flatMesh.expressID);
       const guid = line?.GlobalId?.value || `express-${flatMesh.expressID}`;
+      const typeCode = line?.type;
+      const color = role === "mep"
+        ? 0x64b8aa
+        : typeCode === IFCBEAM
+          ? 0xb98b5f
+          : typeCode === IFCCOLUMN
+            ? 0x9a8d7e
+            : typeCode === IFCSLAB
+              ? 0x6f7772
+              : 0xd3c5ad;
+      const baseOpacity = typeCode === IFCSLAB ? .38 : typeCode === IFCWALL ? .76 : .92;
       for (const placed of vectorItems(flatMesh.geometries)) {
         const geometry = geometryFromPlacedGeometry(ifcApi, modelId, placed);
-        const material = new THREE.MeshStandardMaterial({ color, roughness: .66, metalness: .06, transparent: true, opacity: .93, side: THREE.DoubleSide });
+        const material = new THREE.MeshStandardMaterial({ color, roughness: .66, metalness: .06, transparent: true, opacity: baseOpacity, side: THREE.DoubleSide });
         const mesh = new THREE.Mesh(geometry, material);
-        mesh.userData = { guid, role, baseColor: color };
+        mesh.userData = { guid, role, typeCode, baseColor: color, baseOpacity };
         this.modelGroup.add(mesh);
         this.meshes.push(mesh);
         const entry = this.byGuid.get(guid) || [];
@@ -135,7 +145,7 @@ export class ClashViewer {
       mesh.visible = true;
       mesh.material.color.setHex(mesh.userData.baseColor);
       mesh.material.emissive.setHex(0x000000);
-      mesh.material.opacity = .38;
+      mesh.material.opacity = mesh.userData.typeCode === IFCSLAB ? .14 : .34;
     }
   }
 
@@ -178,7 +188,7 @@ export class ClashViewer {
 
   fitModels() {
     this.resetMaterials();
-    for (const mesh of this.meshes) mesh.material.opacity = .92;
+    for (const mesh of this.meshes) mesh.material.opacity = mesh.userData.baseOpacity;
     this.fitObjects(this.meshes);
   }
 

@@ -7,8 +7,16 @@ import { ClashViewer } from "/app/ui/viewer.mjs";
 
 const CASES = {
   "review-pack": ["C01", "C03", "C05", "C08"],
+  "realistic-clinic": ["PGE"],
   C01: ["C01"], C02: ["C02"], C03: ["C03"], C04: ["C04"],
   C05: ["C05"], C06: ["C06"], C07: ["C07"], C08: ["C08"],
+};
+
+const FIXTURE_PATHS = {
+  PGE: {
+    mep: "/data/generated/pg-e/pg-e-engineering-mep.ifc",
+    structure: "/data/generated/pg-e/pg-e-engineering-structure.ifc",
+  },
 };
 
 const copy = {
@@ -275,8 +283,13 @@ async function handleFile(role, file) {
 
 function refreshRunDescription() {
   if (!elements.run_description) return;
+  const selection = state.selection === "review-pack"
+    ? "review pack · C01 / C03 / C05 / C08"
+    : state.selection === "realistic-clinic"
+      ? "PG-E · realistic one-storey clinic · 88 pairs"
+      : state.selection;
   elements.run_description.textContent = state.mode === "example"
-    ? msg("setupExample", { selection: state.selection === "review-pack" ? "review pack · C01 / C03 / C05 / C08" : state.selection })
+    ? msg("setupExample", { selection })
     : msg("setupCustom");
 }
 
@@ -376,9 +389,13 @@ async function runChecks() {
         structureBytes = state.custom.structure.bytes;
       } else {
         const stem = caseId.toLowerCase();
+        const paths = FIXTURE_PATHS[caseId] || {
+          mep: `/data/generated/g2/${stem}-mep.ifc`,
+          structure: `/data/generated/g2/${stem}-structure.ifc`,
+        };
         [mepBytes, structureBytes] = await Promise.all([
-          fetchBytes(`/data/generated/g2/${stem}-mep.ifc`),
-          fetchBytes(`/data/generated/g2/${stem}-structure.ifc`),
+          fetchBytes(paths.mep),
+          fetchBytes(paths.structure),
         ]);
       }
       state.sources.set(caseId, { mepBytes, structureBytes });

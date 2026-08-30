@@ -296,8 +296,8 @@ html[lang="en"] .input-card > p:not(.card-index, .file-status) { min-height: 92p
 .summary-meta { justify-content: space-around; }
 .summary-meta > div { text-align: center; }
 .summary-meta strong { font-size: 19px; }
-.review-workspace { display: grid; grid-template-columns: minmax(0, 3fr) minmax(360px, 2fr); min-height: 700px; border: 1px solid var(--line); }
-.viewport-panel { min-width: 0; display: grid; grid-template-rows: auto 1fr auto; background: #11120f; color: #f5efe4; }
+.review-workspace { display: grid; grid-template-columns: minmax(0, 3fr) minmax(360px, 2fr); align-items: start; min-height: 700px; border: 1px solid var(--line); }
+.viewport-panel { min-width: 0; height: 700px; position: sticky; top: 16px; display: grid; grid-template-rows: auto 1fr auto; background: #11120f; color: #f5efe4; }
 .viewport-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 18px; min-height: 70px; padding: 12px 16px; border-bottom: 1px solid #494a43; }
 .panel-label { margin: 0 0 4px; color: var(--accent); font: 800 10px var(--font-mono); letter-spacing: .14em; }
 .viewport-toolbar p:last-child { margin: 0; font: 680 12px var(--font-mono); }
@@ -454,6 +454,7 @@ html[lang="en"] .input-card > p:not(.card-index, .file-status) { min-height: 92p
   .input-card > p:not(.card-index, .file-status) { min-height: 0; }
   .boundary-box { grid-template-columns: 1fr; }
   .review-workspace { grid-template-columns: 1fr; }
+  .viewport-panel { position: static; }
   .results-panel { border-left: 0; border-top: 1px solid var(--line); }
   .summary-strip { grid-template-columns: repeat(4, 1fr); }
   .summary-meta { grid-column: 1 / -1; }
@@ -471,6 +472,7 @@ html[lang="en"] .input-card > p:not(.card-index, .file-status) { min-height: 92p
   .summary-strip { grid-template-columns: 1fr 1fr; }
   .summary-meta { grid-column: 1 / -1; }
   .viewer-shell { min-height: 420px; }
+  .viewport-panel { height: auto; }
   .viewport-toolbar { align-items: start; flex-direction: column; }
   .tool-group { flex-wrap: wrap; }
   .claim-grid { grid-template-columns: 1fr; }
