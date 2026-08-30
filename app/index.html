@@ -1,8 +1,12 @@
 <!doctype html>
-<html lang="zh-CN" data-style="mainstream" data-theme="dark">
+<html lang="en" data-style="mainstream" data-theme="light">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+      try { history.scrollRestoration = "manual"; } catch {}
+      if (!location.hash) addEventListener("pageshow", () => scrollTo(0, 0), { once: true });
+    </script>
     <meta name="description" content="在浏览器本地运行确定性 IFC 硬碰撞与 50 mm 净距检查。" data-zh-content="在浏览器本地运行确定性 IFC 硬碰撞与 50 mm 净距检查。" data-en-content="Run deterministic IFC hard-clash and 50 mm clearance checks locally in the browser.">
     <title>IFC ClashTrace — 功能工作台</title>
     <link rel="stylesheet" href="/app/ui/site.css?v=g4ai-r3">
