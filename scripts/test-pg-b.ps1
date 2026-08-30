@@ -19,7 +19,7 @@ try {
     $brandAudit = Get-Content -LiteralPath 'docs/pg-b-github-logo.md' -Raw
     $development = Get-Content -LiteralPath 'development/index.html' -Raw
 
-    if ($manifest.status -cne 'TECH_PASS_EXTERNAL_SYNC_PENDING') { throw 'PG-B manifest status drifted.' }
+    if ($manifest.status -cne 'PASS') { throw 'PG-B manifest status drifted.' }
     if ($manifest.asset_type -cne 'static GitHub README logo') { throw 'PG-B asset type drifted.' }
     if ($manifest.canvas.width -ne 1672 -or $manifest.canvas.height -ne 941) { throw 'PG-B canvas dimensions drifted.' }
     if ($manifest.canvas.color_type -cne 'RGBA' -or -not $manifest.canvas.transparency) { throw 'PG-B transparency contract drifted.' }
@@ -53,7 +53,7 @@ try {
         'src="docs/assets/brand/ifc-clashtrace-github-logo.png"',
         'width="520"',
         'alt="IFC ClashTrace product logo: a teal pipe crosses two wall panels at a coral collision ring beside an inspection alert."',
-        'PG-B is `TECH_PASS_EXTERNAL_SYNC_PENDING`, not `PASS`',
+        'PG-B is `PASS` and is the latest closed presentation-readiness checkpoint',
         'docs/pg-b-github-logo.md'
     )) { Assert-Contains $readme $required "README PG-B contract missing: $required" }
     foreach ($forbidden in @('.gif','<picture>','<source','prefers-reduced-motion','ifc-clashtrace-lockup-light')) {
@@ -61,13 +61,13 @@ try {
     }
 
     foreach ($required in @(
-        'Status: `TECH_PASS_EXTERNAL_SYNC_PENDING`',
-        'Latest closed checkpoint: `PG-C · PASS`',
+        'Status: `PASS`',
+        'Latest closed checkpoint: `PG-B · PASS`',
         '1672 × 941',
         'RGBA',
         '468,496 bytes',
         'GIF usage is cancelled',
-        'action-time authorization',
+        '12/12 path mapping',
         'No Sites, permission, key, public-access, PG-E, VG, G7, or video action'
     )) { Assert-Contains $brandAudit $required "PG-B audit contract missing: $required" }
 
@@ -82,12 +82,11 @@ try {
         if (Test-Path -LiteralPath $obsolete) { throw "Cancelled PG-B artifact remains: $obsolete" }
     }
 
-    $activePgB = [regex]::Match($development, '(?s)<li[^>]*data-claim-stage="PG-B"[^>]*data-claim-state="in_progress"[^>]*>(.*?)</li>')
-    if (-not $activePgB.Success -or $activePgB.Value -notmatch '>LOCAL CANDIDATE<') { throw 'Development page does not show the bounded PG-B local candidate.' }
-    foreach ($required in @('静态产品标','static product mark','不再使用 GIF','no longer uses GIF')) {
-        Assert-Contains $activePgB.Value $required "Development PG-B static-logo wording missing: $required"
+    $closedPgB = [regex]::Match($development, '(?s)<li[^>]*data-claim-stage="PG-B"[^>]*data-claim-state="closed"[^>]*>(.*?)</li>')
+    if (-not $closedPgB.Success -or $closedPgB.Value -notmatch '>PASS<') { throw 'Development page does not show PG-B as closed.' }
+    foreach ($required in @('透明静态产品标','transparent static product mark','不再使用 GIF','no GIF')) {
+        Assert-Contains $closedPgB.Value $required "Development PG-B static-logo wording missing: $required"
     }
-    if ($activePgB.Value -match '>PASS<') { throw 'Development page overstates PG-B as PASS.' }
 
     if (-not $SkipRegression) {
         & pwsh -NoLogo -NoProfile -File 'scripts/test-pg-c.ps1' -SkipRegression
@@ -105,7 +104,8 @@ try {
     'PGB_METADATA_SCAN=PASS'
     'PGB_README_ALT_AND_SCALE=PASS'
     'PGB_PUBLIC_ASSET_MAX_LT_1MIB=PASS'
-    'PGB_STATUS=TECH_PASS_EXTERNAL_SYNC_PENDING'
+    'PGB_REMOTE_MAPPING=12/12'
+    'PGB_STATUS=PASS'
 }
 finally {
     Pop-Location
