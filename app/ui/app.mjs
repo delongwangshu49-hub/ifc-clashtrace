@@ -280,7 +280,7 @@ function refreshRunDescription() {
     : msg("setupCustom");
 }
 
-function chooseExample() {
+function chooseExample({ focusRun = true } = {}) {
   invalidateReviewState({ resetCoordinateConsent: true });
   state.mode = "example";
   state.selection = elements.example_select.value;
@@ -293,7 +293,7 @@ function chooseExample() {
   delete elements.structure_status.dataset.valid;
   elements.setup_state.querySelector("span:last-child").textContent = msg("exampleReady");
   refreshRunDescription();
-  elements.run_checks.focus();
+  if (focusRun) elements.run_checks.focus();
 }
 
 async function fetchBytes(url) {
@@ -647,7 +647,7 @@ function bindAiPanelActions() {
 }
 
 function bindEvents() {
-  elements.use_example.addEventListener("click", chooseExample);
+  elements.use_example.addEventListener("click", () => chooseExample());
   elements.example_select.addEventListener("change", () => { state.selection = elements.example_select.value; if (state.mode === "example") refreshRunDescription(); });
   elements.mep_file.addEventListener("change", event => handleFile("mep", event.currentTarget.files[0]));
   elements.structure_file.addEventListener("change", event => handleFile("structure", event.currentTarget.files[0]));
@@ -672,7 +672,7 @@ function bindEvents() {
 
 initializePreferences();
 bindEvents();
-chooseExample();
+chooseExample({ focusRun: false });
 updateDesktopBoundary();
 translateStatic();
 elements.viewer_loading.hidden = true;
