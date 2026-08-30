@@ -6,7 +6,7 @@
 > 目标完成时间：不晚于 2026-08-31 晚间（Asia/Hong_Kong）  
 > 项目根目录：`<PROJECT_ROOT>`  
 > 当前阶段：基础 G6 与有限 G6-R1 已闭合；经用户授权仅启动 PG-C 全站内容与进度口径审计，Sites 保持所有者私有
-> 当前 Gate：`PG-C — IN_PROGRESS`（只执行内容审计；不进入 PG-B/PG-E/VG/G7，不公开 Sites）
+> 当前 Gate：`PG-C — PASS`（严格停止在 PG-C；不进入 PG-B/PG-E/VG/G7，不公开 Sites）
 
 ---
 
@@ -882,7 +882,7 @@ G4 的无 AI 基础闭环必须同时展示硬碰撞与净距预警，并在断�
 
 目标：在视频脚本冻结与正式录制前，把网站事实口径、品牌入口和人工试用证据收敛为一套可公开、可演示、可回查的展示基线。
 
-当前状态：`IN_PROGRESS`（仅 PG-C）；G6 本地、GitHub 检查点与必要私有预览均已闭环为 `PASS`。PG-B、PG-E、VG 与 G7 系列仍为 `NOT_STARTED`，不得因 PG-C 启动而自动开始。
+当前状态：`IN_PROGRESS`（PG-C 已 `PASS`，PG 整体尚未通过）；项目严格停止在 PG-C。PG-B、PG-E、VG 与 G7 系列仍为 `NOT_STARTED`，不得因 PG-C 通过而自动开始。
 
 #### PG-C — 全站内容与进度口径审计
 
@@ -1431,6 +1431,7 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 | D-059 | 2026-08-30 | 批准 G6-R1 精确 5 路径、4 笔 Chrome 公开映射 | USER_APPROVED | 用户在看到唯一公开路径与分组后明确“批准提交”。公开范围仅为 `docs/g6-privacy-license-audit.md`、`README.md`、`PROMPTS.md`、`BIMCLASH_AGENT_MASTER_PLAN.public.md` 与 `PROGRESS_SYNC.md`；本地权威总纲和 `scripts/audit-g6.ps1` 继续排除。授权不包含 Sites 公开、权限、托管密钥、PG/VG/G7 或任何其他外部写入 |
 | D-060 | 2026-08-30 | 立即启动并完整执行 PG-C，完成后严格停在 PG-C | USER_MANDATED | 授权只覆盖全站内容/进度主张台账、三页与 README/元数据/链接/错误空状态/历史截图校准、双语/双风格/亮暗/1024–1433 px Chrome 验收、自动守卫、审计与本地提交；不得启动 PG-B、PG-E、VG 或 G7，不自动授权 GitHub、Sites 部署、访问变化、托管密钥或其他外部写入 |
 | D-061 | 2026-08-30 | PG-C 视口复验只使用 Chrome 插件能力，不再使用 Windows 控制 | USER_MANDATED | Windows 控制因无法可靠确认浏览器 URL 而在输入前安全停止；用户要求改用 Chrome 插件重试。Chrome 原生 viewport capability 完成 1024/1280/1433 px × 三页 × 双语/双风格/亮暗共 72 状态验收，不绕过浏览器安全边界 |
+| D-062 | 2026-08-30 | 批准 PG-C 精确外部闭环，并要求完成后展示需查看内容 | USER_MANDATED | 授权仅覆盖 15 个已审计公开路径的 Chrome GitHub 上传、所有者私有 Sites 候选保存/部署，以及外部证据成立后 6 个状态闭合路径的 Chrome 尾部上传和最终所有者私有部署；不得公开 Sites、改变访问/权限/密钥、配置 Git 远程、使用 GitHub CLI/API、发布本地总纲/审计脚本或进入 PG-B/PG-E/VG/G7 |
 
 ---
 
@@ -3364,6 +3365,24 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 
 ---
 
+### L-0069 — PG-C 外部候选验证与 PASS 闭合
+
+**时间：** 2026-08-30 12:53–13:06 +08:00
+
+**Gate：** PG-C `PASS`；严格停止在 PG-C，PG-B、PG-E、VG 与 G7 系列保持 `NOT_STARTED`
+
+**行动时授权：** 用户批准 D-062 的精确外部动作，并要求全部完成后再展示需查看内容。GitHub 写入全程仅使用登录态 Chrome 插件；未使用 Windows 控制、Git 远程、GitHub CLI 或 API。
+
+**公开候选：** Chrome 把 15 个已审计路径形成从既有 `a36214031161e8dcca3fdd6d5e568c849d301ffb` 连续延伸的 8 笔 `Public/main` 提交，文件数为 `3/1/4/1/1/3/1/1`，技术与映射尾依次落在 `c6f557d4bfb2dc50e5d0b31fece3168e4d00e1ac`、`d65da0f705906f86e408c77ef2786ea31fe1ec4c`、`0d3312ac946d467a082509cf8fc08cf5b02fbb04`、`ad0874ff9483776d109aee529c58fb1e366a67da`、`5f88d7cb1be29f19c18f579fcb9cce3d31e4c7bb`、`6caf72479dd8296c4c46cd7b0d0a6bffd8299432`、`522963ca123d33864f88fe6cb2fe488d30a072a9` 与 `728d1717b5c80bd0dd4ba54e5bd4ce20747770bc`。本地权威总纲与全部审计脚本未上传。
+
+**所有者私有候选：** 从排除本地总纲与全部 `scripts/audit-*.ps1` 的 128 文件脱敏源提交 `a97218591a1989f6f3eb9629fabd7f78614d9968` 构建并保存 Sites 版本 5；部署 `appgdep_6a93b93fda4481918121513080cf1452` 成功。连接器复核为 `custom`、当前用户 `owner`、恰好 1 位获准所有者、0 组、0 外部访客、0 环境变量。Chrome 首次选到未获准账户时按设计被拒绝，随后切换至获准所有者账户成功加载主页与研发进程页；未改变任何访问策略。
+
+**闭合规则：** 自动回归、72/72 Chrome 状态、本次连续公开候选和所有者私有 Sites 同事实候选均已通过，PG-C 因而提升为 `PASS`。仅再发布 D-062 授权内 6 个状态闭合路径，并保存/部署同内容的最终所有者私有版本；这些动作产生的最终远端 SHA、Sites 版本与部署 ID 只登记在随后一个不改文件的本地 `sync(PG-C)` 提交中，不递归重发。全程不进入任何后续阶段。
+
+**本地 PASS 检查点：** `50716c65a988eaab1247e52bfc8c0efacffdd0dd`（`close(PG-C): register verified external candidate`）精确包含 6 个状态闭合公共路径及继续只留本地的权威总纲与 `scripts/audit-pg-c.ps1`；公开尾提交标题映射该检查点。
+
+---
+
 ## 21. 每日状态摘要模板
 
 ```text
@@ -3406,4 +3425,4 @@ GitHub 检查点：URL / 远程 SHA / 上传时间 / 回查结论
 - 暂不批准，继续讨论项目范围；
 - 否决当前方向并重新规划。
 
-用户已明确批准原 `0.2.0-draft` 并启动项目，随后批准 0.3.0 功能/视频扩展，并在 2026-08-29 指示形成 0.4.0 展示就绪扩展。G0A 至 G5-R1、本地/公开 G6 与有限 G6-R1 均已闭合为 `PASS`，Sites 仍为所有者私有。2026-08-30 用户授权只执行 PG-C 并要求完成后严格停止；当前 PG-C 本地内容、自动回归与 72 状态 Chrome 验收已技术通过，等待精确 GitHub 与所有者私有 Sites 同事实候选的行动时集体授权及映射闭合。在此之前 PG-C 保持 `TECH_PASS_EXTERNAL_SYNC_PENDING`，PG-B、PG-E、VG、G7A、G7B 与 G7 均未开始；不公开 Sites、不改访问权限、不配置托管密钥，不进入移动端计算或视频。
+用户已明确批准原 `0.2.0-draft` 并启动项目，随后批准 0.3.0 功能/视频扩展，并在 2026-08-29 指示形成 0.4.0 展示就绪扩展。G0A 至 G5-R1、本地/公开 G6、有限 G6-R1 与 PG-C 均已闭合为 `PASS`，Sites 仍为所有者私有。2026-08-30 用户授权只执行 PG-C 并要求完成后严格停止；PG-C 的本地内容、自动回归、72 状态 Chrome 验收、精确 GitHub 候选与所有者私有 Sites 同事实候选均已通过。项目严格停止在 PG-C；PG-B、PG-E、VG、G7A、G7B 与 G7 均未开始，不公开 Sites、不改访问权限、不配置托管密钥，不进入移动端计算或视频。
