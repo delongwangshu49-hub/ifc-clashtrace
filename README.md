@@ -1,5 +1,9 @@
 # IFC ClashTrace
 
+<p align="center">
+  <img src="docs/assets/brand/ifc-clashtrace-github-logo.png" width="520" alt="IFC ClashTrace product logo: a teal pipe crosses two wall panels at a coral collision ring beside an inspection alert.">
+</p>
+
 IFC ClashTrace is a deterministic browser/Web IFC feasibility project for traceable MEP-to-structure hard-clash detection. It is a Web micro-prototype, not a runtime LLM agent and not a certified engineering compliance tool.
 
 ## Current checkpoint
@@ -14,7 +18,7 @@ G5 turns that implementation into a bounded evaluation record. The controlled su
 
 G6 packages the same three-page application as an owner-only private deployment candidate. The build contains the browser-local deterministic runtime, the 16 public generated IFC files, an optional same-origin Worker AI boundary, no source maps, and no hosted key. Privacy, path, media metadata, dependency license, package vulnerability, and no-key failure-closing checks pass locally. The owner-only version 4 preview has completed user acceptance; that acceptance does not authorize public Sites access, which remains a separate pending O-006 decision. See `docs/g6-deployment-architecture.md`, `docs/g6-privacy-license-audit.md`, and `THIRD-PARTY-NOTICES.md`.
 
-PG-C is `PASS` and is the latest closed presentation-readiness checkpoint. The homepage, workspace, development log, README, metadata, links, error/empty states, and historical screenshots follow one verified claim ledger. Every load of the shared homepage link starts in Popular experience, English, and Light; the homepage destinations open in new tabs, and non-anchored workspace/development entries start at the top. The owner-only Sites repair is verified, while the corresponding public GitHub sync remains pending action-time authorization. The project is strictly stopped at PG-C; PG-B, PG-E, VG, G7A, G7B, and G7 have not started. Copy or components for any later stage may be prepared only when hidden or explicitly marked `DRAFT`/`PLANNED`/not started; prewriting is not a completion claim, user acceptance, Gate bypass, GitHub or Sites write authorization, deployment authorization, or public-access authorization. See `docs/content-claim-ledger.md`.
+PG-C is `PASS` and remains the latest closed presentation-readiness checkpoint. The homepage, workspace, development log, README, metadata, links, error/empty states, and historical screenshots follow one verified claim ledger. Every load of the shared homepage link starts in Popular experience, English, and Light; the homepage destinations open in new tabs, and non-anchored workspace/development entries start at the top. The owner-only Sites repair and the corresponding public GitHub PG-C-R2 checkpoint are verified. PG-B now has the user-selected transparent static GitHub Logo as a local README candidate, with fixed dimensions, alt text, metadata/weight audit, and no GIF dependency; its real GitHub rendering and remote mapping still require action-time authorization, so PG-B is `TECH_PASS_EXTERNAL_SYNC_PENDING`, not `PASS`. PG-E, VG, G7A, G7B, and G7 have not started. Copy or components for later stages may be prepared only when hidden or explicitly marked `DRAFT`/`PLANNED`/not started; prewriting is not a completion claim, user acceptance, Gate bypass, GitHub or Sites write authorization, deployment authorization, or public-access authorization. See `docs/content-claim-ledger.md` and `docs/pg-b-github-logo.md`.
 
 The frozen G2/G3A contract includes:
 
@@ -200,6 +204,16 @@ pwsh -NoLogo -NoProfile -File .\scripts\test-pg-c.ps1
 ```
 
 The test rejects a stale latest-closed Gate, empty targets, a later stage presented as complete, mismatched Chinese/English claim pairs, or an unmarked historical screenshot. It does not write to GitHub or Sites, change access, configure a key, or start any later Gate.
+
+## Reproduce the PG-B static GitHub Logo contract
+
+Run the public asset, timing, hash, metadata, README fallback, alt-text, status, and weight guard with PowerShell 7:
+
+```powershell
+pwsh -NoLogo -NoProfile -File .\scripts\test-pg-b.ps1
+```
+
+The checked candidate is the exact user-selected 1672 × 941 RGBA PNG, copied byte-for-byte and displayed at a restrained 520 px README width. It keeps its transparent background, declares descriptive alt text, and has no animation, GIF, reduced-motion source, generated layers, or motion-build dependency. The test performs no GitHub or Sites write; real GitHub rendering and remote mapping remain an action-time authorization gate. See `docs/pg-b-github-logo.md`.
 
 ## AI assistance
 

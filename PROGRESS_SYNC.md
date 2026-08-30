@@ -293,6 +293,17 @@ Chrome verification confirmed the repository remained `Public`; the 11 exact com
 - Claim alignment: the development page now reflects D-064's planned YouTube `Unlisted` direct-link route instead of the superseded homepage-embed plan. A/B contrast remains unchanged and above 4.5:1.
 - External closure: after one collective authorization, the 14 approved public paths were uploaded only through Chrome. Technical-chain tip `40c7270b6fc9b56f6976b938297d2b475eef7e39` and all 14 file contents were rechecked on `Public/main`; the local master and `scripts/audit-pg-c.ps1` remain absent. Sites access remains owner-only and unchanged.
 
+## PG-B static GitHub Logo local candidate
+
+- Status: `TECH_PASS_EXTERNAL_SYNC_PENDING`. PG-C remains the latest closed checkpoint; PG-B is not `PASS` until real GitHub README rendering, web verification, and local-to-remote mapping close.
+- User-directed scope: D-069 cancels GIF usage and selects the newly supplied transparent product mark directly as the GitHub Logo. D-066 through D-068 remain history only and no longer define the output.
+- Static asset result: `docs/assets/brand/ifc-clashtrace-github-logo.png` is an exact byte-for-byte copy of the selected 1672 × 941 RGBA source, `468,496` bytes with SHA-256 `b56f3a2a3d3ef5d37599a8a84c54cf1a5f56527057db487601d7bced24793142`. README centers it at width 520 px and supplies descriptive alt text.
+- Cancelled chain: no GIF, `picture/source`, reduced-motion branch, animation layer, old lockup, source input, or motion-build script remains in the current publication tree. Removed artifacts are recoverable from Git history.
+- Governance and evidence: README, development status, content claim ledger, `docs/pg-b-github-logo.md`, the static manifest, public PG-B test, and local-only publication audit distinguish the local candidate from external completion. PG-E, VG, G7A, G7B, and G7 remain not started.
+- Regression: the static PG-B audit and test, full PG-C chain, G6 build/Worker/privacy checks, G4AI, G4, G5, and G3C regressions pass. Controlled status remains 8/8 and both clearance routes remain 9/9; optional buildingSMART samples remain explicitly skipped because they are absent.
+- Main-flow correction: D-067 keeps local `main` as the project flow; this D-069 corrective commit is immediately fast-forwarded to `main`. The current scope contains 12 public candidates plus the local-only authoritative master and `scripts/audit-pg-b.ps1`.
+- External boundary: no GitHub or Sites write, deployment, access/permission/key change, PG-E, VG, G7, mobile computation, or video action occurred. The exact public file set must be shown for action-time authorization before any Chrome GitHub upload.
+
 ## Verification checklist
 
 - [x] PowerShell 7 major version is at least 7 (`7.6.4`).
