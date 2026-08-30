@@ -1,8 +1,14 @@
 <!doctype html>
-<html lang="zh-CN" data-style="mainstream" data-theme="dark">
+<html lang="en" data-style="mainstream" data-theme="light">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+      try {
+        const resetKey = "ifc-clashtrace.reset-preferences.v2";
+        sessionStorage.setItem(resetKey, "true");
+      } catch {}
+    </script>
     <meta name="description" content="IFC ClashTrace 在浏览器本地执行可追溯的 IFC 管线—结构硬碰撞与 50 mm 净距检查。" data-i18n-content="home.meta.description">
     <title data-i18n="home.meta.title">IFC ClashTrace — 确定性 IFC 碰撞证据</title>
     <link rel="stylesheet" href="/app/ui/site.css">
@@ -87,7 +93,7 @@
               <span class="showcase-number">01</span>
               <p class="showcase-kicker" data-i18n="home.feature.modes.kicker">DISPLAY MODES</p>
               <h3 data-i18n="home.feature.modes.title">切换显示，&#10;工作不断。</h3>
-              <p id="feature-modes-copy" data-i18n="home.feature.modes.copy">大众体验或工程极简、中文或英语、亮色或暗色；偏好只保存在本机。</p>
+              <p id="feature-modes-copy" data-i18n="home.feature.modes.copy">每次打开主页都从大众体验、英语、亮色开始；本次页面内仍可自由切换。</p>
             </div>
             <figure class="feature-preview feature-preview-pair" aria-label="两种主页显示模式预览" data-i18n-aria="home.feature.modes.previewAria">
               <div><span class="preview-image-crop"><img src="/app/ui/previews/home-light-zh.png" alt="亮色中文大众体验主页" data-i18n-alt="home.feature.modes.lightAlt"></span><figcaption data-i18n="home.feature.modes.lightCaption">亮色 · 中文 · 大众体验</figcaption></div>
