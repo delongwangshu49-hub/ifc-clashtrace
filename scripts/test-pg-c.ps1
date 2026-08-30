@@ -35,7 +35,7 @@ try {
 
     foreach ($required in @(
         'Latest closed checkpoint: `PG-C · PASS`',
-        'Status: `PG-C · PASS`',
+        'Status: `PG-B · TECH_PASS_EXTERNAL_SYNC_PENDING`',
         'Homepage', 'Functional workspace', 'Development log', 'README',
         'Navigation and footer', 'Metadata', 'Error and empty states', 'Demo screenshots',
         '| S-06 | Every load of the shared homepage route resets to Popular experience, English, and Light.',
@@ -46,7 +46,7 @@ try {
 
     foreach ($plan in @($localPlan, $publicPlan)) {
         foreach ($required in @(
-            '当前 Gate：`PG-C — PASS`',
+            '当前 Gate：`PG-B — TECH_PASS_EXTERNAL_SYNC_PENDING`',
             '直至项目结束的所有后续阶段文案和组件',
             '不得伪造完成状态、日期、指标、链接、验收、公开可用性、权限或证据',
             '预写不构成阶段启动、Gate 通过、用户验收、外部写入、部署/公开访问授权',
@@ -54,7 +54,10 @@ try {
             '| D-063 | 2026-08-30 |',
             '### L-0070 — PG-C 新会话入口与亮色图注定向修复',
             '| D-065 | 2026-08-30 |',
+            '| D-066 | 2026-08-30 |',
             '### L-0072 — PG-C-R2 共享主页重置、功能页顶部与审计修复',
+            '### L-0073 — PG-B 浅色品牌动效与 README 本地候选',
+            '### L-0074 — PG-B 取消 GIF 并采用静态 GitHub Logo',
             '**Gate：** `PG-C-R2 PASS`',
             '40c7270b6fc9b56f6976b938297d2b475eef7e39'
         )) { Assert-Contains $plan $required "Expanded governance contract missing: $required" }
@@ -76,11 +79,13 @@ try {
         if ($progress.Contains($obsolete, [StringComparison]::Ordinal)) { throw "Obsolete PG-C entry/sync claim remains in progress ledger: $obsolete" }
     }
     $legacyReferenceRoot = Join-Path (Split-Path -Qualifier $projectRoot) 'CODEX-RA'
-    $sanitizedLocal = $localPlan.Replace($projectRoot, '<PROJECT_ROOT>').Replace($legacyReferenceRoot, '<LEGACY_REFERENCE_ROOT>').TrimEnd()
+    $savedProjectRoot = 'D:' + '\CODEX-RA-TEST'
+    $savedLegacyRoot = 'D:' + '\CODEX-RA'
+    $sanitizedLocal = $localPlan.Replace($savedProjectRoot, '<PROJECT_ROOT>').Replace($savedLegacyRoot, '<LEGACY_REFERENCE_ROOT>').Replace($projectRoot, '<PROJECT_ROOT>').Replace($legacyReferenceRoot, '<LEGACY_REFERENCE_ROOT>').TrimEnd()
     if ($sanitizedLocal -cne $publicPlan.TrimEnd()) { throw 'Sanitized public master is not equivalent to the local master.' }
 
     foreach ($required in @(
-        'PG-C · PASS', '严格停止在 PG-C', 'Strict stop at PG-C', '仅所有者 · 私有', 'Owner-only · Private',
+        'PG-C · PASS', 'PG-B · 本地候选', 'PG-B · Local candidate', '仅所有者 · 私有', 'Owner-only · Private',
         '8/8', '9/9', '1.00 / 1.00', '3/0/0/4', 'data-claim-stage="PG-C"', 'data-claim-state="closed"'
     )) { Assert-Contains $development $required "Current development claim missing: $required" }
 
@@ -91,7 +96,14 @@ try {
         }
     }
 
-    $plannedGates = @('PG-B','PG-E','VG','G7A','G7B','G7')
+    $activePgB = [regex]::Match($development, '(?s)<li[^>]*data-claim-stage="PG-B"[^>]*data-claim-state="in_progress"[^>]*>(.*?)</li>')
+    if (-not $activePgB.Success) { throw 'PG-B in-progress marker is missing.' }
+    foreach ($required in @('静态产品标', 'static product mark', '不再使用 GIF', 'no longer uses GIF', '>LOCAL CANDIDATE<', '仍待行动时授权', 'await action-time authorization')) {
+        Assert-Contains $activePgB.Value $required "PG-B in-progress wording is incomplete: $required"
+    }
+    if ($activePgB.Value -match '>PASS<' -or $activePgB.Value -match '(?i)completed|accepted') { throw 'PG-B is presented as externally complete before GitHub verification.' }
+
+    $plannedGates = @('PG-E','VG','G7A','G7B','G7')
     foreach ($gate in $plannedGates) {
         $match = [regex]::Match($development, "(?s)<li[^>]*data-claim-stage=`"$([regex]::Escape($gate))`"[^>]*data-claim-state=`"planned`"[^>]*>(.*?)</li>")
         if (-not $match.Success) { throw "Planned-stage marker is missing: $gate" }
@@ -168,7 +180,7 @@ try {
 
     $builtDevelopment = Get-Content -LiteralPath 'dist/client/development/index.html' -Raw
     $builtHome = Get-Content -LiteralPath 'dist/client/index.html' -Raw
-    foreach ($marker in @('PG-C · PASS','data-claim-state="closed"','data-claim-stage="PG-B"','data-claim-stage="G7"')) {
+    foreach ($marker in @('PG-C · PASS','data-claim-state="closed"','data-claim-stage="PG-B"','data-claim-state="in_progress"','data-claim-stage="G7"')) {
         Assert-Contains $builtDevelopment $marker "Private-candidate build disagrees with development source: $marker"
     }
     foreach ($marker in @('data-snapshot-gate="G4"','data-snapshot-state="historical"')) {
