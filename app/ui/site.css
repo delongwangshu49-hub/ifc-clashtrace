@@ -393,6 +393,10 @@ html[lang="en"] .input-card > p:not(.card-index, .file-status) { min-height: 92p
 .claim-card .metric-value > span { max-width: none; color: inherit; line-height: inherit; }
 .claim-card .metric-value small { color: var(--accent); font-size: .38em; font-weight: 780; letter-spacing: .06em; text-transform: lowercase; }
 .claim-card span { max-width: 250px; color: var(--muted); line-height: 1.5; }
+.status-band { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; padding: 1px; background: var(--line); }
+.status-band > div { display: grid; gap: 8px; min-width: 0; padding: 24px max(24px, 5vw); background: var(--surface); }
+.status-band span { color: var(--muted); font: 680 11px var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
+.status-band strong { font: 800 clamp(16px, 2vw, 24px) var(--font-mono); color: var(--ink); overflow-wrap: anywhere; }
 .timeline-section, .failure-section, .public-ledger { padding: 9vw max(5vw, calc((100vw - 1300px) / 2)); }
 .timeline-heading { margin-bottom: 58px; }
 .gate-timeline { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
@@ -400,6 +404,11 @@ html[lang="en"] .input-card > p:not(.card-index, .file-status) { min-height: 92p
 .gate-id { font: 800 14px var(--font-mono); color: var(--accent); }
 .gate-timeline h3 { margin: 0 0 7px; font-size: 22px; }.gate-timeline p { max-width: 760px; margin: 0; color: var(--muted); line-height: 1.6; }
 .gate-status { align-self: start; padding: 6px 9px; border: 1px solid #75b6a3; color: #75b6a3; font: 750 10px var(--font-mono); }
+.gate-current { background: color-mix(in srgb, var(--accent) 7%, transparent); }
+.gate-current .gate-status { border-color: var(--accent); color: var(--accent); }
+.gate-planned { opacity: .78; }
+.gate-planned .gate-id, .gate-planned .gate-status { color: var(--muted); }
+.gate-planned .gate-status { border-style: dashed; border-color: var(--line-strong); }
 .failure-section { display: grid; grid-template-columns: .7fr 1.3fr; gap: 6vw; background: var(--stone); color: var(--stone-ink); }
 .failure-section h2, .public-ledger h2 { margin: 0; font-size: clamp(36px, 4vw, 54px); letter-spacing: -.055em; line-height: 1.08; text-wrap: balance; }
 .title-line { display: block; }
@@ -466,6 +475,7 @@ html[lang="en"] .input-card > p:not(.card-index, .file-status) { min-height: 92p
   .tool-group { flex-wrap: wrap; }
   .claim-grid { grid-template-columns: 1fr; }
   .claim-grid > div:first-child { grid-row: auto; }
+  .status-band { grid-template-columns: 1fr; }
   .gate-timeline li { grid-template-columns: 70px 1fr; }
   .gate-status { grid-column: 2; }
   .ledger-links { grid-template-columns: 1fr; }

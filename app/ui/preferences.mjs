@@ -9,6 +9,8 @@ const defaults = Object.freeze({
 
 const messages = {
   "zh-CN": {
+    "home.meta.title": "IFC ClashTrace — 确定性 IFC 碰撞证据",
+    "home.meta.description": "IFC ClashTrace 在浏览器本地执行可追溯的 IFC 管线—结构硬碰撞与 50 mm 净距检查。",
     "pref.group": "显示与 AI 偏好",
     "pref.style": "风格",
     "pref.style.mainstream": "大众体验",
@@ -73,8 +75,8 @@ const messages = {
     "home.feature.open.title": "研发过程公开，\n方法与边界可追溯。",
     "home.feature.open.copy": "公开记录 Gate、测试、失败关闭边界与许可证；代码采用 MIT，生成数据采用 CC0。",
     "home.feature.open.previewAria": "研发历程与公开证据页面预览",
-    "home.feature.open.alt": "亮色中文研发历程页面",
-    "home.feature.open.caption": "研发历程 · 测试证据 · 开源许可",
+    "home.feature.open.alt": "G4 时点的亮色中文研发历程历史截图",
+    "home.feature.open.caption": "历史 G4 截图 · 当前状态见研发进程页",
     "home.footer.note": "模型仅在浏览器本地处理 · 确定性证据全程可追溯",
     "home.footer.tagline": "公开构建的确定性 IFC 证据。",
     "home.footer.navLabel": "页脚导航",
@@ -88,6 +90,8 @@ const messages = {
     "common.notCertified": "非认证工程审查",
   },
   en: {
+    "home.meta.title": "IFC ClashTrace — Deterministic IFC clash evidence",
+    "home.meta.description": "Run traceable IFC pipe-to-structure hard-clash and 50 mm clearance checks locally in the browser.",
     "pref.group": "Display and AI preferences",
     "pref.style": "Style",
     "pref.style.mainstream": "Popular experience",
@@ -152,8 +156,8 @@ const messages = {
     "home.feature.open.title": "Built in public.\nFully traceable.",
     "home.feature.open.copy": "Gates, tests, fail-closed limits, and licenses are documented. Code is MIT; generated data is CC0.",
     "home.feature.open.previewAria": "Development history and public evidence preview",
-    "home.feature.open.alt": "Light Chinese development history page",
-    "home.feature.open.caption": "History · Tests · Open licenses",
+    "home.feature.open.alt": "Historical light Chinese development-log screenshot captured at G4",
+    "home.feature.open.caption": "Historical G4 capture · Current status is on the development page",
     "home.footer.note": "Models stay in the local browser · Deterministic evidence remains traceable",
     "home.footer.tagline": "Deterministic IFC evidence, built in public.",
     "home.footer.navLabel": "Footer navigation",
@@ -211,6 +215,9 @@ export function translatePage(root = document) {
   });
   root.querySelectorAll("[data-i18n-alt]").forEach(element => {
     element.setAttribute("alt", t(element.dataset.i18nAlt));
+  });
+  root.querySelectorAll("[data-i18n-content]").forEach(element => {
+    element.setAttribute("content", t(element.dataset.i18nContent));
   });
 }
 
