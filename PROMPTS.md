@@ -476,3 +476,12 @@ This repository uses AI assistance for implementation planning and code drafting
 - Adopted output: distinguish completed owner-only version 4 acceptance from the still-pending O-006 public-access decision; state the base G6 final-ledger and empty-sync SHAs as completed facts; repair the Markdown heading; add local semantic, ancestry, empty-tree, and commit-message guards; record the bounded G6-R1 in the master pair and ledger.
 - Preserved boundary: no application code, deterministic status/rule/evidence, AI contract, dependency, IFC, media, build artifact, Sites version/access/environment, key, provider request, PG/VG/G7, mobile computation, or video changes. The local master and audit script remain prohibited from publication.
 - External stop: this approval authorizes the limited local repair only. After local validation and commit, request one exact Chrome GitHub authorization for the sanitized repair subset and mapping tail; until then G6-R1 remains `LOCAL_PASS_EXTERNAL_SYNC_PENDING`.
+
+## P-050 — Replace homepage video embedding with YouTube delivery
+
+- Date: 2026-08-30
+- Goal: revise the authoritative delivery plan after the user concluded that embedding the final video in the project homepage adds work and risk without enough assessment value.
+- Human decision: remove homepage video embedding and any video-driven Sites redeployment. Keep G7A as final-video QA; redefine G7B as action-time-authorized YouTube `Unlisted` upload, bilingual caption/thumbnail/processing checks, immutable file-hash/video-ID/link registration, and Hong Kong signed-out playback verification.
+- Submission route: the email uses the direct YouTube watch URL; README may link to the same URL after actual upload. The homepage remains focused on the product and receives no player, video asset, or video-specific regression work.
+- Privacy boundary: `Unlisted` is link-accessible, not strictly private, and the link can be reshared. Before upload, the user must approve the visible channel identity, title, description, thumbnail, comments, language, captions, and exact visibility. No channel creation, rename, upload, or visibility change is implied by this plan edit.
+- Preserved boundary: this revision changes only the local/public master plans and prompt ledger. It does not modify the website or README, upload YouTube, write GitHub, deploy Sites, change access, create hosted secrets, make provider requests, or start PG-B/PG-E/VG/G7.
