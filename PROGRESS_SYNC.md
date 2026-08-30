@@ -262,6 +262,17 @@ Chrome verification confirmed the repository remained `Public`; the 11 exact com
 - PASS public-plan mapping: local candidate `b925653f3974e29ba54803b1be033864d98858bb` maps to `0913a375fd5f628070f8d2ee89ed17c57af67fec`; Chrome verified its title, parent `0a93db9d5e24104bd791f16165b415c0f2383490`, exact one-file scope, rendered G6-R1 PASS marker, owner-only Sites boundary, and strict stop at G6.
 - Final closure: publish and verify only this ledger, then register that final remote SHA in one empty local `sync(G6-R1)` commit without recursively republishing the ledger. PG/VG/G7/public Sites remain out of scope.
 
+## PG-C site-wide content and progress audit
+
+- Status: `TECH_PASS_EXTERNAL_SYNC_PENDING`. The user authorized PG-C only and required a strict stop at PG-C. PG-B, PG-E, VG, G7A, G7B, and G7 remain `NOT_STARTED`.
+- Governance expansion: D-054 now allows prewriting copy and components for every later stage through project end, not only G7. Such material must stay hidden or explicitly `DRAFT`/`PLANNED`/not started. It cannot fabricate completion states, dates, metrics, links, acceptance, public availability, permissions, or evidence; start a stage; pass a Gate; replace user acceptance; authorize an external write/deployment/public-access change; or bypass a stop gate.
+- Content result: `docs/content-claim-ledger.md` inventories eight public surfaces. The development log now continues through the latest closed G6-R1 checkpoint, shows PG-C as current, marks all six later stages as planned/not started, distinguishes public GitHub from owner-only Sites, marks the development screenshot as a historical G4 capture, and records controlled CLASH precision/recall as `1.00/1.00` rather than the ambiguous `100/100` display.
+- Automated result: `scripts/test-pg-c.ps1` passes 8/8 inventoried surfaces, 12/12 closed Gates, 6/6 planned later stages, 3/3 bilingual metadata pairs, empty-target/future-completion/zh-en-mismatch/historical-screenshot guards, source/build fact parity, and the complete G6/G4AI/G4/G3/G5 regression.
+- Chrome result: Chrome's native viewport capability tested all three pages at 1024/1280/1433 px across Simplified Chinese/English, Popular experience/Engineering minimal, and light/dark, for `72/72` states. Horizontal overflow, visible text clipping, empty targets, Gate/metadata mismatches, and console errors are zero. The workspace's trusted runtime replacement of `#run-description` is explicitly marked `data-runtime-copy="true"` and audited separately.
+- Candidate and exclusions: exactly 15 public candidate paths plus local-only `BIMCLASH_AGENT_MASTER_PLAN.md` and `scripts/audit-pg-c.ps1`. No GitHub write, Sites save/deployment, access or permission change, hosted key, Groq live call, PG-B/PG-E/VG/G7 work, mobile computation, or video action has occurred.
+- Local technical checkpoint: `ae6d0133426460ab822b4df2e5ad77765f28e729` (`step(PG-C): align site claims and progress`) contains exactly 17 files: the 15 audited public candidates plus the local-only authoritative master and `scripts/audit-pg-c.ps1`. The post-commit worktree was clean with zero remotes.
+- Stop condition: PG-C remains non-`PASS` until the local commit, exact Chrome GitHub checkpoint, owner-only Sites same-fact candidate verification, mapping tail, and empty local sync closure are complete. Those external writes require one exact action-time collective authorization.
+
 ## Verification checklist
 
 - [x] PowerShell 7 major version is at least 7 (`7.6.4`).
