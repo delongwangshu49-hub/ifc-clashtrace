@@ -1,9 +1,10 @@
-const STORAGE_KEY = "ifc-clashtrace.preferences.v1";
+const STORAGE_KEY = "ifc-clashtrace.preferences.session.v2";
+const RESET_KEY = "ifc-clashtrace.reset-preferences.v2";
 
 const defaults = Object.freeze({
   style: "mainstream",
-  language: "zh-CN",
-  theme: "dark",
+  language: "en",
+  theme: "light",
   aiEnabled: false,
 });
 
@@ -59,7 +60,7 @@ const messages = {
     "home.showcase.copy": "三类工作被收进同一条清晰路径；把鼠标移到模块上，可查看对应的真实页面预览。",
     "home.feature.modes.kicker": "DISPLAY MODES",
     "home.feature.modes.title": "切换显示，\n工作不断。",
-    "home.feature.modes.copy": "大众体验或工程极简、中文或英语、亮色或暗色；偏好只保存在本机。",
+    "home.feature.modes.copy": "每次打开主页都从大众体验、英语、亮色开始；本次页面内仍可自由切换。",
     "home.feature.modes.previewAria": "两种主页显示模式预览",
     "home.feature.modes.lightAlt": "亮色中文大众体验主页",
     "home.feature.modes.darkAlt": "暗色英文工程极简主页",
@@ -140,7 +141,7 @@ const messages = {
     "home.showcase.copy": "Three jobs, one clear path. Hover a module to preview the real interface behind it.",
     "home.feature.modes.kicker": "DISPLAY MODES",
     "home.feature.modes.title": "Switch views.\nKeep working.",
-    "home.feature.modes.copy": "Popular or engineering, Chinese or English, light or dark. Preferences stay on this device.",
+    "home.feature.modes.copy": "Every homepage visit starts in Popular experience, English, and Light; you can still switch freely on this page.",
     "home.feature.modes.previewAria": "Two homepage display-mode previews",
     "home.feature.modes.lightAlt": "Light Chinese Popular experience homepage",
     "home.feature.modes.darkAlt": "Dark English Engineering minimal homepage",
@@ -177,7 +178,9 @@ let preferenceMountIndex = 0;
 
 function loadPreferences() {
   try {
-    const value = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+    const shouldReset = sessionStorage.getItem(RESET_KEY) === "true";
+    if (shouldReset) sessionStorage.removeItem(RESET_KEY);
+    const value = shouldReset ? {} : JSON.parse(sessionStorage.getItem(STORAGE_KEY) || "{}");
     return {
       style: ["mainstream", "minimal"].includes(value.style) ? value.style : defaults.style,
       language: ["zh-CN", "en"].includes(value.language) ? value.language : defaults.language,
@@ -190,7 +193,11 @@ function loadPreferences() {
 }
 
 function persist() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(preferences));
+  try {
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(preferences));
+  } catch {
+    // Display controls must continue working when session storage is unavailable.
+  }
 }
 
 export function getPreferences() {
