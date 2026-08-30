@@ -1,0 +1,107 @@
+{
+  "dataset_id": "IFC_CLASHTRACE_ENGINEERING_CONTEXT_PGE_V2",
+  "version": "2.0.0",
+  "source_of_truth": "data/pg-e-operation-ledger.json",
+  "ground_truth_method": "Human-authored constructive sentinel operations; detector output cannot redefine expected statuses or distances.",
+  "rules": {
+    "hard_clash": {
+      "rule_id": "MEP_STRUCTURE_HARD_CLASH_V1",
+      "tolerance_m": 0.002
+    },
+    "clearance": {
+      "rule_id": "MEP_STRUCTURE_CLEARANCE_WARNING_V1",
+      "threshold_m": 0.05
+    }
+  },
+  "file_sha256": {
+    "mep": "df47be1eccd006cb6b9ffd50058d545eb2373cc42e9a9227b19b9adc604909fb",
+    "structure": "3a8d42abdbc93b8f02519d0108fb91599dc64189091696c528317502adffc872"
+  },
+  "sentinel_count": 6,
+  "sentinels": [
+    {
+      "sentinel_id": "S01-WALL-CLASH",
+      "pipe_key": "P-CLASH-WALL",
+      "structure_key": "W-WEST-SOUTH",
+      "expected_hard_status": "CLASH",
+      "expected_clearance_emission": false,
+      "expected_clearance_status": null,
+      "expected_clearance_m": null,
+      "basis": "The consultation branch crosses the complete 150 mm internal partition thickness at a plausible ceiling-service elevation.",
+      "pipe_guid": "0kHcQAV_nIygnF62GFhVV6",
+      "pipe_type": "IfcPipeSegment",
+      "structure_guid": "2dERsIBLDG$x0OsH9eU2Is",
+      "structure_type": "IfcWall"
+    },
+    {
+      "sentinel_id": "S02-WARNING-49MM",
+      "pipe_key": "P-WARNING-49",
+      "structure_key": "W-WEST-SOUTH",
+      "expected_hard_status": "CLEAR",
+      "expected_clearance_emission": true,
+      "expected_clearance_status": "WARNING",
+      "expected_clearance_m": 0.049,
+      "basis": "The west room branch runs parallel to the internal partition with an authored 49 mm surface clearance.",
+      "pipe_guid": "3yc9ioc01UhQBlMXZpDij9",
+      "pipe_type": "IfcPipeSegment",
+      "structure_guid": "2dERsIBLDG$x0OsH9eU2Is",
+      "structure_type": "IfcWall"
+    },
+    {
+      "sentinel_id": "S03-BOUNDARY-50MM",
+      "pipe_key": "P-BOUNDARY-50",
+      "structure_key": "W-EAST-SOUTH",
+      "expected_hard_status": "CLEAR",
+      "expected_clearance_emission": true,
+      "expected_clearance_status": "CLEAR",
+      "expected_clearance_m": 0.05000001,
+      "basis": "The east room branch runs parallel to the partition at 50.00001 mm; the disclosed 0.01 micrometre offset keeps tessellation on the non-warning side.",
+      "pipe_guid": "1HNDB43sfQ4x5W4PIxTOJ9",
+      "pipe_type": "IfcPipeSegment",
+      "structure_guid": "2RLrWAcyfQJgp2ZquX8YMF",
+      "structure_type": "IfcWall"
+    },
+    {
+      "sentinel_id": "S04-SAFE-200MM",
+      "pipe_key": "P-SAFE-200",
+      "structure_key": "B-CORRIDOR",
+      "expected_hard_status": "CLEAR",
+      "expected_clearance_emission": true,
+      "expected_clearance_status": "CLEAR",
+      "expected_clearance_m": 0.2,
+      "basis": "The corridor main is coordinated beneath the primary beam with 200 mm vertical surface separation and passes through aligned door gaps.",
+      "pipe_guid": "0WH_3nyePIjue3u6lyosmu",
+      "pipe_type": "IfcPipeSegment",
+      "structure_guid": "2sVZe14hXS5eGoAOnHmBLs",
+      "structure_type": "IfcBeam"
+    },
+    {
+      "sentinel_id": "S05-BEAM-CLASH",
+      "pipe_key": "P-CLASH-BEAM",
+      "structure_key": "B-CORRIDOR",
+      "expected_hard_status": "CLASH",
+      "expected_clearance_emission": false,
+      "expected_clearance_status": null,
+      "expected_clearance_m": null,
+      "basis": "The treatment branch crosses the 300 mm primary beam at ceiling level without a coordinated opening.",
+      "pipe_guid": "1qlNGUU5rNzPvBYIzlit3d",
+      "pipe_type": "IfcPipeSegment",
+      "structure_guid": "2sVZe14hXS5eGoAOnHmBLs",
+      "structure_type": "IfcBeam"
+    },
+    {
+      "sentinel_id": "S06-FAILURE-CLOSED",
+      "pipe_key": "P-MISSING-GEOMETRY",
+      "structure_key": "W-EXT-EAST",
+      "expected_hard_status": "NOT_EVALUATED",
+      "expected_clearance_emission": true,
+      "expected_clearance_status": "NOT_EVALUATED",
+      "expected_clearance_m": null,
+      "basis": "An imported room branch intentionally has no geometric representation and must fail closed against the east facade.",
+      "pipe_guid": "2NV9DAmm1OZueUkvcGuA2s",
+      "pipe_type": "IfcPipeSegment",
+      "structure_guid": "3z5HLuQEfUfRM3FTyV9rzJ",
+      "structure_type": "IfcWall"
+    }
+  ]
+}
