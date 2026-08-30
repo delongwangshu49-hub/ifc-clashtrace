@@ -1,8 +1,8 @@
 # PG-B static GitHub Logo and README asset audit
 
-Status: `TECH_PASS_EXTERNAL_SYNC_PENDING`
+Status: `PASS`
 
-Latest closed checkpoint: `PG-C · PASS`
+Latest closed checkpoint: `PG-B · PASS`
 
 Scope date: 2026-08-30 (Asia/Hong_Kong)
 
@@ -35,13 +35,16 @@ GIF usage is cancelled. The README contains no GIF reference, `picture` source, 
 
 The local Chromium README harness loaded the exact 1672 × 941 source successfully. It rendered at 520 × 293 in a 1280 × 720 viewport and 328 × 185 in a 360 × 640 viewport, with no horizontal overflow in either case. This is local layout evidence only and does not replace verification on the public GitHub page.
 
-## External stop gate
+## External verification and mapping
 
-Before PG-B can become `PASS`:
+The user authorized the exact 12-path public set. Signed-in Chrome uploaded it directly to public GitHub `main` in a continuous five-commit chain:
 
-1. obtain action-time authorization for the exact public GitHub write set;
-2. upload only that authorized set through the signed-in GitHub webpage flow;
-3. verify the real GitHub README at desktop and narrow widths for correct transparency, scale, alt text, layout stability, and no broken source;
-4. record the verified remote SHA, time, file scope, and local-to-remote mapping.
+1. root files: `9a48c0cc350328c8138440f2bfe60c3b68f5adab` (5 paths);
+2. static Logo and manifest: `729298eef672937c3407a7e1545c7998cccd2cf4` (2 paths);
+3. development status: `460d803b27bbc239ddce9daa73ccb8afe65b1e62` (1 path);
+4. Logo contract and claim ledger: `8c133019642d7d7210a3eaacb230bf9a2a598c40` (2 paths);
+5. public regression guards: `b4ce6d56282111c585f757042fa7cfefc057da0e` (2 paths).
 
-No Sites, permission, key, public-access, PG-E, VG, G7, or video action is authorized by this local PG-B refinement.
+The public README loaded the exact 1672 × 941 image, rendered it at 520 × 293 in a 1280 × 720 viewport and 279 × 157 in a 360 × 640 viewport, had no horizontal overflow, and emitted zero browser warnings/errors. The GitHub file page reported the expected static asset and source commit. The 12/12 path mapping and five-commit parent order were verified in Chrome, so PG-B is closed as `PASS`.
+
+No Sites, permission, key, public-access, PG-E, VG, G7, or video action occurred during PG-B closure.

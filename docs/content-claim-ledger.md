@@ -1,8 +1,8 @@
 # IFC ClashTrace content claim ledger
 
-Status: `PG-B · TECH_PASS_EXTERNAL_SYNC_PENDING`
+Status: `PG-B · PASS`
 
-Latest closed checkpoint: `PG-C · PASS`
+Latest closed checkpoint: `PG-B · PASS`
 
 Scope date: 2026-08-30 (Asia/Hong_Kong)
 
@@ -12,10 +12,10 @@ This ledger controls factual claims in the homepage, functional workspace, devel
 
 | Claim ID | Public-safe claim | Authority | Allowed state |
 |---|---|---|---|
-| S-01 | PG-C is the latest closed checkpoint. | Master plan L-0069; `PROGRESS_SYNC.md` PG-C closure | `PASS` |
-| S-02 | PG-C closed the content and progress audit; PG-B now has a local technical candidate but is not closed. | Master plan PG-C/PG-B; automated PG-B media and claim checks | PG-C `PASS`; PG-B `IN_PROGRESS` |
+| S-01 | PG-B is the latest closed checkpoint. | Master plan L-0074; `PROGRESS_SYNC.md` PG-B closure | `PASS` |
+| S-02 | PG-C closed the content audit; PG-B published and verified the user-selected static GitHub Logo. | Master plan PG-C/PG-B; automated PG-B asset checks; Chrome GitHub verification | PG-C and PG-B `PASS` |
 | S-03 | The Sites project remains owner-only and private. | Read-only Sites access verification on 2026-08-30 | `OWNER_ONLY_PRIVATE` |
-| S-04 | PG-B is `TECH_PASS_EXTERNAL_SYNC_PENDING`; PG-E, VG, G7A, G7B, and G7 have not started. | Master-plan PG-B stop gate and later-stage stop gates | PG-B `IN_PROGRESS`; others `PLANNED` / not started only |
+| S-04 | PG-B is `PASS`; PG-E, VG, G7A, G7B, and G7 have not started. | Master-plan PG-B closure and later-stage stop gates | PG-B `PASS`; others `PLANNED` / not started only |
 | S-05 | The GitHub repository is public on `main`; this does not make Sites public. | Read-only Chrome GitHub verification; Sites access verification | factual distinction only |
 | S-06 | Every load of the shared homepage route resets to Popular experience, English, and Light. Homepage destinations open in new tabs; non-anchored workspace/development entries start at the top, while intentional hash links retain their target. | Master plan D-065/L-0072; executable entry tests; Chrome verification; GitHub technical-chain tip `40c7270b6fc9b56f6976b938297d2b475eef7e39` | `PASS` |
 
@@ -38,8 +38,8 @@ This ledger controls factual claims in the homepage, functional workspace, devel
 |---|---|
 | Homepage | Product capability claims C-01/C-02/C-03; every homepage load follows S-06; development screenshot is explicitly historical G4 evidence; metadata is bilingual; GitHub, development, license, and data-license targets are non-empty. |
 | Functional workspace | Input boundary C-08; error and empty states fail closed; AI boundary C-05; metadata and static interface copy are bilingual. The eyebrow is capability wording, not a stale Gate label. |
-| Development log | Closed timeline through PG-C; PG-B shown as the user-selected static GitHub Logo local candidate awaiting external verification; every stage after PG-B shown as `PLANNED` and “尚未开始” / “Not started”; metrics use C-04; Sites privacy uses S-03. |
-| README | Closed technical evidence through PG-C; PG-B static PNG candidate with no GIF dependency and an external stop gate; later stages not started; Sites-private/public-repository distinction explicit. |
+| Development log | Closed timeline through PG-B with the verified static GitHub Logo; every stage after PG-B shown as `PLANNED` and “尚未开始” / “Not started”; metrics use C-04; Sites privacy uses S-03. |
+| README | Closed technical evidence through PG-B; published static PNG with no GIF dependency; later stages not started; Sites-private/public-repository distinction explicit. |
 | Navigation and footer | Targets must be non-empty and resolve to a local route, anchored workspace route, license/document route, or the established GitHub repository. Homepage destinations and cross-page workspace links open new tabs with `noopener`; ordinary page entries start at the top and intentional hash links retain their anchor. |
 | Metadata | Page title and description preserve the same product and progress scope in Simplified Chinese and English. |
 | Error and empty states | Missing input, no selected file, zero filtered records, unsupported input, provider failure, and incomplete geometry must not imply success or completion. |
@@ -59,13 +59,13 @@ Only actual Gate evidence and required user authorization may promote a planned 
 
 `scripts/test-pg-c.ps1` must fail on:
 
-1. a latest-closed checkpoint other than PG-C after PG-C closure;
+1. a latest-closed checkpoint other than PG-B after PG-B closure;
 2. an empty or placeholder target;
-3. PG-B without `data-claim-state="in_progress"` and non-completion wording, or a stage after PG-B without `data-claim-state="planned"`, `PLANNED`, and matched “尚未开始” / “Not started” wording;
+3. PG-B without `data-claim-state="closed"` and `PASS`, or a stage after PG-B without `data-claim-state="planned"`, `PLANNED`, and matched “尚未开始” / “Not started” wording;
 4. mismatched Simplified Chinese/English claim pairs or metadata;
 5. a historical development screenshot without its G4/historical markers;
 6. source/build disagreement on the status-band and planned-stage facts;
 7. regression of the G6 deployment and product contracts.
 8. a homepage load that does not reset to Popular experience, English, and Light; a homepage destination that does not open a new tab with `noopener`; a non-hash workspace/development entry that does not start at the top; storage failure that breaks display controls; or an A/B scene-label contrast ratio below 4.5:1.
 
-The user's PG-B instruction starts only local PG-B production and validation. It does not authorize GitHub/Sites writes, deployment, access changes, keys, PG-E, VG, G7, mobile computation, or video production.
+The user's PG-B authorization covered the exact 12-path GitHub upload and verification now recorded as complete. It did not authorize Sites writes, deployment, access changes, keys, PG-E, VG, G7, mobile computation, or video production.
