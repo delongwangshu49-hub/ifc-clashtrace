@@ -276,6 +276,23 @@ Chrome verification confirmed the repository remained `Public`; the 11 exact com
 - Private candidate: sanitized 128-file source commit `a97218591a1989f6f3eb9629fabd7f78614d9968` produced owner-only Sites version 5 and successful deployment `appgdep_6a93b93fda4481918121513080cf1452`. Connector recheck remained `custom`, one owner, zero groups, zero external visitors, and zero environment variables. Chrome rejected a non-allowed account, then successfully loaded the homepage and development log under the allowed owner; no access setting changed.
 - Closure boundary: these verified facts promote PG-C to `PASS`. Only the six authorized status-closure paths and the final owner-only Sites version follow. Their final remote SHA/version/deployment IDs are registered by one subsequent empty local `sync(PG-C)` commit without recursive republication. No public Sites access, permission/key change, Git remote, Windows control, GitHub CLI/API, later-stage work, mobile computation, or video work is authorized or performed.
 
+## PG-C directed repair: new-session entry and light-mode labels
+
+- Status: `PASS`. This is a bounded repair within the already closed PG-C Gate; PG-B, PG-E, VG, G7A, G7B, and G7 remain `NOT_STARTED`.
+- Entry behavior: all three static entry documents now begin with `mainstream` / `en` / `light`. Display preferences use tab-scoped session storage. The first direct visit to `/app/` or `/development/` in a new tab returns to `/`; internal routes stay in the current tab so intentional choices remain available during that visit.
+- Comment repair: both homepage scene labels use a fixed `#11161b` background with high-contrast foreground colors (`#d9fff4` for A and `#fff2d9` for B). The automated WCAG contrast-ratio guard requires at least `4.5:1` for each label.
+- Verification: `scripts/test-g4.ps1` and the full `scripts/test-pg-c.ps1` regression pass. Browser QA confirms a fresh deep link returns home, controls initially read Popular experience / English / Light, same-tab app navigation works, and the computed A/B label styles match the repair.
+- Boundary: the owner-only Sites project may receive the same-content repair version without changing its access policy. No GitHub write, public Sites access, permission/key change, later-stage work, mobile computation, or video work is authorized or performed.
+
+## PG-C-R2 directed repair: shared-home reset and top-of-page launches
+
+- Status: `LOCAL_AND_PRIVATE_PASS / GITHUB_SYNC_PENDING`. This repair stays inside PG-C; PG-B, PG-E, VG, G7A, G7B, and G7 remain `NOT_STARTED`.
+- Clarified entry contract: every load of the shared `/` homepage resets to Popular experience, English, and Light. Homepage destinations and cross-page workspace links open new tabs with `noopener`; direct `/app/` and `/development/` links remain legitimate rather than redirecting back home.
+- Scroll repair: the workspace no longer focuses the Run checks button during initialization. Non-hash workspace/development entries disable history scroll restoration and enforce `(0, 0)` on `pageshow`; `/app/#controlled-review` keeps its intentional anchor.
+- Robustness and guards: preference persistence now fails safely when session storage is blocked. `scripts/g4-entry-tests.mjs` executes the actual inline entry bootstraps with normal and storage-denied fakes. The contrast guard reads the active CSS declarations, and `scripts/audit-pg-c.ps1` separates current-content regression from optional commit-scope validation so later legitimate commits do not invalidate historical PG-C evidence.
+- Claim alignment: the development page now reflects D-064's planned YouTube `Unlisted` direct-link route instead of the superseded homepage-embed plan. A/B contrast remains unchanged and above 4.5:1.
+- External boundary: the owner-only Sites version is authorized for repair deployment with no access-policy change. GitHub upload is not performed in this step; an exact public-path list is prepared for one collective action-time authorization.
+
 ## Verification checklist
 
 - [x] PowerShell 7 major version is at least 7 (`7.6.4`).
