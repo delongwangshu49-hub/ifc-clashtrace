@@ -1,14 +1,26 @@
 <!doctype html>
-<html lang="en" data-style="mainstream" data-theme="light">
+<html lang="en" data-style="minimal" data-theme="dark">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script>
+      (() => {
+        const storageKey = "ifc-clashtrace.preferences.v3";
+        const legacyKey = "ifc-clashtrace.preferences.session.v2";
+        let stored = {};
+        try { stored = JSON.parse(localStorage.getItem(storageKey) || sessionStorage.getItem(legacyKey) || "{}"); } catch {}
+        const language = ["zh-CN", "en"].includes(stored.language) ? stored.language : "en";
+        const theme = ["light", "dark"].includes(stored.theme) ? stored.theme : "dark";
+        document.documentElement.lang = language;
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      })();
       try { history.scrollRestoration = "manual"; } catch {}
       if (!location.hash) addEventListener("pageshow", () => scrollTo(0, 0), { once: true });
     </script>
+    <style>html:not([data-preferences-ready]) body { visibility: hidden; }</style>
     <meta name="description" content="IFC ClashTrace 的已验证 Gate、测试、失败关闭边界与计划中阶段。" data-zh-content="IFC ClashTrace 的已验证 Gate、测试、失败关闭边界与计划中阶段。" data-en-content="Verified IFC ClashTrace Gates, tests, fail-closed boundaries, and clearly planned later stages.">
-    <title>IFC ClashTrace — 研发进程</title>
+    <title>IFC ClashTrace — Development log</title>
     <link rel="stylesheet" href="/app/ui/site.css">
   </head>
   <body class="development-page">
@@ -18,7 +30,7 @@
         <span class="compact-mark" aria-hidden="true"><span></span></span>
         <span>IFC ClashTrace</span>
       </a>
-      <p class="local-badge"><span aria-hidden="true">◆</span><span data-zh="最新闭合：PG-C" data-en="Latest closed: PG-C">最新闭合：PG-C</span></p>
+      <p class="local-badge"><span aria-hidden="true">◆</span><span data-zh="最新闭合：VG" data-en="Latest closed: VG">最新闭合：VG</span></p>
       <div class="preferences-mount" data-control-mode="display"></div>
     </header>
 
@@ -26,7 +38,7 @@
       <header class="development-hero">
         <p class="eyebrow">RESEARCH · GATES · EVIDENCE</p>
         <h1 data-zh="从问题，到证据链。" data-en="From question to evidence chain.">从问题，到证据链。</h1>
-        <p data-zh="IFC ClashTrace 的研发历史不是功能清单，而是一组逐步关闭风险的 Gate。PG-C 已闭合全站事实口径审计；PG-B 已将用户选定的透明静态 Logo 发布到 GitHub README，并完成真实桌面/窄屏渲染与映射验收。" data-en="IFC ClashTrace development is not a feature list but a sequence of Gates that close risks one by one. PG-C closed the site-wide claims audit; PG-B has published the user-selected transparent static Logo in the GitHub README and verified real desktop/narrow rendering and mapping.">IFC ClashTrace 的研发历史不是功能清单，而是一组逐步关闭风险的 Gate。PG-C 已闭合全站事实口径审计；PG-B 已将用户选定的透明静态 Logo 发布到 GitHub README，并完成真实桌面/窄屏渲染与映射验收。</p>
+        <p data-zh="IFC ClashTrace 的研发历史不是功能清单，而是一组逐步关闭风险的 Gate。PG-E 已闭合拟真工程样例与人工试用；VG 已完成公开预制作检查点，G7A 正按用户复批进行 R02 全画面重建。" data-en="IFC ClashTrace development is not a feature list but a sequence of Gates that close risks one by one. PG-E closed the realistic engineering example and human trial; VG completed its public pre-production checkpoint, and G7A is rebuilding R02 after user review.">IFC ClashTrace 的研发历史不是功能清单，而是一组逐步关闭风险的 Gate。PG-E 已闭合拟真工程样例与人工试用；VG 已完成公开预制作检查点，G7A 正按用户复批进行 R02 全画面重建。</p>
         <div class="hero-actions development-actions">
           <a class="button button-primary" href="/app/" target="_blank" rel="noopener"><span data-zh="打开工作台" data-en="Open workspace">打开工作台</span><span aria-hidden="true">↗</span></a>
           <a class="button button-secondary" href="https://github.com/delongwangshu49-hub/ifc-clashtrace"><span>GitHub</span><span aria-hidden="true">↗</span></a>
@@ -42,8 +54,8 @@
       </section>
 
       <section class="status-band" aria-label="当前项目状态" data-zh-aria="当前项目状态" data-en-aria="Current project status">
-        <div><span data-zh="最新已闭合" data-en="Latest closed">最新已闭合</span><strong>PG-E · PASS</strong></div>
-        <div><span data-zh="当前阶段" data-en="Current stage">当前阶段</span><strong data-zh="VG · 尚未开始" data-en="VG · Not started">VG · 尚未开始</strong></div>
+        <div><span data-zh="最新已闭合" data-en="Latest closed">最新已闭合</span><strong>VG · PASS</strong></div>
+        <div><span data-zh="当前阶段" data-en="Current stage">当前阶段</span><strong data-zh="G7A · R02 重建中" data-en="G7A · R02 rebuild">G7A · R02 重建中</strong></div>
         <div><span data-zh="站点访问" data-en="Site access">站点访问</span><strong data-zh="仅所有者 · 私有" data-en="Owner-only · Private">仅所有者 · 私有</strong></div>
       </section>
 
@@ -57,7 +69,7 @@
           <li><span class="gate-id">G3B</span><div><h3 data-zh="2 mm 容差语义" data-en="2 mm tolerance semantics">2 mm 容差语义</h3><p data-zh="AABB 只保留为 C04 受控证据；一般几何使用可审计内部深度，退化内蚀核心失败关闭。" data-en="AABB remains only as controlled C04 evidence; general geometry uses auditable interior depth and degenerate eroded cores fail closed.">AABB 只保留为 C04 受控证据；一般几何使用可审计内部深度，退化内蚀核心失败关闭。</p></div><span class="gate-status">PASS</span></li>
           <li><span class="gate-id">G3C</span><div><h3 data-zh="50 mm 净距规则" data-en="50 mm clearance rule">50 mm 净距规则</h3><p data-zh="0/49/50/51 mm、旋转、开洞、硬碰撞去重与缺失几何，共 9 个独立补充夹具。" data-en="Nine independent fixtures cover 0/49/50/51 mm, rotation, openings, hard-clash deduplication, and missing geometry.">0/49/50/51 mm、旋转、开洞、硬碰撞去重与缺失几何，共 9 个独立补充夹具。</p></div><span class="gate-status">PASS</span></li>
           <li><span class="gate-id">G3</span><div><h3 data-zh="浏览器双规则核心" data-en="Browser dual-rule core">浏览器双规则核心</h3><p data-zh="两模型 IFC 输入、严格冻结阈值、真实三角几何、确定性记录、12 项对抗守卫与当前 Chrome 运行。" data-en="Two-model IFC input, strictly frozen thresholds, real triangle geometry, deterministic records, 12 adversarial guards, and current Chrome execution.">两模型 IFC 输入、严格冻结阈值、真实三角几何、确定性记录、12 项对抗守卫与当前 Chrome 运行。</p></div><span class="gate-status">PASS</span></li>
-          <li><span class="gate-id">DG</span><div><h3 data-zh="设计契约" data-en="Design contract">设计契约</h3><p data-zh="三页结构、大众体验/工程极简、双语、亮暗、AI 默认关闭与墙—管—碰撞—气泡原创品牌方向获批。" data-en="Approved the three-page structure, popular-experience/engineering-minimal profiles, bilingual and light/dark preferences, AI off by default, and original wall–pipe–collision–bubble brand direction.">三页结构、大众体验/工程极简、双语、亮暗、AI 默认关闭与墙—管—碰撞—气泡原创品牌方向获批。</p></div><span class="gate-status">PASS</span></li>
+          <li><span class="gate-id">DG</span><div><h3 data-zh="设计契约" data-en="Design contract">设计契约</h3><p data-zh="原双风格方案已由 PG-F 收敛为仅保留工业极简；双语、亮暗、AI 默认关闭与墙—管—碰撞—气泡原创品牌方向继续有效。" data-en="PG-F has superseded the original two-profile direction with Industrial Minimal only; bilingual light/dark preferences, AI off by default, and the original wall–pipe–collision–bubble brand direction remain in force.">原双风格方案已由 PG-F 收敛为仅保留工业极简；双语、亮暗、AI 默认关闭与墙—管—碰撞—气泡原创品牌方向继续有效。</p></div><span class="gate-status">PASS</span></li>
           <li><span class="gate-id">G4</span><div><h3 data-zh="三页确定性纵向切片" data-en="Three-page deterministic vertical slice">三页确定性纵向切片</h3><p data-zh="首页、功能工作台与研发历程页闭合真实 IFC 计算、3D 定位、证据抽屉和共享显示偏好；G4-R1 关闭输入变更后的陈旧状态。" data-en="The homepage, workspace, and development log close the real-IFC computation, 3D focus, evidence drawer, and shared display-preference loop; G4-R1 closes stale state after input changes.">首页、功能工作台与研发历程页闭合真实 IFC 计算、3D 定位、证据抽屉和共享显示偏好；G4-R1 关闭输入变更后的陈旧状态。</p></div><span class="gate-status">PASS</span></li>
           <li><span class="gate-id">G4AI</span><div><h3 data-zh="可选 AI 解读" data-en="Optional AI interpretation">可选 AI 解读</h3><p data-zh="默认关闭、逐次字段预览与新同意；最多六条最小派生记录，任何服务或语义异常都失败关闭到本地解读，不能改写确定性结果。" data-en="Off by default with per-request field preview and fresh consent; at most six minimal derived records are sent, and service or semantic failures fall back locally without changing deterministic results.">默认关闭、逐次字段预览与新同意；最多六条最小派生记录，任何服务或语义异常都失败关闭到本地解读，不能改写确定性结果。</p></div><span class="gate-status">PASS</span></li>
           <li><span class="gate-id">G5</span><div><h3 data-zh="受控评价" data-en="Controlled evaluation">受控评价</h3><p data-zh="8/8 三方状态一致、9/9 净距补充夹具一致；硬碰撞 TP/FP/FN/TN 为 3/0/0/4，另有 1 个刻意失败关闭案例。该结果不代表任意真实工程准确率。" data-en="Status agrees three ways on 8/8 controlled cases and both clearance routes agree on 9/9 fixtures; hard-clash TP/FP/FN/TN is 3/0/0/4 with one deliberate abstention. This is not arbitrary real-project accuracy.">8/8 三方状态一致、9/9 净距补充夹具一致；硬碰撞 TP/FP/FN/TN 为 3/0/0/4，另有 1 个刻意失败关闭案例。该结果不代表任意真实工程准确率。</p></div><span class="gate-status">PASS</span></li>
@@ -65,8 +77,8 @@
           <li data-claim-stage="PG-C" data-claim-state="closed"><span class="gate-id">PG-C</span><div><h3 data-zh="全站内容与进度口径审计" data-en="Site-wide claims and progress audit">全站内容与进度口径审计</h3><p data-zh="三页、README、元数据、链接、错误/空状态与历史截图已按统一主张台账闭合，并通过自动回归、72 状态 Chrome 验收、公开检查点和所有者私有 Sites 候选回查。" data-en="The three pages, README, metadata, links, error/empty states, and historical screenshots are closed against one claim ledger, with automated regression, 72-state Chrome acceptance, a public checkpoint, and an owner-only private Sites candidate verified.">三页、README、元数据、链接、错误/空状态与历史截图已按统一主张台账闭合，并通过自动回归、72 状态 Chrome 验收、公开检查点和所有者私有 Sites 候选回查。</p></div><span class="gate-status">PASS</span></li>
           <li data-claim-stage="PG-B" data-claim-state="closed"><span class="gate-id">PG-B</span><div><h3 data-zh="品牌资产与 GitHub 静态 Logo" data-en="Brand asset and static GitHub Logo">品牌资产与 GitHub 静态 Logo</h3><p data-zh="PG-B-R2 已裁减透明画布并把 README 显示宽度收敛至240 px，保留全部可见像素、替代文本和无 GIF 边界；GitHub 不可变提交渲染与30/30映射通过。" data-en="PG-B-R2 crops the transparent canvas and reduces the README width to 240 px while preserving all visible pixels, alt text, and the no-GIF boundary; immutable GitHub rendering and the 30/30 mapping pass.">PG-B-R2 已裁减透明画布并把 README 显示宽度收敛至240 px，保留全部可见像素、替代文本和无 GIF 边界；GitHub 不可变提交渲染与30/30映射通过。</p></div><span class="gate-status">PASS</span></li>
           <li data-claim-stage="PG-E" data-claim-state="closed"><span class="gate-id">PG-E</span><div><h3 data-zh="拟真单层建筑与人工试用" data-en="Realistic one-storey building and human trial">拟真单层建筑与人工试用</h3><p data-zh="用户确认12m × 8m单层社区诊所拟真效果，6/6独立哨兵与88条候选记录技术契约通过。公开GitHub 30/30映射、仅所有者Sites版本11和最终托管UAT均已闭合：4个冲突、1个预警、11个未评估、72个清晰，控制台0警告/错误。" data-en="The user accepted the realistic 12 m × 8 m one-storey clinic; the 6/6 independent sentinels and 88-record technical contract pass. The 30/30 public GitHub mapping, owner-only Sites version 11, and final hosted UAT are closed: 4 clashes, 1 warning, 11 not evaluated, 72 clear, and zero console warnings/errors.">用户确认12m × 8m单层社区诊所拟真效果，6/6独立哨兵与88条候选记录技术契约通过。公开GitHub 30/30映射、仅所有者Sites版本11和最终托管UAT均已闭合：4个冲突、1个预警、11个未评估、72个清晰，控制台0警告/错误。</p></div><span class="gate-status">PASS</span></li>
-          <li class="gate-planned" data-claim-stage="VG" data-claim-state="planned"><span class="gate-id">VG</span><div><h3 data-zh="视频预制作" data-en="Video pre-production">视频预制作</h3><p data-zh="尚未开始；脚本、风格帧、旁白样例、音乐与镜头清单须经用户确认后才能进入正式制作。" data-en="Not started; the script, style frame, voice sample, music choice, and shot list require user confirmation before final production.">尚未开始；脚本、风格帧、旁白样例、音乐与镜头清单须经用户确认后才能进入正式制作。</p></div><span class="gate-status">PLANNED</span></li>
-          <li class="gate-planned" data-claim-stage="G7A" data-claim-state="planned"><span class="gate-id">G7A</span><div><h3 data-zh="视频成片制作与质量验收" data-en="Video production and quality acceptance">视频成片制作与质量验收</h3><p data-zh="尚未开始；只有 VG 通过后才可录屏、生成旁白、剪辑、字幕并完成事实/隐私/许可 QA。" data-en="Not started; recording, voice generation, editing, captions, and factual/privacy/license QA can begin only after VG passes.">尚未开始；只有 VG 通过后才可录屏、生成旁白、剪辑、字幕并完成事实/隐私/许可 QA。</p></div><span class="gate-status">PLANNED</span></li>
+          <li data-claim-stage="VG" data-claim-state="closed"><span class="gate-id">VG</span><div><h3 data-zh="视频预制作" data-en="Video pre-production">视频预制作</h3><p data-zh="双语台本、13 镜分镜、视觉系统、H 女声、M2 音乐、P1 音效与逐镜替换门已完成用户确认和公开检查点。" data-en="The bilingual script, 13-shot storyboard, visual system, H voice, M2 music, P1 sound design, and per-shot replacement gates completed user review and the public checkpoint.">双语台本、13 镜分镜、视觉系统、H 女声、M2 音乐、P1 音效与逐镜替换门已完成用户确认和公开检查点。</p></div><span class="gate-status">PASS</span></li>
+          <li class="gate-current" data-claim-stage="G7A" data-claim-state="in-progress"><span class="gate-id">G7A</span><div><h3 data-zh="视频成片制作与质量验收" data-en="Video production and quality acceptance">视频成片制作与质量验收</h3><p data-zh="R02 全画面重建进行中；当前网站候选已可供视频制作使用，成片仍须经过样片、完整预览和最终用户验收。" data-en="The R02 full-frame rebuild is in progress. The current website candidate is ready for video production, while the film still requires a style slice, full preview, and final user acceptance.">R02 全画面重建进行中；当前网站候选已可供视频制作使用，成片仍须经过样片、完整预览和最终用户验收。</p></div><span class="gate-status">IN PROGRESS</span></li>
           <li class="gate-planned" data-claim-stage="G7B" data-claim-state="planned"><span class="gate-id">G7B</span><div><h3 data-zh="YouTube 上传与直链复验" data-en="YouTube upload and direct-link validation">YouTube 上传与直链复验</h3><p data-zh="尚未开始；只有 G7A 通过且获得行动时授权后，才可上传 Unlisted 成片、复核双语字幕与香港未登录直链；视频不回嵌首页。" data-en="Not started; an Unlisted upload, bilingual-caption checks, and signed-out Hong Kong direct-link validation require G7A to pass and action-time authorization; the video will not be embedded on the homepage.">尚未开始；只有 G7A 通过且获得行动时授权后，才可上传 Unlisted 成片、复核双语字幕与香港未登录直链；视频不回嵌首页。</p></div><span class="gate-status">PLANNED</span></li>
           <li class="gate-planned" data-claim-stage="G7" data-claim-state="planned"><span class="gate-id">G7</span><div><h3 data-zh="最终交付" data-en="Final delivery">最终交付</h3><p data-zh="尚未开始；只有所有前置 Gate、用户验收、发布审计与必要外部授权真实闭合后才可完成。" data-en="Not started; it can complete only after all prerequisite Gates, user acceptance, publication audits, and required external authorizations actually close.">尚未开始；只有所有前置 Gate、用户验收、发布审计与必要外部授权真实闭合后才可完成。</p></div><span class="gate-status">PLANNED</span></li>
         </ol>
@@ -83,7 +95,7 @@
 
       <section class="public-ledger" aria-labelledby="ledger-title">
         <div><p class="section-index">OPEN METHOD</p><h2 id="ledger-title"><span class="title-line" data-zh="规则、验证与边界，" data-en="Rules, validation, and scope">规则、验证与边界，</span><span class="title-line" data-zh="都有公开依据。" data-en="are open to inspection.">都有公开依据。</span></h2></div>
-        <p data-zh="IFC ClashTrace 公开碰撞规则、受控测试案例、已验证支持边界与许可证。当前公开仓库可核对规则与结果字段；Sites 仍为所有者私有。计划中阶段不代表已完成、已验收或已获公开授权。" data-en="IFC ClashTrace publishes its clash rules, controlled test cases, verified scope, and licenses. The public repository exposes rules and result fields; Sites remains owner-only. Planned stages are not completed, accepted, or authorized for public access.">IFC ClashTrace 公开碰撞规则、受控测试案例、已验证支持边界与许可证。当前公开仓库可核对规则与结果字段；Sites 仍为所有者私有。计划中阶段不代表已完成、已验收或已获公开授权。</p>
+        <p data-zh="IFC ClashTrace 公开碰撞规则、受控测试案例、已验证支持边界与许可证。当前公开仓库可核对规则与结果字段；Sites 仍为所有者私有。进行中或计划中阶段不代表已完成、已验收或已获公开授权。" data-en="IFC ClashTrace publishes its clash rules, controlled test cases, verified scope, and licenses. The public repository exposes rules and result fields; Sites remains owner-only. In-progress or planned stages are not completed, accepted, or authorized for public access.">IFC ClashTrace 公开碰撞规则、受控测试案例、已验证支持边界与许可证。当前公开仓库可核对规则与结果字段；Sites 仍为所有者私有。进行中或计划中阶段不代表已完成、已验收或已获公开授权。</p>
         <div class="ledger-links">
           <a href="https://github.com/delongwangshu49-hub/ifc-clashtrace" data-zh="项目源码 ↗" data-en="Source code ↗">项目源码 ↗</a>
           <a href="/app/#controlled-review" target="_blank" rel="noopener" data-zh="受控验证 ↗" data-en="Controlled validation ↗">受控验证 ↗</a>
