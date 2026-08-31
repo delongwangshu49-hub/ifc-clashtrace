@@ -4,9 +4,9 @@ import { fileURLToPath } from "node:url";
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const expected = [
-  "app/ui/previews/development-zh-light.png",
+  "app/ui/previews/development-en-dark.png",
   "app/ui/previews/home-dark-en-minimal.png",
-  "app/ui/previews/home-light-zh.png",
+  "app/ui/previews/home-light-zh-minimal.png",
   "app/ui/previews/workspace-en-dark.png",
 ];
 const pngSignature = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);

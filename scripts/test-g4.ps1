@@ -69,16 +69,16 @@ foreach ($contract in @(
     'home.feature.modes.title'
     'home.feature.review.title'
     'home.feature.open.title'
-    '/app/ui/previews/home-light-zh.png'
+    '/app/ui/previews/home-light-zh-minimal.png'
     '/app/ui/previews/home-dark-en-minimal.png'
     '/app/ui/previews/workspace-en-dark.png'
-    '/app/ui/previews/development-zh-light.png'
+    '/app/ui/previews/development-en-dark.png'
 )) { Assert-Contains $homePage $contract "Homepage contract missing: $contract" }
-foreach ($contract in @('lang="en" data-style="mainstream" data-theme="light"','ifc-clashtrace.reset-preferences.v2','sessionStorage.setItem(resetKey, "true")')) {
-    Assert-Contains $homePage $contract "Homepage reset contract missing: $contract"
+foreach ($contract in @('lang="en" data-style="minimal" data-theme="dark"','ifc-clashtrace.preferences.v3','localStorage.getItem(storageKey)','html:not([data-preferences-ready]) body { visibility: hidden; }')) {
+    Assert-Contains $homePage $contract "Homepage first-paint preference contract missing: $contract"
 }
 foreach ($page in @($app, $development)) {
-    foreach ($contract in @('lang="en" data-style="mainstream" data-theme="light"','history.scrollRestoration = "manual"','if (!location.hash)','addEventListener("pageshow"','scrollTo(0, 0)')) {
+    foreach ($contract in @('lang="en" data-style="minimal" data-theme="dark"','ifc-clashtrace.preferences.v3','localStorage.getItem(storageKey)','history.scrollRestoration = "manual"','if (!location.hash)','addEventListener("pageshow"','scrollTo(0, 0)')) {
         Assert-Contains $page $contract "New-page top-entry contract missing: $contract"
     }
     if ($page.Contains('location.replace("/")')) { throw 'Functional and development pages must not redirect a legitimate new-tab launch back to the homepage.' }
@@ -136,18 +136,17 @@ if ($development -match $localPathPattern) { throw "Development page contains a 
 if ($development -match '(?i)scripts/audit-|audit-[a-z0-9-]+\.ps1') { throw "Development page exposes a local-only audit filename." }
 
 foreach ($contract in @(
-    'data-theme="light"'
-    'data-style="minimal"'
+    'html[data-theme="light"]'
     '--radius-sm'
     '.button { display: inline-flex; align-items: center; justify-content: center'
     '@media (prefers-reduced-motion: reduce)'
     '.preference-menu { position: absolute'
-    'html[data-style="minimal"] .button-primary'
+    '.button-primary { background: var(--ink); border-color: var(--ink); color: var(--shell); }'
     '@keyframes pipe-trace'
     '.pipe-back {'
     '.pipe-front {'
     '.dialog-bubble::after'
-    '--shell: #0d1117'
+    '--shell: #090909'
     'background: #0b0d10'
     '.assurance-list { display: grid'
     '.record-status .status-icon::before'
@@ -158,6 +157,8 @@ foreach ($contract in @(
     '.feature-showcase {'
     '.showcase-card:hover .feature-preview'
     '.feature-preview { --preview-radius: var(--radius-md);'
+    '--preview-pair-width: calc(var(--preview-tile-width) + var(--preview-tile-width) + 26px)'
+    'left: calc(100% - 26px - var(--preview-pair-width)); right: auto;'
     'border-radius: var(--preview-radius)'
     '.preview-image-crop { display: block; overflow: hidden; border: 1px solid var(--line); border-radius: var(--preview-radius)'
     '.toggle-track { position: relative; width: 78px; height: 34px'
@@ -175,17 +176,23 @@ $labelBContrast = Get-ContrastRatio $labelBMatch.Groups[1].Value $labelBackgroun
 if ($labelAContrast -lt 4.5 -or $labelBContrast -lt 4.5) { throw "Trace-scene labels do not meet 4.5:1 contrast. A=$labelAContrast B=$labelBContrast" }
 
 foreach ($contract in @(
-    'style: "mainstream"'
     'language: "en"'
-    'theme: "light"'
+    'theme: "dark"'
     'aiEnabled: false'
-    'sessionStorage.setItem'
-    'sessionStorage.getItem'
-    'Display controls must continue working when session storage is unavailable.'
+    'localStorage.setItem'
+    'localStorage.getItem'
+    'Display controls must continue working when persistent storage is unavailable.'
+    'dataset.preferencesReady = "true"'
     'ifcclashtrace:preferences'
 )) { Assert-Contains $preferences $contract "Preference contract missing: $contract" }
-foreach ($contract in @("preference-trigger", "preference-menu", 'role="listbox"', 'role="option"', "Popular experience", "Engineering minimal", "home.trace.status", "Hard clash · CLASH", 'controlMode === "ai"', 'class="toggle-knob"', "data-i18n-alt")) {
+foreach ($contract in @("preference-trigger", "preference-menu", 'role="listbox"', 'role="option"', "home.trace.status", "Hard clash · CLASH", 'controlMode === "ai"', 'class="toggle-knob"', "data-i18n-alt", '首次打开采用暗色和英语', 'First visits open in Dark and English', 'Gate · 测试 · 公开证据')) {
     Assert-Contains $preferences $contract "Custom preference dropdown contract missing: $contract"
+}
+foreach ($obsoleteStyleLabel in @('工业极简主页', '工业极简、暗色和英语', 'Industrial Minimal homepage', 'Industrial Minimal, Dark, and English', ' · 工业极简', ' · Industrial')) {
+    if ($preferences.Contains($obsoleteStyleLabel) -or $homePage.Contains($obsoleteStyleLabel)) { throw "Obsolete single-style emphasis remains in homepage copy: $obsoleteStyleLabel" }
+}
+foreach ($removedStyleContract in @('pref.style', 'data-preference="style"', 'style: "mainstream"', 'style: "minimal"', 'Popular experience', 'Engineering minimal')) {
+    if ($preferences.Contains($removedStyleContract) -or $homePage.Contains($removedStyleContract)) { throw "Removed display-style contract remains: $removedStyleContract" }
 }
 foreach ($contract in @('Built in public.\nFully traceable.')) {
     Assert-Contains $preferences $contract "English homepage title-line contract missing: $contract"
@@ -277,10 +284,10 @@ try {
         @{ Path = "/development/"; Type = "text/html"; Marker = "gate-timeline" }
         @{ Path = "/app/ui/site.css"; Type = "text/css"; Marker = "review-workspace" }
         @{ Path = "/app/ui/app.mjs"; Type = "text/javascript"; Marker = "evaluateIfcPair" }
-        @{ Path = "/app/ui/previews/home-light-zh.png"; Type = "image/png"; Marker = $null }
+        @{ Path = "/app/ui/previews/home-light-zh-minimal.png"; Type = "image/png"; Marker = $null }
         @{ Path = "/app/ui/previews/home-dark-en-minimal.png"; Type = "image/png"; Marker = $null }
         @{ Path = "/app/ui/previews/workspace-en-dark.png"; Type = "image/png"; Marker = $null }
-        @{ Path = "/app/ui/previews/development-zh-light.png"; Type = "image/png"; Marker = $null }
+        @{ Path = "/app/ui/previews/development-en-dark.png"; Type = "image/png"; Marker = $null }
         @{ Path = "/node_modules/web-ifc/web-ifc.wasm"; Type = "application/wasm"; Marker = $null }
     )
     foreach ($check in $routeChecks) {
@@ -328,8 +335,8 @@ Write-Output "G4_HARD_CLEARANCE_SIMULTANEOUS=PASS"
 Write-Output "G4_FAILURE_CLOSED_UI=PASS"
 Write-Output "G4_RESULT_FILTER_EVIDENCE=PASS"
 Write-Output "G4_REAL_IFC_3D_FOCUS=PASS"
-Write-Output "G4_STYLE_LANGUAGE_THEME_PREFERENCES=PASS"
-Write-Output "G4_CUSTOM_PROFILE_DROPDOWNS=PASS"
+Write-Output "G4_INDUSTRIAL_ONLY_LANGUAGE_THEME_PREFERENCES=PASS"
+Write-Output "G4_CUSTOM_PREFERENCE_DROPDOWNS=PASS"
 Write-Output "G4_HOMEPAGE_COPY_MOTION_CONTRAST=PASS"
 Write-Output "G4_HOMEPAGE_NEUTRAL_DARK_I18N=PASS"
 Write-Output "G4_HOMEPAGE_INTERACTIVE_REAL_PREVIEWS=4/4"
