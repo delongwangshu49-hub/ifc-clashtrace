@@ -31,8 +31,8 @@ $english = Read-Utf8 $englishPath
 $chinese = Read-Utf8 $chinesePath
 $publication = Read-Utf8 $publicationPath
 
-Assert-True ($english.Contains('VG LOCAL REPAIR PASS — PUBLIC CHECKPOINT PENDING; G7A NOT STARTED')) 'English status marker is missing'
-Assert-True ($chinese.Contains('VG 本地有限修复通过——公开检查点待授权；G7A 未启动')) 'Chinese status marker is missing'
+Assert-True ($english.Contains('VG PASS — PUBLIC CHECKPOINT VERIFIED; G7A READY / NOT STARTED')) 'English status marker is missing'
+Assert-True ($chinese.Contains('VG 通过——公开检查点已复验；G7A 已就绪 / 未启动')) 'Chinese status marker is missing'
 Assert-True ($english.Contains('The English script is `272 words`')) 'English script total declaration is stale'
 Assert-True ($chinese.Contains('英语共 `272 词`')) 'Chinese script total declaration is stale'
 Assert-True ($english.Contains('trim-relative first beat is `00:00.000`')) 'English trim-relative beat contract is missing'
@@ -147,7 +147,7 @@ foreach ($probe in $ignoreProbes) {
 
 $privateMaster = Read-Utf8 'BIMCLASH_AGENT_MASTER_PLAN.md'
 $publicMaster = Read-Utf8 'BIMCLASH_AGENT_MASTER_PLAN.public.md'
-$gateMarker = 'VG — LOCAL_REPAIR_PASS / PUBLIC_CHECKPOINT_PENDING'
+$gateMarker = 'VG — PASS / PUBLIC_CHECKPOINT_VERIFIED'
 Assert-True ($privateMaster.Contains($gateMarker)) 'private master plan gate is stale'
 Assert-True ($publicMaster.Contains($gateMarker)) 'public master plan gate is stale'
 Assert-True ($publicMaster.Contains('<PROJECT_ROOT>')) 'public master plan lacks sanitized project-root placeholder'
@@ -174,5 +174,5 @@ Write-Output 'VG_SFX=P1'
 Write-Output 'VG_VOICE=H'
 Write-Output 'VG_PUBLIC_CANDIDATE_PATHS=25'
 Write-Output 'VG_FINAL_VIDEOS=0'
-Write-Output 'VG_G7A=NOT_STARTED'
-Write-Output 'VG_STATUS=LOCAL_REPAIR_PASS_PUBLIC_CHECKPOINT_PENDING'
+Write-Output 'VG_G7A=READY_NOT_STARTED'
+Write-Output 'VG_STATUS=PASS_PUBLIC_CHECKPOINT_VERIFIED'
