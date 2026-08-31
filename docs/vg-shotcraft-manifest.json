@@ -1,0 +1,103 @@
+{
+  "schema": "ifc-clashtrace.vg-shotcraft-manifest.v1",
+  "verified_on": "2026-08-31",
+  "library_index": {
+    "path": "gallery/api/library.json",
+    "sha256": "4796E68A6778B1713A1F050F16AD6F5FC9B6F674E7D785B2AF6DEBFE30C30ABE"
+  },
+  "gallery": "https://vincentwei1021.github.io/video-shotcraft/library.html",
+  "shots": [
+    {
+      "shot": "S01",
+      "card": "text-as-mask",
+      "style_key": "text-as-mask",
+      "card_doc": "references/shots/opening/text-as-mask.md",
+      "card_doc_sha256": "2FED719C299185B875D086B0027F38A3D64CC4707F9E8A0856CDE854DB3C7B35",
+      "demo_tsx": "demos/opening/text-as-mask/TextAsMask.tsx",
+      "demo_tsx_sha256": "68A6AE67C43CC5B9DF63280F3CC0BCF8E212CBE8C86D1C90EEAFB935ABF61864",
+      "reference_media": "gallery/media/text-as-mask.mp4"
+    },
+    {
+      "shot": "S02",
+      "card": "wall-reveal-moves",
+      "style_key": "wireframe-draw-on",
+      "card_doc": "references/shots/ui-entrance/wall-reveal-moves.md",
+      "card_doc_sha256": "E0783733037425CA97C48FCE97FD10FBD1C104855D59FAF8B50115F54F72D91D",
+      "demo_tsx": "demos/ui-entrance/wall-reveal-moves/WireframeDrawOn.tsx",
+      "demo_tsx_sha256": "18D2FC4192A67DBFDCFCA390D753EB52F6BCB50BE316B71480E54ED32208558F",
+      "reference_media": "gallery/media/wireframe-draw-on.mp4"
+    },
+    {
+      "shot": "S03",
+      "card": "word-relay-filmstrip",
+      "style_key": "word-relay-filmstrip",
+      "card_doc": "references/shots/typography/word-relay-filmstrip.md",
+      "card_doc_sha256": "46CD72E0C6F584C772A330D8A3EE68F0EDF083052C061132D0AA7FE82A7F4678",
+      "demo_tsx": "demos/typography/word-relay-filmstrip/WordRelayFilmstrip.tsx",
+      "demo_tsx_sha256": "683F51FB630B93D1DDDC4918E8A9E3D694E509F420DF1645936590CE8E551F5A",
+      "reference_media": "gallery/media/word-relay-filmstrip.mp4"
+    },
+    {
+      "shot": "S04",
+      "card": "cursor-flyover",
+      "style_key": "cursor-flyover",
+      "card_doc": "references/shots/camera/cursor-flyover.md",
+      "card_doc_sha256": "811E8864BC9AB325EC2699D3945EDADF9B5A07191356E14B35D92D7ADF5783F5",
+      "demo_tsx": "demos/camera/cursor-flyover/CursorFlyover.tsx",
+      "demo_tsx_sha256": "911E6F6A541C6AED41EB311FBC25AF1F0D096591283F2BCF70E1F907AE87E78F",
+      "reference_media": "gallery/media/cursor-flyover.mp4"
+    },
+    {
+      "shot": "S06",
+      "card": "beat-cut-moves",
+      "style_key": "beat-cut-accelerando",
+      "card_doc": "references/shots/rhythm/beat-cut-moves.md",
+      "card_doc_sha256": "8DDFFA6BFFA58CE9BD7573211E0DECD7182E4719B3772A48E9B27085B325D8E7",
+      "demo_tsx": "demos/rhythm/beat-cut-moves/BeatCutAccelerando.tsx",
+      "demo_tsx_sha256": "E84AA85ACB422B851C1A65182538A6E23501878A0D64F143A611174832A25B1B",
+      "reference_media": "gallery/media/beat-cut-accelerando.mp4"
+    },
+    {
+      "shot": "S07",
+      "card": "tension-camera-moves",
+      "style_key": "bullet-time-freeze-orbit",
+      "card_doc": "references/shots/camera/tension-camera-moves.md",
+      "card_doc_sha256": "6612BA598559261D2BB556BD536EEB1659490102A48B57E034FE053E10774631",
+      "demo_tsx": "demos/camera/tension-camera-moves/BulletTimeFreezeOrbit.tsx",
+      "demo_tsx_sha256": "975F02697F579905A6D83461727F7E258F285FA4738D783AC96B3E6F997413BB",
+      "reference_media": "gallery/media/bullet-time-freeze-orbit.mp4"
+    },
+    {
+      "shot": "S08",
+      "card": "speed-ramp-freeze",
+      "style_key": "freeze-annotate",
+      "card_doc": "references/shots/rhythm/speed-ramp-freeze.md",
+      "card_doc_sha256": "7D365E36082978B66EC5BCA6623B9DBE57C7898B472F031A84D2BBBD09C3F56F",
+      "demo_tsx": "demos/rhythm/speed-ramp-freeze/FreezeAnnotateReal.tsx",
+      "demo_tsx_sha256": "5EA9848EB760ED76123AB152D4E2B60BB3B1DF9472C3B0CA12E6723FB64F35C7",
+      "reference_media": "gallery/media/freeze-annotate.mp4"
+    },
+    {
+      "shot": "S10",
+      "card": "spotlight-hero-card",
+      "style_key": "spotlight-hero-card",
+      "card_doc": "references/shots/opening/spotlight-hero-card.md",
+      "card_doc_sha256": "FBBD603A71FF0A472F37D4EA5647506DA2C06DCEF2F2D4687D3BC20C2484D989",
+      "demo_tsx": "demos/opening/spotlight-hero-card/SpotlightHeroCard.tsx",
+      "demo_tsx_sha256": "9DCC839D8953FF930ADE91C82A7DA178A31AFDAA1E81B1B7FF59820E4B6CB04C",
+      "reference_media": "gallery/media/spotlight-hero-card.mp4"
+    },
+    {
+      "shot": "S13",
+      "card": "white-flash-logo-simplify-cut",
+      "style_key": "white-flash-logo-simplify-cut",
+      "card_doc": "references/shots/transition/white-flash-logo-simplify-cut.md",
+      "card_doc_sha256": "EC2F2181DAE3C1A01C823570016DF985A40C3B5F9B6A526F80BB3643E878F278",
+      "demo_tsx": "demos/transition/white-flash-logo-simplify-cut/WhiteFlashLogoSimplifyCut.tsx",
+      "demo_tsx_sha256": "3799BA945628B14B28232B7BE2A193EF0669FAF47F3F62686A8CD4AF58EB29D3",
+      "reference_media": "gallery/media/white-flash-logo-simplify-cut.mp4"
+    }
+  ],
+  "native_capture_shots": ["S05", "S09", "S11", "S12"],
+  "adaptation_rule": "Preserve the verified demo timing, easing, mask and known-pitfall parameters; replace fixtures with current verified IFC ClashTrace sources and brand tokens."
+}
