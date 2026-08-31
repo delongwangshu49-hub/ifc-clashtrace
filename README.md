@@ -17,6 +17,8 @@ IFC ClashTrace compares one MEP IFC model with one structural IFC model directly
 
 The public Sites deployment is live. Its optional Groq interpretation layer is server-side, consent-gated, and unable to alter deterministic records. The audited bilingual GitHub delivery is published and byte-verified.
 
+**Access notice:** As of September 1, 2026, our testing confirms that the Live Site deployed through OpenAI Codex Sites cannot be accessed directly over a local Hong Kong network. Access works after enabling a VPN, connecting through a Japan or Singapore endpoint, and using global routing. Visitors who need this method must independently configure and use a compliant VPN or proxy service, subject to applicable laws, relevant service terms, and their organization's network policies. Visitors assume all associated account, privacy, cybersecurity, cost, and legal risks. This project neither provides such tools or configuration support nor accepts responsibility for their use or consequences. Public content in the GitHub repository and README remains available independently of the Live Site.
+
 ## Highlights
 
 - **Browser-local IFC processing** — IFC bytes, meshes, filenames, paths, GUIDs, and element names are not sent to the AI provider.
