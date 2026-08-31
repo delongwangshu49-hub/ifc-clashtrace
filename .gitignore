@@ -72,3 +72,11 @@ recordings/local-only/
 *.tar.gz
 *.dump
 *.dmp
+
+# VG local audition media and disposable per-shot proxies
+artifacts/vg-auditions/*.mp3
+artifacts/vg-auditions/*.wav
+artifacts/vg-auditions/sfx/*.wav
+artifacts/vg/keyframes/KF*.png
+artifacts/vg/styleframes/board-full.png
+artifacts/vg/styleframes/raw-*.png
