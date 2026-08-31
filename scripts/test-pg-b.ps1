@@ -89,8 +89,9 @@ try {
         'src="docs/assets/brand/ifc-clashtrace-github-logo.png"',
         'width="240"',
         'alt="IFC ClashTrace product logo: a metallic pipe crosses layered wall panels beside an outlined clash marker and inspection alert."',
-        'PG-B and its Logo revisions are closed',
-        '`PG-B-R2 PASS`',
+        '# IFC ClashTrace',
+        '[Live Site](https://ifc-clashtrace.tuned-box-0320.chatgpt.site)',
+        '[简体中文](README.zh-CN.md)',
         'docs/pg-b-github-logo.md'
     )) { Assert-Contains $readme $required "README PG-B contract missing: $required" }
     foreach ($forbidden in @('.gif','<picture>','<source','prefers-reduced-motion','ifc-clashtrace-lockup-light')) {
@@ -122,8 +123,8 @@ try {
 
     $closedPgB = [regex]::Match($development, '(?s)<li[^>]*data-claim-stage="PG-B"[^>]*data-claim-state="closed"[^>]*>(.*?)</li>')
     if (-not $closedPgB.Success -or $closedPgB.Value -notmatch '>PASS<') { throw 'Development page does not show PG-B as closed.' }
-    foreach ($required in @('裁减透明画布','crops the transparent canvas','240 px','无 GIF','no-GIF')) {
-        Assert-Contains $closedPgB.Value $required "Development PG-B static-logo wording missing: $required"
+    foreach ($required in @('产品品牌与 Logo','Product brand and Logo','墙体、管线、碰撞点与提示气泡','wall, pipe, collision point, and review bubble','透明 Logo','transparent Logo')) {
+        Assert-Contains $closedPgB.Value $required "Development PG-B product-brand wording missing: $required"
     }
 
     if (-not $SkipRegression) {

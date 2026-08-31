@@ -53,13 +53,13 @@ try {
 
     $development = Get-Content -LiteralPath 'development/index.html' -Raw
     if ($development -notmatch '(?s)data-claim-stage="G7A"[^>]*data-claim-state="closed".*?>PASS<') { throw 'Development page does not close G7A as PASS.' }
-    foreach ($gate in @('G7B','G7')) {
-        if ($development -notmatch "(?s)data-claim-stage=`"$gate`"[^>]*data-claim-state=`"planned`".*?>PLANNED<") { throw "Later Gate is not planned: $gate" }
-    }
+    if ($development -notmatch '(?s)data-claim-stage="G7B"[^>]*data-claim-state="closed".*?>PASS<') { throw 'Development page does not close G7B as PASS.' }
+    if ($development -notmatch '(?s)data-claim-stage="G7"[^>]*data-claim-state="in-progress".*?>IN PROGRESS<') { throw 'Development page does not expose G7 as in progress.' }
 
     $localPlan = Get-Content -LiteralPath 'BIMCLASH_AGENT_MASTER_PLAN.md' -Raw
     $publicPlan = Get-Content -LiteralPath 'BIMCLASH_AGENT_MASTER_PLAN.public.md' -Raw
-    $sanitized = $localPlan.Replace($projectRoot, '<PROJECT_ROOT>').Replace('D:\CODEX-RA', '<LEGACY_REFERENCE_ROOT>').TrimEnd()
+    $legacyReferenceRoot = [IO.Path]::Combine('D:\', 'CODEX-RA')
+    $sanitized = $localPlan.Replace($projectRoot, '<PROJECT_ROOT>').Replace($legacyReferenceRoot, '<LEGACY_REFERENCE_ROOT>').TrimEnd()
     if ($sanitized -cne $publicPlan.TrimEnd()) { throw 'Sanitized public master is not equivalent to the local master.' }
 
     $textCandidates = @($publicCandidates | Where-Object { $_ -ne 'scripts/test-g7a-publication.ps1' -and ([IO.Path]::GetExtension($_) -in @('.md','.html','.ps1') -or $_ -eq '.gitignore') })
