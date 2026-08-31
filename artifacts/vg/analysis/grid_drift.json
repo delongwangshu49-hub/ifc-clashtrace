@@ -1,0 +1,61 @@
+{
+  "source": "artifacts/vg-auditions/M2-masking-the-masters-full.mp3",
+  "candidates": [
+    {
+      "candidate": "half",
+      "bpm": 50.000035,
+      "interval_seconds": 1.19999917,
+      "phase_seconds": 0.106208955,
+      "grid_points": 144,
+      "match_percent_33ms": 98.611,
+      "match_percent_50ms": 98.611,
+      "mean_abs_ms": 11.466,
+      "matched_mean_abs_ms": 8.945,
+      "unmatched_count_33ms": 2,
+      "p90_abs_ms": 15.533,
+      "max_abs_ms": 305.727,
+      "estimated_segment_drift_ms": 13.945,
+      "first_grid_attack_within_50ms": true
+    },
+    {
+      "candidate": "base",
+      "bpm": 100.000069,
+      "interval_seconds": 0.599999585,
+      "phase_seconds": 0.106208955,
+      "grid_points": 287,
+      "match_percent_33ms": 98.258,
+      "match_percent_50ms": 98.258,
+      "mean_abs_ms": 11.416,
+      "matched_mean_abs_ms": 8.377,
+      "unmatched_count_33ms": 5,
+      "p90_abs_ms": 15.072,
+      "max_abs_ms": 305.727,
+      "estimated_segment_drift_ms": 2.538,
+      "first_grid_attack_within_50ms": true
+    },
+    {
+      "candidate": "double",
+      "bpm": 200.000138,
+      "interval_seconds": 0.299999793,
+      "phase_seconds": 0.106208955,
+      "grid_points": 574,
+      "match_percent_33ms": 95.47,
+      "match_percent_50ms": 95.47,
+      "mean_abs_ms": 15.35,
+      "matched_mean_abs_ms": 7.579,
+      "unmatched_count_33ms": 26,
+      "p90_abs_ms": 15.268,
+      "max_abs_ms": 311.462,
+      "estimated_segment_drift_ms": 16.066,
+      "first_grid_attack_within_50ms": true
+    }
+  ],
+  "winner": "base",
+  "winner_strict_pass": true,
+  "winner_reason": "Candidates first pass the <=5 ms segment-drift gate, then rank by 33 ms transient coverage and matched-point mean error.",
+  "strict_skill_thresholds": {
+    "match_percent": 98.0,
+    "matched_mean_abs_ms": 10.0,
+    "segment_drift_ms": 5.0
+  }
+}

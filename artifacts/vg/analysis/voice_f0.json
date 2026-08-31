@@ -1,0 +1,34 @@
+{
+  "purpose": "VG synthetic-voice acoustic mismatch check; user listening remains authoritative",
+  "method": "40 ms Hann-windowed autocorrelation, 10 ms hop, 70-350 Hz search, correlation >= 0.28",
+  "auditions": {
+    "H": {
+      "file": "V2-zero-cost-kokoro-af_heart-pcm16.wav",
+      "sample_rate_hz": 24000,
+      "duration_seconds": 16.425,
+      "median_f0_hz": 193.5,
+      "p25_f0_hz": 175.2,
+      "p75_f0_hz": 220.2,
+      "accepted_voiced_frames": 847
+    },
+    "C_REJECTED_MALE": {
+      "file": "V2-zero-cost-chatterbox-default-male-rejected.wav",
+      "sample_rate_hz": 24000,
+      "duration_seconds": 12.8,
+      "median_f0_hz": 117.6,
+      "p25_f0_hz": 102.6,
+      "p75_f0_hz": 164.4,
+      "accepted_voiced_frames": 698
+    },
+    "D": {
+      "file": "V2-zero-cost-parler-laura-female.wav",
+      "sample_rate_hz": 44100,
+      "duration_seconds": 16.974,
+      "median_f0_hz": 180.0,
+      "p25_f0_hz": 168.3,
+      "p75_f0_hz": 205.1,
+      "accepted_voiced_frames": 908
+    }
+  },
+  "decision": "H selected by the user on 2026-08-31; D retained only as an unselected backup; C rejected as male"
+}
