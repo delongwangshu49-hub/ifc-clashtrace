@@ -1,10 +1,10 @@
 # IFC ClashTrace content claim ledger
 
-Status: `PG-E · PASS`
+Status: `VG · PASS / G7A · IN_PROGRESS`
 
-Latest closed checkpoint: `PG-E · PASS`
+Latest closed checkpoint: `VG · PASS`
 
-Scope date: 2026-08-30 (Asia/Hong_Kong)
+Scope date: 2026-08-31 (Asia/Hong_Kong)
 
 This ledger controls factual claims in the homepage, functional workspace, development log, README, navigation and footer, metadata, error and empty states, and demo screenshots. The local master plan, `PROGRESS_SYNC.md`, public tests, and verified private-deployment checks are the authority in that order. A page may simplify wording, but it must not strengthen a claim beyond this ledger.
 
@@ -12,12 +12,12 @@ This ledger controls factual claims in the homepage, functional workspace, devel
 
 | Claim ID | Public-safe claim | Authority | Allowed state |
 |---|---|---|---|
-| S-01 | PG-E is the latest closed checkpoint. | Master plan L-0080; `PROGRESS_SYNC.md` PG-E closure | `PASS` |
+| S-01 | VG is the latest closed checkpoint; G7A R02 is in progress and is not complete. | Master plan L-0087–L-0090; `PROGRESS_SYNC.md` VG/G7A records | VG `PASS`; G7A `IN_PROGRESS` |
 | S-02 | PG-C, PG-B, and PG-B-R2 remain verified; the cropped static Logo is publicly mapped and included in owner-only Sites version 11. | Asset manifest; immutable GitHub render; 30-path mapping; private deployment evidence | `PASS` |
 | S-03 | The Sites project remains owner-only and private. | Read-only Sites access verification on 2026-08-30 | `OWNER_ONLY_PRIVATE` |
-| S-04 | PG-E is closed with accepted visual realism, 6/6 technical sentinels, 30/30 public mapping, owner-only Sites version 11, and all thirteen final hosted-UAT checks passing. VG, G7A, G7B, and G7 have not started. | Master-plan D-071–D-075; `docs/pg-e-engineering-uat.md`; `data/pg-e-uat-record.json` | PG-E `PASS`; later stages `PLANNED` / not started only |
+| S-04 | PG-E remains closed with accepted visual realism, 6/6 technical sentinels, 30/30 public mapping, owner-only Sites version 11, and all thirteen final hosted-UAT checks passing. VG is closed after its public checkpoint; G7A R02 is rebuilding after user review, while G7B and G7 have not started. | Master-plan D-071–D-084 and L-0080–L-0090; PG-E UAT record; VG public manifest; G7A R02 review/spec | PG-E/VG `PASS`; G7A `IN_PROGRESS`; G7B/G7 `PLANNED` |
 | S-05 | The GitHub repository is public on `main`; this does not make Sites public. | Read-only Chrome GitHub verification; Sites access verification | factual distinction only |
-| S-06 | Every load of the shared homepage route resets to Popular experience, English, and Light. Homepage destinations open in new tabs; non-anchored workspace/development entries start at the top, while intentional hash links retain their target. | Master plan D-065/L-0072; executable entry tests; Chrome verification; GitHub technical-chain tip `40c7270b6fc9b56f6976b938297d2b475eef7e39` | `PASS` |
+| S-06 | The product exposes Industrial Minimal only. A first visit starts in English and Dark; language and appearance choices persist across later visits and apply before the first visible frame. Homepage destinations open in new tabs; non-anchored workspace/development entries start at the top, while intentional hash links retain their target. | Master plan D-085/L-0091; executable entry tests; PG-F browser verification | `PASS` |
 
 ## Product and evidence claims
 
@@ -38,14 +38,14 @@ This ledger controls factual claims in the homepage, functional workspace, devel
 
 | Surface | Gate/status/date/metric/link/capability controls |
 |---|---|
-| Homepage | Product capability claims C-01/C-02/C-03; every homepage load follows S-06; development screenshot is explicitly historical G4 evidence; metadata is bilingual; GitHub, development, license, and data-license targets are non-empty. |
+| Homepage | Product capability claims C-01/C-02/C-03; first-visit and persisted display behavior follows S-06; the current development screenshot uses Industrial Minimal, Dark, and English; metadata is bilingual; GitHub, development, license, and data-license targets are non-empty. |
 | Functional workspace | Input boundary C-08; error and empty states fail closed; AI boundary C-05; metadata and static interface copy are bilingual. The eyebrow is capability wording, not a stale Gate label. |
-| Development log | Closed timeline through PG-E with PG-B-R2 Logo and final hosted UAT evidence recorded; VG and G7 stages remain `PLANNED`; metrics use C-04/C-09/C-10; Sites privacy uses S-03. |
+| Development log | Closed timeline through VG with PG-B-R2 Logo and final hosted UAT evidence recorded; G7A R02 is explicitly `IN_PROGRESS`, while G7B/G7 remain `PLANNED`; metrics use C-04/C-09/C-10; Sites privacy uses S-03. |
 | README | Closed evidence through PG-E is explicit, including the selectable hosted example, owner-only Sites version 11 UAT, and the static no-GIF Logo mapping. |
 | Navigation and footer | Targets must be non-empty and resolve to a local route, anchored workspace route, license/document route, or the established GitHub repository. Homepage destinations and cross-page workspace links open new tabs with `noopener`; ordinary page entries start at the top and intentional hash links retain their anchor. |
 | Metadata | Page title and description preserve the same product and progress scope in Simplified Chinese and English. |
 | Error and empty states | Missing input, no selected file, zero filtered records, unsupported input, provider failure, and incomplete geometry must not imply success or completion. |
-| Demo screenshots | Four existing PNGs are historical, program-generated product captures. The development-page PNG is marked `historical` at G4 and points readers to the live development page for current status. |
+| Demo screenshots | Four active PNGs are current local product captures: Dark English and Light Chinese home states, the Dark English deterministic workspace, and the Dark English development page, all in Industrial Minimal. |
 
 ## Later-stage prewriting contract
 
@@ -61,13 +61,13 @@ Only actual Gate evidence and required user authorization may promote a planned 
 
 `scripts/test-pg-c.ps1` must fail on:
 
-1. a latest-closed checkpoint other than PG-E after PG-E closure;
+1. a latest-closed checkpoint other than VG after the verified VG public checkpoint;
 2. an empty or placeholder target;
-3. PG-B or PG-E without `data-claim-state="closed"`, `PASS`, their public mapping/hosted evidence, accepted visual realism, and 6/6 technical evidence; or VG/G7 stages without `planned`/`PLANNED` and matched “尚未开始” / “Not started” wording;
+3. PG-B, PG-E, or VG without `data-claim-state="closed"` and `PASS`; G7A without `data-claim-state="in-progress"` and matched bilingual in-progress wording; or G7B/G7 without `planned`/`PLANNED` and matched “尚未开始” / “Not started” wording;
 4. mismatched Simplified Chinese/English claim pairs or metadata;
-5. a historical development screenshot without its G4/historical markers;
+5. an active homepage preview that is not Industrial Minimal, uses the wrong language/appearance pairing, or has mismatched display geometry;
 6. source/build disagreement on the status-band and planned-stage facts;
 7. regression of the G6 deployment and product contracts.
-8. a homepage load that does not reset to Popular experience, English, and Light; a homepage destination that does not open a new tab with `noopener`; a non-hash workspace/development entry that does not start at the top; storage failure that breaks display controls; or an A/B scene-label contrast ratio below 4.5:1.
+8. a new visitor that does not start in English and Dark; a returning visitor whose saved language/appearance is not applied before the first visible frame; any reintroduced style switch or non-Industrial profile; a homepage destination that does not open a new tab with `noopener`; a non-hash workspace/development entry that does not start at the top; storage failure that breaks display controls; or an A/B scene-label contrast ratio below 4.5:1.
 
-The user accepted the clinic's visual effect and authorized the bounded repair publication and agent-performed final hosted UAT. The repair is verified at GitHub technical head `3038d431157c0e1eb1e1f2b4a9870ddb01609921` with 30/30 byte mapping and owner-only Sites version 11 deployment `appgdep_6a942076ec308191a41d58f4cf02cf3e`. No public Sites access, access-policy/key change, VG, G7, mobile computation, or video production was introduced.
+The user accepted the clinic's visual effect and authorized the bounded repair publication and agent-performed final hosted UAT. The repair is verified at GitHub technical head `3038d431157c0e1eb1e1f2b4a9870ddb01609921` with 30/30 byte mapping and owner-only Sites version 11 deployment `appgdep_6a942076ec308191a41d58f4cf02cf3e`. VG subsequently passed its public checkpoint and G7A R02 is in progress; no public Sites access, access-policy/key change, G7B/G7 start, or mobile computation is claimed.
