@@ -15,7 +15,7 @@
 
 IFC ClashTrace compares one MEP IFC model with one structural IFC model directly in the browser. It produces deterministic hard-clash and surface-clearance records, links every result back to both elements and its calculation evidence, and fails closed as `NOT_EVALUATED` when the available geometry cannot support a reliable conclusion.
 
-The public Sites deployment is live. Its optional Groq interpretation layer is server-side, consent-gated, and unable to alter deterministic records. G7 remains in progress while the final audit and bilingual GitHub delivery are being closed.
+The public Sites deployment is live. Its optional Groq interpretation layer is server-side, consent-gated, and unable to alter deterministic records. The audited bilingual GitHub delivery is published and byte-verified.
 
 ## Highlights
 
