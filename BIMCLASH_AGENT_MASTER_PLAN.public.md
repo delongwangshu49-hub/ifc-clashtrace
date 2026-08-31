@@ -5,8 +5,8 @@
 > 创建时间：2026-08-25（Asia/Hong_Kong）  
 > 目标完成时间：不晚于 2026-08-31 晚间（Asia/Hong_Kong）  
 > 项目根目录：`<PROJECT_ROOT>`  
-> 当前阶段：VG 有限逻辑修复已本地通过，精确 25 路径公开检查点待集体授权；G7A 未启动；Sites 保持所有者私有
-> 当前 Gate：`VG — LOCAL_REPAIR_PASS / PUBLIC_CHECKPOINT_PENDING`（创意包已获用户确认；正式 VG 闭合仍待 GitHub 检查点；G7A/G7B/G7 未启动）
+> 当前阶段：VG 已闭合为 PASS；精确 25 路径公开检查点及同路径状态证据尾已授权并复验；G7A 已就绪但未启动；Sites 保持所有者私有
+> 当前 Gate：`VG — PASS / PUBLIC_CHECKPOINT_VERIFIED`；`G7A — READY / NOT_STARTED`（最终旁白、录屏、实时 AI、Remotion、混音与渲染均未开始）
 
 ---
 
@@ -918,7 +918,7 @@ G4 的无 AI 基础闭环必须同时展示硬碰撞与净距预警，并在断�
 
 目标：在正式录制和生成配音前冻结一套可在 180 秒内完成、事实准确且不披露用户身份的制作方案。
 
-当前状态：`LOCAL_REPAIR_PASS / PUBLIC_CHECKPOINT_PENDING`；创意组合已获用户确认并冻结 H、M2、P1。有限修复把英语台本收敛至 272 词并逐镜满足 `114 wpm + 420 ms`，澄清 M2 裁切后首拍为零，冻结 9 个 video-shotcraft 卡片的精确文档/演示/hash，并把 S11 固定为一次加载四记录受控批次。G7A 仍为 `NOT_STARTED`；正式 VG 闭合只差经用户集体授权的精确 25 路径 GitHub 检查点。
+当前状态：`PASS / PUBLIC_CHECKPOINT_VERIFIED`；创意组合已获用户确认并冻结 H、M2、P1。有限修复把英语台本收敛至 272 词并逐镜满足 `114 wpm + 420 ms`，澄清 M2 裁切后首拍为零，冻结 9 个 video-shotcraft 卡片的精确文档/演示/hash，并把 S11 固定为一次加载四记录受控批次。用户已集体授权精确 25 路径 GitHub 检查点；主内容头 `a2ee7abd86c00d3516d8aff24151f7b66ecef496` 的路径、排除项和渲染均复验通过。G7A 为 `READY / NOT_STARTED`。
 
 必须提交用户审阅：
 
@@ -932,7 +932,7 @@ G4 的无 AI 基础闭环必须同时展示硬碰撞与净距预警，并在断�
 - 关键帧预处理表及其可复建配方；它只冻结构图、信息层级与字幕安全区，不是最终视频帧；
 - 对任何付费语音、生成服务或额度外费用进行显式披露；用户未另行同意前一律采用零费用路径或停止。
 
-停止门：在精确 25 路径公开检查点完成并复验、VG 正式转为 `PASS` 前，不开始最终旁白合成、正式录屏、实时 AI、Remotion 成片、最终字幕/音效/混音或渲染。
+停止门：精确 25 路径公开检查点已完成并复验，VG 已转为 `PASS`。最终旁白合成、正式录屏、实时 AI、Remotion 成片、最终字幕/音效/混音或渲染仍须在 G7A 明确启动后进行；本次上传不启动 G7A。
 
 ### G7A — 视频成片制作与质量验收
 
@@ -1467,6 +1467,7 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 | D-080 | 2026-08-30 | 淘汰实际为男声的 C，新增 Parler-TTS 命名女声 D，与 H 进行最后决选 | USER_MANDATED_VOICE_GENDER_CORRECTION | 用户听辨确认 C 是男声；基频交叉检查得到 C 中位117.6Hz、H中位193.5Hz，故C重命名为male-rejected并禁止成片使用。新增Apache-2.0 Parler-TTS Mini v1.1命名女声`Laura` D：不提供参考音频、不克隆真人，以女性/温暖/克制/中速/稍低音高/近讲/无播音腔描述在官方免费Space生成，PCM16单声道44.1kHz、16.974秒、中位180.0Hz。用户确认除人声外其他VG事务没有问题；VG只剩H/D听感选择与最终放行。若D入选，G7A冻结官方权重与描述并本机完成最终合成。 |
 | D-081 | 2026-08-31 | 最终选择 H `Kokoro af_heart` 并批准 VG 创意包；G7A 未启动 | USER_MANDATED_FINAL_VOICE_AND_VG_CONTENT_APPROVAL | 用户在已确认其余 VG 事务无异议的基础上最终回复“H”。冻结本地 Apache-2.0 `Kokoro-82M af_heart` 为英语女声发行路径，沿用 V2 Warm Modern 表演方向与 M2 下方10–14 LU的混音目标；D仅作未采用备份，C保持淘汰。中英台本、172.2秒/13镜、SF01–SF03、13张关键帧及替换门、PG-E双文件选择器、受控AI点选、M2、P1与成本/隐私/许可边界获得内容批准；正式 VG `PASS` 仍须完成阶段性公开检查点，G7A=`NOT_STARTED`。本决定不生成最终旁白、不录屏、不调用实时AI、不实现/混音/渲染成片，也不授权外部发布。 |
 | D-082 | 2026-08-31 | 批准一次 VG 有限本地逻辑修复，并在精确公开候选就绪后等待集体上传授权 | USER_MANDATED_LOCAL_REPAIR_WITH_COLLECTIVE_UPLOAD_STOP | 修复仅覆盖台本逐镜时长、M2 源相位/裁切相位契约、S11 四记录批次可行性、9 个 video-shotcraft 卡片实现追溯、H/P1 音频台账、总纲状态和公开/私有资产边界；不生成成片、不启动 G7A。公开候选冻结为 `docs/vg-publication-manifest.md` 中 25 个路径；试听音频、单张 KF 占位、私有总纲、源音乐和任何最终视频均排除。完成本地/公开双审计后停止，等待用户另行集体授权 GitHub 上传。 |
+| D-083 | 2026-08-31 | 批准 VG 精确 25 路径集体上传，并在远端复验后正式闭合 VG | USER_MANDATED_COLLECTIVE_UPLOAD_AUTHORIZATION | 授权覆盖 `docs/vg-publication-manifest.md` 冻结的25个公开路径及同路径状态证据尾；使用已登录 Chrome GitHub 工作流，逐笔核对父链、文件数、最终 SHA 树、排除项和图片实际渲染。不得上传私有总纲、试听/源音乐、单张 KF 占位、中间渲染或成片；不得改变 Sites、访问、权限、密钥，也不启动 G7A。 |
 
 ---
 
@@ -3677,6 +3678,22 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 
 ---
 
+### L-0087 — VG 公开检查点与远端渲染复验
+
+**时间：** 2026-08-31
+
+**Gate：** `VG PASS / PUBLIC_CHECKPOINT_VERIFIED`；`G7A READY / NOT_STARTED`
+
+**授权与提交链：** 用户明确“批准授权集体上传”。已登录 Chrome 将精确25路径按 `2/4/5/3/1/8/1/1` 八笔提交，从远端基线 `1086eb8f43a7570148075badb295480bbdb461c0` 连续推进至主内容头 `a2ee7abd86c00d3516d8aff24151f7b66ecef496`；每笔父 SHA、提交标题、文件数和文件名均逐笔复验。
+
+**最终复验：** 在不可变主内容 SHA 下，根、docs、scripts、analysis、keyframes、styleframes、auditions 与 sfx 八个目录的25条路径全部存在。MP3/WAV、单张`KF*.png`、`board-full.png`/`raw-*`、私有总纲和成片均不存在于该公开树。GitHub 实际渲染三张风格帧与4K总表；总表底部橙色“仅供VG构图预览、G7A必须替换”警示清晰可见。
+
+**状态证据尾：** 同授权范围内，文档状态提交 `206103229e75e6b371062e9adb784094cbd076c2` 以主内容头为父提交并精确修改3个既有路径；审计状态提交 `b33736494b8a1f0158e3662fc1a7426e2fbb4153` 以前者为父提交并精确修改1个既有路径。最终公开总纲提交以 `b337364…` 为父提交；其完整 SHA 在本轮交付回执中登记。
+
+**结论与边界：** VG 正式闭合为 `PASS`。同授权范围内只追加状态证据尾；G7A 仅进入 `READY / NOT_STARTED`，没有合成旁白、录屏、调用实时AI、创建Remotion工程、剪辑、混音或渲染，也未改变Sites、访问、权限或密钥。
+
+---
+
 ## 21. 每日状态摘要模板
 
 ```text
@@ -3719,4 +3736,4 @@ GitHub 检查点：URL / 远程 SHA / 上传时间 / 回查结论
 - 暂不批准，继续讨论项目范围；
 - 否决当前方向并重新规划。
 
-用户已明确批准原 `0.2.0-draft` 并启动项目，随后批准 0.3.0 功能/视频扩展、0.4.0 展示就绪扩展，并在 2026-08-30 形成 0.4.1 视频发布路线修订。G0A 至 G5-R1、本地/公开 G6、有限 G6-R1、PG-C、PG-B、PG-B-R2 与 PG-E/PG 均已闭合为 `PASS`，Sites 仍为所有者私有。VG 创意内容已获批准并完成有限逻辑修复，冻结 H `Kokoro-82M af_heart`、M2、P1、272词/13句/13镜、SF01–SF03、关键帧逐镜替换门、PG-E双原生文件选择器、C01/C03/C05/C08受控点选及9个镜头卡来源；当前为 `VG LOCAL_REPAIR_PASS / PUBLIC_CHECKPOINT_PENDING`。G7A=`NOT_STARTED`，推荐`gpt-5.6-sol` + `xhigh`；尚未生成最终旁白、正式录屏、实时AI、Remotion成片、剪辑混音或渲染。精确25路径GitHub检查点等待用户集体授权；G7B/G7未启动，不公开Sites、不改访问权限、不配置托管密钥。
+用户已明确批准原 `0.2.0-draft` 并启动项目，随后批准 0.3.0 功能/视频扩展、0.4.0 展示就绪扩展，并在 2026-08-30 形成 0.4.1 视频发布路线修订。G0A 至 G5-R1、本地/公开 G6、有限 G6-R1、PG-C、PG-B、PG-B-R2、PG-E/PG 与 VG 均已闭合为 `PASS`，Sites 仍为所有者私有。VG 冻结 H `Kokoro-82M af_heart`、M2、P1、272词/13句/13镜、SF01–SF03、关键帧逐镜替换门、PG-E双原生文件选择器、C01/C03/C05/C08受控点选及9个镜头卡来源；精确25路径GitHub主内容头 `a2ee7abd86c00d3516d8aff24151f7b66ecef496` 已通过路径、排除项与渲染复验。G7A=`READY / NOT_STARTED`，推荐`gpt-5.6-sol` + `xhigh`；尚未生成最终旁白、正式录屏、实时AI、Remotion成片、剪辑混音或渲染。G7B/G7未启动，不公开Sites、不改访问权限、不配置托管密钥。
