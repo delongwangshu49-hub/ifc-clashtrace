@@ -1,10 +1,9 @@
-const STORAGE_KEY = "ifc-clashtrace.preferences.session.v2";
-const RESET_KEY = "ifc-clashtrace.reset-preferences.v2";
+const STORAGE_KEY = "ifc-clashtrace.preferences.v3";
+const LEGACY_STORAGE_KEY = "ifc-clashtrace.preferences.session.v2";
 
 const defaults = Object.freeze({
-  style: "mainstream",
   language: "en",
-  theme: "light",
+  theme: "dark",
   aiEnabled: false,
 });
 
@@ -13,9 +12,6 @@ const messages = {
     "home.meta.title": "IFC ClashTrace — 确定性 IFC 碰撞证据",
     "home.meta.description": "IFC ClashTrace 在浏览器本地执行可追溯的 IFC 管线—结构硬碰撞与 50 mm 净距检查。",
     "pref.group": "显示与 AI 偏好",
-    "pref.style": "风格",
-    "pref.style.mainstream": "大众体验",
-    "pref.style.minimal": "工程极简",
     "pref.language": "语言",
     "pref.language.zh": "简体中文",
     "pref.language.en": "English",
@@ -58,14 +54,14 @@ const messages = {
     "home.section.boundary.copy": "当前版本专注于桌面 Chrome 中的 IFC4 米制协调：管线模型与墙/梁结构模型使用共享项目坐标，并由已验证的几何族完成判定。输入缺失、坐标未确认或几何证据不足时，系统会明确说明原因并标记为 NOT_EVALUATED，让团队清楚知道哪些结论已经成立、哪些仍需补充信息。",
     "home.showcase.title": "从计算到复核，\n让每一步都有证据。",
     "home.showcase.copy": "三类工作被收进同一条清晰路径；把鼠标移到模块上，可查看对应的真实页面预览。",
-    "home.feature.modes.kicker": "DISPLAY MODES",
-    "home.feature.modes.title": "切换显示，\n工作不断。",
-    "home.feature.modes.copy": "每次打开主页都从大众体验、英语、亮色开始；本次页面内仍可自由切换。",
-    "home.feature.modes.previewAria": "两种主页显示模式预览",
-    "home.feature.modes.lightAlt": "亮色中文大众体验主页",
-    "home.feature.modes.darkAlt": "暗色英文工程极简主页",
-    "home.feature.modes.lightCaption": "亮色 · 中文 · 大众体验",
-    "home.feature.modes.darkCaption": "暗色 · English · 工程极简",
+    "home.feature.modes.kicker": "DISPLAY PREFERENCES",
+    "home.feature.modes.title": "明暗双态，\n语言随心。",
+    "home.feature.modes.copy": "首次打开采用暗色和英语；选择语言或明暗后，后续访问会沿用你的设置。",
+    "home.feature.modes.previewAria": "主页的两种显示偏好预览",
+    "home.feature.modes.lightAlt": "亮色中文主页",
+    "home.feature.modes.darkAlt": "暗色英文主页",
+    "home.feature.modes.lightCaption": "亮色 · 中文",
+    "home.feature.modes.darkCaption": "暗色 · English",
     "home.feature.review.kicker": "DETERMINISTIC REVIEW",
     "home.feature.review.title": "计算、定位、复核，\n一条记录走到底。",
     "home.feature.review.copy": "载入两份 IFC4，运行硬碰撞与净距规则，在 3D 中聚焦双方构件并打开完整证据。",
@@ -76,8 +72,8 @@ const messages = {
     "home.feature.open.title": "研发过程公开，\n方法与边界可追溯。",
     "home.feature.open.copy": "公开记录 Gate、测试、失败关闭边界与许可证；代码采用 MIT，生成数据采用 CC0。",
     "home.feature.open.previewAria": "研发历程与公开证据页面预览",
-    "home.feature.open.alt": "G4 时点的亮色中文研发历程历史截图",
-    "home.feature.open.caption": "历史 G4 截图 · 当前状态见研发进程页",
+    "home.feature.open.alt": "暗色英文研发历程页面",
+    "home.feature.open.caption": "Gate · 测试 · 公开证据",
     "home.footer.note": "模型仅在浏览器本地处理 · 确定性证据全程可追溯",
     "home.footer.tagline": "公开构建的确定性 IFC 证据。",
     "home.footer.navLabel": "页脚导航",
@@ -94,9 +90,6 @@ const messages = {
     "home.meta.title": "IFC ClashTrace — Deterministic IFC clash evidence",
     "home.meta.description": "Run traceable IFC pipe-to-structure hard-clash and 50 mm clearance checks locally in the browser.",
     "pref.group": "Display and AI preferences",
-    "pref.style": "Style",
-    "pref.style.mainstream": "Popular experience",
-    "pref.style.minimal": "Engineering minimal",
     "pref.language": "Language",
     "pref.language.zh": "简体中文",
     "pref.language.en": "English",
@@ -139,14 +132,14 @@ const messages = {
     "home.section.boundary.copy": "This version focuses on metre-based IFC4 coordination in desktop Chrome. MEP and wall/beam structure models use shared project coordinates and are evaluated through verified geometry families. If an input is missing, coordinates are unconfirmed, or geometric evidence is insufficient, the interface explains why and marks NOT_EVALUATED—so the team knows what is established and what still needs information.",
     "home.showcase.title": "Compute. Review. Trace.\nOne product surface.",
     "home.showcase.copy": "Three jobs, one clear path. Hover a module to preview the real interface behind it.",
-    "home.feature.modes.kicker": "DISPLAY MODES",
-    "home.feature.modes.title": "Switch views.\nKeep working.",
-    "home.feature.modes.copy": "Every homepage visit starts in Popular experience, English, and Light; you can still switch freely on this page.",
-    "home.feature.modes.previewAria": "Two homepage display-mode previews",
-    "home.feature.modes.lightAlt": "Light Chinese Popular experience homepage",
-    "home.feature.modes.darkAlt": "Dark English Engineering minimal homepage",
-    "home.feature.modes.lightCaption": "Light · 中文 · Popular",
-    "home.feature.modes.darkCaption": "Dark · English · Engineering",
+    "home.feature.modes.kicker": "DISPLAY PREFERENCES",
+    "home.feature.modes.title": "Choose light or dark.\nKeep your language.",
+    "home.feature.modes.copy": "First visits open in Dark and English. Your language and appearance choices persist on later visits.",
+    "home.feature.modes.previewAria": "Two homepage preference previews",
+    "home.feature.modes.lightAlt": "Light Chinese homepage",
+    "home.feature.modes.darkAlt": "Dark English homepage",
+    "home.feature.modes.lightCaption": "Light · 中文",
+    "home.feature.modes.darkCaption": "Dark · English",
     "home.feature.review.kicker": "DETERMINISTIC REVIEW",
     "home.feature.review.title": "Compute. Locate.\nVerify.",
     "home.feature.review.copy": "Load two IFC4 files, run both rules, focus the pair in 3D, then open the evidence.",
@@ -157,8 +150,8 @@ const messages = {
     "home.feature.open.title": "Built in public.\nFully traceable.",
     "home.feature.open.copy": "Gates, tests, fail-closed limits, and licenses are documented. Code is MIT; generated data is CC0.",
     "home.feature.open.previewAria": "Development history and public evidence preview",
-    "home.feature.open.alt": "Historical light Chinese development-log screenshot captured at G4",
-    "home.feature.open.caption": "Historical G4 capture · Current status is on the development page",
+    "home.feature.open.alt": "Dark English development-log page",
+    "home.feature.open.caption": "Gates · Tests · Public evidence",
     "home.footer.note": "Models stay in the local browser · Deterministic evidence remains traceable",
     "home.footer.tagline": "Deterministic IFC evidence, built in public.",
     "home.footer.navLabel": "Footer navigation",
@@ -178,11 +171,8 @@ let preferenceMountIndex = 0;
 
 function loadPreferences() {
   try {
-    const shouldReset = sessionStorage.getItem(RESET_KEY) === "true";
-    if (shouldReset) sessionStorage.removeItem(RESET_KEY);
-    const value = shouldReset ? {} : JSON.parse(sessionStorage.getItem(STORAGE_KEY) || "{}");
+    const value = JSON.parse(localStorage.getItem(STORAGE_KEY) || sessionStorage.getItem(LEGACY_STORAGE_KEY) || "{}");
     return {
-      style: ["mainstream", "minimal"].includes(value.style) ? value.style : defaults.style,
       language: ["zh-CN", "en"].includes(value.language) ? value.language : defaults.language,
       theme: ["light", "dark"].includes(value.theme) ? value.theme : defaults.theme,
       aiEnabled: value.aiEnabled === true,
@@ -194,9 +184,9 @@ function loadPreferences() {
 
 function persist() {
   try {
-    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(preferences));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(preferences));
   } catch {
-    // Display controls must continue working when session storage is unavailable.
+    // Display controls must continue working when persistent storage is unavailable.
   }
 }
 
@@ -229,7 +219,6 @@ export function translatePage(root = document) {
 }
 
 function applyPreferences() {
-  document.documentElement.dataset.style = preferences.style;
   document.documentElement.dataset.theme = preferences.theme;
   document.documentElement.dataset.ai = preferences.aiEnabled ? "on" : "off";
   document.documentElement.style.colorScheme = preferences.theme;
@@ -248,7 +237,6 @@ function refreshPreferenceControls() {
   document.querySelectorAll(".preferences").forEach(group => {
     group.setAttribute("aria-label", t("pref.group"));
     const definitions = {
-      style: { label: "pref.style", value: preferences.style, options: { mainstream: "pref.style.mainstream", minimal: "pref.style.minimal" } },
       language: { label: "pref.language", value: preferences.language, options: { "zh-CN": "pref.language.zh", en: "pref.language.en" } },
       theme: { label: "pref.theme", value: preferences.theme, options: { light: "pref.theme.light", dark: "pref.theme.dark" } },
     };
@@ -285,7 +273,6 @@ export function renderPreferenceControls() {
     const showAiControl = controlMode === "ai";
     group.classList.add(`preferences-${controlMode}`);
     group.innerHTML = `
-      ${showDisplayControls ? renderDropdown("style", "pref.style", { mainstream: "pref.style.mainstream", minimal: "pref.style.minimal" }, idPrefix) : ""}
       ${showDisplayControls ? renderDropdown("language", "pref.language", { "zh-CN": "pref.language.zh", en: "pref.language.en" }, idPrefix) : ""}
       ${showDisplayControls ? renderDropdown("theme", "pref.theme", { light: "pref.theme.light", dark: "pref.theme.dark" }, idPrefix) : ""}
       ${showAiControl ? `<label class="preference-toggle">
@@ -376,4 +363,5 @@ function wireDropdown(dropdown) {
 export function initializePreferences() {
   applyPreferences();
   renderPreferenceControls();
+  document.documentElement.dataset.preferencesReady = "true";
 }
