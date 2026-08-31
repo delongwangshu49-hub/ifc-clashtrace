@@ -562,3 +562,11 @@ This repository uses AI assistance for implementation planning and code drafting
 - Required closure: publish only the bounded repair delta, verify immutable GitHub Logo scale and full mapping, deploy the same facts to owner-only Sites without changing access, perform the final hosted PG-E UAT, repair any in-scope blocker, and record the result.
 - Result: public technical head `3038d431157c0e1eb1e1f2b4a9870ddb01609921` maps 30/30; the 951 × 679 Logo renders at 240 × 171.354 px on the immutable page; owner-only Sites version 11 deployment `appgdep_6a942076ec308191a41d58f4cf02cf3e` passes all thirteen hosted checks with the 88-record result and clean consoles.
 - Preserved boundary: Sites remains private to one owner. No access/permission/key change, hosted provider call, VG/G7 start, mobile computation, or video work is included.
+
+## P-059 — G7A R02 rebuild, clarity pass, final acceptance, and GitHub checkpoint
+
+- Date: 2026-08-31
+- User direction: rebuild the rejected video through rapid annotation rounds, use the supplied 2560 × 1600 / 150% native picker recording and product Logo, remove captured audio, keep the current Industrial Minimal product surface, repair narration/subtitle timing and picture-source errors, then apply a restrained clarity pass. The user ultimately selected the 2560 × 1440 BGM version as final and asked for a rapid logic review followed by correct GitHub publication.
+- Accepted output: 13 scenes, 4,990 frames, 166.333 seconds, 2560 × 1440 at 30 fps, H.264 High limited-range BT.709, narration/SFX/BGM in AAC-LC 48 kHz stereo. Canonical SHA-256: `404c4576e3b315ac99b0fd67ccc0e608d132faa30aef9fa94aff10929889c2b0`.
+- Logic closure: `4 CLASH + 1 WARNING + 11 NOT_EVALUATED + 72 CLEAR = 88`; hard clash is strictly greater than 2 mm; clearance below 50 mm warns, so 49 mm warns and 50 mm clears; `NOT_EVALUATED` remains failure closing; optional AI cannot change deterministic facts; controlled fixture agreement is bounded by the focused-prototype/not-engineering-certification disclaimer.
+- Publication boundary: publish only sanitized status, production, QA, manifest and public-test evidence. Exclude the MP4, raw picker recording, screenshots, narration, BGM, SFX, review media, QA frame dumps, local runtimes, credentials and private master plan. G7B YouTube upload remains a separate not-started step.

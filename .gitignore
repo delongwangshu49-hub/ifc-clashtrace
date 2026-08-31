@@ -80,3 +80,11 @@ artifacts/vg-auditions/sfx/*.wav
 artifacts/vg/keyframes/KF*.png
 artifacts/vg/styleframes/board-full.png
 artifacts/vg/styleframes/raw-*.png
+
+# G7A local capture, narration, render, and review binaries
+video/g7a/public/local/
+video/g7a/out/
+outputs/local-only/g7a/
+video/g7a/production/input/
+video/g7a/production/qa/
+video/g7a/review/media/
