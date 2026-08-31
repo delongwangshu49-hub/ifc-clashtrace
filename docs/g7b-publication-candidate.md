@@ -1,6 +1,6 @@
 # G7B limited-repair publication candidate
 
-Status: `GITHUB_AUTHORIZED / YOUTUBE_OPERATIONS_EXCLUDED`
+Status: `GITHUB_PUBLICATION_PASS / YOUTUBE_OPERATIONS_EXCLUDED`
 
 Date: 2026-08-31 (Asia/Hong_Kong)
 
@@ -46,13 +46,27 @@ No caption upload, Studio inspection, settings change, post-Premiere playback ac
 
 ## Local verification
 
-- `scripts/test-g7b.ps1 -RequireLocalMaster`: must confirm the accepted local master, public assets, D-094 closure provenance and no-YouTube-operation boundary.
-- `scripts/test-pg-c.ps1 -SkipRegression`: must confirm 18/18 closed Gates, G7B as the latest closed checkpoint, G7 as the only planned Gate, bilingual metadata and source/build parity.
+- `scripts/test-g7b.ps1 -RequireLocalMaster`: `PASS`; accepted local master, public assets, D-094 closure provenance and no-YouTube-operation/non-claim boundary agree.
+- `scripts/test-pg-c.ps1 -SkipRegression`: `PASS`; 18/18 closed Gates, G7B as the latest closed checkpoint, G7 as the only planned Gate, bilingual metadata and source/build parity agree.
 - `git diff --check`: no whitespace error; only repository line-ending notices.
 - Candidate inventory: exactly 15 paths; no credential value, cookie, browser/session data or private machine path found. The documented `GROQ_API_KEY = '<local secret>'` placeholder in README is an instruction, not a credential.
 - Controlled asset hashes: thumbnail `21c4c940b33baba58aedc99c3cc5f4a255e188eaa32dee614555add44b4ef437`; English SRT `666dc6c8b55010ba8b48a82548b505be4dbad06a9bac684df03e428393c62c88`; Simplified Chinese SRT `b0fc9b4428b3e91496e3f3355b44b0a6bda9f40a4ef2f55ffab95f7af96aa0ef`.
 
 The unskipped full PG-C regression still stops at the pre-existing G4 route smoke because `/app/ui/site.css` returns `text/html` instead of `text/css`. The repaired G7B/PG-C claim suite passes before that unrelated failure. This candidate does not broaden D-093 into a G4 server-route repair and does not claim a globally green regression.
+
+## GitHub publication verification
+
+Local commit: `5ac0724dcbc91bf623cc9fd42f1def33fcb87839`.
+
+The exact candidate was published to `Public/main` as one continuous directory-preserving chain:
+
+1. Root records, 4 files: `f4ef9ab6a31541a907b3b22a570450378e4065ec`
+2. Development closure, 1 file: `26504eadba05129bb9488dfacc247594c9beb68d`
+3. Closure evidence, 5 files: `47aad0694ff88f8f400508a7902e04cc92b31c23`
+4. Closure guards, 2 files: `887a193794fdcb03e61f975dade24691d7c3f0b0`
+5. Review assets, 3 files: `2c95ed7749f988a7a5ed047836d85ae97767b50a`
+
+Upload window: `2026-08-31 23:48:46–23:51:13 +08:00`. Each commit page and file tree was independently opened. The exact counts close as `4 + 1 + 5 + 2 + 3 = 15`; no additional path was present.
 
 ## Explicit exclusions
 
@@ -65,4 +79,4 @@ The unskipped full PG-C regression still stops at the pre-existing G4 route smok
 
 ## Action stop
 
-The user authorized every GitHub upload required for the exact 15-path candidate. No YouTube operation, Sites action, access/permission/key change, paid action or unrelated file is authorized.
+Every authorized GitHub path has been published and verified. No YouTube operation, Sites action, access/permission/key change, paid action or unrelated file was performed.
