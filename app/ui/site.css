@@ -430,6 +430,10 @@ html[lang="en"] .input-card > p:not(.card-index, .file-status) { min-height: 92p
   .feature-preview-pair { grid-template-columns: 1fr; }
 }
 
+@media (max-width: 400px) {
+  .site-header { padding-inline: 3vw; }
+}
+
 @media (max-width: 1180px) {
   .preference-field > span, .preference-toggle-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   .preference-field, .preference-toggle { display: flex; min-width: auto; }
