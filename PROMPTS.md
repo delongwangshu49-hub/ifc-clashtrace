@@ -570,3 +570,29 @@ This repository uses AI assistance for implementation planning and code drafting
 - Accepted output: 13 scenes, 4,990 frames, 166.333 seconds, 2560 × 1440 at 30 fps, H.264 High limited-range BT.709, narration/SFX/BGM in AAC-LC 48 kHz stereo. Canonical SHA-256: `404c4576e3b315ac99b0fd67ccc0e608d132faa30aef9fa94aff10929889c2b0`.
 - Logic closure: `4 CLASH + 1 WARNING + 11 NOT_EVALUATED + 72 CLEAR = 88`; hard clash is strictly greater than 2 mm; clearance below 50 mm warns, so 49 mm warns and 50 mm clears; `NOT_EVALUATED` remains failure closing; optional AI cannot change deterministic facts; controlled fixture agreement is bounded by the focused-prototype/not-engineering-certification disclaimer.
 - Publication boundary: publish only sanitized status, production, QA, manifest and public-test evidence. Exclude the MP4, raw picker recording, screenshots, narration, BGM, SFX, review media, QA frame dumps, local runtimes, credentials and private master plan. G7B YouTube upload remains a separate not-started step.
+
+## P-060 — G7B scheduled public Premiere registration and preflight
+
+- Date: 2026-08-31
+- User action: the user reported that the accepted G7A master was uploaded to YouTube, scheduled for `2026-09-01 00:00 +08:00`, supplied <https://youtu.be/jK3OSltoTEQ>, and requested a link check plus all local records required for this step.
+- Adopted visibility decision: record the actual public scheduled Premiere selected by the user. For this video, D-092 supersedes the earlier D-064 `Unlisted` route. Public Premiere can be discovered, viewed, shared and used for live chat; it is broader than link-only access.
+- Read-only verification: the short URL resolved to the canonical watch URL and video ID `jK3OSltoTEQ`. The Premiere page exposed the exact title, complete no-external-link description, `#IFC/#BIM/#ClashDetection`, visible channel identity, scheduled time and selected Logo cover. A narrow-viewport check retained the primary content. A cookie-free local-machine oEmbed request returned the same title, creator, thumbnail and embeddable ID.
+- Local deliverables: create `docs/g7b-youtube-publication.md`, `docs/g7b-submission-materials.md`, `scripts/test-g7b.ps1`, the final thumbnail record, and frame-accurate English/Simplified Chinese SRT sidecars under `video/g7b/`; register the direct link in README and the G7A production record; synchronize the local/public master plans and progress ledger.
+- Truthfulness boundary: G7B remains `IN_PROGRESS / POST_PREMIERE_QA_PENDING`. Before PASS, upload and manually review both controlled caption sidecars; confirm the public channel identity/discoverability/comments/live-chat exposure and Studio language configuration; then verify post-Premiere signed-out playback, seeking, full programme sync, target high-resolution stream, caption tracks, and non-blocking copyright/policy status. No completion email claim is authorized while those checks remain open.
+- External-write boundary: the user performed the YouTube upload and scheduling. The agent performed no upload, metadata edit, visibility/time change, chat action, Sites deployment, permission/key change, GitHub write or paid action.
+
+## P-061 — G7B limited logic repair and publication-candidate preparation
+
+- Date: 2026-08-31
+- User authorization: repair the identified internal logic issues within a limited local scope, prepare the exact content that would need external upload, and stop for one collective authorization list.
+- Repair contract: align the development page, claim ledger, README, progress record and tests on `G7B IN_PROGRESS`; keep G7A as the latest closed checkpoint and G7 as `PLANNED`; remove the optional-caption loophole; record the upload as completed no later than the `23:10 +08:00` read-only verification without inventing an exact Studio time; and expose every remaining Studio/privacy/post-Premiere check.
+- Publication preparation: assemble a sanitized GitHub candidate plus the two exact SRT files intended for YouTube. Exclude the private master plan, final MP4, raw/review media, build outputs, credentials, Sites actions and unrelated worktree files.
+- Action stop: this preparation does not authorize a Git commit, GitHub upload, YouTube caption upload, Studio setting change, Sites deployment, access/permission/key change or paid action. Execute external writes only after the user authorizes the exact collective list.
+
+## P-062 — G7B user-acceptance closure and GitHub-only publication
+
+- Date: 2026-08-31
+- User decision: authorize every required GitHub upload, reject YouTube-related operations, and make the user's manual review of the final source film—confirmed as perfectly matching their personal requirements—supersede the remaining planned YouTube work.
+- Closure interpretation: G7B becomes `PASS / USER_FINAL_MEDIA_ACCEPTANCE_SUPERSEDES_YOUTUBE_OPERATIONS`. Preserve the already verified public-Premiere page facts, but do not claim selectable-caption upload, Studio language/comments configuration, post-Premiere playback/stream-quality checks or copyright/policy verification.
+- GitHub scope: publish exactly the 15 paths frozen in `docs/g7b-publication-candidate.md`, including the thumbnail and two SRTs as repository evidence assets. Directory-preserving split commits and a final bookkeeping update are allowed when required by the GitHub web interface; no extra path may be added.
+- External boundary: perform no YouTube upload, caption action, Studio inspection/change, chat action, Sites deployment, access/permission/key change, paid action or unrelated external write.
