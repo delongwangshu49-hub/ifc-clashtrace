@@ -1,14 +1,14 @@
 # VG public-checkpoint manifest
 
-Status: `LOCAL_REPAIR_PASS / COLLECTIVE_UPLOAD_AUTHORIZATION_PENDING`
+Status: `COMPLETE / PRIMARY_REMOTE_VERIFIED / CLOSURE_TAIL_INCLUDED`
 
 Date: 2026-08-31
 
-This manifest defines the exact public-safe VG checkpoint candidate. It does not authorize a GitHub write, Sites change, deployment, provider call, G7A start or final-video action.
+This manifest records the exact public-safe VG checkpoint that the user collectively authorized and that was uploaded through the signed-in Chrome GitHub workflow. It does not authorize a Sites change, deployment, provider call, G7A start or final-video action.
 
 ## Included paths
 
-The future Chrome GitHub checkpoint is limited to these 25 paths:
+The Chrome GitHub checkpoint was limited to these 25 paths:
 
 1. `.gitignore`
 2. `BIMCLASH_AGENT_MASTER_PLAN.public.md`
@@ -47,7 +47,7 @@ The 4K contact sheet is included only as a visibly labelled composition proxy. I
 - `artifacts/vg/styleframes/board-full.png` and `raw-*.png` remain local-only redundant render intermediates.
 - No final narration, recording, provider response, Remotion project, subtitle master, mix, render or final video belongs to VG or this checkpoint.
 
-## Required checks before collective authorization
+## Completion checks
 
 1. `scripts/test-vg-preproduction.ps1 -Scope Local` passes with 13 scripts/shots/keyframes, selected voice H, strict timing and beat-grid assertions, and zero final-video files.
 2. `scripts/test-vg-preproduction.ps1 -Scope Public` passes against this allowlist and rejects tracked MP3/WAV or individual proxy keyframes.
@@ -66,4 +66,13 @@ The 2026-08-31 bounded repair completed with both audit scopes passing:
 - Sanitized local/public master-plan equivalence, Python syntax compilation, JSON parsing, Git whitespace validation and the public text privacy/credential scan pass.
 - Visual inspection of `SF01–SF03` and the 4K contact sheet passes; the contact-sheet proxy warning is visibly present.
 
-This readiness record is evidence only. The repository has not been staged, committed or uploaded by this repair, and collective upload authorization remains pending.
+## Remote checkpoint record
+
+- Previous remote head: `1086eb8f43a7570148075badb295480bbdb461c0`.
+- Primary content chain: `8cc327a506fb992f7563ae1d257d13d5e1138785` → `5996f1e770ffb9f9caf28970abbbf12c0fae7b3f` → `905375b04e8fa3956a3e47e4774920c37ee10391` → `85758365422c853a40972c288a52dd9458578e09` → `f0f343a2d9715becff4140442167beab3fd15235` → `9d081a79daed65c3e56e9c57d40f1c753b86e960` → `595a39407bf77abc20047730bd6fd9bed0407513` → `a2ee7abd86c00d3516d8aff24151f7b66ecef496`.
+- Per-commit file counts: `2 / 4 / 5 / 3 / 1 / 8 / 1 / 1 = 25`.
+- Immutable tree checks passed at primary content head `a2ee7abd86c00d3516d8aff24151f7b66ecef496` for all eight destination directories.
+- Exclusion checks found no MP3/WAV, individual `KF*.png`, redundant styleframe intermediates, private master plan or final video.
+- GitHub rendered `SF01–SF03` and the 4K contact sheet. Visual inspection confirmed the contact sheet's full-width orange replacement warning.
+
+The same-path closure tail only changes status/evidence text and the audit expectation from pending to verified. It remains inside the authorized allowlist. VG is `PASS`; G7A is `READY / NOT_STARTED`.

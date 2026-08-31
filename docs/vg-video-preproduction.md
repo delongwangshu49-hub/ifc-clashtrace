@@ -1,6 +1,6 @@
 # VG video preproduction review package
 
-Status: `VG LOCAL REPAIR PASS — PUBLIC CHECKPOINT PENDING; G7A NOT STARTED`
+Status: `VG PASS — PUBLIC CHECKPOINT VERIFIED; G7A READY / NOT STARTED`
 
 Date: 2026-08-31  
 Target: IFC ClashTrace product film  
@@ -14,7 +14,7 @@ This package is the complete reviewable plan required by VG. It does **not** cre
 |---|---|
 | Narrative, sentence-level script, Chinese translation, shot list, visual styleframes, voice/music auditions, beat map, mix targets, capture plan, privacy/license/fact ledgers, backup plan | Final narration synthesis, official product capture, live AI call, Remotion implementation, final sound effects, edit, subtitles, mix, render and audiovisual QA |
 
-The user approved the creative package and selected voice H on 2026-08-31. The bounded logic repair is locally complete, but formal VG closure still requires the planned GitHub checkpoint. G7A remains not started, and this document does not authorize public-access, GitHub, Sites, provider-key or YouTube actions.
+The user approved the creative package and selected voice H on 2026-08-31. The bounded logic repair passed, and the exact 25-path GitHub checkpoint was uploaded and verified at primary content head `a2ee7abd86c00d3516d8aff24151f7b66ecef496`. VG is formally closed as `PASS`; G7A is ready but remains not started. This closure does not authorize Sites, provider-key, YouTube or G7A production actions.
 
 ## 2. Frozen creative direction
 
@@ -251,4 +251,4 @@ The user approved the first, second, third and fifth items in the preceding revi
 4. M2 plus the V2 performance direction, final zero-cost female voice **H (`Kokoro af_heart`)**, and the voice/music level relationship.
 5. Selected SFX palette `P1 Dry Precision`.
 
-The creative entry checklist is satisfied, but VG remains `LOCAL_REPAIR_PASS / PUBLIC_CHECKPOINT_PENDING`. G7A is `NOT_STARTED`: no final narration, official capture, live AI request, Remotion implementation, mix, edit or render may begin until the separately authorized GitHub checkpoint closes VG formally.
+VG is `PASS / PUBLIC_CHECKPOINT_VERIFIED`. G7A is `READY / NOT_STARTED`: this checkpoint produced no final narration, official capture, live AI request, Remotion implementation, mix, edit or render. Those actions begin only when G7A is explicitly started.
