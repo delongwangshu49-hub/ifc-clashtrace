@@ -54,7 +54,7 @@ try {
     $development = Get-Content -LiteralPath 'development/index.html' -Raw
     if ($development -notmatch '(?s)data-claim-stage="G7A"[^>]*data-claim-state="closed".*?>PASS<') { throw 'Development page does not close G7A as PASS.' }
     if ($development -notmatch '(?s)data-claim-stage="G7B"[^>]*data-claim-state="closed".*?>PASS<') { throw 'Development page does not close G7B as PASS.' }
-    if ($development -notmatch '(?s)data-claim-stage="G7"[^>]*data-claim-state="in-progress".*?>IN PROGRESS<') { throw 'Development page does not expose G7 as in progress.' }
+    if ($development -notmatch '(?s)data-claim-stage="G7"[^>]*data-claim-state="closed".*?>PASS<') { throw 'Development page does not close G7 as PASS.' }
 
     $localPlan = Get-Content -LiteralPath 'BIMCLASH_AGENT_MASTER_PLAN.md' -Raw
     $publicPlan = Get-Content -LiteralPath 'BIMCLASH_AGENT_MASTER_PLAN.public.md' -Raw

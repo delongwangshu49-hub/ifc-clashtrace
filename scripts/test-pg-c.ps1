@@ -13,9 +13,9 @@ try {
     }
 
     function Test-ClaimCandidate([hashtable]$Candidate) {
-        if ($Candidate.LatestClosed -cne 'G7B') { return $false }
+        if ($Candidate.LatestClosed -cne 'G7') { return $false }
         if (@($Candidate.Targets | Where-Object { [string]::IsNullOrWhiteSpace($_) -or $_ -eq '#' }).Count -ne 0) { return $false }
-        if ($Candidate.NextState -cne 'IN_PROGRESS') { return $false }
+        if ($Candidate.NextState -cne 'NONE') { return $false }
         if ([string]::IsNullOrWhiteSpace($Candidate.Zh) -or [string]::IsNullOrWhiteSpace($Candidate.En)) { return $false }
         return $true
     }
@@ -34,8 +34,8 @@ try {
     $publicPlan = Get-Content -LiteralPath 'BIMCLASH_AGENT_MASTER_PLAN.public.md' -Raw
 
     foreach ($required in @(
-        'Latest closed checkpoint: `G7B · PASS`',
-        'Status: `G7B · PASS / G7 · IN_PROGRESS`',
+        'Latest closed checkpoint: `G7 · PASS`',
+        'Status: `G7 · PASS / FINAL_DELIVERY_VERIFIED`',
         'Audited Sites version 17 is publicly accessible without sign-in.',
         'Homepage', 'Functional workspace', 'Development log', 'README',
         'Navigation and footer', 'Metadata', 'Error and empty states', 'Demo screenshots',
@@ -97,11 +97,11 @@ try {
     if ($sanitizedLocal -cne $publicPlan.TrimEnd()) { throw 'Sanitized public master is not equivalent to the local master.' }
 
     foreach ($required in @(
-        'G7B · 已通过', 'G7B · Pass', 'G7 · IN PROGRESS', '公开访问', 'Public access',
+        'G7 · 已通过', 'G7 · Pass', '已完成', 'Complete', '公开访问', 'Public access',
         '8/8', '9/9', '1.00 / 1.00', '3/0/0/4', 'data-claim-stage="PG-C"', 'data-claim-state="closed"'
     )) { Assert-Contains $development $required "Current development claim missing: $required" }
 
-    $closedGates = @('G0A','G1','G2','G3A','G3B','G3C','G3','DG','G4','G4AI','G5','G6-R1','PG-C','PG-B','PG-E','VG','G7A','G7B')
+    $closedGates = @('G0A','G1','G2','G3A','G3B','G3C','G3','DG','G4','G4AI','G5','G6-R1','PG-C','PG-B','PG-E','VG','G7A','G7B','G7')
     foreach ($gate in $closedGates) {
         if ($development -notmatch "(?s)<span class=`"gate-id`">$([regex]::Escape($gate))</span>.*?<span class=`"gate-status`">PASS</span>") {
             throw "Closed Gate is not represented as PASS: $gate"
@@ -135,15 +135,14 @@ try {
         throw 'G7B closure wording contains a superseded state.'
     }
 
-    $currentGates = @('G7')
-    foreach ($gate in $currentGates) {
-        $match = [regex]::Match($development, "(?s)<li[^>]*data-claim-stage=`"$([regex]::Escape($gate))`"[^>]*data-claim-state=`"in-progress`"[^>]*>(.*?)</li>")
-        if (-not $match.Success) { throw "In-progress stage marker is missing: $gate" }
-        foreach ($required in @('开发者已完成 Sites 公开上线与托管 AI 配置', 'The developer has completed the public Sites launch and hosted AI configuration', '>IN PROGRESS<')) {
-            Assert-Contains $match.Value $required "In-progress wording is incomplete for ${gate}: $required"
-        }
-        if ($match.Value -match '>PASS<' -or $match.Value -match '>PLANNED<') { throw "Current stage has an invalid terminal state: $gate" }
+    $closedG7 = [regex]::Match($development, '(?s)<li[^>]*data-claim-stage="G7"[^>]*data-claim-state="closed"[^>]*>(.*?)</li>')
+    if (-not $closedG7.Success) { throw 'G7 closed marker is missing.' }
+    foreach ($required in @('开发者完成 Sites 公开上线', 'The developer completed the public Sites launch', '全量审计', 'full audit', '12 个批准路径', '12 approved paths', '>PASS<')) {
+        Assert-Contains $closedG7.Value $required "G7 closure wording is incomplete: $required"
     }
+    if ($closedG7.Value -match '>IN PROGRESS<' -or $closedG7.Value -match '>PLANNED<') { throw 'G7 closure wording contains a non-terminal state.' }
+    if ($development.Contains('data-claim-state="in-progress"', [StringComparison]::Ordinal)) { throw 'An in-progress claim remains after G7 closure.' }
+    $currentGates = @()
     Assert-Contains $development 'YouTube release and direct link' 'Current G7B closed route is missing from the development page.'
     if ($development.Contains('Video embed and public-access revalidation', [StringComparison]::Ordinal)) { throw 'Superseded G7B homepage-embed plan remains on the development page.' }
 
@@ -190,13 +189,13 @@ try {
     if ($workspace.Contains('G4AI · OPTIONAL INTERPRETATION', [StringComparison]::Ordinal)) { throw 'Workspace still presents a stale Gate label.' }
     Assert-Contains $workspace 'DETERMINISTIC REVIEW · OPTIONAL AI' 'Workspace capability eyebrow is missing.'
 
-    $validCandidate = @{ LatestClosed='G7B'; Targets=@('/','/app/'); NextState='IN_PROGRESS'; Zh='公开访问'; En='Public access' }
+    $validCandidate = @{ LatestClosed='G7'; Targets=@('/','/app/'); NextState='NONE'; Zh='公开访问'; En='Public access' }
     if (-not (Test-ClaimCandidate $validCandidate)) { throw 'Positive claim-guard self-test failed.' }
     $negativeCandidates = @(
-        @{ LatestClosed='G7A'; Targets=@('/'); NextState='IN_PROGRESS'; Zh='公开访问'; En='Public access' },
-        @{ LatestClosed='G7B'; Targets=@(''); NextState='IN_PROGRESS'; Zh='公开访问'; En='Public access' },
-        @{ LatestClosed='G7B'; Targets=@('/'); NextState='PASS'; Zh='已完成'; En='Completed' },
-        @{ LatestClosed='G7B'; Targets=@('/'); NextState='IN_PROGRESS'; Zh='公开访问'; En='' }
+        @{ LatestClosed='G7B'; Targets=@('/'); NextState='NONE'; Zh='公开访问'; En='Public access' },
+        @{ LatestClosed='G7'; Targets=@(''); NextState='NONE'; Zh='公开访问'; En='Public access' },
+        @{ LatestClosed='G7'; Targets=@('/'); NextState='IN_PROGRESS'; Zh='已完成'; En='Completed' },
+        @{ LatestClosed='G7'; Targets=@('/'); NextState='NONE'; Zh='公开访问'; En='' }
     )
     foreach ($candidate in $negativeCandidates) {
         if (Test-ClaimCandidate $candidate) { throw 'A negative claim-guard self-test was not rejected.' }
@@ -212,7 +211,7 @@ try {
 
     $builtDevelopment = Get-Content -LiteralPath 'dist/client/development/index.html' -Raw
     $builtHome = Get-Content -LiteralPath 'dist/client/index.html' -Raw
-    foreach ($marker in @('G7B · 已通过','G7 · IN PROGRESS','Public access','data-claim-stage="VG"','data-claim-state="closed"','data-claim-stage="G7A"','data-claim-stage="G7B"','data-claim-state="in-progress"','data-claim-stage="G7"')) {
+    foreach ($marker in @('G7 · 已通过','G7 · Pass','Complete','Public access','data-claim-stage="VG"','data-claim-state="closed"','data-claim-stage="G7A"','data-claim-stage="G7B"','data-claim-stage="G7"')) {
         Assert-Contains $builtDevelopment $marker "Private-candidate build disagrees with development source: $marker"
     }
     foreach ($marker in @('home-light-zh-minimal-','home-dark-en-minimal-','workspace-en-dark-','development-en-dark-')) {
@@ -225,8 +224,8 @@ try {
     'PGC_SURFACES_INVENTORIED=8/8'
     "PGC_CLOSED_GATES=$($closedGates.Count)/$($closedGates.Count)"
     "PGC_CURRENT_GATES=$($currentGates.Count)/$($currentGates.Count)"
-    'PGC_LATEST_CLOSED=G7B/PASS'
-    'PGC_CURRENT_GATE=G7/IN_PROGRESS'
+    'PGC_LATEST_CLOSED=G7/PASS'
+    'PGC_CURRENT_GATE=NONE'
     'PGC_BILINGUAL_METADATA=3/3'
     'PGC_EMPTY_TARGET_GUARD=PASS'
     'PGC_FUTURE_COMPLETION_GUARD=PASS'

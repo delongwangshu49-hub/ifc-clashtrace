@@ -77,7 +77,7 @@ Assert-True ($record.Contains('supersedes those planned YouTube-side tasks for G
 Assert-True ($record.Contains('does **not** claim independent verification')) 'The non-claim boundary for unperformed platform checks is missing.'
 Assert-True ($submission.Contains('READY / G7B_PASS_BY_USER_FINAL_MEDIA_ACCEPTANCE')) 'Submission materials do not expose the authorized closure state.'
 Assert-True ($submission.Contains('rejects further YouTube operations')) 'Submission materials are missing the no-YouTube-operation decision.'
-Assert-True ($ledger.Contains('Status: `G7B · PASS / G7 · IN_PROGRESS`')) 'The claim ledger does not expose G7B as latest closed with G7 active.'
+Assert-True ($ledger.Contains('Status: `G7 · PASS / FINAL_DELIVERY_VERIFIED`')) 'The claim ledger does not expose G7 as the byte-verified final closure.'
 Assert-True ($development.Contains('data-claim-stage="G7B" data-claim-state="closed"')) 'The development page does not expose G7B as closed.'
 Assert-True ($development.Contains('>PASS</span>')) 'The development page G7B PASS token is missing.'
 Assert-True (-not $development.Contains('Unlisted upload')) 'The superseded English Unlisted route remains on the development page.'
