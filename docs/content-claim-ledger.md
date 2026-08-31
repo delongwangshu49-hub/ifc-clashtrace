@@ -1,8 +1,10 @@
 # IFC ClashTrace content claim ledger
 
-Status: `G7A · PASS / G7B · PLANNED`
+Status: `G7B · PASS / G7 · PLANNED`
 
-Latest closed checkpoint: `G7A · PASS`
+Latest closed checkpoint: `G7B · PASS`
+
+Current operational state: `G7B · PASS / USER_FINAL_MEDIA_ACCEPTANCE_SUPERSEDES_YOUTUBE_OPERATIONS`; G7 remains `PLANNED`. The user explicitly rejected further YouTube operations and made their manual acceptance of the final source film as perfectly matching their requirements supersede the planned caption-track, Studio and post-Premiere platform work. Public surfaces must preserve that provenance and must not imply those platform checks were independently performed.
 
 Scope date: 2026-08-31 (Asia/Hong_Kong)
 
@@ -12,10 +14,10 @@ This ledger controls factual claims in the homepage, functional workspace, devel
 
 | Claim ID | Public-safe claim | Authority | Allowed state |
 |---|---|---|---|
-| S-01 | G7A is the latest closed checkpoint. The accepted R02 BGM master is 2560 × 1440, 30 fps, 4,990 frames, and 166.333 seconds; G7B and G7 have not started. | Master plan G7A closure record; `PROGRESS_SYNC.md`; G7A production and QA records | G7A `PASS`; G7B/G7 `PLANNED` |
+| S-01 | G7B is the latest closed checkpoint. The accepted R02 BGM master is 2560 × 1440, 30 fps, 4,990 frames, and 166.333 seconds. The user scheduled it as a public YouTube Premiere for 2026-09-01 00:00 +08:00, accepted the final source film as perfectly matching their requirements, and explicitly superseded further YouTube operations with that manual acceptance. G7 has not started. | Master plan D-092/D-094; `PROGRESS_SYNC.md`; G7A production and G7B publication records | G7A/G7B `PASS`; G7 `PLANNED` |
 | S-02 | PG-C, PG-B, and PG-B-R2 remain verified; the cropped static Logo is publicly mapped and included in owner-only Sites version 11. | Asset manifest; immutable GitHub render; 30-path mapping; private deployment evidence | `PASS` |
 | S-03 | The Sites project remains owner-only and private. | Read-only Sites access verification on 2026-08-30 | `OWNER_ONLY_PRIVATE` |
-| S-04 | PG-E remains closed with accepted visual realism, 6/6 technical sentinels, 30/30 public mapping, owner-only Sites version 11, and all thirteen final hosted-UAT checks passing. VG and G7A are closed; the full MP4 remains local pending the separate G7B YouTube step. | PG-E UAT record; VG public manifest; G7A production and QA records | PG-E/VG/G7A `PASS`; G7B/G7 `PLANNED` |
+| S-04 | PG-E remains closed with accepted visual realism, 6/6 technical sentinels, 30/30 public mapping, owner-only Sites version 11, and all thirteen final hosted-UAT checks passing. VG, G7A and G7B are closed. The controlled source master remains outside the ordinary repository; the user explicitly waived further YouTube-side operations rather than claiming they were performed. | PG-E UAT record; VG public manifest; G7A production/QA and G7B publication records | PG-E/VG/G7A/G7B `PASS`; G7 `PLANNED` |
 | S-05 | The GitHub repository is public on `main`; this does not make Sites public. | Read-only Chrome GitHub verification; Sites access verification | factual distinction only |
 | S-06 | The product exposes Industrial Minimal only. A first visit starts in English and Dark; language and appearance choices persist across later visits and apply before the first visible frame. Homepage destinations open in new tabs; non-anchored workspace/development entries start at the top, while intentional hash links retain their target. | Master plan D-085/L-0091; executable entry tests; PG-F browser verification | `PASS` |
 
@@ -34,6 +36,7 @@ This ledger controls factual claims in the homepage, functional workspace, devel
 | C-09 | Development, README, workspace | The repaired PG-E pair is a coherent 12 m × 8 m one-storey clinic with enclosure, door-gapped partitions, slab, six columns, three beams, seven grid axes, seven represented ceiling pipe routes, and one deliberately geometry-free imported pipe segment. Eight pipe records against eight walls and three beams form 88 candidate records: 77 evaluated and 11 failure-closed. Shipped-core preflight matches 6/6 sentinels. | Manifest, operation ledger, sentinel baseline, structured UAT record, runtime selector, static-build packaging, and `scripts/test-pg-e.ps1`. GitHub 30/30 mapping and owner-only Sites version 11 final hosted UAT pass. |
 | C-10 | Development, README | PG-E includes plausible room/corridor services containing wall/beam clashes, 49 mm Warning, a disclosed 0.01 µm offset above the 50 mm non-warning boundary, 200 mm safe separation, and missing-geometry failure closing. | Human-authored operations plus shipped-core observation. Only six named pairs are independent expectations; no real-project accuracy claim. |
 | C-11 | Development, README | The accepted G7A R02 film is a 13-scene 1440p/30 fps BGM master. Its result counts close as `4 + 1 + 11 + 72 = 88`; hard clash is strictly `> 2 mm`; clearance warning is `< 50 mm`; AI cannot alter deterministic facts; and the film is not engineering certification. | `docs/g7a-production.md`; `video/g7a/production/r02-superres-qa.md`. The master hash is public evidence, but the MP4 and production binaries are excluded from the ordinary repository. |
+| C-12 | README, submission materials | The G7B direct link is `https://www.youtube.com/watch?v=jK3OSltoTEQ`. It is a user-selected public scheduled Premiere for 2026-09-01 00:00 +08:00, not `Unlisted`. Pre-Premiere title/description/cover/public-metadata/narrow-page checks passed. G7B closes on the user's explicit final-source-film acceptance and waiver of further YouTube operations; no independent claim is made for selectable caption tracks, Studio configuration, post-Premiere playback, stream quality or copyright/policy status. | `docs/g7b-youtube-publication.md`; D-094; no agent YouTube write. |
 
 ## Surface inventory
 
@@ -41,8 +44,8 @@ This ledger controls factual claims in the homepage, functional workspace, devel
 |---|---|
 | Homepage | Product capability claims C-01/C-02/C-03; first-visit and persisted display behavior follows S-06; the current development screenshot uses Industrial Minimal, Dark, and English; metadata is bilingual; GitHub, development, license, and data-license targets are non-empty. |
 | Functional workspace | Input boundary C-08; error and empty states fail closed; AI boundary C-05; metadata and static interface copy are bilingual. The eyebrow is capability wording, not a stale Gate label. |
-| Development log | Closed timeline through G7A with the final R02 specification and user acceptance recorded; G7B/G7 remain `PLANNED`; metrics use C-04/C-09/C-10/C-11; Sites privacy uses S-03. |
-| README | Closed evidence through PG-E is explicit, including the selectable hosted example, owner-only Sites version 11 UAT, and the static no-GIF Logo mapping. |
+| Development log | The latest closed checkpoint is G7B and G7 remains `PLANNED`; G7B wording must identify user acceptance as the authority that superseded further YouTube operations and must not claim those platform checks occurred. No direct YouTube link is added to the page. Metrics use C-04/C-09/C-10/C-11; Sites privacy uses S-03. |
+| README | Closed evidence through G7B remains explicit. README may register C-12 only with the user-acceptance provenance and no-agent-YouTube-write boundary. |
 | Navigation and footer | Targets must be non-empty and resolve to a local route, anchored workspace route, license/document route, or the established GitHub repository. Homepage destinations and cross-page workspace links open new tabs with `noopener`; ordinary page entries start at the top and intentional hash links retain their anchor. |
 | Metadata | Page title and description preserve the same product and progress scope in Simplified Chinese and English. |
 | Error and empty states | Missing input, no selected file, zero filtered records, unsupported input, provider failure, and incomplete geometry must not imply success or completion. |
@@ -62,13 +65,13 @@ Only actual Gate evidence and required user authorization may promote a planned 
 
 `scripts/test-pg-c.ps1` must fail on:
 
-1. a latest-closed checkpoint other than G7A after the verified G7A acceptance record;
+1. a latest-closed checkpoint other than G7B after the user's explicit D-094 closure decision;
 2. an empty or placeholder target;
-3. PG-B, PG-E, VG, or G7A without `data-claim-state="closed"` and `PASS`; or G7B/G7 without `planned`/`PLANNED` and matched “尚未开始” / “Not started” wording;
+3. PG-B, PG-E, VG, G7A or G7B without `data-claim-state="closed"` and `PASS`; G7B without matched user-acceptance/supersession wording and the no-independent-platform-verification boundary; or G7 without `planned`/`PLANNED` and matched “尚未开始” / “Not started” wording;
 4. mismatched Simplified Chinese/English claim pairs or metadata;
 5. an active homepage preview that is not Industrial Minimal, uses the wrong language/appearance pairing, or has mismatched display geometry;
-6. source/build disagreement on the status-band and planned-stage facts;
+6. source/build disagreement on the status-band, closed G7B, or planned G7 facts;
 7. regression of the G6 deployment and product contracts.
 8. a new visitor that does not start in English and Dark; a returning visitor whose saved language/appearance is not applied before the first visible frame; any reintroduced style switch or non-Industrial profile; a homepage destination that does not open a new tab with `noopener`; a non-hash workspace/development entry that does not start at the top; storage failure that breaks display controls; or an A/B scene-label contrast ratio below 4.5:1.
 
-The user accepted the clinic's visual effect and authorized the bounded repair publication and agent-performed final hosted UAT. The repair is verified at GitHub technical head `3038d431157c0e1eb1e1f2b4a9870ddb01609921` with 30/30 byte mapping and owner-only Sites version 11 deployment `appgdep_6a942076ec308191a41d58f4cf02cf3e`. VG and G7A subsequently passed. The accepted G7A master SHA-256 is `404c4576e3b315ac99b0fd67ccc0e608d132faa30aef9fa94aff10929889c2b0`; no full MP4, public Sites access, access-policy/key change, G7B/G7 start, or mobile computation is claimed.
+The user accepted the clinic's visual effect and authorized the bounded repair publication and agent-performed final hosted UAT. The repair is verified at GitHub technical head `3038d431157c0e1eb1e1f2b4a9870ddb01609921` with 30/30 byte mapping and owner-only Sites version 11 deployment `appgdep_6a942076ec308191a41d58f4cf02cf3e`. VG and G7A subsequently passed. The accepted G7A master SHA-256 is `404c4576e3b315ac99b0fd67ccc0e608d132faa30aef9fa94aff10929889c2b0`. The user scheduled that master as public Premiere `jK3OSltoTEQ`, then explicitly closed G7B by making their perfect-match manual source-film acceptance supersede all remaining YouTube operations. No selectable-caption, Studio-configuration, post-Premiere playback, stream-quality or copyright-status verification is claimed. No public Sites access, Sites access-policy/key change, agent-performed YouTube write, G7 start, or mobile computation is claimed.

@@ -52,4 +52,15 @@ The ordinary GitHub repository contains this sanitized record, the final QA reco
 - QA frame dumps, contact sheets or annotation stores;
 - local runtimes, caches, credentials, private paths or the private master plan.
 
-The complete MP4 is reserved for the separately authorized G7B YouTube `Unlisted` workflow. G7A acceptance does not start G7B, publish Sites, change access or permissions, configure a hosted key, or authorize any paid action.
+The complete MP4 was subsequently used by the user for the separately controlled G7B YouTube step. G7A acceptance itself did not authorize or perform a YouTube/Sites write, access or permission change, hosted-key configuration, or paid action.
+
+## G7B delivery registration
+
+The user uploaded this exact accepted master and scheduled a public YouTube Premiere for `2026-09-01 00:00 +08:00`:
+
+- Watch URL: <https://www.youtube.com/watch?v=jK3OSltoTEQ>
+- Video ID: `jK3OSltoTEQ`
+- Visible title: `IFC ClashTrace | Deterministic IFC Clash Detection in the Browser`
+- Current G7B state: `PASS / USER_FINAL_MEDIA_ACCEPTANCE_SUPERSEDES_YOUTUBE_OPERATIONS`
+
+The user-selected public-Premiere route supersedes the earlier planned `Unlisted` route for this upload. Pre-Premiere checks verified the scheduled page, title, description, hashtags, channel identity, cover, anonymous public metadata and narrow presentation. The user then confirmed that the manually reviewed final source film perfectly matches their personal requirements and explicitly made that acceptance supersede all remaining YouTube operations. Therefore no selectable-caption, Studio, post-Premiere playback/quality or copyright-status verification is claimed. The complete record and controlled English/Simplified Chinese sidecars are in `docs/g7b-youtube-publication.md` and `video/g7b/`.
