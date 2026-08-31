@@ -1,0 +1,63 @@
+1
+00:00:00,800 --> 00:00:07,433
+IFC ClashTrace. Geometry. Result. Evidence. Every relationship, traceable.
+
+2
+00:00:08,800 --> 00:00:17,100
+When a pipe meets structure, a reviewer needs more than a coloured marker. They need to know what was tested, which rule fired, and why.
+
+3
+00:00:19,300 --> 00:00:30,200
+Start with two IFC4 files. They stay in the browser. Before the run, the interface keeps file roles, supported boundaries, and evidence expectations in view.
+
+4
+00:00:32,100 --> 00:00:34,433
+Choose the MEP IFC.
+
+5
+00:00:35,500 --> 00:00:37,867
+Choose the structural IFC.
+
+6
+00:00:41,900 --> 00:00:44,100
+Confirm shared coordinates.
+
+7
+00:00:44,500 --> 00:00:47,267
+Then run one deterministic review.
+
+8
+00:00:48,300 --> 00:00:58,067
+This controlled example is a synthetic twelve-by-eight-metre clinic: seven represented pipe routes, plus one pipe segment with no geometry.
+
+9
+00:00:59,300 --> 00:01:09,400
+Eighty-eight wall-and-beam relationships resolve to four clashes, one clearance warning, eleven not-evaluated records, and seventy-two passes.
+
+10
+00:01:11,300 --> 00:01:22,333
+Select a record. The three-dimensional view isolates the pipe and structure, while the evidence panel shows component types, rule, measurement, and evaluation boundary.
+
+11
+00:01:24,133 --> 00:01:35,833
+The boundary is explicit. Interior depth must be greater than two millimetres for a hard clash. Forty-nine millimetres triggers a clearance warning. Fifty millimetres does not.
+
+12
+00:01:38,133 --> 00:01:48,233
+If geometry, coordinates, units, or reliability fall outside the supported contract, the result is not evaluated—not quietly passed.
+
+13
+00:01:50,133 --> 00:02:03,300
+Controlled tests keep that logic honest: eight of eight authored cases agree with an independent reference and the browser core; nine of nine clearance fixtures agree across both evaluator routes.
+
+14
+00:02:05,133 --> 00:02:17,233
+AI remains separate. A four-record review pack exposes only minimal derived fields, requires fresh consent, and cannot change deterministic status or measurement.
+
+15
+00:02:20,133 --> 00:02:31,700
+This is a focused feasibility prototype for IFC4 STEP, unprefixed metre units, established shared coordinates, and pipe relationships against walls and beams.
+
+16
+00:02:33,133 --> 00:02:46,233
+It is not engineering certification, and it does not claim accuracy for arbitrary projects. It offers a disciplined review path: geometry, result, evidence. Every relationship, traceable.
