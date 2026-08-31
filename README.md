@@ -1,248 +1,178 @@
+<div align="center">
+  <img src="docs/assets/brand/ifc-clashtrace-github-logo.png" width="240" alt="IFC ClashTrace product logo: a metallic pipe crosses layered wall panels beside an outlined clash marker and inspection alert.">
+
 # IFC ClashTrace
 
-<p align="center">
-  <img src="docs/assets/brand/ifc-clashtrace-github-logo.png" width="240" alt="IFC ClashTrace product logo: a metallic pipe crosses layered wall panels beside an outlined clash marker and inspection alert.">
-</p>
+**Deterministic, browser-local IFC clash evidence with optional AI interpretation.**
 
-IFC ClashTrace is a deterministic browser/Web IFC feasibility project for traceable MEP-to-structure hard-clash detection. It is a Web micro-prototype, not a runtime LLM agent and not a certified engineering compliance tool.
+[Live Site](https://ifc-clashtrace.tuned-box-0320.chatgpt.site) · [Product Film](https://www.youtube.com/watch?v=jK3OSltoTEQ) · [简体中文](README.zh-CN.md)
 
-## Current checkpoint
+![Build](https://img.shields.io/badge/build-passing-2f855a?style=flat-square)
+![IFC](https://img.shields.io/badge/IFC-IFC4-4b5563?style=flat-square)
+![License](https://img.shields.io/badge/code-MIT-2563eb?style=flat-square)
+![Data](https://img.shields.io/badge/generated_data-CC0--1.0-7c3aed?style=flat-square)
+</div>
 
-G1 proves the dual geometry routes. G2 freezes a deterministic eight-case IFC4 acceptance dataset. G3A hardens that frozen contract. G3B defines a strict, rotation-invariant structure-interior depth threshold, fails closed when the `2 mm` erosion core is empty or degenerate, and confines the historical world-axis AABB guard to C04 evidence only. G3C adds a separate, deterministic `<50 mm` pipe-to-structure surface-clearance contract with hard-clash deduplication and failure-closed records. G3C-R1 also requires both evaluator routes to fail closed on an unknown upstream hard-clash status and prevents generated artifact paths from escaping their selected output root. G3 integrates both deterministic rules into a browser-compatible two-IFC core using `web-ifc` and `three-mesh-bvh`.
+IFC ClashTrace compares one MEP IFC model with one structural IFC model directly in the browser. It produces deterministic hard-clash and surface-clearance records, links every result back to both elements and its calculation evidence, and fails closed as `NOT_EVALUATED` when the available geometry cannot support a reliable conclusion.
 
-The R4 Design Gate package in `docs/design-brief.md` is user-approved. Base G4 and its bounded G4-R1 repair are published and verified as a three-page deterministic vertical slice: a public homepage, a functional review workspace, and a sanitized development-history page. The workspace puts the two local IFC inputs first and keeps the controlled review pack as a secondary demo path; it runs the completed G3 core, displays hard-clash and clearance outcomes together, exposes filterable records and a full evidence drawer, and focuses the selected GUID pair from the real IFC meshes in Three.js. G4-R1 invalidates prior review state whenever an input changes, revokes shared-coordinate consent for every new custom pair, and forces the next 3D review to load the new model bytes. Popular experience/Engineering minimal, Simplified Chinese/English, and light/dark preferences are shared. The homepage combines product explanations into hover/focus modules backed by four current, program-generated screenshots of the real local routes. See `docs/g4-vertical-slice.md`.
+The public Sites deployment is live. Its optional Groq interpretation layer is server-side, consent-gated, and unable to alter deterministic records. G7 remains in progress while the final audit and bilingual GitHub delivery are being closed.
 
-G4AI adds a separately controlled optional interpretation layer. It defaults off, requires a visible minimal-field preview plus a fresh consent checkbox before each external request, sends no IFC bytes/GUIDs/names/files/paths/hashes/diagnostics, and keeps provider authentication server-side. After reviewing alternatives, the user selected GroqCloud Free Plan with `openai/gpt-oss-20b` as the dated 2026-08-28 adapter; Gemini and Hugging Face were rejected for this implementation boundary. A bounded G4AI-R1 repair replaces enum-materialized fragments with a closed exact-key schema containing one cross-record synthesis plus bounded per-record analysis and next steps. Its refined UI uses one pre-run capability/provider/terms sentence and one compact post-run AI control directly below the deterministic summary, avoiding duplicate switches and instructions. G4AI-R2 limits one request to six deterministic records; retry always returns to a new preview and unchecked consent, while operation identities prevent cancelled or stale requests from overwriting a newer language, preview, or result. G4AI-R3 aligns the strict schema with Groq's currently documented structural subset, raises the bounded completion cap from 900 to 1,600 tokens, uses deterministic temperature zero, and separates output-limit, refusal, provider, malformed, and semantic failures without retaining raw content. Its live closure also fixes a case-insensitive status-token false positive and rejects unsupported safety, constructability, design-intent, ownership, compliance, certification, false-positive/negative, and physical-solution claims. Fresh-consent English and Simplified Chinese provider responses both passed with the deterministic `1/1/1/1` summary unchanged, so the current bounded-prose path is `PASS`. Wrong-language text, uppercase machine-status tokens, numeric claims, URLs, unknown references, incomplete coverage, and unsupported engineering claims still fail closed to a richer local analysis; no status, rule, measurement, or evidence record can be changed. See `docs/g4ai-provider-evaluation.md` and `docs/g4ai-architecture.md`. Deployment, public-access changes, mobile IFC computation, and video remain outside G4AI.
+## Highlights
 
-G5 turns that implementation into a bounded evaluation record. The controlled suite has `8/8` three-way status agreement across the authored operation ledger, IfcOpenShell reference, and shipped browser core, with `3` true positives, `0` false positives, `0` false negatives, `4` true negatives, and `1` deliberate abstention. Both clearance routes match `9/9` supplemental fixtures. A buildingSMART PCERT IFC4 sample pair opens in web-ifc and IfcOpenShell but correctly fails the product contract closed because it uses millimetres and has no `IfcPipeSegment`; it is not accuracy ground truth. Six local mock AI checks preserve every deterministic fact, and all five invalid/unavailable paths return the exact local fallback. See `docs/evaluation.md`. Formal support remains IFC4 under the documented narrow boundary; IFC4X3 is exploratory only.
+- **Browser-local IFC processing** — IFC bytes, meshes, filenames, paths, GUIDs, and element names are not sent to the AI provider.
+- **Two deterministic rules** — strict `> 2 mm` hard-clash classification and `< 50 mm` surface-clearance warning semantics.
+- **Evidence-first review** — filterable records, paired element identity, measurements, diagnostics, a full evidence drawer, and Three.js focus/isolation.
+- **Failure-closed behavior** — incomplete or unsupported geometry returns `NOT_EVALUATED`; the application does not guess `CLEAR`.
+- **Optional AI interpretation** — off by default, exact-field preview, fresh per-request consent, strict schema validation, and deterministic fallback.
+- **Bilingual interface** — English and Simplified Chinese with persistent Light/Dark preferences.
+- **Open evidence** — controlled fixtures, evaluation records, support boundaries, deployment architecture, licenses, and the development log are inspectable.
 
-G6 packages the same three-page application as an owner-only private deployment. The current build contains the browser-local deterministic runtime, the 16 frozen G2 IFC files plus the two-file realistic PG-E clinic example, an optional same-origin Worker AI boundary, no source maps, and no hosted key. Privacy, path, media metadata, dependency license, package vulnerability, and no-key failure-closing checks pass. Owner-only Sites version 11 carries the PG-E/PG-B-R2 repair and final hosted UAT target. Access remains private to one owner; no public Sites access was introduced. See `docs/g6-deployment-architecture.md`, `docs/g6-privacy-license-audit.md`, and `THIRD-PARTY-NOTICES.md`.
+## Try it
 
-PG-B and its Logo revisions are closed. `PG-B-R2 PASS` crops only excess transparent canvas, preserves every visible source pixel, and reduces the README display width from 420 px to 240 px. The canonical asset is 951 × 679 RGBA with a 48 px transparent margin and no GIF dependency. At immutable public GitHub head `3038d431157c0e1eb1e1f2b4a9870ddb01609921`, it renders at 240 × 171.354 px and all 30 audited paths match byte for byte. Sites remains owner-only and private.
+Open the [live application](https://ifc-clashtrace.tuned-box-0320.chatgpt.site/app/), then:
 
-PG-E is `PASS`. The user accepted the visual realism of the rebuilt 12 m × 8 m, one-storey community clinic: perimeter and door-gapped internal walls, a ground slab, six columns, three beams, an A–C / 1–4 grid, and room-serving ceiling services. The pair contains seven represented pipe routes plus one deliberately geometry-free imported `IfcPipeSegment` used only to prove failure closing. Against eight walls and three beams they form 88 candidate records: 77 receive an evaluated outcome and 11 fail closed as `NOT_EVALUATED`. Six independently authored sentinels retain 6/6 repeated technical agreement. Owner-only Sites version 11 final UAT produced 4 CLASH, 1 WARNING, 11 NOT_EVALUATED, and 72 CLEAR records in 5569 ms, with working 3D evidence, stale-state invalidation, presentation-matrix checks, and no console warnings or errors. The structured UAT record freezes the target and all thirteen passing checks. See `docs/pg-e-engineering-uat.md`.
+1. Choose `Review pack · C01 / C03 / C05 / C08`.
+2. Select **Load example**.
+3. Run the deterministic checks.
+4. Review one `CLASH`, one `WARNING`, one `CLEAR`, and one `NOT_EVALUATED` record.
+5. Optionally enable AI, inspect the exact derivative fields, and provide fresh consent for a single interpretation request.
 
-VG, G7A and G7B are `PASS`. The accepted R02 product film is a 13-scene, 4,990-frame, 166.333-second master at 2560 × 1440 and 30 fps with narration, SFX, and BGM. It uses limited-range BT.709 H.264 High video and 48 kHz stereo AAC-LC audio. Its SHA-256 is `404c4576e3b315ac99b0fd67ccc0e608d132faa30aef9fa94aff10929889c2b0`. The final logic review confirms `4 + 1 + 11 + 72 = 88`, strict `> 2 mm` hard-clash semantics, `< 50 mm` warning semantics, failure-closing `NOT_EVALUATED`, AI separation, and the focused-prototype/not-engineering-certification boundary. The MP4, raw captures, narration, music, review media, and QA frame dumps remain outside the ordinary GitHub repository; only sanitized evidence is tracked. The user uploaded the accepted master and scheduled a public YouTube Premiere for 2026-09-01 00:00 +08:00. The direct video is [IFC ClashTrace | Deterministic IFC Clash Detection in the Browser](https://www.youtube.com/watch?v=jK3OSltoTEQ). Title, description, hashtags, channel identity, cover, public metadata reachability and narrow-page presentation were verified before the Premiere. The user then confirmed that the manually reviewed final source film perfectly matches their personal requirements and explicitly made that acceptance supersede all further YouTube operations. No selectable-caption, Studio-configuration, post-Premiere playback/quality or copyright-status verification is claimed, and the agent performed no YouTube write. G7 remains not started. See `docs/g7a-production.md` and `docs/g7b-youtube-publication.md`.
+For a larger generated example, choose `PG-E · Realistic one-storey clinic · 88 pairs`.
 
-The frozen G2/G3A contract includes:
+## How it works
 
-- 3 expected `CLASH` cases, 4 expected `CLEAR` cases, and 1 expected `NOT_EVALUATED` case;
-- touching, 1 mm sub-tolerance intrusion, clear separation, modeled opening, diagonal pierce, and missing-geometry coverage;
-- a human-authored constructive operation ledger, machine-readable ground truth, file hashes, fixed/rebuildable GUIDs, and CC0-1.0 data licensing;
-- IfcOpenShell `0.8.5` reference results matching all 8 expected statuses and all 3 expected clash pairs;
-- an independent repository-relative path–SHA-256 baseline for all 16 IFC files;
-- isolated regeneration that cannot silently rewrite the committed G1/G2 fixtures;
-- exact assertions for the approved rule, IFC4 schema, metre unit, shared project coordinates, and `0.002 m` tolerance;
-- negative tests that reject rule, schema, unit, coordinate-system, tolerance, status, path, and hash mutations.
-
-The eight cases are a public contract acceptance suite, not a hidden holdout set and not evidence of general real-project accuracy. G3B adds 13 analytic proof fixtures for touching, `1.9/2.0/2.1 mm` plus a `0.5 nm`-above-threshold regression, `3.0/4.0/4.2 mm` thin structures, rotation, oblique crossing, explicit AABB divergence, and failure-closed behavior. G3B10/G3B11 consume caller-supplied reliability preconditions; they do not themselves validate topology or coordinate registration. G3C adds nine independent clearance cases covering `0/49/50/51 mm`, a hard-clash-suppressed pair, rotated oblique placement, a modeled opening, missing geometry, and unverified coordinates. G3 matches all eight frozen hard-clash statuses in Node and current desktop Chrome, suppresses all three confirmed hard clashes from clearance output, and fails closed on malformed IFC, unverified coordinates, non-finite or non-frozen v1 thresholds, missing/partial/invalid geometry, or unsupported intersecting geometry. See `docs/data-and-licenses.md`, `docs/g3a-contract-hardening.md`, `docs/g3b-tolerance-semantics.md`, `docs/g3c-clearance-semantics.md`, and `docs/g3-core-engine.md` for evidence and limitations.
-
-## Reproduce G1 on Windows
-
-Requirements: PowerShell 7 and Python 3.13 on Windows x64.
-
-```powershell
-pwsh -NoLogo -NoProfile -File .\scripts\setup-g1.ps1
-pwsh -NoLogo -NoProfile -File .\scripts\test-g1.ps1
+```text
+MEP IFC + structural IFC
+        │
+        ▼
+browser-local web-ifc parsing
+        │
+        ▼
+deterministic hard-clash + clearance engine
+        │
+        ├── records, measurements, diagnostics and 3D evidence
+        │
+        └── optional minimal derivative
+                │ exact preview + fresh consent
+                ▼
+           same-origin Worker
+                │
+                ├── Groq interpretation (when available)
+                └── deterministic local fallback
 ```
 
-The setup script downloads Node.js `24.19.0` LTS from the official distribution, verifies its SHA-256 against the official manifest, and installs all dependencies into ignored project-local directories.
+The deterministic engine is always authoritative. Provider output contains prose only and cannot change status, rule, measurement, element mapping, or evidence fields.
 
-To run the unstyled browser-only technical harness:
+## Quick start
 
-```powershell
-.\.tools\node-v24.19.0-win-x64\node.exe .\scripts\g1-static-server.mjs
-```
+### Requirements
 
-Open `http://127.0.0.1:4173/spikes/g1-browser/` in desktop Chrome. A successful run displays `PASS`, the two IFC4 schemas, and the mapped GUID pair.
+- Node.js 24 or newer
+- PowerShell 7 for the full verification suite
+- Desktop Chrome for the supported interactive review path
 
-## Reproduce G2 on Windows
+### Install and run
 
-After completing the G1 setup command above, run:
-
-```powershell
-pwsh -NoLogo -NoProfile -File .\scripts\test-g2.ps1
-```
-
-This regenerates all 16 IFC files twice, verifies byte-for-byte determinism and manifest hashes, and compares all eight records with the independent IfcOpenShell reference route. Local detector outputs are written under the ignored `outputs/local-only/` directory.
-
-Generation now occurs only beneath ignored, isolated output roots. Writing to the committed repository baseline requires the generator's explicit `--allow-baseline-write` opt-in and is never used by tests.
-
-## Reproduce G3A on Windows
-
-After completing the G1 setup command, run the full contract-hardening suite:
-
-```powershell
-pwsh -NoLogo -NoProfile -File .\scripts\test-g3a.ps1
-```
-
-The suite runs the G1 and G2 regressions, validates the frozen 16-file path–SHA-256 map against both the committed data and two isolated generations, rejects eight contract mutations, and asserts that protected baseline hashes and Git worktree state do not change.
-
-## Reproduce G3B on Windows
-
-After completing the G1 setup command, run:
-
-```powershell
-pwsh -NoLogo -NoProfile -File .\scripts\test-g3b.ps1
-```
-
-The suite proves the bounded interior-depth semantic, verifies that equality at `2 mm` is `CLEAR`, demonstrates that rotated world-axis AABB overlap cannot stand in for depth, checks three `NOT_EVALUATED` paths, and reruns the full G1/G2/G3A/G3A-R1 regression chain.
-
-## Reproduce G3C on Windows
-
-After completing the G1 setup command, run:
-
-```powershell
-pwsh -NoLogo -NoProfile -File .\scripts\test-g3c.ps1
-```
-
-The suite regenerates nine controlled clearance artifacts twice in isolated roots, verifies their repository-relative SHA-256 baseline, compares the exact analytic rule against an independent `three-mesh-bvh` triangle-surface reference, checks the strict 50 mm boundary and hard-clash deduplication, rejects unknown upstream status and path-traversal mutations, and reruns every G1/G2/G3A/G3B regression.
-
-## Reproduce G3 on Windows
-
-After completing the G1 setup command, run the integrated browser-core suite:
-
-```powershell
-pwsh -NoLogo -NoProfile -File .\scripts\test-g3.ps1
-```
-
-The suite opens each frozen G2 MEP/structure pair through `web-ifc`, filters `IfcPipeSegment` against `IfcWall`/`IfcBeam`, evaluates the bounded hard-clash certificate, emits Clash Records and Clearance Warning Records, checks 12 failure-closed guards plus deterministic repetition, and reruns the full G1 through G3C chain.
-
-For the unstyled current-Chrome runtime harness, start the existing local server and open the G3 path:
-
-```powershell
-.\.tools\node-v24.19.0-win-x64\node.exe .\scripts\g1-static-server.mjs
-```
-
-Open `http://127.0.0.1:4173/spikes/g3-browser/`. A passing run reports all eight exact frozen statuses. This is an automated technical harness, not product UI.
-
-## Reproduce G4 on Windows
-
-After completing the G1 setup command, run the G4 contract, local-route smoke test, and full G3 regression:
-
-```powershell
-pwsh -NoLogo -NoProfile -File .\scripts\test-g4.ps1
-```
-
-Start the local product server:
-
-```powershell
-.\.tools\node-v24.19.0-win-x64\node.exe .\scripts\g1-static-server.mjs
-```
-
-Open `http://127.0.0.1:4173/` in current desktop Chrome. The controlled review pack uses real frozen IFC bytes for C01/C03/C05/C08 so the same review surface demonstrates `CLASH`, `WARNING`, `CLEAR`, and `NOT_EVALUATED`. Use `/app/` for the workspace and `/development/` for the sanitized evidence history. The deterministic workflow remains fully local and usable without a network connection.
-
-## Reproduce G4AI on Windows
-
-Automated tests never require a key or consume live quota:
-
-```powershell
-pwsh -NoLogo -NoProfile -File .\scripts\test-g4ai.ps1
-```
-
-For the optional live adapter, set `GROQ_API_KEY` only in the server process environment, then start the G4AI server. Do not put a real key in `.env.example`, browser code, Git, logs, screenshots, or video.
-
-```powershell
-$env:GROQ_API_KEY = '<local secret>'
-.\.tools\node-v24.19.0-win-x64\node.exe .\scripts\g4ai-local-server.mjs
-```
-
-Open `http://127.0.0.1:4173/app/`. The deterministic run remains browser-local. Enabling AI sends nothing; the user must preview the exact derivative, check a fresh consent box, and click the send button. Without a key or network, the original `g4:serve` route and all deterministic functions remain available.
-
-## Product boundaries through G6-R1
-
-- G3 supports exact IFC4 files with unprefixed metre units and an explicitly established shared project coordinate system; both models must expose the same valid web-ifc coordination transform.
-- The v1 rule IDs require the exact finite `0.002 m` hard-clash and `0.05 m` clearance constants; caller-supplied alternatives fail closed instead of silently changing rule meaning.
-- The hard-clash classifier requires finite, indexed, closed two-manifold tessellations and certifies straight finite pipe axes against reliable structure meshes. It samples structure-interior surface depth at at most `0.5 mm` intervals, requires depth strictly greater than `2 mm`, and fails closed when an intersecting configuration is outside that certificate family.
-- Each consumed placed-geometry part must validate. Degenerate faces may be skipped only when a non-degenerate closed surface remains; an all-degenerate part, an invalid index buffer, or one failed part among otherwise valid parts makes the affected pair `NOT_EVALUATED`.
-- Browser penetration distance is not claimed; `penetration_distance_m` remains `null`. The certified maximum structure-interior depth is evidence for the approved status, not a general physical penetration measure.
-- IfcOpenShell raw surface intersection reports C04 as an intersection; only C04 may apply its parsed world-bounds overlap guard (`~0.001 m < 0.002 m`). No other G2 or G3B case may inherit AABB classification.
-- World-axis AABB may be a future broad-phase candidate filter only; it cannot output a clash, penetration distance, or general clear result.
-- G3 uses triangle-surface minimum distance for the clearance rule only after an authoritative hard-clash `CLEAR`; `CLASH` suppresses the clearance record and `NOT_EVALUATED` propagates failure closing.
-- The exact analytic classifier has no epsilon deadband. The independent Float32 triangle-mesh route uses a `1e-7 m` agreement tolerance only for reference comparison, not for the 50 mm rule threshold.
-- Confirmed hard-clash pairs emit no clearance record; unreliable geometry or coordinates emit `NOT_EVALUATED` with a diagnostic.
-- Any upstream hard-clash status other than authoritative `CLEAR` or `CLASH` fails closed in both evaluator routes; generated case IDs and resolved artifact paths are containment-guarded.
-- The eight G2 cases and nine G3C cases are controlled acceptance evidence, not a claim of arbitrary IFC/exporter or real-project accuracy.
-- G3 remains the completed deterministic core; G4 consumes it without changing its frozen thresholds, certificates, records, or failure-closing behavior.
-- Base G4 implements file/example selection, run feedback, result filtering, evidence review, and real IFC 3D focus under the separately approved DG R4 visual contract.
-- G4AI never sends IFC bytes, meshes, GUIDs, names, filenames, paths, hashes, locations, diagnostics, browser metadata, or account data. It sends only a fixed-rule, allowlisted derivative with local record aliases.
-- The browser bundle contains no provider endpoint, authorization header, or key access. `GROQ_API_KEY` is read by the optional same-origin Node server only.
-- Provider output has no status or measurement fields. Its exact actionable record keys contain only bounded analysis text, attention, and a next step; it is separately labelled, schema-validated, and rejected if it uses the wrong language, restates deterministic status tokens, adds numeric metre/millimetre claims or URLs, or returns unknown/incomplete record coverage.
-- The Groq free plan, model, account access, quota, retention controls, and terms are time-sensitive. The recorded 2026-08-28 comparison and controlled live success are not a permanent-free, regional-availability, uptime, or production-capacity claim. Automated tests consume no live quota; use the approved reservation policy in `docs/g4ai-provider-evaluation.md` before reviews or demonstrations.
-- The accepted G7A film is documented but not stored in the ordinary repository. The user separately uploaded it as the public scheduled YouTube Premiere recorded above and closed G7B through explicit final-media acceptance; no agent-performed YouTube write, public Sites access, mobile IFC review, or unperformed platform-check claim is included.
-- No third-party or private project IFC is included in the G2 dataset.
-
-## G5 evaluation
-
-Run the public evaluation contract with PowerShell 7:
-
-```powershell
-pwsh -NoLogo -NoProfile -File .\scripts\test-g5.ps1
-```
-
-For the complete local acceptance run, first acquire the two named buildingSMART PCERT samples at the source commit and verify the SHA-256 values in `docs/evaluation.md`, then add `-RequireOfficialSamples`. External samples and machine-specific timing outputs remain ignored and are never publication candidates.
-
-## Reproduce the G6 private candidate
-
-Install the exact locked packages, then run the public G6 contract with PowerShell 7:
-
-```powershell
+```bash
 npm ci
-pwsh -NoLogo -NoProfile -File .\scripts\test-g6.ps1
-```
-
-The build emits static assets under `dist/client` and the Worker at `dist/server/index.js`. To inspect the owner-local preview without a provider key:
-
-```powershell
+npm run build
 npm run preview
 ```
 
-Open `http://127.0.0.1:4173/`. No Sites project creation, deployment, public-access change, GitHub write, or live AI call is performed by the test. A hosted private preview and any later public access each require separate owner authorization.
+Open `http://127.0.0.1:4173/`.
 
-## Reproduce the PG-C content contract
+The deterministic application works without an API key. `GROQ_API_KEY` is optional, must remain server-side, and must never be committed. See [.env.example](.env.example) and the [AI architecture](docs/g4ai-architecture.md) before enabling a local provider route.
 
-Run the public claim-ledger, bilingual metadata, link, planned-stage, build-parity, and regression guard with PowerShell 7:
+## Verification
 
-```powershell
-pwsh -NoLogo -NoProfile -File .\scripts\test-pg-c.ps1
-```
-
-The test rejects a stale latest-closed Gate, empty targets, a later stage presented as complete, mismatched Chinese/English claim pairs, or an unmarked historical screenshot. It does not write to GitHub or Sites, change access, configure a key, or start any later Gate.
-
-## Reproduce the PG-B static GitHub Logo contract
-
-Run the public asset, timing, hash, metadata, README fallback, alt-text, status, and weight guard with PowerShell 7:
+Run the complete current build and regression chain:
 
 ```powershell
-pwsh -NoLogo -NoProfile -File .\scripts\test-pg-b.ps1
+pwsh -NoProfile -File scripts/test-g6.ps1
 ```
 
-The local PG-B-R2 candidate preserves every visible Logo v2 pixel while cropping the 1024-square transparent canvas to 951 × 679 with a 48 px transparent margin. It is displayed at 240 px README width, declares descriptive alt text, and has no animation, GIF, generated layers, or motion-build dependency. The test performs no GitHub or Sites write; the previous public PG-B-R1 evidence and the new publication stop gate are recorded in `docs/pg-b-github-logo.md`.
-
-## Reproduce the PG-E technical contract
-
-Run the deterministic engineering-pack generation, hash, spatial-organization, sentinel, failure-closing, and regression guard with PowerShell 7:
+Focused public contracts are also available:
 
 ```powershell
-pwsh -NoLogo -NoProfile -File .\scripts\test-pg-e.ps1
+pwsh -NoProfile -File scripts/test-pg-c.ps1
+pwsh -NoProfile -File scripts/test-pg-b.ps1
+pwsh -NoProfile -File scripts/test-pg-e.ps1
+pwsh -NoProfile -File scripts/test-g7b.ps1
 ```
 
-The test regenerates the CC0 pair twice in ignored isolated roots, checks byte-for-byte identity, validates the realistic one-storey planning context, and emits all 88 candidate records through the shipped browser core: 77 evaluated outcomes and 11 deliberate failure-closed records. It also validates the completed structured UAT record and immutable publication target. The test itself performs no GitHub, Sites, permission, key, provider, VG/G7, mobile, or video action.
+Current controlled evidence includes:
 
-## AI assistance
+| Evidence | Result |
+|---|---:|
+| Frozen hard-clash cases | 8/8 three-way status agreement |
+| Independent clearance fixtures | 9/9 agreement on both evaluator routes |
+| Controlled hard-clash TP / FP / FN / TN | 3 / 0 / 0 / 4, plus one deliberate abstention |
+| PG-E technical sentinels | 6/6 |
+| PG-E full result set | 4 `CLASH`, 1 `WARNING`, 72 `CLEAR`, 11 `NOT_EVALUATED` |
+| Hosted controlled AI check | Provider mode; deterministic `1/1/1/1` summary preserved |
 
-AI-assisted implementation prompts and human verification are summarized in `PROMPTS.md`. Clash status is always decided by deterministic geometry code.
+These are bounded controlled results, not a claim of arbitrary real-project accuracy or engineering certification.
 
-## Design Gate review
+## Supported boundary
 
-Run the public DG contract with PowerShell 7:
+| Area | Current support |
+|---|---|
+| Schema | IFC4 |
+| Encoding | Uncompressed STEP IFC |
+| Length unit | Metres |
+| Coordinates | Shared project coordinates; no automatic registration |
+| File size | Up to 25 MiB per candidate file |
+| Primary runtime | Desktop Chrome, at least 1024 CSS px |
+| Hard clash | Strictly greater than 2 mm certified interior depth |
+| Clearance warning | Surface distance below 50 mm |
+| Mobile computation | Not currently supported |
 
-```powershell
-pwsh -NoLogo -NoProfile -File .\scripts\test-dg.ps1
+IFC4X3 and broader exporter compatibility remain exploratory. Unsupported or ambiguous inputs fail closed.
+
+## Privacy and AI boundary
+
+AI is optional and disabled by default. A request is possible only after the interface displays the exact derivative and receives fresh consent. The request contract allows at most six records and excludes:
+
+- IFC bytes and meshes;
+- GUIDs, element names, filenames, paths, and hashes;
+- diagnostics, browser metadata, account data, and private project content.
+
+The hosted credential is stored as a Sites Secret and is absent from the repository, client bundle, source maps, logs, and public error bodies. Provider outages, timeouts, quota errors, malformed output, refusals, or semantic violations fail closed to a local interpretation while deterministic evidence remains available.
+
+## Project structure
+
+```text
+app/                     browser UI, deterministic client and AI boundary
+worker/                  same-origin hosted AI Worker
+data/                    frozen controlled data and generated CC0 fixtures
+development/             public development and evidence log
+docs/                    architecture, evaluation, privacy and Gate records
+scripts/                 generators, tests and publication checks
+spikes/                  preserved feasibility/browser experiments
 ```
 
-This check validates the required review sections, research links, low-fidelity SVG contract, unchanged G3 regression, and the recorded DG approval/G4 authorization boundary. Maintainer publication audits are intentionally local-only and are not part of the public repository. Passing the public contract alone does not approve a design; DG R4 received separate explicit user approval, and later Gates still require separate authorization.
+## Documentation
 
-## License status
+- [Evaluation and measured boundaries](docs/evaluation.md)
+- [Deterministic browser core](docs/g3-core-engine.md)
+- [Optional AI architecture](docs/g4ai-architecture.md)
+- [Deployment architecture](docs/g6-deployment-architecture.md)
+- [Privacy and license audit](docs/g6-privacy-license-audit.md)
+- [Product brand and Logo evidence](docs/pg-b-github-logo.md)
+- [Generated data and licenses](docs/data-and-licenses.md)
+- [Content claim ledger](docs/content-claim-ledger.md)
+- [Development log](https://ifc-clashtrace.tuned-box-0320.chatgpt.site/development/)
 
-Project code is licensed under the MIT License in `LICENSE`. IFC files and accompanying ground-truth data generated by this project are dedicated under CC0-1.0 as described in `data/generated/LICENSE.md`. Third-party dependencies and any future external data retain their own licenses; deployment-candidate notices and the complete locked inventory are recorded in `THIRD-PARTY-NOTICES.md` and `docs/dependency-licenses.json`.
+## Contributing
+
+Issues and focused pull requests are welcome. Please preserve deterministic outputs, add a reproducible fixture for rule changes, keep unknown geometry failure-closed, and run the full G6 verification chain before proposing a change.
+
+Do not commit private IFC files, credentials, local `.env` files, build output, browser profiles, or video production binaries.
+
+## License
+
+Source code is licensed under the [MIT License](LICENSE). Project-generated IFC fixtures are released under [CC0-1.0](data/generated/LICENSE.md). Third-party components retain their own licenses; see [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) and [docs/dependency-licenses.json](docs/dependency-licenses.json).
+
+## Disclaimer
+
+IFC ClashTrace is a focused review prototype, not engineering, regulatory, fire-safety, structural-safety, or compliance certification. Qualified reviewers must make project decisions from the complete model and evidence.

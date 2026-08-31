@@ -5,8 +5,8 @@
 > 创建时间：2026-08-25（Asia/Hong_Kong）  
 > 目标完成时间：不晚于 2026-08-31 晚间（Asia/Hong_Kong）  
 > 项目根目录：`<PROJECT_ROOT>`  
-> 当前阶段：VG、G7A 与 G7B 已闭合为 PASS；用户亲自上传获验收的 G7A R02 母版并设为 2026-09-01 00:00 +08:00 公开 YouTube 首播，随后确认人工审核原片完全符合个人要求，并明确以该验收覆盖剩余 YouTube 操作；G7 未启动；Sites 保持所有者私有
-> 当前 Gate：`G7B — PASS / USER_FINAL_MEDIA_ACCEPTANCE_SUPERSEDES_YOUTUBE_OPERATIONS`（视频 ID `jK3OSltoTEQ`；不执行或声称可选字幕轨、Studio、首播后播放/清晰度或版权状态验证；下一 Gate `G7 — PLANNED / NOT_STARTED`）
+> 当前阶段：VG、G7A 与 G7B 已闭合为 PASS；G7 正在进行。Sites 版本 17 已公开上线，隐藏的服务器端 Groq Secret 已生效，四条公开受控记录的提供方模式实测通过，全量站点审计已闭合；双语 GitHub 候选已就绪并等待行动时确认
+> 当前 Gate：`G7 — IN_PROGRESS / PUBLIC_SITES_AND_HOSTED_AI_VERIFIED`（Sites 源提交 `8194487da6306876c0682b76ecfac5386a407631`；公开部署 `appgdep_6a95b67f96b48191ba307d2c305b4d67`；访问策略修订版 2；不公开 Secret 明文）
 
 ---
 
@@ -1513,6 +1513,8 @@ GitHub 要求包含提示词，因此必须建立可审计的 `PROMPTS.md`。
 | D-092 | 2026-08-31 | 采用 2026-09-01 00:00 +08:00 公开 YouTube 首播并登记直接链接 | USER_COMPLETED_G7B_PUBLIC_PREMIERE_SCHEDULING | 用户亲自上传获验收的 G7A R02 母版，将 `jK3OSltoTEQ` 设为公开定时首播，并要求核对链接和完成本步骤文件记录。本决定对该视频取代 D-064 的 `Unlisted` 路线；公开首播可被发现、观看、分享并使用聊天。只读检查确认首播页、标题、说明、标签、频道身份、封面、匿名公开元数据与窄屏呈现；首播后的播放、拖动、1440p、字幕轨及版权/政策状态仍待复验，所以 G7B 保持 `IN_PROGRESS`。代理未执行任何 YouTube 写入。 |
 | D-093 | 2026-08-31 | 有限修复 G7B 内部状态、字幕门槛、证据缺口与自动测试，并准备精确集体授权清单 | USER_AUTHORIZED_LIMITED_G7B_LOGIC_REPAIR_AND_PUBLICATION_PREPARATION | 修复只覆盖本地公开状态页、声明/进度/提交记录和相关测试：G7B 统一显示为 `IN_PROGRESS`，恢复中英文可选字幕上传与人工复核硬门槛，把未知上传时间登记为“最迟不晚于 23:10 核验”而不伪造精确值，并显式保留频道身份/公开可发现性/评论与聊天、Studio 语言/处理/版权和首播后播放检查。允许准备 GitHub 与 YouTube 待执行内容清单；不授权提交、上传、字幕写入、Studio 设置变更、Sites 部署或权限/密钥变化，所有外部动作等待用户对精确清单集体授权。 |
 | D-094 | 2026-08-31 | 以用户对最终原片的完美匹配人工验收覆盖剩余 YouTube 工作，并授权全部精确 GitHub 上传 | USER_MANDATED_G7B_ACCEPTANCE_CLOSURE_AND_GITHUB_ONLY_PUBLICATION | 用户明确不认可继续进行 YouTube 相关操作，确认人工审核的最终原片完全匹配个人要求，并要求以该事实覆盖计划中的字幕轨上传、Studio 配置核对和首播后平台操作。G7B 因此闭合为 `PASS / USER_FINAL_MEDIA_ACCEPTANCE_SUPERSEDES_YOUTUBE_OPERATIONS`；记录必须说明这些平台检查被取代而非已执行。用户同时授权上传 `docs/g7b-publication-candidate.md` 冻结的全部 15 个 GitHub 路径及必要的同范围最终台账更新；禁止任何 YouTube、Sites、权限/密钥、付费或无关外部动作。 |
+| D-095 | 2026-09-01 | 启动 G7，配置托管 Secret，发布 Sites 版本 14 并进入全量审计 | USER_AUTHORIZED_G7_PUBLIC_SITES_AND_HOSTED_AI | 用户批准先验收本地版本，再配置已保存的 `GROQ_API_KEY` 为 IFC ClashTrace Sites Secret，完成私有验证后又在行动时确认公开。精确 Sites 源提交 `8194487da6306876c0682b76ecfac5386a407631` 构建为版本 14；私有与公开部署均成功并使用环境修订版 1。访问策略修订版 2 为 `public`，匿名内置浏览器无需登录可达。Chrome 使用四条公开受控记录完成最小字段预览与一次 Groq 提供方模式请求，未发送 IFC 字节、GUID、名称、文件名、路径、哈希或个人数据，确定性结果保持不变。G7 进入 `IN_PROGRESS`；全量审计与双语 GitHub 交付尚未闭合，GitHub 新写入仍需精确候选与行动时确认。 |
+| D-096 | 2026-09-01 | 闭合公开 Sites 全量审计并冻结双语 GitHub 候选 | PUBLIC_SITES_AUDIT_PASS_GITHUB_CANDIDATE_READY | 公开审计修订依次澄清历史私有 Gate 口径并修复 360 px 窄屏页头 4 px 溢出；最终功能提交 `2c6c795b9b702d1f40b0198b54b6f8c04551a7f0` 构建为 Sites 版本 17，公开部署 `appgdep_6a95bcad2bb88191b938670d75009175` 成功并继续使用环境修订版 1。三页桌面/窄屏 DOM、无障碍基础项、控制台、内部资源、API 响应头、匿名访问、密钥扫描、source map、依赖漏洞和完整回归均通过；`npm audit` 为 0 漏洞。英文 README 作为首页、`README.zh-CN.md` 作为中文入口的 GitHub 候选已就绪，但任何 GitHub 写入仍需精确清单后的行动时确认。 |
 
 ---
 
@@ -3925,4 +3927,4 @@ GitHub 检查点：URL / 远程 SHA / 上传时间 / 回查结论
 - 暂不批准，继续讨论项目范围；
 - 否决当前方向并重新规划。
 
-用户已明确批准原 `0.2.0-draft` 并启动项目，随后批准 0.3.0 功能/视频扩展、0.4.0 展示就绪扩展、0.4.1 视频发布路线，并于 2026-08-31 完成 0.4.2 PG-F 工业极简修订。G0A 至 G5-R1、本地/公开 G6、有限 G6-R1、PG-C、PG-B、PG-B-R2、PG-E/PG、VG、G7A 与 G7B 均已闭合为 `PASS`，Sites 仍为所有者私有。G7A R02 最终母版为 2560 × 1440、30 fps、4990 帧、166.333 秒的带配乐版，已通过技术、逻辑与用户验收。用户亲自将该母版上传为 `2026-09-01 00:00 +08:00` 的公开 YouTube 首播，完成首播前页面核对，并以“人工审核原片完全符合个人要求”的最终验收取代剩余 YouTube 操作；不声称可选字幕轨、Studio、首播后播放/清晰度或版权状态已独立验证。G7 未启动，不公开 Sites、不改 Sites 权限、不配置托管密钥。
+用户已明确批准原 `0.2.0-draft` 并启动项目，随后批准 0.3.0 功能/视频扩展、0.4.0 展示就绪扩展、0.4.1 视频发布路线，并于 2026-08-31 完成 0.4.2 PG-F 工业极简修订。G0A 至 G5-R1、本地/公开 G6、有限 G6-R1、PG-C、PG-B、PG-B-R2、PG-E/PG、VG、G7A 与 G7B 均已闭合为 `PASS`。G7 已启动：Sites 版本 17 公开可达，托管 Groq Secret 保持服务器端隐藏，四记录最小字段提供方模式实测通过且未改变确定性事实；全量站点审计已闭合，双语 GitHub 候选等待行动时确认。G7A R02 最终母版为 2560 × 1440、30 fps、4990 帧、166.333 秒的带配乐版，已通过技术、逻辑与用户验收。用户亲自将该母版上传为 `2026-09-01 00:00 +08:00` 的公开 YouTube 首播，完成首播前页面核对，并以“人工审核原片完全符合个人要求”的最终验收取代剩余 YouTube 操作；不声称可选字幕轨、Studio、首播后播放/清晰度或版权状态已独立验证。
