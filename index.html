@@ -1,16 +1,24 @@
 <!doctype html>
-<html lang="en" data-style="mainstream" data-theme="light">
+<html lang="en" data-style="minimal" data-theme="dark">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script>
-      try {
-        const resetKey = "ifc-clashtrace.reset-preferences.v2";
-        sessionStorage.setItem(resetKey, "true");
-      } catch {}
+      (() => {
+        const storageKey = "ifc-clashtrace.preferences.v3";
+        const legacyKey = "ifc-clashtrace.preferences.session.v2";
+        let stored = {};
+        try { stored = JSON.parse(localStorage.getItem(storageKey) || sessionStorage.getItem(legacyKey) || "{}"); } catch {}
+        const language = ["zh-CN", "en"].includes(stored.language) ? stored.language : "en";
+        const theme = ["light", "dark"].includes(stored.theme) ? stored.theme : "dark";
+        document.documentElement.lang = language;
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      })();
     </script>
-    <meta name="description" content="IFC ClashTrace 在浏览器本地执行可追溯的 IFC 管线—结构硬碰撞与 50 mm 净距检查。" data-i18n-content="home.meta.description">
-    <title data-i18n="home.meta.title">IFC ClashTrace — 确定性 IFC 碰撞证据</title>
+    <style>html:not([data-preferences-ready]) body { visibility: hidden; }</style>
+    <meta name="description" content="Run traceable IFC pipe-to-structure hard-clash and 50 mm clearance checks locally in the browser." data-i18n-content="home.meta.description">
+    <title data-i18n="home.meta.title">IFC ClashTrace — Deterministic IFC clash evidence</title>
     <link rel="stylesheet" href="/app/ui/site.css">
   </head>
   <body>
@@ -91,13 +99,13 @@
           <article class="showcase-card" tabindex="0" aria-describedby="feature-modes-copy">
             <div class="showcase-card-copy">
               <span class="showcase-number">01</span>
-              <p class="showcase-kicker" data-i18n="home.feature.modes.kicker">DISPLAY MODES</p>
-              <h3 data-i18n="home.feature.modes.title">切换显示，&#10;工作不断。</h3>
-              <p id="feature-modes-copy" data-i18n="home.feature.modes.copy">每次打开主页都从大众体验、英语、亮色开始；本次页面内仍可自由切换。</p>
+              <p class="showcase-kicker" data-i18n="home.feature.modes.kicker">DISPLAY PREFERENCES</p>
+              <h3 data-i18n="home.feature.modes.title">明暗双态，&#10;语言随心。</h3>
+              <p id="feature-modes-copy" data-i18n="home.feature.modes.copy">首次打开采用暗色和英语；选择语言或明暗后，后续访问会沿用你的设置。</p>
             </div>
-            <figure class="feature-preview feature-preview-pair" aria-label="两种主页显示模式预览" data-i18n-aria="home.feature.modes.previewAria">
-              <div><span class="preview-image-crop"><img src="/app/ui/previews/home-light-zh.png" alt="亮色中文大众体验主页" data-i18n-alt="home.feature.modes.lightAlt"></span><figcaption data-i18n="home.feature.modes.lightCaption">亮色 · 中文 · 大众体验</figcaption></div>
-              <div><span class="preview-image-crop"><img src="/app/ui/previews/home-dark-en-minimal.png" alt="暗色英文工程极简主页" data-i18n-alt="home.feature.modes.darkAlt"></span><figcaption data-i18n="home.feature.modes.darkCaption">暗色 · English · 工程极简</figcaption></div>
+            <figure class="feature-preview feature-preview-pair" aria-label="主页的两种显示偏好预览" data-i18n-aria="home.feature.modes.previewAria">
+              <div><span class="preview-image-crop"><img src="/app/ui/previews/home-light-zh-minimal.png" alt="亮色中文主页" data-i18n-alt="home.feature.modes.lightAlt"></span><figcaption data-i18n="home.feature.modes.lightCaption">亮色 · 中文</figcaption></div>
+              <div><span class="preview-image-crop"><img src="/app/ui/previews/home-dark-en-minimal.png" alt="暗色英文主页" data-i18n-alt="home.feature.modes.darkAlt"></span><figcaption data-i18n="home.feature.modes.darkCaption">暗色 · English</figcaption></div>
             </figure>
           </article>
 
@@ -122,8 +130,8 @@
               <p id="feature-open-copy" data-i18n="home.feature.open.copy">公开记录 Gate、测试、失败关闭边界与许可证；代码采用 MIT，生成数据采用 CC0。</p>
             </div>
             <figure class="feature-preview" aria-label="研发历程与公开证据页面预览" data-i18n-aria="home.feature.open.previewAria">
-              <span class="preview-image-crop"><img src="/app/ui/previews/development-zh-light.png" alt="G4 时点的亮色中文研发历程历史截图" data-i18n-alt="home.feature.open.alt" data-snapshot-gate="G4" data-snapshot-state="historical"></span>
-              <figcaption data-i18n="home.feature.open.caption">历史 G4 截图 · 当前状态见研发进程页</figcaption>
+              <span class="preview-image-crop"><img src="/app/ui/previews/development-en-dark.png" alt="暗色英文研发历程页面" data-i18n-alt="home.feature.open.alt"></span>
+              <figcaption data-i18n="home.feature.open.caption">Gate · 测试 · 公开证据</figcaption>
             </figure>
           </article>
         </div>
