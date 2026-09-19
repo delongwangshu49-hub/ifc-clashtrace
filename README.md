@@ -15,9 +15,9 @@
 
 IFC ClashTrace compares one MEP IFC model with one structural IFC model directly in the browser. It produces deterministic hard-clash and surface-clearance records, links every result back to both elements and its calculation evidence, and fails closed as `NOT_EVALUATED` when the available geometry cannot support a reliable conclusion.
 
-The public Sites deployment is live. Its optional Groq interpretation layer is server-side, consent-gated, and unable to alter deterministic records. The audited bilingual GitHub delivery is published and byte-verified.
+The public Sites deployment is live. Its optional Groq interpretation layer is server-side, consent-gated, and unable to alter deterministic records.
 
-**Historical access notice (previous deployment):** As of September 1, 2026, our testing confirms that the Live Site deployed through OpenAI Codex Sites cannot be accessed directly over a local Hong Kong network. Access works after enabling a VPN, connecting through a Japan or Singapore endpoint, and using global routing. Visitors who need this method must independently configure and use a compliant VPN or proxy service, subject to applicable laws, relevant service terms, and their organization's network policies. Visitors assume all associated account, privacy, cybersecurity, cost, and legal risks. This project neither provides such tools or configuration support nor accepts responsibility for their use or consequences. Public content in the GitHub repository and README remains available independently of the Live Site.
+> **Network access:** Direct access from mainland China has been reported unavailable. See [network access notes](#network-access) for the scope of these observations and a local-run alternative.
 
 ## Highlights
 
@@ -40,6 +40,17 @@ Open the [live application](https://ifc-clashtrace.delongwangshu49.chatgpt.site/
 5. Optionally enable AI, inspect the exact derivative fields, and provide fresh consent for a single interpretation request.
 
 For a larger generated example, choose `PG-E · Realistic one-storey clinic · 88 pairs`.
+
+### Network access
+
+Updated September 19, 2026. Public visibility does not guarantee that the hosted site is reachable from every network.
+
+- **Mainland China:** The maintainer reports that the site cannot be accessed directly from their mainland China network environment. This is a reported observation, not a test of every region or carrier.
+- **Hong Kong:** A September 1, 2026 test found that the previous deployment could not be accessed directly over the tested local network. This observation has not been revalidated against the new site address.
+
+The previous deployment was reachable in that test through a VPN using a Japan or Singapore endpoint with global routing. This historical result does not guarantee current access. Any use of third-party network services must comply with applicable laws, service terms, and organizational policies; this project does not supply or support those services.
+
+If the hosted site is unavailable, follow [Quick start](#quick-start) to run the deterministic application locally after obtaining the source and dependencies. Reading the repository does not require the hosted site, although GitHub and dependency downloads have their own network requirements. Optional AI also requires a configured server-side provider connection.
 
 ## How it works
 
@@ -83,7 +94,7 @@ npm run preview
 
 Open `http://127.0.0.1:4173/`.
 
-The deterministic application works without an API key. `GROQ_API_KEY` is optional, must remain server-side, and must never be committed. See [.env.example](.env.example) and the [AI architecture](docs/g4ai-architecture.md) before enabling a local provider route.
+The commands above serve the static application; they do not start an AI API route. Deterministic checks work without an API key. For optional local AI, see [.env.example](.env.example) and the [AI architecture](docs/g4ai-architecture.md) for the separate `npm run g4ai:serve` route. `GROQ_API_KEY` must remain server-side and must never be committed.
 
 ## Verification
 
