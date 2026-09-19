@@ -90,7 +90,7 @@ try {
         'width="240"',
         'alt="IFC ClashTrace product logo: a metallic pipe crosses layered wall panels beside an outlined clash marker and inspection alert."',
         '# IFC ClashTrace',
-        '[Live Site](https://ifc-clashtrace.tuned-box-0320.chatgpt.site)',
+        '[Live Site](https://ifc-clashtrace.delongwangshu49.chatgpt.site)',
         '[简体中文](README.zh-CN.md)',
         'docs/pg-b-github-logo.md'
     )) { Assert-Contains $readme $required "README PG-B contract missing: $required" }
