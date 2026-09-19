@@ -5,7 +5,7 @@
 
 **Deterministic, browser-local IFC clash evidence with optional AI interpretation.**
 
-[Live Site](https://ifc-clashtrace.tuned-box-0320.chatgpt.site) · [Product Film](https://www.youtube.com/watch?v=jK3OSltoTEQ) · [简体中文](README.zh-CN.md)
+[Live Site](https://ifc-clashtrace.delongwangshu49.chatgpt.site) · [Product Film](https://www.youtube.com/watch?v=jK3OSltoTEQ) · [简体中文](README.zh-CN.md)
 
 ![Build](https://img.shields.io/badge/build-passing-2f855a?style=flat-square)
 ![IFC](https://img.shields.io/badge/IFC-IFC4-4b5563?style=flat-square)
@@ -17,7 +17,7 @@ IFC ClashTrace compares one MEP IFC model with one structural IFC model directly
 
 The public Sites deployment is live. Its optional Groq interpretation layer is server-side, consent-gated, and unable to alter deterministic records. The audited bilingual GitHub delivery is published and byte-verified.
 
-**Access notice:** As of September 1, 2026, our testing confirms that the Live Site deployed through OpenAI Codex Sites cannot be accessed directly over a local Hong Kong network. Access works after enabling a VPN, connecting through a Japan or Singapore endpoint, and using global routing. Visitors who need this method must independently configure and use a compliant VPN or proxy service, subject to applicable laws, relevant service terms, and their organization's network policies. Visitors assume all associated account, privacy, cybersecurity, cost, and legal risks. This project neither provides such tools or configuration support nor accepts responsibility for their use or consequences. Public content in the GitHub repository and README remains available independently of the Live Site.
+**Historical access notice (previous deployment):** As of September 1, 2026, our testing confirms that the Live Site deployed through OpenAI Codex Sites cannot be accessed directly over a local Hong Kong network. Access works after enabling a VPN, connecting through a Japan or Singapore endpoint, and using global routing. Visitors who need this method must independently configure and use a compliant VPN or proxy service, subject to applicable laws, relevant service terms, and their organization's network policies. Visitors assume all associated account, privacy, cybersecurity, cost, and legal risks. This project neither provides such tools or configuration support nor accepts responsibility for their use or consequences. Public content in the GitHub repository and README remains available independently of the Live Site.
 
 ## Highlights
 
@@ -31,7 +31,7 @@ The public Sites deployment is live. Its optional Groq interpretation layer is s
 
 ## Try it
 
-Open the [live application](https://ifc-clashtrace.tuned-box-0320.chatgpt.site/app/), then:
+Open the [live application](https://ifc-clashtrace.delongwangshu49.chatgpt.site/app/), then:
 
 1. Choose `Review pack · C01 / C03 / C05 / C08`.
 2. Select **Load example**.
@@ -163,7 +163,7 @@ spikes/                  preserved feasibility/browser experiments
 - [Product brand and Logo evidence](docs/pg-b-github-logo.md)
 - [Generated data and licenses](docs/data-and-licenses.md)
 - [Content claim ledger](docs/content-claim-ledger.md)
-- [Development log](https://ifc-clashtrace.tuned-box-0320.chatgpt.site/development/)
+- [Development log](https://ifc-clashtrace.delongwangshu49.chatgpt.site/development/)
 
 ## Contributing
 

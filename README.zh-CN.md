@@ -5,7 +5,7 @@
 
 **在浏览器本地生成确定性 IFC 碰撞证据，并提供可选 AI 解读。**
 
-[在线站点](https://ifc-clashtrace.tuned-box-0320.chatgpt.site) · [产品视频](https://www.youtube.com/watch?v=jK3OSltoTEQ) · [English](README.md)
+[在线站点](https://ifc-clashtrace.delongwangshu49.chatgpt.site) · [产品视频](https://www.youtube.com/watch?v=jK3OSltoTEQ) · [English](README.md)
 
 ![Build](https://img.shields.io/badge/build-passing-2f855a?style=flat-square)
 ![IFC](https://img.shields.io/badge/IFC-IFC4-4b5563?style=flat-square)
@@ -17,7 +17,7 @@ IFC ClashTrace 在浏览器内比较一份 MEP IFC 与一份结构 IFC，生成�
 
 公开 Sites 已上线。可选 Groq 解读位于服务器端，必须逐次预览字段并重新同意，而且不能修改任何确定性记录。经审计的双语 GitHub 交付已发布并完成逐字节复核。
 
-**访问说明：** 截至 2026 年 9 月 1 日，经本项目实际验证，部署于 OpenAI Codex Sites 的 Live Site 无法通过中国香港本地网络直接访问；启用 VPN、连接至日本或新加坡节点并使用全局路由后可以正常访问。需要采用此方式的访问者，应在遵守所在地法律法规、相关服务条款及所在组织网络政策的前提下，自行配置和使用合规的 VPN 或代理服务。访问者须自行承担由此产生的账户、隐私、网络安全、费用及法律风险；本项目不提供相关工具或配置支持，也不对其使用或后果承担责任。GitHub 仓库及 README 中的公开内容不受此限制。
+**历史访问说明（原站点）：** 截至 2026 年 9 月 1 日，经本项目实际验证，部署于 OpenAI Codex Sites 的 Live Site 无法通过中国香港本地网络直接访问；启用 VPN、连接至日本或新加坡节点并使用全局路由后可以正常访问。需要采用此方式的访问者，应在遵守所在地法律法规、相关服务条款及所在组织网络政策的前提下，自行配置和使用合规的 VPN 或代理服务。访问者须自行承担由此产生的账户、隐私、网络安全、费用及法律风险；本项目不提供相关工具或配置支持，也不对其使用或后果承担责任。GitHub 仓库及 README 中的公开内容不受此限制。
 
 ## 主要特点
 
@@ -31,7 +31,7 @@ IFC ClashTrace 在浏览器内比较一份 MEP IFC 与一份结构 IFC，生成�
 
 ## 在线体验
 
-打开[在线工作台](https://ifc-clashtrace.tuned-box-0320.chatgpt.site/app/)，然后：
+打开[在线工作台](https://ifc-clashtrace.delongwangshu49.chatgpt.site/app/)，然后：
 
 1. 选择 `Review pack · C01 / C03 / C05 / C08`。
 2. 点击“载入受控示例”。
@@ -163,7 +163,7 @@ spikes/                  保留的可行性与浏览器实验
 - [产品品牌与 Logo 证据](docs/pg-b-github-logo.md)
 - [生成数据与许可证](docs/data-and-licenses.md)
 - [内容主张台账](docs/content-claim-ledger.md)
-- [研发历程](https://ifc-clashtrace.tuned-box-0320.chatgpt.site/development/)
+- [研发历程](https://ifc-clashtrace.delongwangshu49.chatgpt.site/development/)
 
 ## 参与贡献
 
