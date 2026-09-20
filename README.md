@@ -7,7 +7,7 @@
 
 [Live Site](https://ifc-clashtrace.delongwangshu49.chatgpt.site) · [Product Film](https://www.youtube.com/watch?v=jK3OSltoTEQ) · [简体中文](README.zh-CN.md)
 
-![Build](https://img.shields.io/badge/build-passing-2f855a?style=flat-square)
+[![Build](https://github.com/delongwangshu49-hub/ifc-clashtrace/actions/workflows/ci.yml/badge.svg?branch=main&event=push)](https://github.com/delongwangshu49-hub/ifc-clashtrace/actions/workflows/ci.yml)
 ![IFC](https://img.shields.io/badge/IFC-IFC4-4b5563?style=flat-square)
 ![License](https://img.shields.io/badge/code-MIT-2563eb?style=flat-square)
 ![Data](https://img.shields.io/badge/generated_data-CC0--1.0-7c3aed?style=flat-square)
